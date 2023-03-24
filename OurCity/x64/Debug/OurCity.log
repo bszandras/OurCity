@@ -1,0 +1,15 @@
+﻿  GLDebugMessageCallback.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCityC++\OurCity\OurCity\GLDebugMessageCallback.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  main.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCityC++\OurCity\OurCity\Window.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  MyApp.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCityC++\OurCity\OurCity\MyApp.h(5,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  SubMap.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCityC++\OurCity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCityC++\OurCity\OurCity\Window.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Window.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCityC++\OurCity\OurCity\Window.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  World.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCityC++\OurCity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCityC++\OurCity\OurCity\Window.h(3,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Generating Code...
