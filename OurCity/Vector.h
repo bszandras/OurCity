@@ -55,9 +55,20 @@ public:
 			ret.y - camPos.y * camZoom
 		};
 
-		
-
 		return ret;
 	}
-	
+	static Vector2Data ScreenToWorldSpace(Vector2Data original, Vector2Data windowSize, Vector2Data camPos, float camZoom, Vector2Data worldOrigoOffset)
+	{
+		Vector2Data ret{ original.x, original.y };
+		ret = {
+			ret.x + camPos.x * camZoom,
+			ret.y + -camPos.y * camZoom
+		};
+		ret = Sub(ret, worldOrigoOffset);
+		ret = Scale(ret, 1 / camZoom);
+
+		//invertálni kell, mert ablak y lefele nõ
+		ret.y = -ret.y;
+		return ret;
+	}
 };

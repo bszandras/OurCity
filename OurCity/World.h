@@ -9,8 +9,8 @@ class World
 {
 private:
 	Vector2Data origoOffset;
-	int width = 1000;
-	int height = 1000;
+	int width = 20;
+	int height = 20;
 	TileRectWrapper* tileRectWrapper;
 	std::vector<SubMap> submaps;
 public:
@@ -22,4 +22,5 @@ public:
 	int getWidth();
 	int getHeight();
 	TileRectWrapper* getWrapper();
+	Vector2Data tileCoorOnWorldPosition(Vector2Data worldPos);
 };

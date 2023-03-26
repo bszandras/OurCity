@@ -19,10 +19,13 @@ World::World()
 	{
 		for (int j = 0; j < height; j++)
 		{
-			int x = (i * 64) + j * 32;
-			int y = (j * (64 - 41));
+			//int x = (i * 64) + j * 32;
+			//int y = (j * (64 - 41));
+			int x = (j * 64) + i * 32;
+			int y = (i * (64 - 41));
 			int texId = 4;
-			tileRectWrapper->AddRect(TileRect{ i,j,texId });
+			//tileRectWrapper->AddRect(TileRect{ i,j,texId });
+			tileRectWrapper->AddRect(TileRect{ j,i,texId });
 
 			int horIndex = x / (SubMap::getSize() * 64);
 			int vertIndex = y / (SubMap::getSize() * 64);
@@ -74,4 +77,15 @@ int World::getHeight()
 TileRectWrapper* World::getWrapper()
 {
 	return tileRectWrapper;
+}
+
+Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
+{
+	//offsetelni kell, mert a négyzetek bal alsó sarka az origin
+	//worldPos.x -= 32;
+	//worldPos.y -= 11;
+
+	int y = worldPos.y / (64 - 41);
+	int x = (worldPos.x - y * 32) / 64;
+	return {(float)x, (float)y};
 }

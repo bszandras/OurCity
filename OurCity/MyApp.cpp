@@ -145,40 +145,55 @@ void CMyApp::Clean()
 
 void CMyApp::Update()
 {
-	if (currentlyPressedKeys.size() == 0)
+	World* world = scene->getWorld();
+	if (currentlyPressedKeys.size() != 0)
+	{
+		//input handling és camera cuccok
+		Vector2Data camDir = { 0.0f,0.0f };
+		for (int i = 0; i < currentlyPressedKeys.size(); i++)
+		{
+
+			switch (currentlyPressedKeys[i])
+			{
+			case(SDL_KeyCode::SDLK_w):
+				camDir.y += 1.0f;
+				break;
+			case(SDL_KeyCode::SDLK_a):
+				camDir.x -= 1.0f;
+				break;
+			case(SDL_KeyCode::SDLK_s):
+				camDir.y -= 1.0f;
+				break;
+			case(SDL_KeyCode::SDLK_d):
+				camDir.x += 1.0f;
+				break;
+			case(SDL_KeyCode::SDLK_k):
+				scene->getCamera()->Zoom(0.1f);
+				break;
+			case(SDL_KeyCode::SDLK_l):
+				scene->getCamera()->Zoom(-0.1f);
+				break;
+			default:
+				break;
+			}
+		}
+		scene->getCamera()->Move(camDir);
+	}
+	
+	// DEMO egér input
+	Vector2Data worldPos = Vector2Tool::ScreenToWorldSpace({ mousePosition.x,mousePosition.y }, 
+		{ (float)Window::instance->getWidth(), (float)Window::instance->getHeight() }, 
+		scene->getCamera()->getPosition(), scene->getCamera()->getZoom(), 
+		world->getOrigoOffset());
+
+	Vector2Data tileId = world->tileCoorOnWorldPosition(worldPos);
+	if (tileId.x < 0 || tileId.y < 0 || tileId.x > world->getWidth() - 1 || tileId.y > world->getHeight() - 1)
 	{
 		return;
 	}
-	//input handling és camera cuccok
-	Vector2Data camDir = { 0.0f,0.0f };
-	for (int i = 0; i < currentlyPressedKeys.size(); i++)
-	{
-		
-		switch (currentlyPressedKeys[i])
-		{
-		case(SDL_KeyCode::SDLK_w):
-			camDir.y += 1.0f;
-			break;
-		case(SDL_KeyCode::SDLK_a):
-			camDir.x -= 1.0f;
-			break;
-		case(SDL_KeyCode::SDLK_s):
-			camDir.y -= 1.0f;
-			break;
-		case(SDL_KeyCode::SDLK_d):
-			camDir.x += 1.0f;
-			break;
-		case(SDL_KeyCode::SDLK_k):
-			scene->getCamera()->Zoom(0.1f);
-			break;
-		case(SDL_KeyCode::SDLK_l):
-			scene->getCamera()->Zoom(-0.1f);
-			break;
-		default:
-			break;
-		}
-	}
-	scene->getCamera()->Move(camDir);
+	world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
+
+	movedMouseThisFrame = false;
 }
 
 void CMyApp::Render()
@@ -318,7 +333,14 @@ void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)
 
 void CMyApp::MouseMove(SDL_MouseMotionEvent& mouse)
 {
-
+	/*
+	if (movedMouseThisFrame)
+	{
+		return;
+	}
+	*/
+	movedMouseThisFrame = true;
+	mousePosition = { (float)mouse.x, (float)mouse.y };
 }
 
 void CMyApp::MouseDown(SDL_MouseButtonEvent& mouse)

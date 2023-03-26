@@ -42,6 +42,7 @@ protected:
 	GLuint m_vaoID; // vertex array object erőforrás azonosító
 	GLuint m_vboID; // vertex buffer object erőforrás azonosító
 
+	//shader adatok
 	GLuint camDataUniformLoc;
 	GLuint winDataUniformLoc;
 
@@ -49,17 +50,17 @@ protected:
 
 	int vertCount = 0;
 	
+	//input
 	std::vector<int> currentlyPressedKeys;
+	bool movedMouseThisFrame = false;
+	Vector2Data mousePosition;
+
 	struct Vertex
 	{
 		glm::vec3 p;
 		glm::vec3 c;
 	};
 
-	bool wPressed = false;
-	bool aPressed = false;
-	bool sPressed = false;
-	bool dPressed = false;
 	GameScene* scene;
 };
 
