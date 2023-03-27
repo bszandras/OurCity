@@ -4,11 +4,11 @@ class Camera
 {
 private:
 	Vector2Data position;
-	float movementSpeed = 3;
+	float movementSpeed = 60;
 	float zoom = 1;
 	float minZoom = 0.02;
 	float maxZoom = 4.5f;
-	float zoomSpeed = 0.5f;
+	float zoomSpeed = 30;
 public:
 	Camera();
 	Camera(Vector2Data pos);

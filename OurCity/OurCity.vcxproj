@@ -147,10 +147,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AppTime.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GLDebugMessageCallback.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="MyApp.cpp" />
     <ClCompile Include="SubMap.cpp" />
     <ClCompile Include="TileRect.cpp" />
@@ -158,10 +160,12 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppTime.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GLDebugMessageCallback.h" />
     <ClInclude Include="GLUtils.hpp" />
+    <ClInclude Include="MouseController.h" />
     <ClInclude Include="MyApp.h" />
     <ClInclude Include="SubMap.h" />
     <ClInclude Include="TileRect.h" />

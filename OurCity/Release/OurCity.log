@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating code
+  2 of 454 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\Release\OurCity.exe

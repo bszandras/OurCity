@@ -12,6 +12,8 @@
 #include <glm/glm.hpp>
 
 #include "GameScene.h"
+#include "MouseController.h"
+#include "AppTime.h"
 
 class CMyApp
 {
@@ -52,8 +54,6 @@ protected:
 	
 	//input
 	std::vector<int> currentlyPressedKeys;
-	bool movedMouseThisFrame = false;
-	Vector2Data mousePosition;
 
 	struct Vertex
 	{
@@ -62,5 +62,7 @@ protected:
 	};
 
 	GameScene* scene;
+	MouseController* mouseController;
+	Time* time;
 };
 
