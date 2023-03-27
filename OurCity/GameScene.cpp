@@ -3,8 +3,8 @@
 GameScene::GameScene()
 {
 	world = new World();
-	camera = new Camera({(float)world->getWidth()*64*1.5f/2, (float)world->getHeight()*23/2});
-	//camera = new Camera();
+	//camera = new Camera({(float)world->getWidth()*64*1.5f/2, (float)world->getHeight()*23/2});
+	camera = new Camera();
 }
 
 GameScene::~GameScene()

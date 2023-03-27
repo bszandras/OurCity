@@ -4,6 +4,7 @@
 #include "Vector.h"
 #include "TileRect.h"
 #include "SubMap.h"
+#include "Tile.h"
 
 class SubMap;
 class World
@@ -14,6 +15,8 @@ private:
 	int height = 1000;
 	TileRectWrapper* tileRectWrapper;
 	std::vector<SubMap> submaps;
+	//tile-okat tarthatja a world
+	std::vector<Tile> tiles;
 public:
 	World();
 	~World();
@@ -24,4 +27,5 @@ public:
 	int getHeight();
 	TileRectWrapper* getWrapper();
 	Vector2Data tileCoorOnWorldPosition(Vector2Data worldPos);
+	Tile* getTileOnCoords(int i, int j);
 };

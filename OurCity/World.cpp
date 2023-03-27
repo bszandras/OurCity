@@ -6,7 +6,12 @@ World::World()
 {
 	origoOffset = { 0,0 };
 	reCalculateOrigoOffset();
+
 	tileRectWrapper = new TileRectWrapper(width * height);
+	tiles.reserve(width * height);
+	int submapReseve = (height / SubMap::getSize()) * ((width + height / 2) / SubMap::getSize());
+	submaps.reserve(submapReseve);
+
 	for (int i = 0; i < height; i += SubMap::getSize())
 	{
 		for (int j = 0; j < width + (height / 2); j += SubMap::getSize())
@@ -15,9 +20,9 @@ World::World()
 		}
 	}
 
-	for (int i = 0; i < width; i++)
+	for (int i = 0; i < height; i++)
 	{
-		for (int j = 0; j < height; j++)
+		for (int j = 0; j < width; j++)
 		{
 			//int x = (i * 64) + j * 32;
 			//int y = (j * (64 - 41));
@@ -32,10 +37,16 @@ World::World()
 			int mainIndex = horIndex + (vertIndex * (width + (height / 2)) / SubMap::getSize());
 
 			submaps[mainIndex].addRect(tileRectWrapper->GetLastRectID());
+
+			// tile-t is meg kell csinálni a grafikai reprezentációhoz
+			tiles.push_back({ x,y });
+
 		}
 	}
 
+	//töröljük az üres submapokat
 	std::vector<SubMap> newSubMaps;
+	newSubMaps.reserve(submapReseve/2);
 	for (int i = 0; i < submaps.size(); i++)
 	{
 		if (submaps[i].getRectCount() > 0)
@@ -89,4 +100,11 @@ Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 	int y = worldPos.y / (64 - 41);
 	int x = (worldPos.x - y * 32) / 64;
 	return {(float)x, (float)y};
+}
+
+Tile* World::getTileOnCoords(int i, int j)
+{
+	int index = j * width;
+	index += i;
+	return &tiles[index];
 }
