@@ -44,6 +44,8 @@ bool CMyApp::Init()
 	//
 
 	scene = new GameScene();
+	mouseController = new MouseController();
+	time = new Time(SDL_GetTicks() / 1000.0f);
 
 	// 1 db VAO foglalása
 	glGenVertexArrays(1, &m_vaoID);
@@ -144,6 +146,11 @@ void CMyApp::Clean()
 
 void CMyApp::Update()
 {
+	// frame elején inicializáljuk az aktuális időt
+	// deltaTime így Update + Render alatt eltellt idő lesz 
+	time->UpdateTime(SDL_GetTicks() / 1000.0f);
+	std::cout << time->getDelta() << std::endl;
+
 	World* world = scene->getWorld();
 	if (currentlyPressedKeys.size() != 0)
 	{
@@ -167,23 +174,20 @@ void CMyApp::Update()
 				camDir.x += 1.0f;
 				break;
 			case(SDL_KeyCode::SDLK_k):
-				scene->getCamera()->Zoom(0.1f);
+				scene->getCamera()->Zoom(0.1f * time->getDelta());
 				break;
 			case(SDL_KeyCode::SDLK_l):
-				scene->getCamera()->Zoom(-0.1f);
+				scene->getCamera()->Zoom(-0.1f * time->getDelta());
 				break;
 			default:
 				break;
 			}
 		}
-		scene->getCamera()->Move(camDir);
+		scene->getCamera()->Move(Vector2Tool::Scale(camDir, time->getDelta()));
 	}
 	
 	// DEMO egér input
-	Vector2Data worldPos = Vector2Tool::ScreenToWorldSpace({ mousePosition.x,mousePosition.y }, 
-		{ (float)Window::instance->getWidth(), (float)Window::instance->getHeight() }, 
-		scene->getCamera()->getPosition(), scene->getCamera()->getZoom(), 
-		world->getOrigoOffset());
+	Vector2Data worldPos = mouseController->getWorldPosition(world, scene->getCamera());
 
 	Vector2Data tileId = world->tileCoorOnWorldPosition(worldPos);
 	if (tileId.x < 0 || tileId.y < 0 || tileId.x > world->getWidth() - 1 || tileId.y > world->getHeight() - 1)
@@ -192,7 +196,8 @@ void CMyApp::Update()
 	}
 	world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
 
-	movedMouseThisFrame = false;
+	// update végi resetek és update-ek
+	mouseController->ClearControlFrame();
 }
 
 void CMyApp::Render()
@@ -334,14 +339,7 @@ void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)
 
 void CMyApp::MouseMove(SDL_MouseMotionEvent& mouse)
 {
-	/*
-	if (movedMouseThisFrame)
-	{
-		return;
-	}
-	*/
-	movedMouseThisFrame = true;
-	mousePosition = { (float)mouse.x, (float)mouse.y };
+	mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y });
 }
 
 void CMyApp::MouseDown(SDL_MouseButtonEvent& mouse)
