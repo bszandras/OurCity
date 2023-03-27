@@ -10,6 +10,8 @@ SubMap::SubMap(Vector2Data bl, int cs, World* w)
 	botLeft = bl;
 	realWidth = size * cs;
 	world = w;
+
+	rectIds.reserve(size * size);
 }
 SubMap::~SubMap()
 {
@@ -72,9 +74,3 @@ Vector2Data SubMap::getBotLeft()
 {
 	return botLeft;
 }
-/*
-int SubMap::getSize()
-{
-	return size;
-}
-*/

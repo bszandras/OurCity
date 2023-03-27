@@ -149,7 +149,7 @@ void CMyApp::Update()
 	// frame elején inicializáljuk az aktuális időt
 	// deltaTime így Update + Render alatt eltellt idő lesz 
 	time->UpdateTime(SDL_GetTicks() / 1000.0f);
-	std::cout << time->getDelta() << std::endl;
+	//std::cout << time->getDelta() << std::endl;
 
 	World* world = scene->getWorld();
 	if (currentlyPressedKeys.size() != 0)
@@ -196,6 +196,8 @@ void CMyApp::Update()
 	}
 	world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
 
+	Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
+	std::cout << t->x << " " << t->y << std::endl;
 	// update végi resetek és update-ek
 	mouseController->ClearControlFrame();
 }

@@ -134,6 +134,7 @@ int Window::StartGameLoop()
 
 	// alkalmazás példánya
 	app = new CMyApp();
+	
 	if (!app->Init())
 	{
 		SDL_GL_DeleteContext(context);
