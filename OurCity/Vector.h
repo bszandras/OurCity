@@ -11,7 +11,6 @@ struct Vector3Data
 	float y = 0;
 	float z = 0;
 };
-
 class Vector2Tool
 {
 public:

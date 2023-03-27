@@ -4,13 +4,14 @@
 #include "Vector.h"
 #include "TileRect.h"
 #include "SubMap.h"
+
 class SubMap;
 class World
 {
 private:
 	Vector2Data origoOffset;
-	int width = 20;
-	int height = 20;
+	int width = 1000;
+	int height = 1000;
 	TileRectWrapper* tileRectWrapper;
 	std::vector<SubMap> submaps;
 public:

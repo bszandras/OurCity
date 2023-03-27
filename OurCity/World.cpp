@@ -48,6 +48,7 @@ World::World()
 
 World::~World()
 {
+	// TODO destruktor
 }
 
 Vector2Data World::getOrigoOffset()

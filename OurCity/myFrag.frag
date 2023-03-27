@@ -20,6 +20,9 @@ void main()
 
 	vec4 color = texture(textureAtlas, uvCoords);
 	
+	//fs_out_col = vec4(vs_out_col.rgb, 1.0);
+
+	
 	if(color.w <= 0.4)
 	{
 		discard;
@@ -28,4 +31,5 @@ void main()
 	{
 		fs_out_col = color;
 	}
+	
 }

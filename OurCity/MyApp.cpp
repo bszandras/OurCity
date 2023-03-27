@@ -13,7 +13,6 @@
 #include "Camera.h"
 #include "Window.h"
 
-
 CMyApp::CMyApp(void)
 {
 	m_vaoID = 0;
@@ -211,6 +210,8 @@ void CMyApp::Render()
 	std::vector<SubMap>* subs = world->getSubmaps();
 
 	std::vector<Vector3Data> rects;
+	rects.reserve(15'000);
+
 	int c = 0;
 	for (int i = 0; i < subs->size(); i++)
 	{
