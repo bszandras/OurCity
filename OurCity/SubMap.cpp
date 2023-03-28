@@ -51,13 +51,13 @@ Vector3Data* SubMap::getRectData(TileRectWrapper* wrapper)
 	//x, y, texid
 	//rects culled first then rest returned
 	Vector3Data* d;
-	TileRect* rects = wrapper->GetRectsById(rectIds.data(), rectIds.size());
+	Tile* rects = wrapper->GetRectsById(rectIds.data(), rectIds.size());
 	d = new Vector3Data[(rectIds.size())];
 	for (int i = 0; i < rectIds.size(); i++)
 	{
-		int x = rects[i].i;
-		int y = rects[i].j;
-		int t = rects[i].texID;
+		int x = rects[i].rect.i;
+		int y = rects[i].rect.j;
+		int t = rects[i].texId;
 
 		x = (x * 64) + (y * 32);
 		y = (y * (64 - 41));

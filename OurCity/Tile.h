@@ -1,12 +1,11 @@
 #pragma once
+#include "TileRect.h"
 
+/*
 struct Tile
 {
-	// FONTOS, hogy ezek koordináták nem indexek!
-	int x;
-	int y;
-	// egyéb infók ...
-	// building pointer pl
-	// saját grafikai rect-jét nem tárolja el, saját koordinátái alapján vissza lehet fejteni
-	
+	TileRect rect;
+	// 8 bites integer
+	unsigned char texId = 0;
 };
+*/

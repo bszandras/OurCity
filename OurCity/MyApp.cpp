@@ -196,7 +196,7 @@ void CMyApp::Update()
 	}
 	world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
 
-	Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
+	//Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
 	//std::cout << t->x << " " << t->y << std::endl;
 	
 	// update végi resetek és update-ek
