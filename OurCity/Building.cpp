@@ -3,23 +3,27 @@
 Building::Building(Tile* tile)
 {
 	this->tile = tile;
+
+	buildCost = 0;
+	maintenanceCost = 0;
+	fireChance = 0;
 }
 
 Building::~Building()
 {
 }
 
-int Building::getBuildCost()
+unsigned short Building::getBuildCost()
 {
 	return buildCost;
 }
 
-int Building::getMaintanceCost()
+unsigned short Building::getMaintanceCost()
 {
 	return maintenanceCost;
 }
 
-int Building::getFireChance()
+unsigned short Building::getFireChance()
 {
 	return fireChance;
 }

@@ -6,18 +6,18 @@
 class Building
 {
 protected:
-	int buildCost;
-	int maintenanceCost;
-	int fireChance;
+	unsigned short buildCost;
+	unsigned short maintenanceCost;
+	unsigned short fireChance;
 	Tile* tile;
 
 public:
 	Building(Tile* tile);
 	~Building();
 
-	int getBuildCost();
-	int getMaintanceCost();
-	int getFireChance();
+	unsigned short getBuildCost();
+	unsigned short getMaintanceCost();
+	unsigned short getFireChance();
 	Tile* getTile();
 
 	void catchOnFire();

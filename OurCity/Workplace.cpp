@@ -7,17 +7,17 @@ Workplace::Workplace(Tile* tile) : Building(tile)
     tax = 0;
 }
 
-int Workplace::getCapacity() const
+unsigned short Workplace::getCapacity() const
 {
     return capacity;
 }
 
-int Workplace::getTax() const
+unsigned short Workplace::getTax() const
 {
     return tax;
 }
 
-void Workplace::setTax(int tax)
+void Workplace::setTax(unsigned short tax)
 {
     this->tax = tax;
 }

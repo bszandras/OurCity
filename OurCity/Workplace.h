@@ -6,15 +6,15 @@
 class Workplace : public Building
 {
 protected:
-	int capacity;
-	int tax;
+	unsigned short capacity;
+	unsigned short tax;
 
 public:
 	Workplace(Tile* tile);
 
-	int getCapacity() const;
-	int getTax() const;
-	void setTax(int tax);
+	unsigned short getCapacity() const;
+	unsigned short getTax() const;
+	void setTax(unsigned short tax);
 };
 
 #endif

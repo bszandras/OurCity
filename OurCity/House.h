@@ -6,17 +6,17 @@
 class House : public Building
 {
 private:
-	int capacity;
-	int tax;
+	unsigned short capacity;
+	unsigned short tax;
 
 public:
 	House(Tile* tile);
 	~House();
 
-	int getCapacity();
-	int getTax();
+	unsigned short getCapacity();
+	unsigned short getTax();
 
-	void setTax(int tax);
+	void setTax(unsigned short tax);
 };
 
 #endif

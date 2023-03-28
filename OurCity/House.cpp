@@ -13,17 +13,17 @@ House::~House()
 {
 }
 
-int House::getCapacity()
+unsigned short House::getCapacity()
 {
 	return capacity;
 }
 
-int House::getTax()
+unsigned short House::getTax()
 {
 	return tax;
 }
 
-void House::setTax(int tax)
+void House::setTax(unsigned short tax)
 {
 	this->tax = tax;
 }
