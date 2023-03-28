@@ -19,6 +19,12 @@
     <Filter Include="Util">
       <UniqueIdentifier>{ee32de17-8133-4a3d-877f-7fbdbea40e0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Buildings">
+      <UniqueIdentifier>{b8ffe0bc-ad26-497b-8037-0744d08b5bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Buildings">
+      <UniqueIdentifier>{2a9d9dd7-9e4e-4ddf-93f5-8f44b46382fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -55,7 +61,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Building.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="House.cpp">
+      <Filter>Source Files\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Workplace.cpp">
+      <Filter>Source Files\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Source Files\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceBuilding.cpp">
+      <Filter>Source Files\Buildings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +117,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Building.h">
+      <Filter>Header Files\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="House.h">
+      <Filter>Header Files\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Workplace.h">
+      <Filter>Header Files\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Header Files\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceBuilding.h">
+      <Filter>Header Files\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingsInclude.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

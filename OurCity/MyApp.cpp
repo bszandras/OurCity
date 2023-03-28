@@ -13,6 +13,8 @@
 #include "Camera.h"
 #include "Window.h"
 
+#include "BuildingsInclude.h"
+
 CMyApp::CMyApp(void)
 {
 	m_vaoID = 0;
@@ -46,6 +48,11 @@ bool CMyApp::Init()
 	scene = new GameScene();
 	mouseController = new MouseController();
 	time = new Time(SDL_GetTicks() / 1000.0f);
+	
+	Tile t = Tile{0,0,0,0};
+	Factory* fact = new Factory(&t);
+	House* house = new House(&t);
+	ServiceBuilding* serv = new ServiceBuilding(&t);
 
 	// 1 db VAO foglalása
 	glGenVertexArrays(1, &m_vaoID);
