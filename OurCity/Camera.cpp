@@ -1,5 +1,5 @@
 #include "Camera.h"
-
+#include "AppTime.h"
 Camera::Camera()
 {
 	position = { 0.0f,0.0f };
@@ -16,13 +16,14 @@ Camera::~Camera()
 
 void Camera::Move(Vector2Data dir)
 {
+	dir = Vector2Tool::Scale(dir, Time::instance->getDelta());
 	dir = Vector2Tool::Scale(dir, movementSpeed);
 	dir = Vector2Tool::Scale(dir, 1/zoom);
 	position = Vector2Tool::Add(position, dir);
 }
 void Camera::Zoom(float z)
 {
-	zoom += z * zoomSpeed * zoom;
+	zoom += z * zoomSpeed * zoom * Time::instance->getDelta();
 	if (zoom < minZoom)
 	{
 		zoom = minZoom;
