@@ -12,8 +12,9 @@ private:
 	float time;
 	float scale;
 
-	static Time* instance;
+	
 public:
+	static Time* instance;
 	Time(float currTime);
 	~Time();
 	void UpdateTime(float currTime);

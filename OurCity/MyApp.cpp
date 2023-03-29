@@ -174,16 +174,16 @@ void CMyApp::Update()
 				camDir.x += 1.0f;
 				break;
 			case(SDL_KeyCode::SDLK_k):
-				scene->getCamera()->Zoom(0.1f * time->getDelta());
+				scene->getCamera()->Zoom(0.1f);
 				break;
 			case(SDL_KeyCode::SDLK_l):
-				scene->getCamera()->Zoom(-0.1f * time->getDelta());
+				scene->getCamera()->Zoom(-0.1f);
 				break;
 			default:
 				break;
 			}
 		}
-		scene->getCamera()->Move(Vector2Tool::Scale(camDir, time->getDelta()));
+		scene->getCamera()->Move(camDir);
 	}
 	
 	// DEMO egér input
@@ -196,7 +196,7 @@ void CMyApp::Update()
 	}
 	world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
 
-	Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
+	//Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
 	//std::cout << t->x << " " << t->y << std::endl;
 	
 	// update végi resetek és update-ek
@@ -272,7 +272,7 @@ void CMyApp::Render()
 		sizeof(Vertex) * vertCount,		// ennyi bájt nagyságban
 		vert,								// erről a rendszermemóriabeli címről olvasva
 		//GL_STATIC_DRAW);					// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévő adatokat	
-		GL_DYNAMIC_DRAW);
+		GL_STREAM_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 

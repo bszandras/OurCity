@@ -8,7 +8,7 @@ World::World()
 	reCalculateOrigoOffset();
 
 	tileRectWrapper = new TileRectWrapper(width * height);
-	tiles.reserve(width * height);
+	//tiles.reserve(width * height);
 	int submapReseve = (height / SubMap::getSize()) * ((width + height / 2) / SubMap::getSize());
 	submaps.reserve(submapReseve);
 
@@ -20,17 +20,17 @@ World::World()
 		}
 	}
 
-	for (int i = 0; i < height; i++)
+	for (unsigned short i = 0; i < height; i++)
 	{
-		for (int j = 0; j < width; j++)
+		for (unsigned short j = 0; j < width; j++)
 		{
 			//int x = (i * 64) + j * 32;
 			//int y = (j * (64 - 41));
 			int x = (j * 64) + i * 32;
 			int y = (i * (64 - 41));
-			int texId = 4;
+			unsigned char texId = 4;
 			//tileRectWrapper->AddRect(TileRect{ i,j,texId });
-			tileRectWrapper->AddRect(TileRect{ j,i,texId });
+			tileRectWrapper->AddTile({ {j,i}, texId });
 
 			int horIndex = x / (SubMap::getSize() * 64);
 			int vertIndex = y / (SubMap::getSize() * 64);
@@ -39,7 +39,7 @@ World::World()
 			submaps[mainIndex].addRect(tileRectWrapper->GetLastRectID());
 
 			// tile-t is meg kell csinálni a grafikai reprezentációhoz
-			tiles.push_back({ x,y });
+			//tiles.push_back({ x,y });
 
 		}
 	}

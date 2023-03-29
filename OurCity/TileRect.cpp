@@ -4,7 +4,7 @@
 #include "SubMap.h"
 
 
-
+/*
 void TileRectWrapper::CreateTileRect(int i, int j, int t)
 {
 	TileRect tile;
@@ -14,29 +14,30 @@ void TileRectWrapper::CreateTileRect(int i, int j, int t)
 	
 	AddRect(tile);
 }
+*/
 TileRectWrapper::TileRectWrapper(int mRects)
 {
 	maxRects = mRects;
-	rectArr = new TileRect[maxRects];
+	rectArr = new Tile[maxRects];
 }
 TileRectWrapper::~TileRectWrapper(void)
 {
 	//delete[] rectArr;
 }
-void TileRectWrapper::AddRect(TileRect rect)
+void TileRectWrapper::AddTile(Tile tile)
 {
 	if (endPointer >= maxRects)
 	{
 		ReallocRects();
 	}
 	
-	rectArr[endPointer] = rect;
+	rectArr[endPointer] = tile;
 	endPointer++;
 }
 void TileRectWrapper::ReallocRects()
 {
 	maxRects *= 1.1f;
-	TileRect* newArr = new TileRect[maxRects];
+	Tile* newArr = new Tile[maxRects];
 	
 	for (int i = 0; i < endPointer; i++)
 	{
@@ -50,19 +51,20 @@ int TileRectWrapper::GetLastRectID()
 {
 	return endPointer - 1;
 }
-TileRect* TileRectWrapper::GetRectsById(int ids[], int rectCount)
+Tile* TileRectWrapper::GetRectsById(int ids[], int rectCount)
 {
 	int idCount = rectCount;
-	TileRect* returnable = new TileRect[idCount];
+	Tile* returnable = new Tile[idCount];
 
 	for (int i = 0; i < idCount; i++)
 	{
 		returnable[i] = rectArr[ids[i]];
+		//returnable[i] = { rectArr[i].rect.i, rectArr[i].rect.j };
 	}
 
 	return returnable;
 }
 void TileRectWrapper::UpdateTexIdById(int id, int texID)
 {
-	rectArr[id].texID = texID;
+	rectArr[id].texId = texID;
 }
