@@ -68,7 +68,7 @@ int Window::SDLInit()
 		100,						// az ablak bal-felsõ sarkának kezdeti Y koordinátája
 		width,						// ablak szélessége
 		height,						// és magassága
-		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);			// megjelenítési tulajdonságok
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);			// megjelenítési tulajdonságok
 	
 	// ha nem sikerült létrehozni az ablakot, akkor írjuk ki a hibát, amit kaptunk és lépjünk ki
 	if (win == 0)
@@ -145,7 +145,6 @@ int Window::StartGameLoop()
 		std::cout << "[app.Init] Error during the initialization of the application!" << std::endl;
 		return 1;
 	}
-
 	// imgui init
 	ImGui_ImplSdlGL3_Init(win);
 
@@ -165,7 +164,7 @@ int Window::StartGameLoop()
 		app->Render();
 
 		// imgui beépített demo window
-		ImGui::ShowTestWindow();
+		//ImGui::ShowTestWindow();
 		// imgui render, ez elé kell minden imguis cuccnak kerülnie
 		ImGui::Render();
 
@@ -230,14 +229,17 @@ int Window::HandleEvents(bool& quit, SDL_Event ev)
 		{
 			int w, h;
 			SDL_GetWindowSize(win, &w, &h);
+
 			width = w;
 			height = h;
+
 			app->Resize(w, h);
 		}
 		if (ev.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 		{
 			width = ev.window.data1;
 			height = ev.window.data2;
+			std::cout << width << " " << height << std::endl;
 			app->Resize(ev.window.data1, ev.window.data2);
 		}
 		break;

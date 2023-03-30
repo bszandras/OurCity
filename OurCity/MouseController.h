@@ -6,7 +6,8 @@ enum MouseState
 {
 	NOTHING,
 	CLICK,
-	DRAG
+	DRAG,
+	MOVED
 };
 class MouseController
 {
@@ -21,4 +22,5 @@ public:
 	void UpdateControlFrame(Vector2Data position);
 	Vector2Data getScreenPosition();
 	Vector2Data getWorldPosition(World* world, Camera* camera);
+	MouseState getMouseState();
 };

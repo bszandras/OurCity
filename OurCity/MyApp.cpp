@@ -187,18 +187,20 @@ void CMyApp::Update()
 	}
 	
 	// DEMO egér input
-	Vector2Data worldPos = mouseController->getWorldPosition(world, scene->getCamera());
-
-	Vector2Data tileId = world->tileCoorOnWorldPosition(worldPos);
-	if (tileId.x < 0 || tileId.y < 0 || tileId.x > world->getWidth() - 1 || tileId.y > world->getHeight() - 1)
+	if (mouseController->getMouseState() != MouseState::NOTHING)
 	{
-		return;
-	}
-	world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
+		Vector2Data worldPos = mouseController->getWorldPosition(world, scene->getCamera());
 
-	//Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
-	//std::cout << t->x << " " << t->y << std::endl;
-	
+		Vector2Data tileId = world->tileCoorOnWorldPosition(worldPos);
+		if (tileId.x < 0 || tileId.y < 0 || tileId.x > world->getWidth() - 1 || tileId.y > world->getHeight() - 1)
+		{
+			return;
+		}
+		world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
+
+		//Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
+		//std::cout << t->x << " " << t->y << std::endl;
+	}
 	// update végi resetek és update-ek
 	mouseController->ClearControlFrame();
 }
@@ -246,6 +248,8 @@ void CMyApp::Render()
 		//akkor a vertexshader képes szortírozni, és nem kell frame-enként rekonstruálni a buffert
 
 		Vector3Data currRect = rects[i];
+		currRect.x -= 32;
+		currRect.y -= 21;
 		//rect y-jából tudok z-depth-et számolni, betolom egy -0.9 - 0.9 space-be
 		//rect.z-ben alapból texid van
 		float rectDepth = currRect.y / 64 / worldHeight;	//[0,1]

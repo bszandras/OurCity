@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 struct Vector2Data
 {
 	float x = 0;
@@ -42,7 +42,14 @@ public:
 	{
 
 	}
-	
+	static Vector2Data Div(Vector2Data original, Vector2Data other)
+	{
+		Vector2Data ret = {
+			original.x / other.x,
+			original.y / other.y
+		};
+		return ret;
+	}
 	static Vector2Data WorldToScreenSpace(Vector2Data original, Vector2Data windowSize, Vector2Data camPos, float camZoom, Vector2Data worldOrigoOffset)
 	{
 		Vector2Data ret{ original.x, original.y };
@@ -54,19 +61,31 @@ public:
 			ret.y - camPos.y * camZoom
 		};
 
+		// normalize to window size
 		return ret;
 	}
 	static Vector2Data ScreenToWorldSpace(Vector2Data original, Vector2Data windowSize, Vector2Data camPos, float camZoom, Vector2Data worldOrigoOffset)
 	{
-		Vector2Data ret{ original.x, original.y };
-		ret = {
-			ret.x + camPos.x * camZoom,
-			ret.y + -camPos.y * camZoom
+		Vector2Data ret = {
+			original.x - windowSize.x / 2,
+			original.y - windowSize.y / 2
 		};
-		ret = Sub(ret, worldOrigoOffset);
-		ret = Scale(ret, 1 / camZoom);
+		//normalize
+		ret = Div(ret, windowSize);
+		ret = Scale(ret, 2);
+		
+		ret = {
+			ret.x *= windowSize.x / 2,
+			ret.y *= windowSize.y / 2
+		};
+		
 
-		//invertálni kell, mert ablak y lefele nõ
+		ret = Scale(ret, 1/camZoom);
+		ret = {
+			ret.x + camPos.x,
+			ret.y + -camPos.y
+		};
+
 		ret.y = -ret.y;
 		return ret;
 	}

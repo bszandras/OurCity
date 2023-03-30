@@ -97,8 +97,13 @@ Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 	//worldPos.x -= 32;
 	//worldPos.y -= 11;
 
-	int y = worldPos.y / (64 - 41);
-	int x = (worldPos.x - y * 32) / 64;
+	//int y = worldPos.y / (64 - 41);
+	//int x = (worldPos.x - y * 32) / 64;
+
+	int y = round(worldPos.y / (64 - 41));
+	int x = round((worldPos.x - y * 32) / 64);
+
+	//std::cout << x << " " << y << std::endl;
 	return {(float)x, (float)y};
 }
 
