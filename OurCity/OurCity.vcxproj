@@ -163,7 +163,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="MyApp.cpp" />
+    <ClCompile Include="Road.cpp" />
+    <ClCompile Include="RoadGraph.cpp" />
     <ClCompile Include="ServiceBuilding.cpp" />
+    <ClCompile Include="SpecialBuilding.cpp" />
     <ClCompile Include="SubMap.cpp" />
     <ClCompile Include="TileRect.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -182,7 +185,10 @@
     <ClInclude Include="House.h" />
     <ClInclude Include="MouseController.h" />
     <ClInclude Include="MyApp.h" />
+    <ClInclude Include="Road.h" />
+    <ClInclude Include="RoadGraph.h" />
     <ClInclude Include="ServiceBuilding.h" />
+    <ClInclude Include="SpecialBuilding.h" />
     <ClInclude Include="SubMap.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileRect.h" />
