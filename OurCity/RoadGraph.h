@@ -17,7 +17,7 @@ public:
 	bool addRoad(Tile* tile);
 	bool removeRoad(Tile* tile);
 	Road* getRoadByCoords(int i, int j);
-	bool checkConnectedWithout(Tile* tile);
+	bool checkConnectedWithout(Road* road);
 	
 	void printGraph();
 	std::vector<Road*> shortestPath(Road* from, Road* to);
