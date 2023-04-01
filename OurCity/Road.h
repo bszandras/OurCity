@@ -3,19 +3,17 @@
 
 #include "SpecialBuilding.h"
 
+
 class Road : public SpecialBuilding
 {
 private:
-	static int idxCounter;
-	int idx;
-	bool deleted;
-
+	static int idCount;
+	int id;
 public:
 	Road(Tile* tile);
+	~Road();
 
-	int getIdx() const;
-	bool isDeleted() const;
-	void setDeleted(bool deleted);
+	int getId() const;
 
 };
 

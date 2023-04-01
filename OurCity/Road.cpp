@@ -1,29 +1,23 @@
 #include "Road.h"
 
-int Road::idxCounter = 0;
+
+int Road::idCount = 0;
 
 Road::Road(Tile* tile) : SpecialBuilding(tile)
 {
-	this->buildCost = 100;
+	this->buildCost = 50;
 	this->fireChance = 0;
 	this->maintenanceCost = 10;
-	this->deleted = false;
-
-	idxCounter++;
-	this->idx = idxCounter;
+	idCount++;
+	this->id = idCount;
 }
 
-int Road::getIdx() const
+Road::~Road()
 {
-	return idx;
 }
 
-bool Road::isDeleted() const
+int Road::getId() const
 {
-	return deleted;
+	return this->id;
 }
 
-void Road::setDeleted(bool deleted)
-{
-	this->deleted = deleted;
-}
