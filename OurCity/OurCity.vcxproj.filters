@@ -82,7 +82,7 @@
       <Filter>Source Files\Buildings</Filter>
     </ClCompile>
     <ClCompile Include="RoadGraph.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Buildings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +150,7 @@
       <Filter>Header Files\Buildings</Filter>
     </ClInclude>
     <ClInclude Include="RoadGraph.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Buildings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

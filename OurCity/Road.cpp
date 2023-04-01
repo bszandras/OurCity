@@ -21,3 +21,8 @@ int Road::getId() const
 	return this->id;
 }
 
+void Road::setId(int id)
+{
+	this->id = id;
+}
+

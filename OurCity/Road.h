@@ -13,6 +13,8 @@ public:
 	Road(Tile* tile);
 	~Road();
 
+	void setId(int id);
+
 	int getId() const;
 
 };
