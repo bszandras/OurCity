@@ -14,6 +14,7 @@
 #include "Window.h"
 
 #include "BuildingsInclude.h"
+#include "RoadGraph.h"
 
 CMyApp::CMyApp(void)
 {
@@ -48,8 +49,18 @@ bool CMyApp::Init()
 	scene = new GameScene();
 	mouseController = new MouseController();
 	time = new Time(SDL_GetTicks() / 1000.0f);
-	
-	Tile t = Tile{0,0,0,0};
+
+
+	Tile t = Tile{ 0,0,0,1 };
+	Tile t1 = Tile{ 0,0,1, 2 };
+	Tile t2 = Tile{0, 0, 1, 1};
+	Tile t3 = Tile{ 0,0,1, 3 };
+	Tile t4 = Tile{ 0,0,2, 2 };
+	Tile t5 = Tile{ 0,0,2, 3 };
+
+	RoadGraph* roadGraph = new RoadGraph();
+	roadGraph->addRoad(&t);
+
 	Factory* fact = new Factory(&t);
 	House* house = new House(&t);
 	ServiceBuilding* serv = new ServiceBuilding(&t);
