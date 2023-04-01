@@ -2,6 +2,7 @@
 #define ROADGRAPH_H
 
 #include <vector>
+#include <iostream>
 #include "Road.h"
 
 class RoadGraph
@@ -17,6 +18,7 @@ public:
 
 	bool addRoad(Tile* tile);
 	bool removeRoad(Tile* tile);
+	bool isAdjacent(Tile* tile);
 
 	bool searchRoadByCoords(int i, int j);
 	
