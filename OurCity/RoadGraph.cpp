@@ -37,14 +37,14 @@ RoadGraph::RoadGraph(RoadGraph& t)
 bool RoadGraph::addRoad(Tile* tile)
 {
     // If the road to add has coordinate i or j = 0 return false
-    if (tile->i == 0 || tile->j == 0)
+    if (tile->rect.i == 0 || tile->rect.j == 0)
     {
 		std::cout << "Road has coordinate i or j = 0" << std::endl;
 		return false;
 	}
 
     // If a road with the same coordinates already exists, return false
-    if (searchRoadByCoords(tile->i, tile->j))
+    if (searchRoadByCoords(tile->rect.i, tile->rect.j))
     {
         std::cout << "Road already exists" << std::endl;
         return false;
@@ -72,10 +72,10 @@ bool RoadGraph::addRoad(Tile* tile)
     adjList.push_back(std::vector<Road*>());
 
     // Add the new road to the adjacency list of the adjacent roads
-    Road* top = getRoadByCoords(tile->i, tile->j - 1);
-    Road* bottom = getRoadByCoords(tile->i, tile->j + 1);
-    Road* left = getRoadByCoords(tile->i - 1, tile->j);
-    Road* right = getRoadByCoords(tile->i + 1, tile->j);
+    Road* top = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
+    Road* bottom = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
+    Road* left = getRoadByCoords(tile->rect.i - 1, tile->rect.j);
+    Road* right = getRoadByCoords(tile->rect.i + 1, tile->rect.j);
 
     if (top)
     {
@@ -109,13 +109,13 @@ bool RoadGraph::addRoad(Tile* tile)
 bool RoadGraph::removeRoad(Tile* tile)
 {
     // Check if the road to remove is in the graph
-    if (!searchRoadByCoords(tile->i, tile->j))
+    if (!searchRoadByCoords(tile->rect.i, tile->rect.j))
     {
 		std::cout << "Road does not exist" << std::endl;
 		return false;
 	}
 
-    Road* del = getRoadByCoords(tile->i, tile->j);
+    Road* del = getRoadByCoords(tile->rect.i, tile->rect.j);
     // Check if the graph still connected after removing the road
     if (!isConnected(del))
     {
@@ -135,10 +135,10 @@ bool RoadGraph::removeRoad(Tile* tile)
 	}
 
 	// Remove the road from the adjacency list of the adjacent roads
-	Road* top = getRoadByCoords(tile->i, tile->j - 1);
-	Road* bottom = getRoadByCoords(tile->i, tile->j + 1);
-	Road* left = getRoadByCoords(tile->i - 1, tile->j);
-	Road* right = getRoadByCoords(tile->i + 1, tile->j);
+	Road* top = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
+	Road* bottom = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
+	Road* left = getRoadByCoords(tile->rect.i - 1, tile->rect.j);
+	Road* right = getRoadByCoords(tile->rect.i + 1, tile->rect.j);
 
     if (top)
     {
@@ -206,10 +206,10 @@ bool RoadGraph::removeRoad(Tile* tile)
 
 bool RoadGraph::isAdjacent(Tile* tile)
 {
-    Road* top = getRoadByCoords(tile->i, tile->j - 1);
-    Road* bottom = getRoadByCoords(tile->i, tile->j + 1);
-    Road* left = getRoadByCoords(tile->i - 1, tile->j);
-    Road* right = getRoadByCoords(tile->i + 1, tile->j);
+    Road* top = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
+    Road* bottom = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
+    Road* left = getRoadByCoords(tile->rect.i - 1, tile->rect.j);
+    Road* right = getRoadByCoords(tile->rect.i + 1, tile->rect.j);
 
     if (top || bottom || left || right)
     {
@@ -262,7 +262,7 @@ bool RoadGraph::searchRoadByCoords(int i, int j)
 {
     for (size_t k = 0; k < roads.size(); k++)
     {
-        if (roads[k]->getTile()->i == i && roads[k]->getTile()->j == j)
+        if (roads[k]->getTile()->rect.i == i && roads[k]->getTile()->rect.j == j)
         {
             return true;
         }
@@ -274,7 +274,7 @@ Road* RoadGraph::getRoadByCoords(int i, int j)
 {
     for (size_t k = 0; k < roads.size(); k++)
     {
-        if (roads[k]->getTile()->i == i && roads[k]->getTile()->j == j)
+        if (roads[k]->getTile()->rect.i == i && roads[k]->getTile()->rect.j == j)
         {
             return roads[k];
         }
@@ -302,7 +302,7 @@ void RoadGraph::printGraph()
 {
     for (size_t i = 0; i < adjList.size(); i++)
         {
-            std::cout << i << " (" << roads[i]->getTile()->i <<", " << roads[i]->getTile()->j << ") " << " -> ";
+            std::cout << i << " (" << roads[i]->getTile()->rect.i <<", " << roads[i]->getTile()->rect.j << ") " << " -> ";
             for (size_t j = 0; j < adjList[i].size(); j++)
             {
                 std::cout << adjList[i][j]->getId() << " ";

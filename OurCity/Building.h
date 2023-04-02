@@ -1,7 +1,7 @@
 #ifndef BUILDING_H
 #define BUILDING_H
 
-#include "Tile.h"
+#include "TileRect.h"
 
 class Building
 {

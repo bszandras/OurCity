@@ -50,7 +50,9 @@ bool CMyApp::Init()
 	mouseController = new MouseController();
 	time = new Time(SDL_GetTicks() / 1000.0f);
 
+	
 
+	/*
 	Tile t = Tile{ 0,0,0,1 };
 	Tile t1 = Tile{ 0,0,1, 2 };
 	Tile t2 = Tile{0, 0, 1, 1};
@@ -78,6 +80,7 @@ bool CMyApp::Init()
 	Factory* fact = new Factory(&t);
 	House* house = new House(&t);
 	ServiceBuilding* serv = new ServiceBuilding(&t);
+	*/
 
 	// 1 db VAO foglalása
 	glGenVertexArrays(1, &m_vaoID);
