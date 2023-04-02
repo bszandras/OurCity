@@ -1,16 +1,24 @@
 #pragma once
+#include "Tile.h"
 
 struct TileRect
 {
-	int i;
-	int j;
-	int texID;
+	unsigned short i;
+	unsigned short j;
+};
+struct Tile
+{
+	TileRect rect;
+	// 8 bites integer
+	unsigned char texId = 0;
+	//building
 };
 
 class TileRectWrapper
 {
 private:
-	TileRect* rectArr;
+	//TileRect* rectArr;
+	Tile* rectArr;
 	int maxRects = 0;
 	int endPointer = 0;
 
@@ -20,8 +28,8 @@ public:
 	~TileRectWrapper(void);
 
 	int GetLastRectID();
-	void AddRect(TileRect rect);
-	TileRect* GetRectsById(int ids[], int rectCount);
+	void AddTile(Tile tile);
+	Tile* GetRectsById(int ids[], int rectCount);
 	void UpdateTexIdById(int id, int texID);
-	void CreateTileRect(int i, int j, int t);
+	//void CreateTileRect(int i, int j, int t);
 };

@@ -1,4 +1,15 @@
+#define _CRT_SECURE_NO_DEPRECATE
+
+#include <string>
+#include <cstring>
+
 #include "Window.h"
+
+// imgui include-ok
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_sdl_gl3.h>
+
+
 
 Window* Window::instance = nullptr;
 
@@ -57,7 +68,7 @@ int Window::SDLInit()
 		100,						// az ablak bal-felsõ sarkának kezdeti Y koordinátája
 		width,						// ablak szélessége
 		height,						// és magassága
-		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);			// megjelenítési tulajdonságok
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);			// megjelenítési tulajdonságok
 	
 	// ha nem sikerült létrehozni az ablakot, akkor írjuk ki a hibát, amit kaptunk és lépjünk ki
 	if (win == 0)
@@ -105,12 +116,6 @@ int Window::SDLInit()
 		return 1;
 	}
 
-	/*
-	std::stringstream window_title;
-	window_title << "OpenGL " << glVersion[0] << "." << glVersion[1];
-	SDL_SetWindowTitle(win, window_title.str().c_str());
-	*/
-
 	// engedélyezzük és állítsuk be a debug callback függvényt ha debug context-ben vagyunk 
 	GLint context_flags;
 	glGetIntegerv(GL_CONTEXT_FLAGS, &context_flags);
@@ -129,8 +134,6 @@ int Window::StartGameLoop()
 {
 	// véget kell-e érjen a program futása?
 	bool quit = false;
-	// feldolgozandó üzenet ide kerül
-	//SDL_Event ev;
 
 	// alkalmazás példánya
 	app = new CMyApp();
@@ -142,24 +145,40 @@ int Window::StartGameLoop()
 		std::cout << "[app.Init] Error during the initialization of the application!" << std::endl;
 		return 1;
 	}
+	// imgui init
+	ImGui_ImplSdlGL3_Init(win);
 
 	// start loop
 	while (!quit)
 	{
+
 		while (SDL_PollEvent(&event))
 		{
+			// imgui input handling ezen belül
 			HandleEvents(quit, event);
 		}
+		// imgui így kezd frame-et (nem window frame, hanem frame mint fps)
+		ImGui_ImplSdlGL3_NewFrame(win);
+
 		app->Update();
 		app->Render();
 
+		// imgui beépített demo window
+		//ImGui::ShowTestWindow();
+		// imgui render, ez elé kell minden imguis cuccnak kerülnie
+		ImGui::Render();
+
+		// sdl double buffering
 		SDL_GL_SwapWindow(win);
 	}
 
 	// ha kiléptünk
 	// takarítson el maga után az objektumunk
 	app->Clean();
-
+	
+	//imgui cleanup
+	ImGui_ImplSdlGL3_Shutdown();
+	//sdl cleanup
 	SDL_GL_DeleteContext(context);
 	SDL_DestroyWindow(win);
 
@@ -168,6 +187,14 @@ int Window::StartGameLoop()
 
 int Window::HandleEvents(bool& quit, SDL_Event ev)
 {
+	// imgui megkapja az sdl-tõl az inputot
+	// ez alapján dönti el, hogy gombra nyomtunk-e vagy ablakot mozgattunk stb
+	ImGui_ImplSdlGL3_ProcessEvent(&ev);
+
+	// ezzel a két boollal tudjuk megcsinálni, hogy ha gombot nyomunk
+	// akkor alatta a zónát ne jelöljük ki
+	bool is_mouse_captured = ImGui::GetIO().WantCaptureMouse; // kell-e az imgui-nak az egér
+	bool is_keyboard_captured = ImGui::GetIO().WantCaptureKeyboard;	// kell-e az imgui-nak a billentyûzet
 	switch (ev.type)
 	{
 	case SDL_QUIT:
@@ -202,14 +229,17 @@ int Window::HandleEvents(bool& quit, SDL_Event ev)
 		{
 			int w, h;
 			SDL_GetWindowSize(win, &w, &h);
+
 			width = w;
 			height = h;
+
 			app->Resize(w, h);
 		}
 		if (ev.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
 		{
 			width = ev.window.data1;
 			height = ev.window.data2;
+			std::cout << width << " " << height << std::endl;
 			app->Resize(ev.window.data1, ev.window.data2);
 		}
 		break;

@@ -159,7 +159,10 @@
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GLDebugMessageCallback.cpp" />
-    <ClCompile Include="House.cpp" />
+    <ClCompile Include="include\imgui\imgui.cpp" />
+    <ClCompile Include="include\imgui\imgui_demo.cpp" />
+    <ClCompile Include="include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="include\imgui\imgui_impl_sdl_gl3.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="MyApp.cpp" />
@@ -182,7 +185,10 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GLDebugMessageCallback.h" />
     <ClInclude Include="GLUtils.hpp" />
-    <ClInclude Include="House.h" />
+    <ClInclude Include="include\imgui\imconfig.h" />
+    <ClInclude Include="include\imgui\imgui.h" />
+    <ClInclude Include="include\imgui\imgui_impl_sdl_gl3.h" />
+    <ClInclude Include="include\imgui\imgui_internal.h" />
     <ClInclude Include="MouseController.h" />
     <ClInclude Include="MyApp.h" />
     <ClInclude Include="Road.h" />

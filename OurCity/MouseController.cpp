@@ -25,18 +25,25 @@ void MouseController::ClearControlFrame()
 void MouseController::UpdateControlFrame(Vector2Data position)
 {
 	screenPosition = position;
+	stateThisFrame = MouseState::MOVED;
 }
 
 Vector2Data MouseController::getScreenPosition()
 {
+	
 	return screenPosition;
 }
 
 Vector2Data MouseController::getWorldPosition(World* world, Camera* camera)
 {
-	Vector2Data worldPos = Vector2Tool::ScreenToWorldSpace({ screenPosition.x,screenPosition.y },
+	//std::cout << screenPosition.x << " " << screenPosition.y << std::endl;
+ 	Vector2Data worldPos = Vector2Tool::ScreenToWorldSpace({ screenPosition.x,screenPosition.y },
 		{ (float)Window::instance->getWidth(), (float)Window::instance->getHeight() },
 		camera->getPosition(), camera->getZoom(),
 		world->getOrigoOffset());
 	return worldPos;
+}
+MouseState MouseController::getMouseState()
+{
+	return stateThisFrame;
 }

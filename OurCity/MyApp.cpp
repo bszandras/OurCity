@@ -206,31 +206,33 @@ void CMyApp::Update()
 				camDir.x += 1.0f;
 				break;
 			case(SDL_KeyCode::SDLK_k):
-				scene->getCamera()->Zoom(0.1f * time->getDelta());
+				scene->getCamera()->Zoom(0.1f);
 				break;
 			case(SDL_KeyCode::SDLK_l):
-				scene->getCamera()->Zoom(-0.1f * time->getDelta());
+				scene->getCamera()->Zoom(-0.1f);
 				break;
 			default:
 				break;
 			}
 		}
-		scene->getCamera()->Move(Vector2Tool::Scale(camDir, time->getDelta()));
+		scene->getCamera()->Move(camDir);
 	}
 	
 	// DEMO egér input
-	Vector2Data worldPos = mouseController->getWorldPosition(world, scene->getCamera());
-
-	Vector2Data tileId = world->tileCoorOnWorldPosition(worldPos);
-	if (tileId.x < 0 || tileId.y < 0 || tileId.x > world->getWidth() - 1 || tileId.y > world->getHeight() - 1)
+	if (mouseController->getMouseState() != MouseState::NOTHING)
 	{
-		return;
-	}
-	world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
+		Vector2Data worldPos = mouseController->getWorldPosition(world, scene->getCamera());
 
-	Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
-	//std::cout << t->x << " " << t->y << std::endl;
-	
+		Vector2Data tileId = world->tileCoorOnWorldPosition(worldPos);
+		if (tileId.x < 0 || tileId.y < 0 || tileId.x > world->getWidth() - 1 || tileId.y > world->getHeight() - 1)
+		{
+			return;
+		}
+		world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
+
+		//Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
+		//std::cout << t->x << " " << t->y << std::endl;
+	}
 	// update végi resetek és update-ek
 	mouseController->ClearControlFrame();
 }
@@ -278,6 +280,8 @@ void CMyApp::Render()
 		//akkor a vertexshader képes szortírozni, és nem kell frame-enként rekonstruálni a buffert
 
 		Vector3Data currRect = rects[i];
+		currRect.x -= 32;
+		currRect.y -= 21;
 		//rect y-jából tudok z-depth-et számolni, betolom egy -0.9 - 0.9 space-be
 		//rect.z-ben alapból texid van
 		float rectDepth = currRect.y / 64 / worldHeight;	//[0,1]
@@ -304,7 +308,7 @@ void CMyApp::Render()
 		sizeof(Vertex) * vertCount,		// ennyi bájt nagyságban
 		vert,								// erről a rendszermemóriabeli címről olvasva
 		//GL_STATIC_DRAW);					// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévő adatokat	
-		GL_DYNAMIC_DRAW);
+		GL_STREAM_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
