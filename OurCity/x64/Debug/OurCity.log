@@ -1,36 +1,44 @@
 ﻿  AppTime.cpp
+  Building.cpp
   Camera.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Factory.cpp
   GameScene.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
   GLDebugMessageCallback.cpp
+  House.cpp
+  imgui.cpp
+D:\Download_copy\szt\o\OurCity\include\imgui\imgui.cpp(10996,163): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\include\imgui\imgui.cpp(11001,161): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\include\imgui\imgui.cpp(11124,158): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\include\imgui\imgui.cpp(11128,160): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_sdl_gl3.cpp
   main.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
   MouseController.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
   MyApp.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(197,69): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(199,51): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(199,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(264,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(247,70): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(317,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Road.cpp
+  RoadGraph.cpp
+  ServiceBuilding.cpp
+  SpecialBuilding.cpp
   SubMap.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\rolan\source\repos\ourcity\OurCity\SubMap.cpp(31,55): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\rolan\source\repos\ourcity\OurCity\SubMap.cpp(31,55): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\SubMap.cpp(31,85): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\rolan\source\repos\ourcity\OurCity\SubMap.cpp(31,85): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\SubMap.cpp(47,23): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\SubMap.cpp(54,72): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(31,55): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(31,55): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(31,85): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(31,85): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(47,23): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(54,68): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   TileRect.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\rolan\source\repos\ourcity\OurCity\TileRect.cpp(38,18): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-  Window.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-  World.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Camera.h(9,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(100,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(101,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\TileRect.cpp(39,18): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
   Generating Code...
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(126): warning C4715: 'Window::SDLInit': not all control paths return a value
-  OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
+D:\Download_copy\szt\o\OurCity\RoadGraph.cpp(294): warning C4715: 'RoadGraph::getRoadByIndex': not all control paths return a value
+  Compiling...
+  Window.cpp
+  Workplace.cpp
+  World.cpp
+D:\Download_copy\szt\o\OurCity\World.cpp(103,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(104,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+D:\Download_copy\szt\o\OurCity\Window.cpp(131): warning C4715: 'Window::SDLInit': not all control paths return a value
+  OurCity.vcxproj -> D:\Download_copy\szt\o\x64\Debug\OurCity.exe
