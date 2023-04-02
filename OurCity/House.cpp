@@ -2,6 +2,7 @@
 
 House::House(Tile* tile) : Building(tile)
 {
+	this->tile = tile;
 	buildCost = 0;
 	maintenanceCost = 0;
 

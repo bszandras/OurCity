@@ -50,15 +50,29 @@ bool CMyApp::Init()
 	mouseController = new MouseController();
 	time = new Time(SDL_GetTicks() / 1000.0f);
 
-	
+	Tile t;
+	t.rect.i = 0;
+	t.rect.j = 1;
 
-	/*
-	Tile t = Tile{ 0,0,0,1 };
-	Tile t1 = Tile{ 0,0,1, 2 };
-	Tile t2 = Tile{0, 0, 1, 1};
-	Tile t3 = Tile{ 0,0,1, 3 };
-	Tile t4 = Tile{ 0,0,2, 2 };
-	Tile t5 = Tile{ 0,0,2, 3 };
+	Tile t1;
+	t1.rect.i = 1;
+	t1.rect.j = 2;
+
+	Tile t2;
+	t2.rect.i = 1;
+	t2.rect.j = 1;
+
+	Tile t3;
+	t3.rect.i = 1;
+	t3.rect.j = 3;
+
+	Tile t4;
+	t4.rect.i = 2;
+	t4.rect.j = 2;
+
+	Tile t5;
+	t5.rect.i = 2;
+	t5.rect.j = 3;
 
 	RoadGraph* roadGraph = new RoadGraph();
 	roadGraph->addRoad(&t);
@@ -80,7 +94,6 @@ bool CMyApp::Init()
 	Factory* fact = new Factory(&t);
 	House* house = new House(&t);
 	ServiceBuilding* serv = new ServiceBuilding(&t);
-	*/
 
 	// 1 db VAO foglalása
 	glGenVertexArrays(1, &m_vaoID);

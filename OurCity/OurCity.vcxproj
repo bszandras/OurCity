@@ -159,6 +159,7 @@
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GLDebugMessageCallback.cpp" />
+    <ClCompile Include="House.cpp" />
     <ClCompile Include="include\imgui\imgui.cpp" />
     <ClCompile Include="include\imgui\imgui_demo.cpp" />
     <ClCompile Include="include\imgui\imgui_draw.cpp" />
