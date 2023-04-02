@@ -60,6 +60,20 @@ bool CMyApp::Init()
 
 	RoadGraph* roadGraph = new RoadGraph();
 	roadGraph->addRoad(&t);
+	roadGraph->addRoad(&t1);
+	roadGraph->addRoad(&t2);
+	roadGraph->addRoad(&t3);
+	roadGraph->addRoad(&t4);
+	roadGraph->addRoad(&t5);
+	roadGraph->printGraph();
+	std::cout << "----------------" << std::endl;
+	roadGraph->removeRoad(&t5);
+	roadGraph->removeRoad(&t4);
+	roadGraph->removeRoad(&t3);
+	roadGraph->removeRoad(&t2);
+
+	roadGraph->printGraph();
+
 
 	Factory* fact = new Factory(&t);
 	House* house = new House(&t);

@@ -19,6 +19,7 @@ public:
 	bool addRoad(Tile* tile);
 	bool removeRoad(Tile* tile);
 	bool isAdjacent(Tile* tile);
+	bool isConnected(Road* road);
 
 	bool searchRoadByCoords(int i, int j);
 	

@@ -12,6 +12,7 @@ private:
 public:
 	Road(Tile* tile);
 	~Road();
+	Road(Road& t);
 
 	void setId(int id);
 
