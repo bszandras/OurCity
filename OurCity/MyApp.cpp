@@ -45,11 +45,11 @@ bool CMyApp::Init()
 	//
 	// geometria létrehozása
 	//
-
-	scene = new GameScene();
 	mouseController = new MouseController();
+	scene = new GameScene(mouseController);
+	
 	time = new Time(SDL_GetTicks() / 1000.0f);
-	builder = new Builder(scene->getWorld()->getWrapper(), mouseController, scene->getWorld());
+	//builder = new Builder(scene->getWorld()->getWrapper(), mouseController, scene->getWorld());
 
 	/*
 	std::vector<int> ids = scene->getWorld()->tileIdsInArea({ 0,0 }, { 250,128 });
@@ -265,16 +265,16 @@ void CMyApp::Update()
 		if (mouseController->getMouseState() == MouseState::CLICK)
 		{
 			//std::cout << tileId.x << " " << tileId.y << std::endl;
-			builder->Build(tileID);
+			scene->getBuilder()->Build(tileID);
 		}
 		else if (mouseController->getMouseState() == MouseState::DRAG)
 		{
-			builder->HighlightArea(mouseController->getRecalculateWorldPosition(scene->getWorld(), scene->getCamera()), scene->getWorld());
+			scene->getBuilder()->HighlightArea(mouseController->getRecalculateWorldPosition(scene->getWorld(), scene->getCamera()), scene->getWorld());
 		}
 		else
 		{
-			builder->Highlight(tileID);
-			builder->UnHighlightArea();
+			scene->getBuilder()->Highlight(tileID);
+			scene->getBuilder()->UnHighlightArea();
 		}
 	}
 	// update végi resetek és update-ek
@@ -465,3 +465,10 @@ void CMyApp::LoadTextures()
 
 	SDL_FreeSurface(surface);
 }
+
+void CMyApp::ChangeBuilderState(BuilderState state, BuilderSubState subState)
+{
+	scene->getBuilder()->ChangeState(state, subState);
+}
+
+

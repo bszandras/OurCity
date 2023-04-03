@@ -12,6 +12,8 @@ Builder::~Builder()
 }
 void Builder::ChangeState(BuilderState state, BuilderSubState subState)
 {
+	primaryState = state;
+	secondaryState = subState;
 
 }
 
@@ -45,12 +47,15 @@ void Builder::BuildSpecBuilding(int where)
 		world->AddRoad(wrapper->GetRectsById(&where, 1));
 		if (currentlyHighlighted == where)
 		{
-			currentTex = 3;
+			currentTex = 1;
 		}
 		break;
 	default:
 		break;
 	}
+
+	primaryState = BuilderState::NOBUILD;
+	secondaryState = BuilderSubState::NONE;
 }
 
 void Builder::SelectZone()
@@ -101,6 +106,8 @@ void Builder::SelectZone()
 	currentTex = 0;
 	areaHighlightedIds.clear();
 	areaHighlightedTexes.clear();
+	primaryState = BuilderState::NOBUILD;
+	secondaryState = BuilderSubState::NONE;
 }
 
 void Builder::Highlight(int target)
@@ -124,6 +131,11 @@ void Builder::Highlight(int target)
 
 void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 {
+	if (primaryState != BuilderState::ZONE)
+	{
+		return;
+	}
+
 	Vector2Data corner1 = mouse->getWorldDragStart();
 	Vector2Data corner2 = mouseWorldPosition;
 

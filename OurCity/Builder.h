@@ -28,8 +28,8 @@ private:
 	MouseController* mouse;
 	World* world;
 
-	BuilderState primaryState = ZONE;
-	BuilderSubState secondaryState = INDUSTRIALZONE;
+	BuilderState primaryState = NOBUILD;
+	BuilderSubState secondaryState = NONE;
 	int currentlyHighlighted = 0;
 	int currentTex = 2;
 

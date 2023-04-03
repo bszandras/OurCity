@@ -260,6 +260,9 @@ int Window::StartGameLoop()
 		if (ImGui::BeginPopup("ResidentP")) {
 			if (ImGui::Button("Build")) {
 				ImGui::CloseCurrentPopup();
+
+				// change builder state
+				app->ChangeBuilderState(BuilderState::ZONE, BuilderSubState::HOUSINGZONE);
 			}
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
@@ -274,6 +277,9 @@ int Window::StartGameLoop()
 		if (ImGui::BeginPopup("IndustryP")) {
 			if (ImGui::Button("Build")) {
 				ImGui::CloseCurrentPopup();
+
+				// change builder state
+				app->ChangeBuilderState(BuilderState::ZONE, BuilderSubState::INDUSTRIALZONE);
 			}
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
@@ -288,6 +294,9 @@ int Window::StartGameLoop()
 		if (ImGui::BeginPopup("ServiceP")) {
 			if (ImGui::Button("Build")) {
 				ImGui::CloseCurrentPopup();
+
+				// change builder state
+				app->ChangeBuilderState(BuilderState::ZONE, BuilderSubState::SERVICEZONE);
 			}
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
@@ -302,6 +311,9 @@ int Window::StartGameLoop()
 		if (ImGui::BeginPopup("SpecialP")) {
 			if (ImGui::Button("Build")) {
 				ImGui::CloseCurrentPopup();
+
+				// change builder state
+				app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::ROAD);
 			}
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();

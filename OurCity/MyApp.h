@@ -37,6 +37,8 @@ public:
 	void Resize(int, int);
 	//ez átmozog másik osztályba
 	void LoadTextures();
+
+	void ChangeBuilderState(BuilderState state, BuilderSubState subState);
 protected:
 	// shaderekhez szükséges változók
 	GLuint m_programID; // shaderek programja
@@ -65,6 +67,6 @@ protected:
 	GameScene* scene;
 	MouseController* mouseController;
 	Time* time;
-	Builder* builder;
+	//Builder* builder;
 };
 
