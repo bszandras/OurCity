@@ -166,6 +166,155 @@ int Window::StartGameLoop()
 		// imgui beépített demo window
 		//ImGui::ShowTestWindow();
 		// imgui render, ez elé kell minden imguis cuccnak kerülnie
+		ImGuiWindowFlags window_flags = 0;
+		window_flags |= ImGuiWindowFlags_NoTitleBar;
+		window_flags |= ImGuiWindowFlags_NoMove;
+		window_flags |= ImGuiWindowFlags_NoResize;
+		window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
+		/*
+
+		ImGui::Begin("Options", &quit, window_flags);
+
+		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
+
+		if (ImGui::Button("ESC")) {
+			ImGui::OpenPopup("Menu");
+		}
+		if (ImGui::BeginPopupModal("Menu")) {
+			if (ImGui::Button("Resume")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::Button("Settings");
+			ImGui::Button("Load");
+			ImGui::Button("Save");
+			if (ImGui::Button("Quit")) {
+				quit = true;
+			}
+
+			ImGui::EndPopup();
+		}
+
+		if (ImGui::Button("Money")) {
+			ImGui::OpenPopup("Money Statistics");
+		}
+
+		if (ImGui::BeginPopupModal("Money Statistics")) 
+		{
+			if (ImGui::Button("Resume")) 
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::Text("There will be statistics here!");
+
+			ImGui::EndPopup();
+		}
+
+		if (ImGui::Button("Happiness")) {
+			ImGui::OpenPopup("Happiness Statistics");
+		}
+
+		if (ImGui::BeginPopupModal("Happiness Statistics"))
+		{
+			if (ImGui::Button("Resume"))
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::Text("There will be statistics here!");
+
+			ImGui::EndPopup();
+		}
+
+		ImGui::PopStyleColor();
+
+		ImGui::End();
+
+		ImGui::Begin("Time", &quit, window_flags);
+
+		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
+
+		ImGui::Button("Pause");
+		ImGui::SameLine();
+		ImGui::Button("Speed1");
+		ImGui::SameLine();
+		ImGui::Button("Speed2");
+		ImGui::SameLine();
+		ImGui::Button("Speed3");
+
+		ImGui::PopStyleColor();
+
+		ImGui::End();
+		*/
+
+
+		ImGui::SetNextWindowPos(ImVec2(0.5f, 0.5f));
+
+		ImGui::Begin("Zones", &quit, window_flags);
+
+		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(200, 30, 65, 255));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(200, 30, 65, 255));
+
+		if (ImGui::Button("Resident")) {
+			ImGui::OpenPopup("ResidentP");
+		}
+		if (ImGui::BeginPopup("ResidentP")) {
+			if (ImGui::Button("Build")) {
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::Button("Delete")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Industry")) {
+			ImGui::OpenPopup("IndustryP");
+		}
+		if (ImGui::BeginPopup("IndustryP")) {
+			if (ImGui::Button("Build")) {
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::Button("Delete")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Service")) {
+			ImGui::OpenPopup("ServiceP");
+		}
+		if (ImGui::BeginPopup("ServiceP")) {
+			if (ImGui::Button("Build")) {
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::Button("Delete")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Special")) {
+			ImGui::OpenPopup("SpecialP");
+		}
+		if (ImGui::BeginPopup("SpecialP")) {
+			if (ImGui::Button("Build")) {
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::Button("Delete")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::PopStyleColor();
+		ImGui::PopStyleColor();
+		ImGui::PopStyleColor();
+
+		ImGui::End();
+
 		ImGui::Render();
 
 		// sdl double buffering
