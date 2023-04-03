@@ -1,7 +1,8 @@
 #include "Zone.h"
 
-Zone::Zone()
+Zone::Zone(unsigned char type)
 {
+	this->type = type;
 }
 
 Zone::~Zone()
