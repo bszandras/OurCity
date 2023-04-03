@@ -186,6 +186,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GLDebugMessageCallback.h" />
     <ClInclude Include="GLUtils.hpp" />
+    <ClInclude Include="House.h" />
     <ClInclude Include="include\imgui\imconfig.h" />
     <ClInclude Include="include\imgui\imgui.h" />
     <ClInclude Include="include\imgui\imgui_impl_sdl_gl3.h" />
