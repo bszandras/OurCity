@@ -16,7 +16,7 @@ public:
 	~Building();
 
 	unsigned short getBuildCost();
-	unsigned short getMaintanceCost();
+	unsigned short getMaintenanceCost();
 	unsigned short getFireChance();
 	Tile* getTile();
 

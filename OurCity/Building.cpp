@@ -18,7 +18,7 @@ unsigned short Building::getBuildCost()
 	return buildCost;
 }
 
-unsigned short Building::getMaintanceCost()
+unsigned short Building::getMaintenanceCost()
 {
 	return maintenanceCost;
 }
