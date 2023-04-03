@@ -14,6 +14,7 @@
 #include "GameScene.h"
 #include "MouseController.h"
 #include "AppTime.h"
+#include "Builder.h"
 
 class CMyApp
 {
@@ -64,5 +65,6 @@ protected:
 	GameScene* scene;
 	MouseController* mouseController;
 	Time* time;
+	Builder* builder;
 };
 

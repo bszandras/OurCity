@@ -8,7 +8,9 @@ class Zone
 private:
 	std::vector<int> tiles; // Tile ID-s
 	unsigned char type;
-
+	// 0 housing
+	// 0 industrial
+	// 0 service
 public:
 	Zone(unsigned char type);
 	~Zone();

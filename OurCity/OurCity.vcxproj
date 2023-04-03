@@ -154,6 +154,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppTime.cpp" />
+    <ClCompile Include="Builder.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Factory.cpp" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppTime.h" />
+    <ClInclude Include="Builder.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="BuildingsInclude.h" />
     <ClInclude Include="Camera.h" />

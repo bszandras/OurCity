@@ -28,7 +28,7 @@ World::World()
 			//int y = (j * (64 - 41));
 			int x = (j * 64) + i * 32;
 			int y = (i * (64 - 41));
-			unsigned char texId = 4;
+			unsigned char texId = 2;
 			//tileRectWrapper->AddRect(TileRect{ i,j,texId });
 			tileRectWrapper->AddTile({ {j,i}, texId });
 
@@ -114,6 +114,30 @@ Tile* World::getTileOnCoords(int i, int j)
 	return &tiles[index];
 }
 
+std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
+{
+	std::vector<int> returnable;
+
+	int blY = round(botleft.y / (64 - 41));
+	int blX = round((botleft.x - blY * 32) / 64);
+
+	int trY = round(topright.y / (64 - 41));
+	int trX = round((topright.x - trY * 32) / 64);
+
+	//int idOffset = 0;
+
+	for (int j = 0; j <= trY - blY; j++)
+	{
+		for (int i = 0; i <= trX - blX; i++)
+		{
+			int id = ((blY + j) * width) + blX;
+			returnable.push_back(id + i);
+		}
+	}
+	//std::cout << returnable.size() << std::endl;
+	return returnable;
+}
+
 void World::addHouseZone(Zone zone)
 {
 	this->HouseZones.push_back(zone);
@@ -142,4 +166,9 @@ std::vector<Zone>* World::getIndustryZones()
 std::vector<Zone>* World::getServiceZones()
 {
 	return &ServiceZones;
+}
+
+void World::AddRoad(Tile* t)
+{
+	roadGraph.addRoad(t);
 }

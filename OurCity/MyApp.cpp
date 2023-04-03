@@ -49,7 +49,18 @@ bool CMyApp::Init()
 	scene = new GameScene();
 	mouseController = new MouseController();
 	time = new Time(SDL_GetTicks() / 1000.0f);
+	builder = new Builder(scene->getWorld()->getWrapper(), mouseController, scene->getWorld());
 
+	/*
+	std::vector<int> ids = scene->getWorld()->tileIdsInArea({ 0,0 }, { 250,128 });
+	std::cout << ids.size() << std::endl;
+
+	for (int i = 0; i < ids.size(); i++)
+	{
+		scene->getWorld()->getWrapper()->UpdateTexIdById(ids[i], 0);
+	}
+	*/
+	/*
 	Tile t;
 	t.rect.i = 0;
 	t.rect.j = 1;
@@ -94,6 +105,7 @@ bool CMyApp::Init()
 	Factory* fact = new Factory(&t);
 	House* house = new House(&t);
 	ServiceBuilding* serv = new ServiceBuilding(&t);
+	*/
 
 	// 1 db VAO foglalása
 	glGenVertexArrays(1, &m_vaoID);
@@ -237,17 +249,33 @@ void CMyApp::Update()
 	// DEMO egér input
 	if (mouseController->getMouseState() != MouseState::NOTHING)
 	{
-		Vector2Data worldPos = mouseController->getWorldPosition(world, scene->getCamera());
+		Vector2Data worldPos = mouseController->getRecalculateWorldPosition(world, scene->getCamera());
 
 		Vector2Data tileId = world->tileCoorOnWorldPosition(worldPos);
 		if (tileId.x < 0 || tileId.y < 0 || tileId.x > world->getWidth() - 1 || tileId.y > world->getHeight() - 1)
 		{
 			return;
 		}
-		world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
+		int tileID = (tileId.y * world->getWidth() + tileId.x);
+		//world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
 
 		//Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
 		//std::cout << t->x << " " << t->y << std::endl;
+		
+		if (mouseController->getMouseState() == MouseState::CLICK)
+		{
+			//std::cout << tileId.x << " " << tileId.y << std::endl;
+			builder->Build(tileID);
+		}
+		else if (mouseController->getMouseState() == MouseState::DRAG)
+		{
+			builder->HighlightArea(mouseController->getRecalculateWorldPosition(scene->getWorld(), scene->getCamera()), scene->getWorld());
+		}
+		else
+		{
+			builder->Highlight(tileID);
+			builder->UnHighlightArea();
+		}
 	}
 	// update végi resetek és update-ek
 	mouseController->ClearControlFrame();
@@ -394,15 +422,18 @@ void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)
 
 void CMyApp::MouseMove(SDL_MouseMotionEvent& mouse)
 {
-	mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y });
+	mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::MOVED);
 }
 
 void CMyApp::MouseDown(SDL_MouseButtonEvent& mouse)
 {
+	mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::DRAG);
+	mouseController->setDragStart(scene->getWorld(), scene->getCamera());
 }
 
 void CMyApp::MouseUp(SDL_MouseButtonEvent& mouse)
 {
+	mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::CLICK);
 }
 
 void CMyApp::MouseWheel(SDL_MouseWheelEvent& wheel)
