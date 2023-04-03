@@ -136,7 +136,7 @@ std::vector<Zone>* World::getHouseZones()
 
 std::vector<Zone>* World::getIndustryZones()
 {
-	return &IndustryZones
+	return &IndustryZones;
 }
 
 std::vector<Zone>* World::getServiceZones()
