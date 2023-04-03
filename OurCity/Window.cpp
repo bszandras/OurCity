@@ -170,6 +170,8 @@ int Window::StartGameLoop()
 		window_flags |= ImGuiWindowFlags_NoTitleBar;
 		window_flags |= ImGuiWindowFlags_NoMove;
 		window_flags |= ImGuiWindowFlags_NoResize;
+		window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
+		/*
 
 		ImGui::Begin("Options", &quit, window_flags);
 
@@ -241,21 +243,74 @@ int Window::StartGameLoop()
 		ImGui::PopStyleColor();
 
 		ImGui::End();
+		*/
 
 
+		ImGui::SetNextWindowPos(ImVec2(0.5f, 0.5f));
 
 		ImGui::Begin("Zones", &quit, window_flags);
 
 		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(200, 30, 65, 255));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(200, 30, 65, 255));
 
-		ImGui::Button("Resident");
-		ImGui::SameLine();
-		ImGui::Button("Industry");
-		ImGui::SameLine();
-		ImGui::Button("Service");
-		ImGui::SameLine();
-		ImGui::Button("Special");
+		if (ImGui::Button("Resident")) {
+			ImGui::OpenPopup("ResidentP");
+		}
+		if (ImGui::BeginPopup("ResidentP")) {
+			if (ImGui::Button("Build")) {
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::Button("Delete")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
 
+		ImGui::SameLine();
+		if (ImGui::Button("Industry")) {
+			ImGui::OpenPopup("IndustryP");
+		}
+		if (ImGui::BeginPopup("IndustryP")) {
+			if (ImGui::Button("Build")) {
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::Button("Delete")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Service")) {
+			ImGui::OpenPopup("ServiceP");
+		}
+		if (ImGui::BeginPopup("ServiceP")) {
+			if (ImGui::Button("Build")) {
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::Button("Delete")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Special")) {
+			ImGui::OpenPopup("SpecialP");
+		}
+		if (ImGui::BeginPopup("SpecialP")) {
+			if (ImGui::Button("Build")) {
+				ImGui::CloseCurrentPopup();
+			}
+			if (ImGui::Button("Delete")) {
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::PopStyleColor();
+		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();
 
 		ImGui::End();
