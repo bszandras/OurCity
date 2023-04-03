@@ -5,6 +5,7 @@
 #include "TileRect.h"
 #include "SubMap.h"
 #include "Tile.h"
+#include "Zone.h"
 
 class SubMap;
 class World
@@ -17,6 +18,11 @@ private:
 	std::vector<SubMap> submaps;
 	//tile-okat tarthatja a world
 	std::vector<Tile> tiles;
+
+	std::vector<Zone> HouseZones;
+	std::vector<Zone> IndustryZones;
+	std::vector<Zone> ServiceZones;
+	
 public:
 	World();
 	~World();
@@ -28,4 +34,12 @@ public:
 	TileRectWrapper* getWrapper();
 	Vector2Data tileCoorOnWorldPosition(Vector2Data worldPos);
 	Tile* getTileOnCoords(int i, int j);
+
+	void addHouseZone(Zone zone);
+	void addIndustryZone(Zone zone);
+	void addServiceZone(Zone zone);
+
+	std::vector<Zone>* getHouseZones();
+	std::vector<Zone>* getIndustryZones();
+	std::vector<Zone>* getServiceZones();
 };

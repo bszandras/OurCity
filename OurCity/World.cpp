@@ -113,3 +113,33 @@ Tile* World::getTileOnCoords(int i, int j)
 	index += i;
 	return &tiles[index];
 }
+
+void World::addHouseZone(Zone zone)
+{
+	this->HouseZones.push_back(zone);
+}
+
+void World::addIndustryZone(Zone zone)
+{
+	this->IndustryZones.push_back(zone);
+}
+
+void World::addServiceZone(Zone zone)
+{
+	this->ServiceZones.push_back(zone);
+}
+
+std::vector<Zone>* World::getHouseZones()
+{
+	return &HouseZones;
+}
+
+std::vector<Zone>* World::getIndustryZones()
+{
+	return &IndustryZones
+}
+
+std::vector<Zone>* World::getServiceZones()
+{
+	return &ServiceZones;
+}

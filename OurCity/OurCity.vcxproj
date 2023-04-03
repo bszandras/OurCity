@@ -176,6 +176,7 @@
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Workplace.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="Zone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppTime.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="Workplace.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="Zone.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="myFrag.frag" />
