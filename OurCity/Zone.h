@@ -13,8 +13,10 @@ public:
 	Zone(unsigned char type);
 	~Zone();
 
-	void addTile(int tileID);
-	void removeTile(int tileID);
+	bool addTile(int tileID);
+	bool removeTile(int tileID);
+	bool isTileInZone(int tileID) const;
+	void getTiles(std::vector<int> &tiles);
 };
 
 #endif

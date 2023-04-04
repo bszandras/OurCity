@@ -9,19 +9,37 @@ Zone::~Zone()
 {
 }
 
-void Zone::addTile(int tileID)
+bool Zone::addTile(int tileID)
 {
-	tiles.push_back(tileID);
+	if(this->isTileInZone(tileID))
+		return false;
+	else
+	{
+		tiles.push_back(tileID);
+		return true;
+	}
 }
 
-void Zone::removeTile(int tileID)
+bool Zone::removeTile(int tileID)
+{
+	if (!isTileInZone(tileID))
+		return false;
+	else
+	{
+		for (int i = 0; i < tiles.size(); i++)
+		{
+			tiles.erase(tiles.begin() + i);
+			return true;
+		}
+	}
+}
+
+bool Zone::isTileInZone(int tileID) const
 {
 	for (int i = 0; i < tiles.size(); i++)
 	{
 		if (tiles[i] == tileID)
-		{
-			tiles.erase(tiles.begin() + i);
-			break;
-		}
+			return true;
 	}
+	return false;
 }
