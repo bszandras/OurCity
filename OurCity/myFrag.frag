@@ -29,7 +29,7 @@ void main()
 	}
 	else
 	{
-		fs_out_col = color;
+		fs_out_col = color + 0.05;
 	}
 	
 }

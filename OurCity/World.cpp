@@ -199,6 +199,51 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 	return returnable;
 }
 */
+
+// csík kijelölés
+/*
+std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
+{
+	std::vector<int> returnable;
+
+	int blY = round(botleft.y / (64 - 41));
+	int blX = round((botleft.x - blY * 32) / 64);
+
+	int trY = round(topright.y / (64 - 41));
+	int trX = round((topright.x - trY * 32) / 64);
+
+	// blx és trx egyenlõ akkor jobbrafel vagy balrale
+	// ha nem egyenlõ balrafel vagy jobbrale
+
+	if (blX == trX)
+	{
+		for (int i = 0; i < trY - blY; i++)
+		{
+			int id = ();
+		}
+	}
+	else
+	{
+
+	}
+
+	int collumnOffset = -(trX - blX);
+	for (int j = 0; j <= (trX - blX); j++)
+	{
+		for (int i = 0; i <= trX - blX; i++)
+		{
+			int id = ((blY - i + j - collumnOffset) * width) + blX;
+			if (id >= 0)
+			{
+				returnable.push_back(id + i);
+			}
+
+		}
+		collumnOffset += 2;
+	}
+	return returnable;
+}
+*/
 void World::addHouseZone(Zone zone)
 {
 	this->HouseZones.push_back(zone);

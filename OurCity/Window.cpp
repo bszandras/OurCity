@@ -245,14 +245,19 @@ int Window::StartGameLoop()
 		ImGui::End();
 		*/
 
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(200, 5, 30, 0));
+		//ImGui::SetCursorPos
 
-		ImGui::SetNextWindowPos(ImVec2(0.5f, 0.5f));
+		// EZ ÍGY NEM JÓ
+		// hardcode-olt értékek
+		ImGui::SetNextWindowPos(ImVec2(width/2 - 140, height-80));
 
 		ImGui::Begin("Zones", &quit, window_flags);
 
 		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(200, 30, 65, 255));
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(200, 30, 65, 255));
+		
 
 		if (ImGui::Button("Resident")) {
 			ImGui::OpenPopup("ResidentP");
@@ -267,6 +272,7 @@ int Window::StartGameLoop()
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
 			}
+			//ImGui::GetMousePosOnOpeningCurrentPopup
 			ImGui::EndPopup();
 		}
 
@@ -325,7 +331,11 @@ int Window::StartGameLoop()
 		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();
 
+		//ImGui::SetCursorPosX(ImGui::GetWindowSize().x / 2);
+
 		ImGui::End();
+
+		ImGui::PopStyleColor();
 
 		ImGui::Render();
 
@@ -356,6 +366,7 @@ int Window::HandleEvents(bool& quit, SDL_Event ev)
 	// akkor alatta a zónát ne jelöljük ki
 	bool is_mouse_captured = ImGui::GetIO().WantCaptureMouse; // kell-e az imgui-nak az egér
 	bool is_keyboard_captured = ImGui::GetIO().WantCaptureKeyboard;	// kell-e az imgui-nak a billentyûzet
+	//std::cout << is_mouse_captured << std::endl;
 	switch (ev.type)
 	{
 	case SDL_QUIT:
@@ -370,10 +381,18 @@ int Window::HandleEvents(bool& quit, SDL_Event ev)
 		app->KeyboardUp(ev.key);
 		break;
 	case SDL_MOUSEBUTTONDOWN:
-		app->MouseDown(ev.button);
+		if (!is_mouse_captured)
+		{
+			app->MouseDown(ev.button);
+		}
+		
 		break;
 	case SDL_MOUSEBUTTONUP:
-		app->MouseUp(ev.button);
+		if (!is_mouse_captured)
+		{
+			app->MouseUp(ev.button);
+		}
+		
 		break;
 	case SDL_MOUSEWHEEL:
 		app->MouseWheel(ev.wheel);
