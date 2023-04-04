@@ -142,7 +142,7 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 */
 
 // fix négyzet kijelölés
-
+/*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
 	std::vector<int> returnable;
@@ -170,7 +170,7 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 	}
 	return returnable;
 }
-
+*/
 
 //	TODO isometrikus téglalap
 /*
@@ -202,7 +202,7 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 */
 
 // csík kijelölés
-/*
+
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
 	std::vector<int> returnable;
@@ -213,38 +213,60 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 	int trY = round(topright.y / (64 - 41));
 	int trX = round((topright.x - trY * 32) / 64);
 
-	// blx és trx egyenlõ akkor jobbrafel vagy balrale
-	// ha nem egyenlõ balrafel vagy jobbrale
-
-	if (blX == trX)
+	if (botleft.x < topright.x)
 	{
-		for (int i = 0; i < trY - blY; i++)
+		if (trY > blY)
 		{
-			int id = ();
+			for (int i = 0; i < trY - blY + 1; i++)
+			{
+				int id = (blY + i) * width + blX;
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < trX - blX + 1; i++)
+			{
+				int id = (blY - i) * width + blX + (i * 1);
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
 		}
 	}
 	else
 	{
-
-	}
-
-	int collumnOffset = -(trX - blX);
-	for (int j = 0; j <= (trX - blX); j++)
-	{
-		for (int i = 0; i <= trX - blX; i++)
+		if (trY > blY)
 		{
-			int id = ((blY - i + j - collumnOffset) * width) + blX;
-			if (id >= 0)
+			for (int i = 0; i < trY - blY + 1; i++)
 			{
-				returnable.push_back(id + i);
+				int id = (blY + i) * width + blX - (i * 1);
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
 			}
-
 		}
-		collumnOffset += 2;
+		else
+		{
+			for (int i = blY - trY; i > 0; i--)
+			{
+				int id = (trY + i) * width + blX;
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
+		}
 	}
+	
 	return returnable;
 }
-*/
+
 void World::addHouseZone(Zone zone)
 {
 	this->HouseZones.push_back(zone);

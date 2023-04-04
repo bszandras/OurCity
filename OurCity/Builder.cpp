@@ -51,10 +51,10 @@ void Builder::BuildSpecBuilding(int where)
 		// a tile-hoz utat kötést a gráf oldja meg és a pénz checket is
 		if (world->AddRoad(wrapper->GetRectsById(&where, 1), scene))
 		{
-			wrapper->UpdateTexIdById(where, 1);
+			wrapper->UpdateTexIdById(where, 14);
 			if (currentlyHighlighted == where)
 			{
-				currentTex = 1;
+				currentTex = 14;
 			}
 		}
 		
@@ -79,7 +79,7 @@ void Builder::SelectZone()
 	case HOUSINGZONE:
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 5);
+			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 11);
 
 			// create zone and push tile into it
 			Zone zone(0);
@@ -90,7 +90,7 @@ void Builder::SelectZone()
 	case INDUSTRIALZONE:
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 6);
+			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 12);
 
 			// create zone and push tile into it
 			Zone zone(1);
@@ -101,7 +101,7 @@ void Builder::SelectZone()
 	case SERVICEZONE:
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 7);
+			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 13);
 
 			// create zone and push tile into it
 			Zone zone(2);
@@ -138,7 +138,7 @@ void Builder::Highlight(int target)
 
 	// new highlight
 	// buildstate dependant highlighting is possible here
-	wrapper->UpdateTexIdById(target, 1);
+	wrapper->UpdateTexIdById(target, 10);
 }
 
 void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
@@ -155,7 +155,18 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 
 	UnHighlightArea();
 
-	std::vector<int> ids = world->tileIdsInArea(corner1, corner2);
+	std::vector<int> ids;
+	ids = world->tileIdsInArea(corner1, corner2);
+	/*
+	if (corner1.x < corner2.x)
+	{
+		ids = world->tileIdsInArea(corner1, corner2);
+	}
+	else
+	{
+		ids = world->tileIdsInArea(corner2, corner1);
+	}
+	*/
 
 	for (int i = 0; i < ids.size(); i++)
 	{
@@ -164,7 +175,7 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 			areaHighlightedTexes.push_back(world->getWrapper()->GetRectsById(&ids[i], 1)->texId);
 		}
 		int highlight = secondaryState;
-		highlight += 4;
+		highlight += 10;
 		world->getWrapper()->UpdateTexIdById(ids[i], highlight);
 	}
 }

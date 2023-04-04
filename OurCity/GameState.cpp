@@ -19,7 +19,7 @@ int GameState::getMoney()
 void GameState::spendMoney(int amount)
 {
 	money -= amount;
-	//std::cout << money << std::endl;
+	std::cout << money << std::endl;
 }
 
 bool GameState::hasEnough(int amount)
