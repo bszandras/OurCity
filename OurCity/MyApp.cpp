@@ -29,6 +29,9 @@ CMyApp::CMyApp(void)
 
 CMyApp::~CMyApp(void)
 {
+	delete mouseController;
+	delete scene;
+	delete time;
 }
 
 bool CMyApp::Init()

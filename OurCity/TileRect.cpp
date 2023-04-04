@@ -23,6 +23,7 @@ TileRectWrapper::TileRectWrapper(int mRects)
 TileRectWrapper::~TileRectWrapper(void)
 {
 	//delete[] rectArr;
+	delete rectArr;
 }
 void TileRectWrapper::AddTile(Tile tile)
 {

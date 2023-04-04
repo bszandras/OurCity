@@ -60,6 +60,7 @@ World::World()
 World::~World()
 {
 	// TODO destruktor
+	delete tileRectWrapper;
 }
 
 Vector2Data World::getOrigoOffset()

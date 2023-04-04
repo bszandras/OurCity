@@ -48,7 +48,7 @@ void GameTime::update(float deltaTime)
 	}
 	year += years;
 
-	std::cout << "Year: " << year << " Month: " << month << " Day: " << day << " Hour: " << hour << std::endl;
+	//std::cout << "Year: " << year << " Month: " << month << " Day: " << day << " Hour: " << hour << std::endl;
 }
 
 void GameTime::changeSpeed(int i)

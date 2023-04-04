@@ -491,6 +491,7 @@ Window::Window(int w, int h, int swap)
 
 Window::~Window()
 {
+	delete app;
 }
 
 int Window::getWidth()

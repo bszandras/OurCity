@@ -11,7 +11,10 @@ GameScene::GameScene(MouseController* mouse)
 
 GameScene::~GameScene()
 {
-
+	delete world;
+	delete camera;
+	delete builder;
+	delete gameTime;
 }
 
 Camera* GameScene::getCamera()
