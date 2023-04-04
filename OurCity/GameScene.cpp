@@ -29,6 +29,12 @@ Builder* GameScene::getBuilder()
 	return builder;
 }
 
+GameTime* GameScene::getGameTime()
+{
+	return gameTime;
+}
+
+
 void GameScene::update()
 {
 	gameTime->update(Time::instance->getDelta());

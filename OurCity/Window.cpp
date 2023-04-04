@@ -171,7 +171,13 @@ int Window::StartGameLoop()
 		window_flags |= ImGuiWindowFlags_NoMove;
 		window_flags |= ImGuiWindowFlags_NoResize;
 		window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
-		/*
+
+		ImGuiWindowFlags wf = 0;
+		wf |= ImGuiWindowFlags_NoResize;
+		wf |= ImGuiWindowFlags_NoTitleBar;
+
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(200, 5, 30, 0));
+		ImGui::SetNextWindowPos(ImVec2(0.5f, 0.5f));
 
 		ImGui::Begin("Options", &quit, window_flags);
 
@@ -228,24 +234,33 @@ int Window::StartGameLoop()
 
 		ImGui::End();
 
+		ImGui::SetNextWindowPos(ImVec2(width -230, 0.5f));
+
 		ImGui::Begin("Time", &quit, window_flags);
 
 		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
 
-		ImGui::Button("Pause");
+		if (ImGui::Button("Pause")) {
+			app->ChangeSpeed(0);
+		}
 		ImGui::SameLine();
-		ImGui::Button("Speed1");
+		if (ImGui::Button("Speed1")) {
+			app->ChangeSpeed(2);
+		}
 		ImGui::SameLine();
-		ImGui::Button("Speed2");
+		if (ImGui::Button("Speed2")) {
+			app->ChangeSpeed(2);
+		}
 		ImGui::SameLine();
-		ImGui::Button("Speed3");
+		if (ImGui::Button("Speed3")) {
+			app->ChangeSpeed(2);
+		}
+		ImGui::Text("Time");
 
 		ImGui::PopStyleColor();
 
 		ImGui::End();
-		*/
 
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(200, 5, 30, 0));
 		//ImGui::SetCursorPos
 
 		// EZ ÍGY NEM JÓ
@@ -260,6 +275,7 @@ int Window::StartGameLoop()
 		
 
 		if (ImGui::Button("Resident")) {
+			ImVec2 window_popup = ImGui::GetWindowPos();
 			ImGui::OpenPopup("ResidentP");
 		}
 		if (ImGui::BeginPopup("ResidentP")) {
@@ -316,16 +332,43 @@ int Window::StartGameLoop()
 		}
 		if (ImGui::BeginPopup("SpecialP")) {
 			if (ImGui::Button("Build")) {
-				ImGui::CloseCurrentPopup();
-
-				// change builder state
-				app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::ROAD);
+				ImGui::OpenPopup("SpecialBuilding");
+			}
+			if (ImGui::BeginPopupModal("SpecialBuilding")) {
+				if (ImGui::Button("Road")) {
+					// change builder state
+					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::ROAD);
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::Button("Police")) {
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::Button("Stadium")) {
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::Button("Fire Department")) {
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::Button("Highschool")) {
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::Button("University")) {
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::Button("Forest")) {
+					ImGui::CloseCurrentPopup();
+				}
+				if (ImGui::Button("Close")) {
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
 			}
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::EndPopup();
 		}
+		//app->scene->time->changespeed
 
 		ImGui::PopStyleColor();
 		ImGui::PopStyleColor();

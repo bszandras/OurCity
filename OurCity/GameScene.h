@@ -20,6 +20,7 @@ public:
 	Camera* getCamera();
 	World* getWorld();
 	Builder* getBuilder();
+	GameTime* getGameTime();
 
 	void update();
 };

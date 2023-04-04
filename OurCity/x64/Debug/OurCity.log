@@ -1,53 +1,7 @@
-﻿  AppTime.cpp
-  Builder.cpp
-  Building.cpp
-  Camera.cpp
-  Factory.cpp
-  GameScene.cpp
-  GLDebugMessageCallback.cpp
-  House.cpp
-  imgui.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\include\imgui\imgui.cpp(10996,163): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\include\imgui\imgui.cpp(11001,161): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\include\imgui\imgui.cpp(11124,158): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\include\imgui\imgui.cpp(11128,160): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_impl_sdl_gl3.cpp
-  main.cpp
-  MouseController.cpp
-  MyApp.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(259,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(345,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  Road.cpp
-  RoadGraph.cpp
-  ServiceBuilding.cpp
-  SpecialBuilding.cpp
-  SubMap.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(31,55): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(31,55): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(31,85): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(31,85): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(47,23): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(54,68): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(294): warning C4715: 'RoadGraph::getRoadByIndex': not all control paths return a value
-  Compiling...
-  TileRect.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\TileRect.cpp(39,18): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-  Window.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(250,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(250,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Workplace.cpp
-  World.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(103,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(104,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(149,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(150,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(152,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(153,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  Zone.cpp
-  Generating Code...
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Zone.cpp(35): warning C4715: 'Zone::removeTile': not all control paths return a value
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(131): warning C4715: 'Window::SDLInit': not all control paths return a value
-  OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\x64\Debug\OurCity.exe
+﻿  Window.cpp
+D:\Download_copy\szt\o\OurCity\Window.cpp(237,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(268,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(268,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(337,7): error C2664: 'bool ImGui::BeginPopupModal(const char *,bool *,ImGuiWindowFlags)': cannot convert argument 2 from 'ImGuiWindowFlags' to 'bool *'
+D:\Download_copy\szt\o\OurCity\Window.cpp(337,49): message : Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
+D:\Download_copy\szt\o\OurCity\include\imgui\imgui.h(399,29): message : see declaration of 'ImGui::BeginPopupModal'

@@ -39,6 +39,7 @@ public:
 	void LoadTextures();
 
 	void ChangeBuilderState(BuilderState state, BuilderSubState subState);
+	void ChangeSpeed(int i);
 protected:
 	// shaderekhez szükséges változók
 	GLuint m_programID; // shaderek programja

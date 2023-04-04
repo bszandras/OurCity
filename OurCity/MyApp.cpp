@@ -480,4 +480,9 @@ void CMyApp::ChangeBuilderState(BuilderState state, BuilderSubState subState)
 	scene->getBuilder()->ChangeState(state, subState);
 }
 
+void CMyApp::ChangeSpeed(int i)
+{
+	scene->getGameTime()->changeSpeed(i);
+}
+
 
