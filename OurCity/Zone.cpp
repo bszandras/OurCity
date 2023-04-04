@@ -43,3 +43,8 @@ bool Zone::isTileInZone(int tileID) const
 	}
 	return false;
 }
+
+std::vector<int> Zone::getTiles() const
+{
+	return tiles;
+}
