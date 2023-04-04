@@ -47,5 +47,5 @@ public:
 	std::vector<Zone>* getIndustryZones();
 	std::vector<Zone>* getServiceZones();
 
-	void AddRoad(Tile* t);
+	bool AddRoad(Tile* t);
 };

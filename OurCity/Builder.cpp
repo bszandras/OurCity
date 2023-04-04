@@ -15,6 +15,10 @@ void Builder::ChangeState(BuilderState state, BuilderSubState subState)
 	primaryState = state;
 	secondaryState = subState;
 
+	if (state == BuilderState::NOBUILD)
+	{
+		wrapper->UpdateTexIdById(currentlyHighlighted, currentTex);
+	}
 }
 
 void Builder::Build(int where)
@@ -43,19 +47,22 @@ void Builder::BuildSpecBuilding(int where)
 	switch (secondaryState)
 	{
 	case ROAD:
-		wrapper->UpdateTexIdById(where, 1);
-		world->AddRoad(wrapper->GetRectsById(&where, 1));
-		if (currentlyHighlighted == where)
+		if (world->AddRoad(wrapper->GetRectsById(&where, 1)))
 		{
-			currentTex = 1;
+			wrapper->UpdateTexIdById(where, 1);
+			if (currentlyHighlighted == where)
+			{
+				currentTex = 1;
+			}
 		}
+		
 		break;
 	default:
 		break;
 	}
 
-	primaryState = BuilderState::NOBUILD;
-	secondaryState = BuilderSubState::NONE;
+	//primaryState = BuilderState::NOBUILD;
+	//secondaryState = BuilderSubState::NONE;
 }
 
 void Builder::SelectZone()
@@ -64,6 +71,7 @@ void Builder::SelectZone()
 	switch (secondaryState)
 	{
 	case NONE:
+		std::cout << "something went fucky wucky" << std::endl;
 		return;
 		break;
 	case HOUSINGZONE:
@@ -100,14 +108,16 @@ void Builder::SelectZone()
 		}
 		break;
 	default:
+		std::cout << "something went fucky wucky" << std::endl;
+		return;
 		break;
 	}
 	currentlyHighlighted = 0;
 	currentTex = 0;
 	areaHighlightedIds.clear();
 	areaHighlightedTexes.clear();
-	primaryState = BuilderState::NOBUILD;
-	secondaryState = BuilderSubState::NONE;
+	//primaryState = BuilderState::NOBUILD;
+	//secondaryState = BuilderSubState::NONE;
 }
 
 void Builder::Highlight(int target)

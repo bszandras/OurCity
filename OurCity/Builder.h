@@ -30,6 +30,7 @@ private:
 
 	BuilderState primaryState = NOBUILD;
 	BuilderSubState secondaryState = NONE;
+
 	int currentlyHighlighted = 0;
 	int currentTex = 2;
 
