@@ -72,33 +72,33 @@ bool RoadGraph::addRoad(Tile* tile)
     adjList.push_back(std::vector<Road*>());
 
     // Add the new road to the adjacency list of the adjacent roads
-    Road* top = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
-    Road* bottom = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
-    Road* left = getRoadByCoords(tile->rect.i - 1, tile->rect.j);
-    Road* right = getRoadByCoords(tile->rect.i + 1, tile->rect.j);
+    Road* topLeft = getRoadByCoords(tile->rect.i-1, tile->rect.j+1);
+    Road* topRight = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
+    Road* botLeft = getRoadByCoords(tile->rect.i, tile->rect.j-1);
+    Road* botRight = getRoadByCoords(tile->rect.i + 1, tile->rect.j-1);
 
-    if (top)
+    if (topLeft)
     {
-		adjList[top->getId()].push_back(road);
-		adjList[road->getId()].push_back(top);
+		adjList[topLeft->getId()].push_back(road);
+		adjList[road->getId()].push_back(topLeft);
 	}
 
-    if (bottom)
+    if (topRight)
     {
-		adjList[bottom->getId()].push_back(road);
-		adjList[road->getId()].push_back(bottom);
+		adjList[topRight->getId()].push_back(road);
+		adjList[road->getId()].push_back(topRight);
 	}
 
-	if (left)
+	if (botLeft)
     {
-		adjList[left->getId()].push_back(road);
-		adjList[road->getId()].push_back(left);
+		adjList[botLeft->getId()].push_back(road);
+		adjList[road->getId()].push_back(botLeft);
 	}
 
-	if (right)
+	if (botRight)
     {
-		adjList[right->getId()].push_back(road);
-		adjList[road->getId()].push_back(right);
+		adjList[botRight->getId()].push_back(road);
+		adjList[road->getId()].push_back(botRight);
 	}
 
 	return true;
@@ -135,54 +135,54 @@ bool RoadGraph::removeRoad(Tile* tile)
 	}
 
 	// Remove the road from the adjacency list of the adjacent roads
-	Road* top = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
-	Road* bottom = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
-	Road* left = getRoadByCoords(tile->rect.i - 1, tile->rect.j);
-	Road* right = getRoadByCoords(tile->rect.i + 1, tile->rect.j);
+    Road* topLeft = getRoadByCoords(tile->rect.i - 1, tile->rect.j + 1);
+    Road* topRight = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
+    Road* botLeft = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
+    Road* botRight = getRoadByCoords(tile->rect.i + 1, tile->rect.j - 1);
 
-    if (top)
+    if (topLeft)
     {
-        for (int i = 0; i < adjList[top->getId()].size(); i++)
+        for (int i = 0; i < adjList[topLeft->getId()].size(); i++)
         {
-            if (adjList[top->getId()][i] == del)
+            if (adjList[topLeft->getId()][i] == del)
             {
-				adjList[top->getId()].erase(adjList[top->getId()].begin() + i);
+				adjList[topLeft->getId()].erase(adjList[topLeft->getId()].begin() + i);
 				break;
 			}
 		}
 	}
 
-    if (bottom)
+    if (topRight)
     {
-        for (int i = 0; i < adjList[bottom->getId()].size(); i++)
+        for (int i = 0; i < adjList[topRight->getId()].size(); i++)
         {
-            if (adjList[bottom->getId()][i] == del)
+            if (adjList[topRight->getId()][i] == del)
             {
-				adjList[bottom->getId()].erase(adjList[bottom->getId()].begin() + i);
+				adjList[topRight->getId()].erase(adjList[topRight->getId()].begin() + i);
 				break;
 			}
 		}
 	}
 
-    if (left)
+    if (botLeft)
     {
-        for (int i = 0; i < adjList[left->getId()].size(); i++)
+        for (int i = 0; i < adjList[botLeft->getId()].size(); i++)
         {
-            if (adjList[left->getId()][i] == del)
+            if (adjList[botLeft->getId()][i] == del)
             {
-				adjList[left->getId()].erase(adjList[left->getId()].begin() + i);
+				adjList[botLeft->getId()].erase(adjList[botLeft->getId()].begin() + i);
 				break;
 			}
 		}
 	}
 
-    if (right)
+    if (botRight)
     {
-        for (int i = 0; i < adjList[right->getId()].size(); i++)
+        for (int i = 0; i < adjList[botRight->getId()].size(); i++)
         {
-            if (adjList[right->getId()][i] == del)
+            if (adjList[botRight->getId()][i] == del)
             {
-				adjList[right->getId()].erase(adjList[right->getId()].begin() + i);
+				adjList[botRight->getId()].erase(adjList[botRight->getId()].begin() + i);
 				break;
 			}
 		}
@@ -206,12 +206,12 @@ bool RoadGraph::removeRoad(Tile* tile)
 
 bool RoadGraph::isAdjacent(Tile* tile)
 {
-    Road* top = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
-    Road* bottom = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
-    Road* left = getRoadByCoords(tile->rect.i - 1, tile->rect.j);
-    Road* right = getRoadByCoords(tile->rect.i + 1, tile->rect.j);
+    Road* topLeft = getRoadByCoords(tile->rect.i - 1, tile->rect.j + 1);
+    Road* topRight = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
+    Road* botLeft = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
+    Road* botRight = getRoadByCoords(tile->rect.i + 1, tile->rect.j - 1);
 
-    if (top || bottom || left || right)
+    if (topLeft || topRight || botLeft || botRight)
     {
         return true;
     }
