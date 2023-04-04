@@ -113,7 +113,8 @@ Tile* World::getTileOnCoords(int i, int j)
 	index += i;
 	return &tiles[index];
 }
-
+// elcsúsztatott téglalap kijelölés
+/*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
 	std::vector<int> returnable;
@@ -137,7 +138,67 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 	//std::cout << returnable.size() << std::endl;
 	return returnable;
 }
+*/
 
+// fix négyzet kijelölés
+
+std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
+{
+	std::vector<int> returnable;
+
+	int blY = round(botleft.y / (64 - 41));
+	int blX = round((botleft.x - blY * 32) / 64);
+
+	int trY = round(topright.y / (64 - 41));
+	int trX = round((topright.x - trY * 32) / 64);
+
+
+	int collumnOffset = -(trX - blX);
+	for (int j = 0; j <= (trX - blX); j++)
+	{
+		for (int i = 0; i <= trX - blX; i++)
+		{
+			int id = ((blY - i + j - collumnOffset) * width) + blX;
+			if (id >= 0)
+			{
+				returnable.push_back(id + i);
+			}
+			
+		}
+		collumnOffset += 2;
+	}
+	return returnable;
+}
+
+
+//	TODO isometrikus téglalap
+/*
+std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
+{
+	std::vector<int> returnable;
+
+	int blY = round(botleft.y / (64 - 41));
+	int blX = round((botleft.x - blY * 32) / 64);
+
+	int trY = round(topright.y / (64 - 41));
+	int trX = round((topright.x - trY * 32) / 64);
+
+
+	int collumnOffset = -(trX - blX);
+	int width = trX - blX;
+	int height = width + (trY - blY) - width;
+	for (int j = 0; j <= height; j++)
+	{
+		for (int i = 0; i <= width; i++)
+		{
+			int id = ((blY - i + j - collumnOffset) * World::width) + blX;
+			returnable.push_back(id + i);
+		}
+		collumnOffset += 2;
+	}
+	return returnable;
+}
+*/
 void World::addHouseZone(Zone zone)
 {
 	this->HouseZones.push_back(zone);
