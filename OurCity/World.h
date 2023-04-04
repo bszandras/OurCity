@@ -1,14 +1,18 @@
 #pragma once
 #include <vector>
 
+#include "RoadGraph.h"
 #include "Vector.h"
 #include "TileRect.h"
 #include "SubMap.h"
 #include "Tile.h"
 #include "Zone.h"
-#include "RoadGraph.h"
+
 
 class SubMap;
+class GameScene;
+class RoadGraph;
+
 class World
 {
 private:
@@ -47,5 +51,5 @@ public:
 	std::vector<Zone>* getIndustryZones();
 	std::vector<Zone>* getServiceZones();
 
-	bool AddRoad(Tile* t);
+	bool AddRoad(Tile* t, GameScene* scene);
 };

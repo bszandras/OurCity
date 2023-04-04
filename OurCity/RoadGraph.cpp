@@ -34,7 +34,7 @@ RoadGraph::RoadGraph(RoadGraph& t)
 	}
 }
 
-bool RoadGraph::addRoad(Tile* tile)
+bool RoadGraph::addRoad(Tile* tile, GameState* state)
 {
     // If the road to add has coordinate i or j = 0 return false
     if (tile->rect.i == 0 || tile->rect.j == 0)
@@ -54,6 +54,15 @@ bool RoadGraph::addRoad(Tile* tile)
     if (roads.size() == 0)
     {
 		Road* road = new Road(tile);
+        if (!state->hasEnough(road->getBuildCost()))
+        {
+            std::cout << "Not enough money for road" << std::endl;
+            delete road;
+            return false;
+        }
+        state->spendMoney(road->getBuildCost());
+        tile->building = road;
+
 		roads.push_back(road);
 		adjList.push_back(std::vector<Road*>());
 		return true;
@@ -68,6 +77,16 @@ bool RoadGraph::addRoad(Tile* tile)
 
     // If the graph contains roads and the new road is adjacent to at least one other road, add the new road
     Road* road = new Road(tile);
+
+    if (!state->hasEnough(road->getBuildCost()))
+    {
+        std::cout << "Not enough money for road" << std::endl;
+        delete road;
+        return false;
+    }
+    state->spendMoney(road->getBuildCost());
+    tile->building = road;
+
     roads.push_back(road);
     adjList.push_back(std::vector<Road*>());
 

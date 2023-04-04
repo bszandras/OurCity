@@ -1,5 +1,5 @@
 #include "GameTime.h"
-
+#include <string>
 GameTime::GameTime()
 {
 	year = 0;
@@ -75,4 +75,13 @@ void GameTime::changeSpeed(int i)
 			std::cerr << "Invalid speed" << std::endl;
 			break;
 	}
+}
+
+std::string GameTime::getTimeString()
+{
+	std::string returnable;
+
+	returnable = std::to_string(year) + "/" + std::to_string(month) + "/" + std::to_string(day) + ":" + std::to_string(hour);
+
+	return returnable;
 }

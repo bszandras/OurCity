@@ -5,8 +5,9 @@ GameScene::GameScene(MouseController* mouse)
 	world = new World();
 	camera = new Camera({(float)world->getWidth()*64*1.5f/2, (float)world->getHeight()*23/2});
 	//camera = new Camera();
-	builder = new Builder(world->getWrapper(), mouse, world);
+	builder = new Builder(world->getWrapper(), mouse, world, this);
 	gameTime = new GameTime();
+	gameState = new GameState();
 }
 
 GameScene::~GameScene()
@@ -15,6 +16,7 @@ GameScene::~GameScene()
 	delete camera;
 	delete builder;
 	delete gameTime;
+	delete gameState;
 }
 
 Camera* GameScene::getCamera()
@@ -35,6 +37,11 @@ Builder* GameScene::getBuilder()
 GameTime* GameScene::getGameTime()
 {
 	return gameTime;
+}
+
+GameState* GameScene::getGameState()
+{
+	return gameState;
 }
 
 

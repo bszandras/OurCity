@@ -2,6 +2,11 @@
 #include <vector>
 #include "TileRect.h"
 #include "MouseController.h"
+#include "GameScene.h"
+
+class GameScene;
+class MouseController;
+class World;
 
 enum BuilderState
 {
@@ -27,6 +32,7 @@ private:
 	TileRectWrapper* wrapper;
 	MouseController* mouse;
 	World* world;
+	GameScene* scene;
 
 	BuilderState primaryState = NOBUILD;
 	BuilderSubState secondaryState = NONE;
@@ -40,7 +46,7 @@ private:
 	void BuildSpecBuilding(int where);
 	void SelectZone();
 public:
-	Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world);
+	Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world, GameScene* scene);
 	~Builder();
 
 	void ChangeState(BuilderState state, BuilderSubState subState);

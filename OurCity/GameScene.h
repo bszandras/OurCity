@@ -5,7 +5,11 @@
 #include "MouseController.h"
 #include "GameTime.h"
 #include "AppTime.h"
+#include "GameState.h"
 
+class Builder;
+class MouseController;
+class World;
 class GameScene
 {
 private:
@@ -13,6 +17,8 @@ private:
 	Camera* camera;
 	Builder* builder;
 	GameTime* gameTime;
+	GameState* gameState;
+
 public:
 	GameScene(MouseController* mouse);
 	~GameScene();
@@ -21,6 +27,7 @@ public:
 	World* getWorld();
 	Builder* getBuilder();
 	GameTime* getGameTime();
+	GameState* getGameState();
 
 	void update();
 };

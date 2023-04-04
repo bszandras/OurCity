@@ -19,6 +19,7 @@ public:
 
 	void update(float deltaTime);
 	void changeSpeed(int i);
+	std::string getTimeString();
 };
 
 #endif

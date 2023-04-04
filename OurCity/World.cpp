@@ -30,7 +30,7 @@ World::World()
 			int y = (i * (64 - 41));
 			unsigned char texId = 2;
 			//tileRectWrapper->AddRect(TileRect{ i,j,texId });
-			tileRectWrapper->AddTile({ {j,i}, texId });
+			tileRectWrapper->AddTile({nullptr, {j,i}, texId });
 
 			int horIndex = x / (SubMap::getSize() * 64);
 			int vertIndex = y / (SubMap::getSize() * 64);
@@ -275,7 +275,7 @@ std::vector<Zone>* World::getServiceZones()
 	return &ServiceZones;
 }
 
-bool World::AddRoad(Tile* t)
+bool World::AddRoad(Tile* t, GameScene* scene)
 {
-	return roadGraph.addRoad(t);
+	return roadGraph.addRoad(t, scene->getGameState());
 }

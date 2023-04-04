@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "Road.h"
+#include "GameState.h"
 
 class RoadGraph
 {
@@ -16,7 +17,7 @@ public:
 	~RoadGraph();
 	RoadGraph(RoadGraph& t);
 
-	bool addRoad(Tile* tile);
+	bool addRoad(Tile* tile, GameState* state);
 	bool removeRoad(Tile* tile);
 	bool isAdjacent(Tile* tile);
 	bool isConnected(Road* road);

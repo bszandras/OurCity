@@ -1,10 +1,11 @@
 #include "Builder.h"
 
-Builder::Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world)
+Builder::Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world, GameScene* scene)
 {
 	Builder::wrapper = wrapper;
 	Builder::mouse = mouse;
 	Builder::world = world;
+	Builder::scene = scene;
 }
 
 Builder::~Builder()
@@ -47,7 +48,8 @@ void Builder::BuildSpecBuilding(int where)
 	switch (secondaryState)
 	{
 	case ROAD:
-		if (world->AddRoad(wrapper->GetRectsById(&where, 1)))
+		// a tile-hoz utat kötést a gráf oldja meg és a pénz checket is
+		if (world->AddRoad(wrapper->GetRectsById(&where, 1), scene))
 		{
 			wrapper->UpdateTexIdById(where, 1);
 			if (currentlyHighlighted == where)

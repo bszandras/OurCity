@@ -3,6 +3,7 @@
 
 #include "TileRect.h"
 
+struct Tile;
 class Building
 {
 protected:

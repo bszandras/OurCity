@@ -245,7 +245,7 @@ int Window::StartGameLoop()
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Speed1")) {
-			app->ChangeSpeed(2);
+			app->ChangeSpeed(1);
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Speed2")) {
@@ -253,9 +253,10 @@ int Window::StartGameLoop()
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Speed3")) {
-			app->ChangeSpeed(2);
+			app->ChangeSpeed(3);
 		}
-		ImGui::Text("Time");
+		ImGui::Text("Time: ");
+		ImGui::Text(app->getGameTime().c_str());
 
 		ImGui::PopStyleColor();
 

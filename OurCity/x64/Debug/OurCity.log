@@ -1,7 +1,11 @@
-﻿  Window.cpp
-D:\Download_copy\szt\o\OurCity\Window.cpp(237,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(268,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(268,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(337,7): error C2664: 'bool ImGui::BeginPopupModal(const char *,bool *,ImGuiWindowFlags)': cannot convert argument 2 from 'ImGuiWindowFlags' to 'bool *'
-D:\Download_copy\szt\o\OurCity\Window.cpp(337,49): message : Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
-D:\Download_copy\szt\o\OurCity\include\imgui\imgui.h(399,29): message : see declaration of 'ImGui::BeginPopupModal'
+﻿  RoadGraph.cpp
+  World.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(104,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(105,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(150,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(151,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(153,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(154,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(313): warning C4715: 'RoadGraph::getRoadByIndex': not all control paths return a value
+  OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\x64\Debug\OurCity.exe
