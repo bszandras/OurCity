@@ -433,7 +433,15 @@ void CMyApp::MouseDown(SDL_MouseButtonEvent& mouse)
 
 void CMyApp::MouseUp(SDL_MouseButtonEvent& mouse)
 {
-	mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::CLICK);
+	if (mouse.button == SDL_BUTTON_LEFT)
+	{
+		mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::CLICK);
+	}
+	else if(mouse.button == SDL_BUTTON_RIGHT)
+	{
+		scene->getBuilder()->ChangeState(BuilderState::NOBUILD, BuilderSubState::NONE);
+	}
+	
 }
 
 void CMyApp::MouseWheel(SDL_MouseWheelEvent& wheel)

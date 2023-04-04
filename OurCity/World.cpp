@@ -168,7 +168,7 @@ std::vector<Zone>* World::getServiceZones()
 	return &ServiceZones;
 }
 
-void World::AddRoad(Tile* t)
+bool World::AddRoad(Tile* t)
 {
-	roadGraph.addRoad(t);
+	return roadGraph.addRoad(t);
 }
