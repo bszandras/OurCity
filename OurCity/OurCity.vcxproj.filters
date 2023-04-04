@@ -140,9 +140,6 @@
     <ClInclude Include="AppTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Building.h">
       <Filter>Header Files\Buildings</Filter>
     </ClInclude>
