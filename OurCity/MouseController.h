@@ -14,13 +14,18 @@ class MouseController
 private:
 	static MouseController* instance;
 	MouseState stateThisFrame;
+	bool drag = false;
 	Vector2Data screenPosition;
+
+	Vector2Data worldDragStart;
 public:
 	MouseController();
 	~MouseController();
 	void ClearControlFrame();
-	void UpdateControlFrame(Vector2Data position);
+	void UpdateControlFrame(Vector2Data position, MouseState state);
 	Vector2Data getScreenPosition();
-	Vector2Data getWorldPosition(World* world, Camera* camera);
+	Vector2Data getRecalculateWorldPosition(World* world, Camera* camera);
 	MouseState getMouseState();
+	Vector2Data getWorldDragStart();
+	void setDragStart(World* world, Camera* camera);
 };

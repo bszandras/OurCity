@@ -6,6 +6,7 @@
 #include "SubMap.h"
 #include "Tile.h"
 #include "Zone.h"
+#include "RoadGraph.h"
 
 class SubMap;
 class World
@@ -22,6 +23,8 @@ private:
 	std::vector<Zone> HouseZones;
 	std::vector<Zone> IndustryZones;
 	std::vector<Zone> ServiceZones;
+
+	RoadGraph roadGraph;
 	
 public:
 	World();
@@ -34,6 +37,7 @@ public:
 	TileRectWrapper* getWrapper();
 	Vector2Data tileCoorOnWorldPosition(Vector2Data worldPos);
 	Tile* getTileOnCoords(int i, int j);
+	std::vector<int> tileIdsInArea(Vector2Data botleft, Vector2Data topright);
 
 	void addHouseZone(Zone zone);
 	void addIndustryZone(Zone zone);
@@ -42,4 +46,6 @@ public:
 	std::vector<Zone>* getHouseZones();
 	std::vector<Zone>* getIndustryZones();
 	std::vector<Zone>* getServiceZones();
+
+	void AddRoad(Tile* t);
 };
