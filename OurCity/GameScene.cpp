@@ -6,10 +6,12 @@ GameScene::GameScene(MouseController* mouse)
 	//camera = new Camera({(float)world->getWidth()*64*1.5f/2, (float)world->getHeight()*23/2});
 	camera = new Camera();
 	builder = new Builder(world->getWrapper(), mouse, world);
+	gameTime = new GameTime();
 }
 
 GameScene::~GameScene()
 {
+
 }
 
 Camera* GameScene::getCamera()
@@ -25,4 +27,9 @@ World* GameScene::getWorld()
 Builder* GameScene::getBuilder()
 {
 	return builder;
+}
+
+void GameScene::update()
+{
+	gameTime->update(Time::instance->getDelta());
 }

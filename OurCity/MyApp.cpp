@@ -209,6 +209,7 @@ void CMyApp::Update()
 	// frame elején inicializáljuk az aktuális időt
 	// deltaTime így Update + Render alatt eltellt idő lesz 
 	time->UpdateTime(SDL_GetTicks() / 1000.0f);
+	scene->update();
 	//std::cout << time->getDelta() << std::endl;
 
 	World* world = scene->getWorld();
