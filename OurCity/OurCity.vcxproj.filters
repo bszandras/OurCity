@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Buildings">
       <UniqueIdentifier>{2a9d9dd7-9e4e-4ddf-93f5-8f44b46382fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Resident">
+      <UniqueIdentifier>{1d11b0a2-0bf9-4953-a2a9-c3aa911b9bb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resident">
+      <UniqueIdentifier>{504bb130-187d-4d23-9368-d903ccde1a07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -101,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="MyApp.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Resident.cpp">
+      <Filter>Source Files\Resident</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="Builder.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resident.h">
+      <Filter>Header Files\Resident</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

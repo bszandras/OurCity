@@ -168,6 +168,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="MyApp.cpp" />
+    <ClCompile Include="Resident.cpp" />
     <ClCompile Include="Road.cpp" />
     <ClCompile Include="RoadGraph.cpp" />
     <ClCompile Include="ServiceBuilding.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="include\imgui\imgui_internal.h" />
     <ClInclude Include="MouseController.h" />
     <ClInclude Include="MyApp.h" />
+    <ClInclude Include="Resident.h" />
     <ClInclude Include="Road.h" />
     <ClInclude Include="RoadGraph.h" />
     <ClInclude Include="ServiceBuilding.h" />
