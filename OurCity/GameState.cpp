@@ -4,7 +4,7 @@
 
 GameState::GameState()
 {
-	money = 1000;
+	money = 100000;
 }
 
 GameState::~GameState()
@@ -19,6 +19,12 @@ int GameState::getMoney()
 void GameState::spendMoney(int amount)
 {
 	money -= amount;
+	std::cout << money << std::endl;
+}
+
+void GameState::income(int amount)
+{
+	money += amount;
 	std::cout << money << std::endl;
 }
 

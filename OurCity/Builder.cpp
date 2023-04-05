@@ -39,6 +39,7 @@ void Builder::Build(int where)
 		BuildSpecBuilding(where);
 		break;
 	case BUILDINGDESTROY:
+		DestroySpecBuilding(where);
 		break;
 	default:
 		break;
@@ -60,25 +61,92 @@ void Builder::BuildSpecBuilding(int where)
 		}
 		
 		break;
+	case FOREST:
+	{
+		Tile* tile = wrapper->GetRectsById(&where, 1);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			Forest* build = new Forest(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, FOREST);
+
+			if (succ == false)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
+	case POLICESTATION:
+	{
+		Tile* tile = wrapper->GetRectsById(&where, 1);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			PoliceStation* build = new PoliceStation(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, POLICESTATION);
+
+			if (!succ)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
 	case FIRESTATION:
 	{
 		Tile* tile = wrapper->GetRectsById(&where, 1);
 		if (world->getRoadGraph()->isAdjacent(tile))
 		{
-			FireStation* fire = new FireStation(tile);
-
-			if (!scene->getGameState()->hasEnough(fire->getBuildCost()))
+			FireStation* build = new FireStation(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, FIRESTATION);
+			
+			if (!succ)
 			{
-				std::cout << "not enough money for firestation" << std::endl;
-				return;
+				delete build;
 			}
+		}
+		break;
+	}
+	case HIGHSCHOOL:
+	{
+		Tile* tile = wrapper->GetRectsById(&where, 1);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			HighSchool* build = new HighSchool(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, HIGHSCHOOL);
 
-			tile->building = fire;
-
-			wrapper->UpdateTexIdById(where, 32);
-			if (currentlyHighlighted == where)
+			if (!succ)
 			{
-				currentTex = 32;
+				delete build;
+			}
+		}
+		break;
+	}
+	case UNIVERSITY:
+	{
+		Tile* tile = wrapper->GetRectsById(&where, 1);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			University* build = new University(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, UNIVERSITY);
+
+			if (!succ)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
+	case STADIUM:
+	{
+		Tile* tile = wrapper->GetRectsById(&where, 1);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			Stadium* build = new Stadium(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, STADIUM);
+
+			if (!succ)
+			{
+				delete build;
 			}
 		}
 		break;
@@ -90,7 +158,58 @@ void Builder::BuildSpecBuilding(int where)
 	//primaryState = BuilderState::NOBUILD;
 	//secondaryState = BuilderSubState::NONE;
 }
+bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int tex)
+{
+	//FireStation* fire = new FireStation(tile);
+	if (tile->building != nullptr)
+	{
+		std::cout << "there is a building already here" << std::endl;
+		return false;
+	}
 
+	if (!scene->getGameState()->hasEnough(building->getBuildCost()))
+	{
+		std::cout << "not enough money for <-building->" << std::endl;
+		return false;
+	}
+
+	wrapper->SetBuilding(where, building);
+	//tile->building = building;
+
+	wrapper->UpdateTexIdById(where, tex);
+	if (currentlyHighlighted == where)
+	{
+		currentTex = tex;
+	}
+
+	return true;
+}
+bool Builder::DestroySpecBuilding(int where)
+{
+	Tile* tile = wrapper->GetRectsById(&where, 1);
+	if (tile->building == nullptr)
+	{
+		std::cout << "there is nothing here to destroy" << std::endl;
+		return false;
+	}
+
+	Building* b = tile->building;
+	//tile->building = nullptr;
+	wrapper->SetBuilding(where, nullptr);
+
+	// TODO
+	// ide fognak kerülni a spec épület update-ek
+
+	scene->getGameState()->income(b->getBuildCost() / 2);
+	delete b;
+
+	wrapper->UpdateTexIdById(where, 2);
+	if (currentlyHighlighted == where)
+	{
+		currentTex = 2;
+	}
+	return true;
+}
 void Builder::SelectZone()
 {
 	// debug 0,0-ból indul a zone highlight
@@ -145,6 +264,8 @@ void Builder::SelectZone()
 	//primaryState = BuilderState::NOBUILD;
 	//secondaryState = BuilderSubState::NONE;
 }
+
+
 
 void Builder::Highlight(int target)
 {

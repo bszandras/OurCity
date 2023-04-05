@@ -8,5 +8,6 @@ public:
 	~GameState();
 	int getMoney();
 	void spendMoney(int amount);
+	void income(int amount);
 	bool hasEnough(int amount);
 };

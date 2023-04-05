@@ -23,8 +23,13 @@ enum BuilderSubState
 	INDUSTRIALZONE,
 	SERVICEZONE,
 
-	ROAD,
-	FIRESTATION
+	ROAD = 14,
+	FOREST = 30,
+	POLICESTATION = 31,
+	FIRESTATION = 32,
+	HIGHSCHOOL = 33,
+	UNIVERSITY = 34,
+	STADIUM = 35
 };
 
 class Builder
@@ -46,6 +51,8 @@ private:
 
 	void BuildSpecBuilding(int where);
 	void SelectZone();
+	bool BuildSpecBuilding(Tile* tile, Building* building, int where, int tex);
+	bool DestroySpecBuilding(int where);
 public:
 	Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world, GameScene* scene);
 	~Builder();

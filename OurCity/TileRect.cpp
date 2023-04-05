@@ -52,6 +52,8 @@ int TileRectWrapper::GetLastRectID()
 {
 	return endPointer - 1;
 }
+// EZT CSAK ADAT OLVASÁSRA HASZNÁLJUK
+// NEM POINTERT AD AZ EREDETI ADATRA HANEM ÉRTÉKET AD VISSZ
 Tile* TileRectWrapper::GetRectsById(int ids[], int rectCount)
 {
 	int idCount = rectCount;
