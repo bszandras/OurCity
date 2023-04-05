@@ -64,7 +64,7 @@ void Builder::BuildSpecBuilding(int where)
 	case FOREST:
 	{
 		Tile* tile = wrapper->GetRectsById(&where, 1);
-		if (world->getRoadGraph()->isAdjacent(tile))
+		//if (world->getRoadGraph()->isAdjacent(tile))
 		{
 			Forest* build = new Forest(tile);
 			bool succ = BuildSpecBuilding(tile, build, where, FOREST);
