@@ -348,6 +348,8 @@ int Window::StartGameLoop()
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Fire Department")) {
+					// change builder state
+					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FIRESTATION);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Highschool")) {

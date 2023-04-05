@@ -52,4 +52,5 @@ public:
 	std::vector<Zone>* getServiceZones();
 
 	bool AddRoad(Tile* t, GameScene* scene);
+	RoadGraph* getRoadGraph();
 };

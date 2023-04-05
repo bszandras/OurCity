@@ -23,7 +23,8 @@ enum BuilderSubState
 	INDUSTRIALZONE,
 	SERVICEZONE,
 
-	ROAD
+	ROAD,
+	FIRESTATION
 };
 
 class Builder

@@ -301,3 +301,8 @@ bool World::AddRoad(Tile* t, GameScene* scene)
 {
 	return roadGraph.addRoad(t, scene->getGameState());
 }
+
+RoadGraph* World::getRoadGraph()
+{
+	return &roadGraph;
+}

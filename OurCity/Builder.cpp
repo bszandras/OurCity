@@ -1,4 +1,5 @@
 #include "Builder.h"
+#include "BuildingsInclude.h"
 
 Builder::Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world, GameScene* scene)
 {
@@ -59,6 +60,29 @@ void Builder::BuildSpecBuilding(int where)
 		}
 		
 		break;
+	case FIRESTATION:
+	{
+		Tile* tile = wrapper->GetRectsById(&where, 1);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			FireStation* fire = new FireStation(tile);
+
+			if (!scene->getGameState()->hasEnough(fire->getBuildCost()))
+			{
+				std::cout << "not enough money for firestation" << std::endl;
+				return;
+			}
+
+			tile->building = fire;
+
+			wrapper->UpdateTexIdById(where, 32);
+			if (currentlyHighlighted == where)
+			{
+				currentTex = 32;
+			}
+		}
+		break;
+	}
 	default:
 		break;
 	}
