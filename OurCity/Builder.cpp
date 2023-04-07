@@ -220,38 +220,44 @@ void Builder::SelectZone()
 		return;
 		break;
 	case HOUSINGZONE:
+	{
+		Zone zone(0);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
 			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 11);
 
-			// create zone and push tile into it
-			Zone zone(0);
+			// push tile into zone
 			zone.addTile(areaHighlightedIds[i]);
-			world->addHouseZone(zone);
 		}
+		world->addHouseZone(zone);
 		break;
+	}
 	case INDUSTRIALZONE:
+	{
+		Zone zone(1);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
 			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 12);
 
 			// create zone and push tile into it
-			Zone zone(1);
 			zone.addTile(areaHighlightedIds[i]);
-			world->addIndustryZone(zone);
 		}
+		world->addIndustryZone(zone);
 		break;
+	}
 	case SERVICEZONE:
+	{
+		Zone zone(2);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
 			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 13);
 
 			// create zone and push tile into it
-			Zone zone(2);
 			zone.addTile(areaHighlightedIds[i]);
-			world->addServiceZone(zone);
 		}
+		world->addServiceZone(zone);
 		break;
+	}
 	default:
 		std::cout << "something went fucky wucky" << std::endl;
 		return;

@@ -21,7 +21,6 @@ struct Tile
 class TileRectWrapper
 {
 private:
-	//TileRect* rectArr;
 	Tile* rectArr;
 	int maxRects = 0;
 	int endPointer = 0;

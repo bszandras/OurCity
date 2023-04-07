@@ -2,7 +2,7 @@
 #define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #define new DEBUG_NEW
 
-#include <stdlib.h>
+// memory leak
 #include <crtdbg.h>
 
 #include "Window.h"

@@ -288,6 +288,8 @@ int Window::StartGameLoop()
 			}
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
+				// change builder state
+				app->ChangeBuilderState(BuilderState::ZONECANCEL, BuilderSubState::NONE);
 			}
 			//ImGui::GetMousePosOnOpeningCurrentPopup
 			ImGui::EndPopup();
