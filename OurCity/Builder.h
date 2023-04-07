@@ -51,6 +51,7 @@ private:
 
 	void BuildSpecBuilding(int where);
 	void SelectZone();
+	void RemoveTileFromZone(int where);
 	bool BuildSpecBuilding(Tile* tile, Building* building, int where, int tex);
 	bool DestroySpecBuilding(int where);
 public:

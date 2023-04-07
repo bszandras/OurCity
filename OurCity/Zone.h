@@ -19,6 +19,7 @@ public:
 	bool removeTile(int tileID);
 	bool isTileInZone(int tileID) const;
 	std::vector<int> getTiles() const;
+	int tileCount();
 };
 
 #endif

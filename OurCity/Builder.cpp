@@ -34,6 +34,7 @@ void Builder::Build(int where)
 		SelectZone();
 		break;
 	case ZONECANCEL:
+		RemoveTileFromZone(where);
 		break;
 	case BUILDING:
 		BuildSpecBuilding(where);
@@ -270,7 +271,44 @@ void Builder::SelectZone()
 	//primaryState = BuilderState::NOBUILD;
 	//secondaryState = BuilderSubState::NONE;
 }
+void Builder::RemoveTileFromZone(int where)
+{
+	// egyelõre ez így szar de mûködik
 
+	// check if id is in housing zone
+	std::vector<Zone>* zones = world->getHouseZones();
+
+	for (int i = 0; i < zones->size(); i++)
+	{
+		std::vector<int> idsBefore = zones->at(i).getTiles();
+		if (zones->at(i).removeTile(where))
+		{
+			// removed
+			//std::cout << "removed yay" << std::endl;
+
+			// elég csak where-t update-elni
+			// wrapper->UpdateTexIdById(where, 2);
+
+			std::vector<int> ids = zones->at(i).getTiles();
+
+			for (int i = 0; i < idsBefore.size(); i++)
+			{
+				wrapper->UpdateTexIdById(idsBefore[i], 2);
+			}
+			for (int i = 0; i < ids.size(); i++)
+			{
+				wrapper->UpdateTexIdById(ids[i], 11);
+			}
+
+			if (currentlyHighlighted == where)
+			{
+				currentTex = 2;
+			}
+			return;
+			//std::cout << zones->at(i).tileCount() << std::endl;
+		}
+	}
+}
 
 
 void Builder::Highlight(int target)
