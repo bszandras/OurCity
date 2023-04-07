@@ -41,7 +41,4 @@ public:
 	Tile* GetRectsById(int ids[], int rectCount);
 	Tile* GetPointerToId(int id);
 	void UpdateTexIdById(int id, int texID);
-	//void CreateTileRect(int i, int j, int t);
-	void SetBuilding(int target, Building* building);
-	void SetZone(int target, bool val);
 };

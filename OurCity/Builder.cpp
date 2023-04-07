@@ -52,7 +52,6 @@ void Builder::BuildSpecBuilding(int where)
 	{
 	case ROAD:
 		// a tile-hoz utat kötést a gráf oldja meg és a pénz checket is
-		//if (world->AddRoad(wrapper->GetRectsById(&where, 1), scene))
 		if (world->AddRoad(wrapper->GetPointerToId(where), scene))
 		{
 			wrapper->UpdateTexIdById(where, 14);
@@ -65,8 +64,7 @@ void Builder::BuildSpecBuilding(int where)
 		break;
 	case FOREST:
 	{
-		Tile* tile = wrapper->GetRectsById(&where, 1);
-		//if (world->getRoadGraph()->isAdjacent(tile))
+		Tile* tile = wrapper->GetPointerToId(where);
 		{
 			Forest* build = new Forest(tile);
 			bool succ = BuildSpecBuilding(tile, build, where, FOREST);
@@ -80,7 +78,7 @@ void Builder::BuildSpecBuilding(int where)
 	}
 	case POLICESTATION:
 	{
-		Tile* tile = wrapper->GetRectsById(&where, 1);
+		Tile* tile = wrapper->GetPointerToId(where);
 		if (world->getRoadGraph()->isAdjacent(tile))
 		{
 			PoliceStation* build = new PoliceStation(tile);
@@ -95,7 +93,7 @@ void Builder::BuildSpecBuilding(int where)
 	}
 	case FIRESTATION:
 	{
-		Tile* tile = wrapper->GetRectsById(&where, 1);
+		Tile* tile = wrapper->GetPointerToId(where);
 		if (world->getRoadGraph()->isAdjacent(tile))
 		{
 			FireStation* build = new FireStation(tile);
@@ -110,7 +108,7 @@ void Builder::BuildSpecBuilding(int where)
 	}
 	case HIGHSCHOOL:
 	{
-		Tile* tile = wrapper->GetRectsById(&where, 1);
+		Tile* tile = wrapper->GetPointerToId(where);
 		if (world->getRoadGraph()->isAdjacent(tile))
 		{
 			HighSchool* build = new HighSchool(tile);
@@ -125,7 +123,7 @@ void Builder::BuildSpecBuilding(int where)
 	}
 	case UNIVERSITY:
 	{
-		Tile* tile = wrapper->GetRectsById(&where, 1);
+		Tile* tile = wrapper->GetPointerToId(where);
 		if (world->getRoadGraph()->isAdjacent(tile))
 		{
 			University* build = new University(tile);
@@ -140,7 +138,7 @@ void Builder::BuildSpecBuilding(int where)
 	}
 	case STADIUM:
 	{
-		Tile* tile = wrapper->GetRectsById(&where, 1);
+		Tile* tile = wrapper->GetPointerToId(where);
 		if (world->getRoadGraph()->isAdjacent(tile))
 		{
 			Stadium* build = new Stadium(tile);
@@ -156,13 +154,9 @@ void Builder::BuildSpecBuilding(int where)
 	default:
 		break;
 	}
-
-	//primaryState = BuilderState::NOBUILD;
-	//secondaryState = BuilderSubState::NONE;
 }
 bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int tex)
 {
-	//FireStation* fire = new FireStation(tile);
 	if (tile->building != nullptr)
 	{
 		std::cout << "there is a building already here" << std::endl;
@@ -175,8 +169,7 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 		return false;
 	}
 
-	wrapper->SetBuilding(where, building);
-	//tile->building = building;
+	wrapper->GetPointerToId(where)->building = building;
 
 	wrapper->UpdateTexIdById(where, tex);
 	if (currentlyHighlighted == where)
@@ -188,7 +181,7 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 }
 bool Builder::DestroySpecBuilding(int where)
 {
-	Tile* tile = wrapper->GetRectsById(&where, 1);
+	Tile* tile = wrapper->GetPointerToId(where);
 	if (tile->building == nullptr)
 	{
 		std::cout << "there is nothing here to destroy" << std::endl;
@@ -196,8 +189,7 @@ bool Builder::DestroySpecBuilding(int where)
 	}
 
 	Building* b = tile->building;
-	//tile->building = nullptr;
-	wrapper->SetBuilding(where, nullptr);
+	wrapper->GetPointerToId(where)->building = nullptr;
 
 	// TODO
 	// ide fognak kerülni a spec épület update-ek
@@ -226,14 +218,12 @@ void Builder::SelectZone()
 		Zone zone(0);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			// TODO
-			// ez rettenet inefficient, felesleges mindig lekérni és bejárni a tile tömböt
-			Tile* tile = wrapper->GetRectsById(&areaHighlightedIds[i], 1);
+			Tile* tile = wrapper->GetPointerToId(areaHighlightedIds[i]);
 			if (tile -> hasZone || tile -> building != nullptr)
 			{
 				continue;
 			}
-			wrapper->SetZone(areaHighlightedIds[i], true);
+			wrapper->GetPointerToId(areaHighlightedIds[i])->hasZone = true;
 			wrapper->UpdateTexIdById(areaHighlightedIds[i], 11);
 
 			// push tile into zone
@@ -247,14 +237,12 @@ void Builder::SelectZone()
 		Zone zone(1);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			// TODO
-			// ez rettenet inefficient, felesleges mindig lekérni és bejárni a tile tömböt
-			Tile* tile = wrapper->GetRectsById(&areaHighlightedIds[i], 1);
+			Tile* tile = wrapper->GetPointerToId(areaHighlightedIds[i]);
 			if (tile->hasZone || tile->building != nullptr)
 			{
 				continue;
 			}
-			wrapper->SetZone(areaHighlightedIds[i], true);
+			wrapper->GetPointerToId(areaHighlightedIds[i])->hasZone = true;
 			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 12);
 
 			// create zone and push tile into it
@@ -268,14 +256,12 @@ void Builder::SelectZone()
 		Zone zone(2);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			// TODO
-			// ez rettenet inefficient, felesleges mindig lekérni és bejárni a tile tömböt
-			Tile* tile = wrapper->GetRectsById(&areaHighlightedIds[i], 1);
+			Tile* tile = wrapper->GetPointerToId(areaHighlightedIds[i]);
 			if (tile->hasZone || tile->building != nullptr)
 			{
 				continue;
 			}
-			wrapper->SetZone(areaHighlightedIds[i], true);
+			wrapper->GetPointerToId(areaHighlightedIds[i])->hasZone = true;
 			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 13);
 
 			// create zone and push tile into it
@@ -293,14 +279,10 @@ void Builder::SelectZone()
 	currentTex = 0;
 	areaHighlightedIds.clear();
 	areaHighlightedTexes.clear();
-	//primaryState = BuilderState::NOBUILD;
-	//secondaryState = BuilderSubState::NONE;
 }
 void Builder::RemoveTileFromZone(int where)
 {
-	// TODO
-	// EZ NAGYON ILLEGÁLIS DE MIVEL CSAK OLVASSA AZ ADATOT ELFOGADHATÓ
-	Tile* tile = wrapper->GetRectsById(&where, 1);
+	Tile* tile = wrapper->GetPointerToId(where);
 	if (tile->building != nullptr)
 	{
 		return;
@@ -398,9 +380,7 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 
 	for (int i = 0; i < ids.size(); i++)
 	{
-		// TODO
-		// szokásos illegális...
-		Tile* tile = wrapper->GetRectsById(&ids[i], 1);
+		Tile* tile = wrapper->GetPointerToId(ids[i]);
 		if (tile->hasZone || tile->building != nullptr)
 		{
 			continue;

@@ -75,14 +75,3 @@ void TileRectWrapper::UpdateTexIdById(int id, int texID)
 {
 	rectArr[id].texId = texID;
 }
-
-void TileRectWrapper::SetBuilding(int target, Building* building)
-{
-	//rectArr[target]->building = building;
-	rectArr[target].building = building;
-}
-
-void TileRectWrapper::SetZone(int target, bool val)
-{
-	rectArr[target].hasZone = val;
-}
