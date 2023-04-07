@@ -35,10 +35,13 @@ bool Zone::removeTile(int tileID)
 		return false;
 	else
 	{
-		for (int i = 0; i < tiles.size(); i++)
+		for(size_t i = 0; i < tiles.size(); i++)
 		{
-			tiles.erase(tiles.begin() + i);
-			return true;
+			if(tiles[i] == tileID)
+			{
+				tiles.erase(tiles.begin() + i);
+				return true;
+			}
 		}
 	}
 }
