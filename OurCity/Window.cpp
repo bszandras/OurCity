@@ -307,7 +307,10 @@ int Window::StartGameLoop()
 				app->ChangeBuilderState(BuilderState::ZONE, BuilderSubState::INDUSTRIALZONE);
 			}
 			if (ImGui::Button("Delete")) {
+
 				ImGui::CloseCurrentPopup();
+				// change builder state
+				app->ChangeBuilderState(BuilderState::ZONECANCEL, BuilderSubState::NONE);
 			}
 			ImGui::EndPopup();
 		}
@@ -325,6 +328,8 @@ int Window::StartGameLoop()
 			}
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
+				// change builder state
+				app->ChangeBuilderState(BuilderState::ZONECANCEL, BuilderSubState::NONE);
 			}
 			ImGui::EndPopup();
 		}

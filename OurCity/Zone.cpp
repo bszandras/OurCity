@@ -24,13 +24,6 @@ bool Zone::addTile(int tileID)
 
 bool Zone::removeTile(int tileID)
 {
-	std::cout << tileID << std::endl;
-	for (int i = 0; i < tiles.size(); i++)
-	{
-		std::cout << tiles[i] << "," <<std::endl;
-	}
-
-
 	if (!isTileInZone(tileID))
 		return false;
 	else
@@ -52,10 +45,8 @@ bool Zone::isTileInZone(int tileID) const
 	{
 		if (tiles[i] == tileID)
 		{
-			std::cout << "tile in zone" << std::endl;
 			return true;
 		}
-			
 	}
 	return false;
 }

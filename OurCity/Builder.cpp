@@ -52,7 +52,8 @@ void Builder::BuildSpecBuilding(int where)
 	{
 	case ROAD:
 		// a tile-hoz utat kötést a gráf oldja meg és a pénz checket is
-		if (world->AddRoad(wrapper->GetRectsById(&where, 1), scene))
+		//if (world->AddRoad(wrapper->GetRectsById(&where, 1), scene))
+		if (world->AddRoad(wrapper->GetPointerToId(where), scene))
 		{
 			wrapper->UpdateTexIdById(where, 14);
 			if (currentlyHighlighted == where)
@@ -225,7 +226,15 @@ void Builder::SelectZone()
 		Zone zone(0);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 11);
+			// TODO
+			// ez rettenet inefficient, felesleges mindig lekérni és bejárni a tile tömböt
+			Tile* tile = wrapper->GetRectsById(&areaHighlightedIds[i], 1);
+			if (tile -> hasZone || tile -> building != nullptr)
+			{
+				continue;
+			}
+			wrapper->SetZone(areaHighlightedIds[i], true);
+			wrapper->UpdateTexIdById(areaHighlightedIds[i], 11);
 
 			// push tile into zone
 			zone.addTile(areaHighlightedIds[i]);
@@ -238,6 +247,14 @@ void Builder::SelectZone()
 		Zone zone(1);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
+			// TODO
+			// ez rettenet inefficient, felesleges mindig lekérni és bejárni a tile tömböt
+			Tile* tile = wrapper->GetRectsById(&areaHighlightedIds[i], 1);
+			if (tile->hasZone || tile->building != nullptr)
+			{
+				continue;
+			}
+			wrapper->SetZone(areaHighlightedIds[i], true);
 			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 12);
 
 			// create zone and push tile into it
@@ -251,6 +268,14 @@ void Builder::SelectZone()
 		Zone zone(2);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
+			// TODO
+			// ez rettenet inefficient, felesleges mindig lekérni és bejárni a tile tömböt
+			Tile* tile = wrapper->GetRectsById(&areaHighlightedIds[i], 1);
+			if (tile->hasZone || tile->building != nullptr)
+			{
+				continue;
+			}
+			wrapper->SetZone(areaHighlightedIds[i], true);
 			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 13);
 
 			// create zone and push tile into it
@@ -273,39 +298,63 @@ void Builder::SelectZone()
 }
 void Builder::RemoveTileFromZone(int where)
 {
-	// egyelõre ez így szar de mûködik
-
-	// check if id is in housing zone
-	std::vector<Zone>* zones = world->getHouseZones();
-
-	for (int i = 0; i < zones->size(); i++)
+	// TODO
+	// EZ NAGYON ILLEGÁLIS DE MIVEL CSAK OLVASSA AZ ADATOT ELFOGADHATÓ
+	Tile* tile = wrapper->GetRectsById(&where, 1);
+	if (tile->building != nullptr)
 	{
-		std::vector<int> idsBefore = zones->at(i).getTiles();
-		if (zones->at(i).removeTile(where))
+		return;
+	}
+
+	// egyelõre ez így szar de mûködik
+	for (int j = 0; j < 3; j++)
+	{
+		std::vector<Zone>* zones;
+		switch (j)
 		{
-			// removed
-			//std::cout << "removed yay" << std::endl;
-
-			// elég csak where-t update-elni
-			// wrapper->UpdateTexIdById(where, 2);
-
-			std::vector<int> ids = zones->at(i).getTiles();
-
-			for (int i = 0; i < idsBefore.size(); i++)
-			{
-				wrapper->UpdateTexIdById(idsBefore[i], 2);
-			}
-			for (int i = 0; i < ids.size(); i++)
-			{
-				wrapper->UpdateTexIdById(ids[i], 11);
-			}
-
-			if (currentlyHighlighted == where)
-			{
-				currentTex = 2;
-			}
+		case 0:
+			zones = world->getHouseZones();
+			break;
+		case 1:
+			zones = world->getIndustryZones();
+			break;
+		case 2:
+			zones = world->getServiceZones();
+			break;
+		default:
+			std::cout << "valami óriási gebasz van a zóna törléssel" << std::endl;
 			return;
-			//std::cout << zones->at(i).tileCount() << std::endl;
+			break;
+		}
+
+		for (int i = 0; i < zones->size(); i++)
+		{
+			std::vector<int> idsBefore = zones->at(i).getTiles();
+			if (zones->at(i).removeTile(where))
+			{
+				// elég csak where-t update-elni
+				// de sokkal biztosabb ha az egész zóna id-jait update-eljük
+				// wrapper->UpdateTexIdById(where, 2);
+
+				std::vector<int> ids = zones->at(i).getTiles();
+
+				// unhighlight
+				for (int i = 0; i < idsBefore.size(); i++)
+				{
+					wrapper->UpdateTexIdById(idsBefore[i], 2);
+				}
+				// highlight whats left
+				for (int i = 0; i < ids.size(); i++)
+				{
+					wrapper->UpdateTexIdById(ids[i], 11 + j);
+				}
+
+				if (currentlyHighlighted == where)
+				{
+					currentTex = 2;
+				}
+				return;
+			}
 		}
 	}
 }
@@ -346,20 +395,19 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 
 	std::vector<int> ids;
 	ids = world->tileIdsInArea(corner1, corner2);
-	/*
-	if (corner1.x < corner2.x)
-	{
-		ids = world->tileIdsInArea(corner1, corner2);
-	}
-	else
-	{
-		ids = world->tileIdsInArea(corner2, corner1);
-	}
-	*/
 
 	for (int i = 0; i < ids.size(); i++)
 	{
-		if (std::find(areaHighlightedIds.begin(), areaHighlightedIds.end(), ids[i]) == areaHighlightedIds.end()) {
+		// TODO
+		// szokásos illegális...
+		Tile* tile = wrapper->GetRectsById(&ids[i], 1);
+		if (tile->hasZone || tile->building != nullptr)
+		{
+			continue;
+		}
+
+		if (std::find(areaHighlightedIds.begin(), areaHighlightedIds.end(), ids[i]) == areaHighlightedIds.end())
+		{
 			areaHighlightedIds.push_back(ids[i]);
 			areaHighlightedTexes.push_back(world->getWrapper()->GetRectsById(&ids[i], 1)->texId);
 		}

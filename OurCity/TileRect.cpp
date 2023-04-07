@@ -67,6 +67,10 @@ Tile* TileRectWrapper::GetRectsById(int ids[], int rectCount)
 
 	return returnable;
 }
+Tile* TileRectWrapper::GetPointerToId(int id)
+{
+	return &rectArr[id];
+}
 void TileRectWrapper::UpdateTexIdById(int id, int texID)
 {
 	rectArr[id].texId = texID;
@@ -76,4 +80,9 @@ void TileRectWrapper::SetBuilding(int target, Building* building)
 {
 	//rectArr[target]->building = building;
 	rectArr[target].building = building;
+}
+
+void TileRectWrapper::SetZone(int target, bool val)
+{
+	rectArr[target].hasZone = val;
 }

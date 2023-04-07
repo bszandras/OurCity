@@ -15,7 +15,13 @@ struct Tile
 	TileRect rect;
 	// 8 bites integer
 	unsigned char texId = 0;
-	//building
+	
+	// ez csak 1 byte
+	bool hasZone = false;
+
+	// itt van még 2 padding byte
+	// +
+	// +
 };
 
 class TileRectWrapper
@@ -33,7 +39,9 @@ public:
 	int GetLastRectID();
 	void AddTile(Tile tile);
 	Tile* GetRectsById(int ids[], int rectCount);
+	Tile* GetPointerToId(int id);
 	void UpdateTexIdById(int id, int texID);
 	//void CreateTileRect(int i, int j, int t);
 	void SetBuilding(int target, Building* building);
+	void SetZone(int target, bool val);
 };
