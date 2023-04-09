@@ -24,7 +24,23 @@ unsigned short House::getTax()
 	return tax;
 }
 
+bool House::moveIn()
+{
+	unsigned int reSize = this->residents.size();
+	unsigned short capacity = this->capacity;
+	if (reSize < capacity) 
+	{
+		return true;
+	}
+	return false;
+}
+
 void House::setTax(unsigned short tax)
 {
 	this->tax = tax;
+}
+
+void House::addResident(Resident r)
+{
+	this->residents.push_back(r);
 }

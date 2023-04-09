@@ -114,6 +114,9 @@
     <ClCompile Include="GameTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ResidentManager.cpp">
+      <Filter>Source Files\Resident</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="GameTime.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResidentManager.h">
+      <Filter>Header Files\Resident</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -170,6 +170,7 @@
     <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="MyApp.cpp" />
     <ClCompile Include="Resident.cpp" />
+    <ClCompile Include="ResidentManager.cpp" />
     <ClCompile Include="Road.cpp" />
     <ClCompile Include="RoadGraph.cpp" />
     <ClCompile Include="ServiceBuilding.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="MouseController.h" />
     <ClInclude Include="MyApp.h" />
     <ClInclude Include="Resident.h" />
+    <ClInclude Include="ResidentManager.h" />
     <ClInclude Include="Road.h" />
     <ClInclude Include="RoadGraph.h" />
     <ClInclude Include="ServiceBuilding.h" />

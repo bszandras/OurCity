@@ -17,8 +17,10 @@ enum BuilderSubState
 	HOUSINGZONE,
 	INDUSTRIALZONE,
 	SERVICEZONE,
-
-	ROAD
+	ROAD,
+	HOUSE,
+	SERVICE,
+	INDRUSTRY
 };
 
 class Builder
