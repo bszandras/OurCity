@@ -16,7 +16,7 @@ World::World()
 	{
 		for (int j = 0; j < width + (height / 2); j += SubMap::getSize())
 		{
-			submaps.push_back(SubMap(Vector2Data{(float)(j*64), (float)(i*64)}, 64, this));
+			submaps.push_back(SubMap(Vector2Data{ (float)(j * 64), (float)(i * 64) }, 64, this));
 		}
 	}
 
@@ -30,7 +30,7 @@ World::World()
 			int y = (i * (64 - 41));
 			unsigned char texId = 2;
 			//tileRectWrapper->AddRect(TileRect{ i,j,texId });
-			tileRectWrapper->AddTile({ {j,i}, texId });
+			tileRectWrapper->AddTile({ nullptr, {j,i}, texId });
 
 			int horIndex = x / (SubMap::getSize() * 64);
 			int vertIndex = y / (SubMap::getSize() * 64);
@@ -46,7 +46,7 @@ World::World()
 
 	//töröljük az üres submapokat
 	std::vector<SubMap> newSubMaps;
-	newSubMaps.reserve(submapReseve/2);
+	newSubMaps.reserve(submapReseve / 2);
 	for (int i = 0; i < submaps.size(); i++)
 	{
 		if (submaps[i].getRectCount() > 0)
@@ -60,6 +60,7 @@ World::World()
 World::~World()
 {
 	// TODO destruktor
+	delete tileRectWrapper;
 }
 
 Vector2Data World::getOrigoOffset()
@@ -104,7 +105,7 @@ Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 	int x = round((worldPos.x - y * 32) / 64);
 
 	//std::cout << x << " " << y << std::endl;
-	return {(float)x, (float)y};
+	return { (float)x, (float)y };
 }
 
 Tile* World::getTileOnCoords(int i, int j)
@@ -141,7 +142,7 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 */
 
 // fix négyzet kijelölés
-
+/*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
 	std::vector<int> returnable;
@@ -163,13 +164,13 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 			{
 				returnable.push_back(id + i);
 			}
-			
+
 		}
 		collumnOffset += 2;
 	}
 	return returnable;
 }
-
+*/
 
 //	TODO isometrikus téglalap
 /*
@@ -199,6 +200,73 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 	return returnable;
 }
 */
+
+// csík kijelölés
+
+std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
+{
+	std::vector<int> returnable;
+
+	int blY = round(botleft.y / (64 - 41));
+	int blX = round((botleft.x - blY * 32) / 64);
+
+	int trY = round(topright.y / (64 - 41));
+	int trX = round((topright.x - trY * 32) / 64);
+
+	if (botleft.x < topright.x)
+	{
+		if (trY > blY)
+		{
+			for (int i = 0; i < trY - blY + 1; i++)
+			{
+				int id = (blY + i) * width + blX;
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < trX - blX + 1; i++)
+			{
+				int id = (blY - i) * width + blX + (i * 1);
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
+		}
+	}
+	else
+	{
+		if (trY > blY)
+		{
+			for (int i = 0; i < trY - blY + 1; i++)
+			{
+				int id = (blY + i) * width + blX - (i * 1);
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
+		}
+		else
+		{
+			for (int i = blY - trY; i > 0; i--)
+			{
+				int id = (trY + i) * width + blX;
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
+		}
+	}
+
+	return returnable;
+}
+
 void World::addHouseZone(Zone zone)
 {
 	this->HouseZones.push_back(zone);
@@ -212,6 +280,21 @@ void World::addIndustryZone(Zone zone)
 void World::addServiceZone(Zone zone)
 {
 	this->ServiceZones.push_back(zone);
+}
+
+void World::addHouse(House house)
+{
+	Houses.push_back(house);
+}
+
+void World::addFactory(Factory factory)
+{
+	Factories.push_back(factory);
+}
+
+void World::addServBuilding(ServiceBuilding servbuilding)
+{
+	ServBuildings.push_back(servbuilding);
 }
 
 std::vector<Zone>* World::getHouseZones()
@@ -229,7 +312,27 @@ std::vector<Zone>* World::getServiceZones()
 	return &ServiceZones;
 }
 
-bool World::AddRoad(Tile* t)
+std::vector<House>* World::getHouses()
 {
-	return roadGraph.addRoad(t);
+	return &Houses;
+}
+
+House* World::getHouse(int id)
+{
+	return &Houses.at(id);
+}
+
+Factory* World::getFactory(int id)
+{
+	return &Factories.at(id);
+}
+
+ServiceBuilding* World::getServBuilding(int id)
+{
+	return &ServBuildings.at(id);
+}
+
+RoadGraph* World::getRoadGraph()
+{
+	return &roadGraph;
 }

@@ -3,6 +3,7 @@
 Workplace::Workplace(Tile* tile) : Building(tile)
 {
     this->tile = tile;
+    tile->building = this;
     capacity = 0;
     tax = 0;
 }
@@ -33,7 +34,7 @@ void Workplace::setTax(unsigned short tax)
     this->tax = tax;
 }
 
-void Workplace::addWorker(Resident r)
+void Workplace::addWorker(Resident* r)
 {
     this->workers.push_back(r);
 }

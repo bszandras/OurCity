@@ -70,3 +70,8 @@ void Resident::calculateHappiness()
 {
 	// TODO: Implement this
 }
+
+void Resident::setIntention(ResidentIntetion intention)
+{
+	this->intention = intention;
+}

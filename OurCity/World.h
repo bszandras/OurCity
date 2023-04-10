@@ -1,20 +1,26 @@
 #pragma once
 #include <vector>
 
+#include "RoadGraph.h"
 #include "Vector.h"
 #include "TileRect.h"
 #include "SubMap.h"
 #include "Tile.h"
 #include "Zone.h"
-#include "RoadGraph.h"
+#include "ResidentManager.h"
+
+#include "BuildingsInclude.h"
 
 class SubMap;
+class GameScene;
+class RoadGraph;
+
 class World
 {
 private:
 	Vector2Data origoOffset;
-	int width = 1000;
-	int height = 1000;
+	int width = 2000;
+	int height = 2000;
 	TileRectWrapper* tileRectWrapper;
 	std::vector<SubMap> submaps;
 	//tile-okat tarthatja a world
@@ -24,8 +30,13 @@ private:
 	std::vector<Zone> IndustryZones;
 	std::vector<Zone> ServiceZones;
 
+	std::vector<House> Houses;
+	std::vector<Factory> Factories;
+	std::vector<ServiceBuilding> ServBuildings;
+
 	RoadGraph roadGraph;
-	
+	ResidentManager residentManager;
+
 public:
 	World();
 	~World();
@@ -43,9 +54,19 @@ public:
 	void addIndustryZone(Zone zone);
 	void addServiceZone(Zone zone);
 
+	void addHouse(House house);
+	void addFactory(Factory factory);
+	void addServBuilding(ServiceBuilding servbuilding);
+
 	std::vector<Zone>* getHouseZones();
 	std::vector<Zone>* getIndustryZones();
 	std::vector<Zone>* getServiceZones();
+	std::vector<House>* getHouses();
 
-	bool AddRoad(Tile* t);
+	House* getHouse(int id);
+	Factory* getFactory(int id);
+	ServiceBuilding* getServBuilding(int id);
+
+	bool AddRoad(Tile* t, GameScene* scene);
+	RoadGraph* getRoadGraph();
 };

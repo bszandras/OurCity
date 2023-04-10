@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "Resident.h"
+#include "World.h"
 
 class ResidentManager {
 	private:
@@ -12,7 +13,10 @@ class ResidentManager {
 
 		std::vector<Resident> residents;
 
+		World* world;
+
 	public:
+		ResidentManager(World* world);
 		ResidentManager();
 
 		void updateResident();

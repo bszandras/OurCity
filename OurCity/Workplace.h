@@ -11,7 +11,7 @@ class Workplace : public Building
 protected:
 	unsigned short capacity;
 	unsigned short tax;
-	std::vector<Resident> workers;
+	std::vector<Resident*> workers;
 
 public:
 	Workplace(Tile* tile);
@@ -21,7 +21,7 @@ public:
 
 	bool canWorkHere();
 	void setTax(unsigned short tax);
-	void addWorker(Resident r);
+	void addWorker(Resident* r);
 };
 
 #endif

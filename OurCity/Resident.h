@@ -42,6 +42,7 @@ public:
 
 	void payTax();
 	void calculateHappiness();
+	void setIntention(ResidentIntetion intention);
 };
 
 #endif

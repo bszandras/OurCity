@@ -1,7 +1,8 @@
 #include "ResidentManager.h"
 
-ResidentManager::ResidentManager()
+ResidentManager::ResidentManager(World* world)
 {
+	this->world = world;
 	this->factoryCount = 0;
 	this->serviceCount = 0;
 }
@@ -30,8 +31,37 @@ void ResidentManager::handleIntention()
 			case NOINTENTION:
 				break;
 			case MOVEIN:
+				std::vector<House>* houses = this->world->getHouses();
+				unsigned int hSize = houses->size();
+				bool movedIn = false;
+				for (unsigned int j = 0; j < hSize; j++)
+				{
+					if (houses->at(j).moveIn() && !movedIn) 
+					{
+						movedIn = true;
+						houses->at(j).addResident(residents[i]);
+						//TODO
+						//residents[i].setHouse();
+						//beköltözik
+					}
+				}
+				if(!movedIn)
+				{
+					//nincsen szabad hely -> építkezik
+					this->residents[i].setIntention(BUILDHOUSE);
+				}
 				break;
 			case BUILDHOUSE:
+				//van-e lakossági zónában üres tile
+				//ha van építkezik
+				//egyébként intention movein
+				std::vector<Zone>* hZones = this->world->getHouseZones();
+				for(int j = 0; j< hZones->size();j++)
+				{
+					std::vector<int> zoneTiles = hZones->at(j).getTiles();
+					//TODO
+					//id alapján?
+				}
 				break;
 			case INDUSTRYWORK:
 				break;
