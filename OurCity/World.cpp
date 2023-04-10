@@ -282,6 +282,21 @@ void World::addServiceZone(Zone zone)
 	this->ServiceZones.push_back(zone);
 }
 
+void World::addHouse(House house)
+{
+	Houses.push_back(house);
+}
+
+void World::addFactory(Factory factory)
+{
+	Factories.push_back(factory);
+}
+
+void World::addServBuilding(ServiceBuilding servbuilding)
+{
+	ServBuildings.push_back(servbuilding);
+}
+
 std::vector<Zone>* World::getHouseZones()
 {
 	return &HouseZones;
@@ -295,6 +310,21 @@ std::vector<Zone>* World::getIndustryZones()
 std::vector<Zone>* World::getServiceZones()
 {
 	return &ServiceZones;
+}
+
+House* World::getHouse(int id)
+{
+	return &Houses.at(id);
+}
+
+Factory* World::getFactory(int id)
+{
+	return &Factories.at(id);
+}
+
+ServiceBuilding* World::getServBuilding(int id)
+{
+	return &ServBuildings.at(id);
 }
 
 bool World::AddRoad(Tile* t, GameScene* scene)

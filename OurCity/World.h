@@ -8,6 +8,7 @@
 #include "Tile.h"
 #include "Zone.h"
 
+#include "BuildingsInclude.h"
 
 class SubMap;
 class GameScene;
@@ -28,6 +29,10 @@ private:
 	std::vector<Zone> IndustryZones;
 	std::vector<Zone> ServiceZones;
 
+	std::vector<House> Houses;
+	std::vector<Factory> Factories;
+	std::vector<ServiceBuilding> ServBuildings;
+
 	RoadGraph roadGraph;
 	
 public:
@@ -47,9 +52,17 @@ public:
 	void addIndustryZone(Zone zone);
 	void addServiceZone(Zone zone);
 
+	void addHouse(House house);
+	void addFactory(Factory factory);
+	void addServBuilding(ServiceBuilding servbuilding);
+
 	std::vector<Zone>* getHouseZones();
 	std::vector<Zone>* getIndustryZones();
 	std::vector<Zone>* getServiceZones();
+
+	House* getHouse(int id);
+	Factory* getFactory(int id);
+	ServiceBuilding getServBuilding(int id);
 
 	bool AddRoad(Tile* t, GameScene* scene);
 	RoadGraph* getRoadGraph();

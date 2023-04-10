@@ -48,6 +48,12 @@ void Builder::Build(int where)
 }
 void Builder::BuildSpecBuilding(int where)
 {
+	Tile* tile = wrapper->GetPointerToId(where);
+	if (tile->hasZone || tile->building != nullptr)
+	{
+		//van itt valami más
+		return;
+	}
 	switch (secondaryState)
 	{
 	case ROAD:
