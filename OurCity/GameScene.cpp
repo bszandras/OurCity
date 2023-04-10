@@ -6,8 +6,12 @@ GameScene::GameScene(MouseController* mouse)
 	camera = new Camera({(float)world->getWidth()*64*1.5f/2, (float)world->getHeight()*23/2});
 	//camera = new Camera();
 	builder = new Builder(world->getWrapper(), mouse, world, this);
+	residentManager = new ResidentManager(world, builder);
 	gameTime = new GameTime();
 	gameState = new GameState();
+	for (int i = 0; i < 3; i++) {
+		residentManager->createResident();
+	}
 }
 
 GameScene::~GameScene()
@@ -47,5 +51,7 @@ GameState* GameScene::getGameState()
 
 void GameScene::update()
 {
-	gameTime->update(Time::instance->getDelta());
+	if(gameTime->update(Time::instance->getDelta()) == 1){
+		residentManager->handleIntention();
+	}
 }

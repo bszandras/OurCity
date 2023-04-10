@@ -6,13 +6,16 @@
 #include "GameTime.h"
 #include "AppTime.h"
 #include "GameState.h"
+#include "ResidentManager.h"
 
 class Builder;
+class ResidentManager;
 class MouseController;
 class World;
 class GameScene
 {
 private:
+	ResidentManager* residentManager;
 	World* world;
 	Camera* camera;
 	Builder* builder;

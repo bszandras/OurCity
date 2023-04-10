@@ -4,6 +4,7 @@
 #include "Resident.h"
 #include "World.h"
 
+class Builder;
 class World;
 class ResidentManager {
 	private:
@@ -15,11 +16,14 @@ class ResidentManager {
 		std::vector<Resident> residents;
 
 		World* world;
+		Builder* builder;
 
 	public:
-		ResidentManager(World* world);
+		ResidentManager(World* world,Builder* builder);
 		ResidentManager();
 
+		void buildHouse(int i);
+		void createResident();
 		void updateResident();
 		void handleIntention();
 		int getGlobalHappiness();

@@ -28,7 +28,7 @@ private:
 	ResidentIntetion intention;
 
 public:
-	Resident();
+	Resident(void);
 
 	void setAge(int age);
 	void setCurrentTax(int tax);

@@ -4,7 +4,6 @@
 
 World::World()
 {
-	residentManager = new ResidentManager(this);
 
 	origoOffset = { 0,0 };
 	reCalculateOrigoOffset();
@@ -284,9 +283,11 @@ void World::addServiceZone(Zone zone)
 	this->ServiceZones.push_back(zone);
 }
 
-void World::addHouse(House house)
+House* World::addHouse(Tile* tile)
 {
-	Houses.push_back(house);
+	House h(tile);
+	Houses.push_back(h);
+	return &h;
 }
 
 void World::addFactory(Factory factory)

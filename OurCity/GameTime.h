@@ -17,7 +17,7 @@ public:
 	GameTime();
 	~GameTime();
 
-	void update(float deltaTime);
+	int update(float deltaTime);
 	void changeSpeed(int i);
 	std::string getTimeString();
 };

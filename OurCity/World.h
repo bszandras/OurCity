@@ -7,6 +7,7 @@
 #include "SubMap.h"
 #include "Tile.h"
 #include "Zone.h"
+#include "Builder.h"
 
 
 #include "BuildingsInclude.h"
@@ -36,7 +37,6 @@ private:
 	std::vector<ServiceBuilding> ServBuildings;
 
 	RoadGraph roadGraph;
-	ResidentManager* residentManager;
 
 public:
 	World();
@@ -55,7 +55,7 @@ public:
 	void addIndustryZone(Zone zone);
 	void addServiceZone(Zone zone);
 
-	void addHouse(House house);
+	House* addHouse(Tile* tile);
 	void addFactory(Factory factory);
 	void addServBuilding(ServiceBuilding servbuilding);
 

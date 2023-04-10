@@ -1,4 +1,2 @@
-﻿MyApp.obj : error LNK2019: unresolved external symbol "public: __cdecl GameScene::GameScene(class MouseController *)" (??0GameScene@@QEAA@PEAVMouseController@@@Z) referenced in function "public: bool __cdecl CMyApp::Init(void)" (?Init@CMyApp@@QEAA_NXZ)
-MyApp.obj : error LNK2019: unresolved external symbol "public: class Builder * __cdecl GameScene::getBuilder(void)" (?getBuilder@GameScene@@QEAAPEAVBuilder@@XZ) referenced in function "public: void __cdecl CMyApp::ChangeBuilderState(enum BuilderState,enum BuilderSubState)" (?ChangeBuilderState@CMyApp@@QEAAXW4BuilderState@@W4BuilderSubState@@@Z)
-MyApp.obj : error LNK2019: unresolved external symbol "public: void __cdecl GameScene::update(void)" (?update@GameScene@@QEAAXXZ) referenced in function "public: void __cdecl CMyApp::Update(void)" (?Update@CMyApp@@QEAAXXZ)
-D:\Download_copy\szt\o\x64\Debug\OurCity.exe : fatal error LNK1120: 3 unresolved externals
+﻿  Resident.cpp
+  OurCity.vcxproj -> D:\Download_copy\szt\o\x64\Debug\OurCity.exe

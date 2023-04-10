@@ -14,12 +14,13 @@ GameTime::~GameTime()
 {
 }
 
-void GameTime::update(float deltaTime)
+int GameTime::update(float deltaTime)
 {
+	int returnable = 0;
 	seconds += deltaTime;
 	if (seconds < 1)
 	{
-		return;
+		return 0;
 	}
 	seconds = 0;
 
@@ -29,6 +30,7 @@ void GameTime::update(float deltaTime)
 	{
 		days = hour / 24;
 		hour = hour % 24;
+		returnable = 1;
 	}
 	day += days;
 	
@@ -47,7 +49,7 @@ void GameTime::update(float deltaTime)
 		month = month % 12;
 	}
 	year += years;
-
+	return returnable;
 	//std::cout << "Year: " << year << " Month: " << month << " Day: " << day << " Hour: " << hour << std::endl;
 }
 

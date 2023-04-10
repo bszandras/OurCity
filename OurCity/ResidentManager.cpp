@@ -1,10 +1,18 @@
 #include "ResidentManager.h"
 
-ResidentManager::ResidentManager(World* world)
+ResidentManager::ResidentManager(World* world, Builder* builder)
 {
 	this->world = world;
+	this->builder = builder;
 	this->factoryCount = 0;
 	this->serviceCount = 0;
+}
+
+void ResidentManager::createResident()
+{
+	Resident* r = new Resident();
+	this->residents.push_back(*r);
+	delete r;
 }
 
 void ResidentManager::updateResident()
@@ -26,12 +34,14 @@ void ResidentManager::handleIntention()
 	for(int i = 0; i < resSize; i++)
 	{
 		ResidentIntetion intention = this->residents[i].getIntention();
-		switch(intention)
+		switch(this->residents[i].getIntention())
 		{
 			case NOINTENTION:
 				break;
 			case MOVEIN:
 			{
+				std::cout << residents[i].getIntention() << std::endl;
+				
 				std::vector<House>* houses = this->world->getHouses();
 				unsigned int hSize = houses->size();
 				bool movedIn = false;
@@ -42,34 +52,30 @@ void ResidentManager::handleIntention()
 						movedIn = true;
 						houses->at(j).addResident(residents[i]);
 						//TODO
-						//residents[i].setHouse();
-						//beköltözik
+						residents[i].setHouse(&houses->at(j));
+						this->residents[i].setIntention(NOINTENTION);
+						std::cout << "Moved in " << i << " " << residents[i].getIntention() << std::endl;
+						break;
 					}
 				}
-				if (!movedIn)
+				if (residents[i].getHouse() == nullptr)
 				{
 					//nincsen szabad hely -> építkezik
-					this->residents[i].setIntention(BUILDHOUSE);
+					//this->residents[i].setIntention(BUILDHOUSE);
+					buildHouse(i);
+					break;
 				}
-				break;
+				
 			}
 				
 			case BUILDHOUSE:
 			{
-				//van-e lakossági zónában üres tile
-								//ha van építkezik
-								//egyébként intention movein
-				std::vector<Zone>* hZones = this->world->getHouseZones();
-				for (int j = 0; j < hZones->size(); j++)
-				{
-					std::vector<int> zoneTiles = hZones->at(j).getTiles();
-					//TODO
-					//id alapján?
-				}
+				buildHouse(i);
 				break;
 			}
 				
 			case INDUSTRYWORK:
+				//std::vector<ServiceBuilding>* serviceB =  
 				break;
 			case BUILDINDUSTRY:
 				break;
@@ -79,6 +85,29 @@ void ResidentManager::handleIntention()
 				break;
 		}
 	}
+}
+
+void ResidentManager::buildHouse(int i) {
+	std::vector<Zone>* hZones = this->world->getHouseZones();
+	bool builtHouse = false;
+	for (int j = 0; j < hZones->size(); j++)
+	{
+		std::vector<int> zoneTiles = hZones->at(j).getTiles();
+		for (int k = 0; k < zoneTiles.size(); k++) {
+			Tile* t = this->world->getWrapper()->GetPointerToId(zoneTiles.at(k));
+			if (t->building == nullptr) {
+				House* h = this->builder->BuildHouse(t);
+				this->residents[i].setIntention(MOVEIN);
+				builtHouse = true;
+				std::cout << "Built house " << i << std::endl;
+				break;
+			}
+		}
+		if (builtHouse) {
+			break;
+		}
+	}
+
 }
 
 int ResidentManager::getFactoryCount()

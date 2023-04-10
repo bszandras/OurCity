@@ -417,7 +417,7 @@ void Builder::UnHighlightArea()
 
 House* Builder::BuildHouse(Tile* tile)
 {
-	House* h = new House(tile);
+	House* h = world->addHouse(tile);
 	tile->building = h;
 	tile->texId = 21;
 	return nullptr;

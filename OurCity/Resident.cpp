@@ -1,6 +1,6 @@
 #include "Resident.h"
 
-Resident::Resident()
+Resident::Resident(void)
 {
 	age = 18;
 	workplace = nullptr;
@@ -8,7 +8,7 @@ Resident::Resident()
 	currentTax = 0;
 	pastTax = 0;
 	happiness = 0;
-	intention = MOVEIN;
+	intention = BUILDHOUSE;
 }
 
 void Resident::setAge(int age)
