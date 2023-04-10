@@ -29,7 +29,10 @@ enum BuilderSubState
 	FIRESTATION = 32,
 	HIGHSCHOOL = 33,
 	UNIVERSITY = 34,
-	STADIUM = 35
+	STADIUM = 35,
+	HOUSE,
+	SERVICE,
+	INDRUSTRY
 };
 
 class Builder

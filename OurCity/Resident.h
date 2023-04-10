@@ -36,11 +36,13 @@ public:
 	int getAge() const;
 	int getPastTax() const;
 	int getCurrentTax() const;
+	ResidentIntetion getIntention();
 	Workplace* getWorkplace() const;
 	House* getHouse() const;
 
 	void payTax();
 	void calculateHappiness();
+	void setIntention(ResidentIntetion intention);
 };
 
 #endif

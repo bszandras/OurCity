@@ -8,7 +8,7 @@ Resident::Resident()
 	currentTax = 0;
 	pastTax = 0;
 	happiness = 0;
-	intention = NOINTENTION;
+	intention = MOVEIN;
 }
 
 void Resident::setAge(int age)
@@ -46,6 +46,11 @@ int Resident::getCurrentTax() const
 	return this->currentTax;
 }
 
+ResidentIntetion Resident::getIntention()
+{
+	return this->intention;
+}
+
 Workplace* Resident::getWorkplace() const
 {
 	return this->workplace;
@@ -64,4 +69,9 @@ void Resident::payTax()
 void Resident::calculateHappiness()
 {
 	// TODO: Implement this
+}
+
+void Resident::setIntention(ResidentIntetion intention)
+{
+	this->intention = intention;
 }

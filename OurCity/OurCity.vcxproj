@@ -177,6 +177,7 @@
     <ClCompile Include="MyApp.cpp" />
     <ClCompile Include="PoliceStation.cpp" />
     <ClCompile Include="Resident.cpp" />
+    <ClCompile Include="ResidentManager.cpp" />
     <ClCompile Include="Road.cpp" />
     <ClCompile Include="RoadGraph.cpp" />
     <ClCompile Include="School.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="MyApp.h" />
     <ClInclude Include="PoliceStation.h" />
     <ClInclude Include="Resident.h" />
+    <ClInclude Include="ResidentManager.h" />
     <ClInclude Include="Road.h" />
     <ClInclude Include="RoadGraph.h" />
     <ClInclude Include="School.h" />

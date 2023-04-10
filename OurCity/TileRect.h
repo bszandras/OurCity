@@ -11,7 +11,7 @@ struct Tile
 {
 	// ez ideiglenes csak
 	Building* building;
-	// grafikában használt rect
+	// grafikï¿½ban hasznï¿½lt rect
 	TileRect rect;
 	// 8 bites integer
 	unsigned char texId = 0;
@@ -19,7 +19,7 @@ struct Tile
 	// ez csak 1 byte
 	bool hasZone = false;
 
-	// itt van még 2 padding byte
+	// itt van mï¿½g 2 padding byte
 	// +
 	// +
 };

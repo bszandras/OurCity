@@ -7,6 +7,7 @@
 #include "SubMap.h"
 #include "Tile.h"
 #include "Zone.h"
+#include "ResidentManager.h"
 
 #include "BuildingsInclude.h"
 
@@ -34,7 +35,8 @@ private:
 	std::vector<ServiceBuilding> ServBuildings;
 
 	RoadGraph roadGraph;
-	
+	ResidentManager residentManager;
+
 public:
 	World();
 	~World();
@@ -59,10 +61,11 @@ public:
 	std::vector<Zone>* getHouseZones();
 	std::vector<Zone>* getIndustryZones();
 	std::vector<Zone>* getServiceZones();
+	std::vector<House>* getHouses();
 
 	House* getHouse(int id);
 	Factory* getFactory(int id);
-	ServiceBuilding getServBuilding(int id);
+	ServiceBuilding* getServBuilding(int id);
 
 	bool AddRoad(Tile* t, GameScene* scene);
 	RoadGraph* getRoadGraph();

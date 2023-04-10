@@ -16,7 +16,7 @@ World::World()
 	{
 		for (int j = 0; j < width + (height / 2); j += SubMap::getSize())
 		{
-			submaps.push_back(SubMap(Vector2Data{(float)(j*64), (float)(i*64)}, 64, this));
+			submaps.push_back(SubMap(Vector2Data{ (float)(j * 64), (float)(i * 64) }, 64, this));
 		}
 	}
 
@@ -30,7 +30,7 @@ World::World()
 			int y = (i * (64 - 41));
 			unsigned char texId = 2;
 			//tileRectWrapper->AddRect(TileRect{ i,j,texId });
-			tileRectWrapper->AddTile({nullptr, {j,i}, texId });
+			tileRectWrapper->AddTile({ nullptr, {j,i}, texId });
 
 			int horIndex = x / (SubMap::getSize() * 64);
 			int vertIndex = y / (SubMap::getSize() * 64);
@@ -38,15 +38,15 @@ World::World()
 
 			submaps[mainIndex].addRect(tileRectWrapper->GetLastRectID());
 
-			// tile-t is meg kell csinálni a grafikai reprezentációhoz
+			// tile-t is meg kell csinï¿½lni a grafikai reprezentï¿½ciï¿½hoz
 			//tiles.push_back({ x,y });
 
 		}
 	}
 
-	//töröljük az üres submapokat
+	//tï¿½rï¿½ljï¿½k az ï¿½res submapokat
 	std::vector<SubMap> newSubMaps;
-	newSubMaps.reserve(submapReseve/2);
+	newSubMaps.reserve(submapReseve / 2);
 	for (int i = 0; i < submaps.size(); i++)
 	{
 		if (submaps[i].getRectCount() > 0)
@@ -94,7 +94,7 @@ TileRectWrapper* World::getWrapper()
 
 Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 {
-	//offsetelni kell, mert a négyzetek bal alsó sarka az origin
+	//offsetelni kell, mert a nï¿½gyzetek bal alsï¿½ sarka az origin
 	//worldPos.x -= 32;
 	//worldPos.y -= 11;
 
@@ -105,7 +105,7 @@ Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 	int x = round((worldPos.x - y * 32) / 64);
 
 	//std::cout << x << " " << y << std::endl;
-	return {(float)x, (float)y};
+	return { (float)x, (float)y };
 }
 
 Tile* World::getTileOnCoords(int i, int j)
@@ -114,7 +114,7 @@ Tile* World::getTileOnCoords(int i, int j)
 	index += i;
 	return &tiles[index];
 }
-// elcsúsztatott téglalap kijelölés
+// elcsï¿½sztatott tï¿½glalap kijelï¿½lï¿½s
 /*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
@@ -141,7 +141,7 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 }
 */
 
-// fix négyzet kijelölés
+// fix nï¿½gyzet kijelï¿½lï¿½s
 /*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
@@ -164,7 +164,7 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 			{
 				returnable.push_back(id + i);
 			}
-			
+
 		}
 		collumnOffset += 2;
 	}
@@ -172,7 +172,7 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 }
 */
 
-//	TODO isometrikus téglalap
+//	TODO isometrikus tï¿½glalap
 /*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
@@ -201,7 +201,7 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 }
 */
 
-// csík kijelölés
+// csï¿½k kijelï¿½lï¿½s
 
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
@@ -312,6 +312,11 @@ std::vector<Zone>* World::getServiceZones()
 	return &ServiceZones;
 }
 
+std::vector<House>* World::getHouses()
+{
+	return &Houses;
+}
+
 House* World::getHouse(int id)
 {
 	return &Houses.at(id);
@@ -325,11 +330,6 @@ Factory* World::getFactory(int id)
 ServiceBuilding* World::getServBuilding(int id)
 {
 	return &ServBuildings.at(id);
-}
-
-bool World::AddRoad(Tile* t, GameScene* scene)
-{
-	return roadGraph.addRoad(t, scene->getGameState());
 }
 
 RoadGraph* World::getRoadGraph()
