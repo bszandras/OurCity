@@ -371,32 +371,32 @@ int Window::StartGameLoop()
 				}
 				if (ImGui::Button("Police")) {
 					// change builder state
-					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::POLICESTATION);
+					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::POLICESTATION);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Stadium")) {
 					// change builder state
-					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::STADIUM);
+					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::STADIUM);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Fire Department")) {
 					// change builder state
-					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FIRESTATION);
+					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FIRESTATION);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Highschool")) {
 					// change builder state
-					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::HIGHSCHOOL);
+					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::HIGHSCHOOL);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("University")) {
 					// change builder state
-					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::UNIVERSITY);
+					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::UNIVERSITY);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Forest")) {
 					// change builder state
-					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FOREST);
+					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FOREST);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Close")) {
