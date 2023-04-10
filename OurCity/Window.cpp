@@ -175,6 +175,11 @@ int Window::StartGameLoop()
 		ImGuiWindowFlags wf = 0;
 		wf |= ImGuiWindowFlags_NoResize;
 		wf |= ImGuiWindowFlags_NoTitleBar;
+		wf |= ImGuiWindowFlags_NoMove;
+
+		ImGuiWindowFlags wfStat = 0;
+		wfStat |= ImGuiWindowFlags_NoResize;
+		wfStat |= ImGuiWindowFlags_NoMove;
 
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(200, 5, 30, 0));
 		ImGui::SetNextWindowPos(ImVec2(0.5f, 0.5f));
@@ -184,10 +189,12 @@ int Window::StartGameLoop()
 		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
 
 		if (ImGui::Button("ESC")) {
+			app->ChangeSpeed(0);
 			ImGui::OpenPopup("Menu");
 		}
-		if (ImGui::BeginPopupModal("Menu")) {
+		if (ImGui::BeginPopupModal("Menu",NULL,wf)) {
 			if (ImGui::Button("Resume")) {
+				app->ChangeSpeed(1);
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::Button("Settings");
@@ -204,7 +211,7 @@ int Window::StartGameLoop()
 			ImGui::OpenPopup("Money Statistics");
 		}
 
-		if (ImGui::BeginPopupModal("Money Statistics")) 
+		if (ImGui::BeginPopupModal("Money Statistics",NULL,wfStat)) 
 		{
 			if (ImGui::Button("Resume")) 
 			{
@@ -219,7 +226,7 @@ int Window::StartGameLoop()
 			ImGui::OpenPopup("Happiness Statistics");
 		}
 
-		if (ImGui::BeginPopupModal("Happiness Statistics"))
+		if (ImGui::BeginPopupModal("Happiness Statistics", NULL, wfStat))
 		{
 			if (ImGui::Button("Resume"))
 			{
@@ -276,7 +283,9 @@ int Window::StartGameLoop()
 		
 
 		if (ImGui::Button("Resident")) {
-			ImVec2 window_popup = ImGui::GetWindowPos();
+			float wnposX = ImGui::GetWindowPos().x;
+			float wnposY = ImGui::GetWindowPos().y;
+			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
 			ImGui::OpenPopup("ResidentP");
 		}
 		if (ImGui::BeginPopup("ResidentP")) {
@@ -286,6 +295,7 @@ int Window::StartGameLoop()
 				// change builder state
 				app->ChangeBuilderState(BuilderState::ZONE, BuilderSubState::HOUSINGZONE);
 			}
+			ImGui::SameLine();
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
 				// change builder state
@@ -297,6 +307,9 @@ int Window::StartGameLoop()
 
 		ImGui::SameLine();
 		if (ImGui::Button("Industry")) {
+			float wnposX = ImGui::GetWindowPos().x;
+			float wnposY = ImGui::GetWindowPos().y;
+			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
 			ImGui::OpenPopup("IndustryP");
 		}
 		if (ImGui::BeginPopup("IndustryP")) {
@@ -306,6 +319,7 @@ int Window::StartGameLoop()
 				// change builder state
 				app->ChangeBuilderState(BuilderState::ZONE, BuilderSubState::INDUSTRIALZONE);
 			}
+			ImGui::SameLine();
 			if (ImGui::Button("Delete")) {
 
 				ImGui::CloseCurrentPopup();
@@ -317,6 +331,9 @@ int Window::StartGameLoop()
 
 		ImGui::SameLine();
 		if (ImGui::Button("Service")) {
+			float wnposX = ImGui::GetWindowPos().x;
+			float wnposY = ImGui::GetWindowPos().y;
+			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
 			ImGui::OpenPopup("ServiceP");
 		}
 		if (ImGui::BeginPopup("ServiceP")) {
@@ -326,6 +343,7 @@ int Window::StartGameLoop()
 				// change builder state
 				app->ChangeBuilderState(BuilderState::ZONE, BuilderSubState::SERVICEZONE);
 			}
+			ImGui::SameLine();
 			if (ImGui::Button("Delete")) {
 				ImGui::CloseCurrentPopup();
 				// change builder state
@@ -336,13 +354,16 @@ int Window::StartGameLoop()
 
 		ImGui::SameLine();
 		if (ImGui::Button("Special")) {
+			float wnposX = ImGui::GetWindowPos().x;
+			float wnposY = ImGui::GetWindowPos().y;
+			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
 			ImGui::OpenPopup("SpecialP");
 		}
 		if (ImGui::BeginPopup("SpecialP")) {
 			if (ImGui::Button("Build")) {
 				ImGui::OpenPopup("SpecialBuilding");
 			}
-			if (ImGui::BeginPopupModal("SpecialBuilding")) {
+			if (ImGui::BeginPopupModal("SpecialBuilding",NULL,wf)) {
 				if (ImGui::Button("Road")) {
 					// change builder state
 					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::ROAD);
@@ -350,32 +371,32 @@ int Window::StartGameLoop()
 				}
 				if (ImGui::Button("Police")) {
 					// change builder state
-					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::POLICESTATION);
+					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::POLICESTATION);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Stadium")) {
 					// change builder state
-					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::STADIUM);
+					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::STADIUM);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Fire Department")) {
 					// change builder state
-					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FIRESTATION);
+					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FIRESTATION);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Highschool")) {
 					// change builder state
-					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::HIGHSCHOOL);
+					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::HIGHSCHOOL);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("University")) {
 					// change builder state
-					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::UNIVERSITY);
+					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::UNIVERSITY);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Forest")) {
 					// change builder state
-					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FOREST);
+					//app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::FOREST);
 					ImGui::CloseCurrentPopup();
 				}
 				if (ImGui::Button("Close")) {
@@ -383,6 +404,7 @@ int Window::StartGameLoop()
 				}
 				ImGui::EndPopup();
 			}
+			ImGui::SameLine();
 			if (ImGui::Button("Delete")) {
 				// change builder state
 				app->ChangeBuilderState(BuilderState::BUILDINGDESTROY, BuilderSubState::NONE);
