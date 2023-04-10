@@ -346,8 +346,6 @@ void Builder::RemoveTileFromZone(int where)
 		}
 	}
 }
-
-
 void Builder::Highlight(int target)
 {
 	// unhighlight previous highlight
@@ -366,7 +364,6 @@ void Builder::Highlight(int target)
 	// buildstate dependant highlighting is possible here
 	wrapper->UpdateTexIdById(target, 10);
 }
-
 void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 {
 	if (primaryState != BuilderState::ZONE)
@@ -402,7 +399,6 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 		world->getWrapper()->UpdateTexIdById(ids[i], highlight);
 	}
 }
-
 void Builder::UnHighlightArea()
 {
 	if (areaHighlightedIds.size() == 0)
@@ -417,4 +413,12 @@ void Builder::UnHighlightArea()
 
 	areaHighlightedIds.clear();
 	areaHighlightedTexes.clear();
+}
+
+House* Builder::BuildHouse(Tile* tile)
+{
+	House* h = new House(tile);
+	tile->building = h;
+	tile->texId = 21;
+	return nullptr;
 }

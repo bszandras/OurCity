@@ -3,6 +3,7 @@
 #include "TileRect.h"
 #include "MouseController.h"
 #include "GameScene.h"
+#include "BuildingsInclude.h"
 
 class GameScene;
 class MouseController;
@@ -66,4 +67,5 @@ public:
 	void Highlight(int target);
 	void HighlightArea(Vector2Data mouseWorldPosition, World* world);
 	void UnHighlightArea();
+	House* BuildHouse(Tile* tile);
 };
