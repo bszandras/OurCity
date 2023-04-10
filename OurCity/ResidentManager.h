@@ -4,6 +4,7 @@
 #include "Resident.h"
 #include "World.h"
 
+class World;
 class ResidentManager {
 	private:
 		int factoryCount;

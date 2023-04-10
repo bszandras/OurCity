@@ -117,6 +117,30 @@
     <ClCompile Include="ResidentManager.cpp">
       <Filter>Source Files\Resident</Filter>
     </ClCompile>
+    <ClCompile Include="FireStation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Forest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HighSchool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PoliceStation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="School.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stadium.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="University.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -208,6 +232,30 @@
     </ClInclude>
     <ClInclude Include="ResidentManager.h">
       <Filter>Header Files\Resident</Filter>
+    </ClInclude>
+    <ClInclude Include="FireStation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Forest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HighSchool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PoliceStation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="School.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stadium.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="University.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -31,12 +31,13 @@ void ResidentManager::handleIntention()
 			case NOINTENTION:
 				break;
 			case MOVEIN:
+			{
 				std::vector<House>* houses = this->world->getHouses();
 				unsigned int hSize = houses->size();
 				bool movedIn = false;
 				for (unsigned int j = 0; j < hSize; j++)
 				{
-					if (houses->at(j).moveIn() && !movedIn) 
+					if (houses->at(j).moveIn() && !movedIn)
 					{
 						movedIn = true;
 						houses->at(j).addResident(residents[i]);
@@ -45,24 +46,29 @@ void ResidentManager::handleIntention()
 						//beköltözik
 					}
 				}
-				if(!movedIn)
+				if (!movedIn)
 				{
 					//nincsen szabad hely -> építkezik
 					this->residents[i].setIntention(BUILDHOUSE);
 				}
 				break;
+			}
+				
 			case BUILDHOUSE:
+			{
 				//van-e lakossági zónában üres tile
-				//ha van építkezik
-				//egyébként intention movein
+								//ha van építkezik
+								//egyébként intention movein
 				std::vector<Zone>* hZones = this->world->getHouseZones();
-				for(int j = 0; j< hZones->size();j++)
+				for (int j = 0; j < hZones->size(); j++)
 				{
 					std::vector<int> zoneTiles = hZones->at(j).getTiles();
 					//TODO
 					//id alapján?
 				}
 				break;
+			}
+				
 			case INDUSTRYWORK:
 				break;
 			case BUILDINDUSTRY:

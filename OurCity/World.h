@@ -1,19 +1,20 @@
 #pragma once
 #include <vector>
-
+#include "ResidentManager.h"
 #include "RoadGraph.h"
 #include "Vector.h"
 #include "TileRect.h"
 #include "SubMap.h"
 #include "Tile.h"
 #include "Zone.h"
-#include "ResidentManager.h"
+
 
 #include "BuildingsInclude.h"
 
 class SubMap;
 class GameScene;
 class RoadGraph;
+class ResidentManager;
 
 class World
 {
@@ -35,7 +36,7 @@ private:
 	std::vector<ServiceBuilding> ServBuildings;
 
 	RoadGraph roadGraph;
-	ResidentManager residentManager;
+	ResidentManager* residentManager;
 
 public:
 	World();

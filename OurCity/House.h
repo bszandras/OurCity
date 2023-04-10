@@ -6,6 +6,7 @@
 #include "Building.h"
 #include "Resident.h"
 
+class Resident;
 class House : public Building
 {
 private:

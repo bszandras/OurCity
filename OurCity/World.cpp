@@ -4,6 +4,8 @@
 
 World::World()
 {
+	residentManager = new ResidentManager(this);
+
 	origoOffset = { 0,0 };
 	reCalculateOrigoOffset();
 
@@ -330,6 +332,11 @@ Factory* World::getFactory(int id)
 ServiceBuilding* World::getServBuilding(int id)
 {
 	return &ServBuildings.at(id);
+}
+
+bool World::AddRoad(Tile* t, GameScene* scene)
+{
+	return roadGraph.addRoad(t, scene->getGameState());;
 }
 
 RoadGraph* World::getRoadGraph()

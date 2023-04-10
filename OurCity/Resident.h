@@ -14,6 +14,8 @@ enum ResidentIntetion {
 	BUILDSERVICE
 };
 
+class Workplace;
+class House;
 class Resident
 {
 private:
