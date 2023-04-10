@@ -53,5 +53,8 @@ void GameScene::update()
 {
 	if(gameTime->update(Time::instance->getDelta()) == 1){
 		residentManager->handleIntention();
+		residentManager->createResident();
+		residentManager->createResident();
+		std::cout << "day passed" << std::endl;
 	}
 }

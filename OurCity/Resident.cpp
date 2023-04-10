@@ -8,7 +8,7 @@ Resident::Resident(void)
 	currentTax = 0;
 	pastTax = 0;
 	happiness = 0;
-	intention = BUILDHOUSE;
+	intention = MOVEIN;
 }
 
 void Resident::setAge(int age)

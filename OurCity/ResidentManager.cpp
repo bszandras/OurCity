@@ -65,12 +65,17 @@ void ResidentManager::handleIntention()
 					buildHouse(i);
 					break;
 				}
-				
+				break;
 			}
 				
 			case BUILDHOUSE:
 			{
-				buildHouse(i);
+				/*
+				if (residents[i].getHouse() == nullptr)
+				{
+					buildHouse(i);
+				}
+				*/
 				break;
 			}
 				
@@ -97,10 +102,13 @@ void ResidentManager::buildHouse(int i) {
 			Tile* t = this->world->getWrapper()->GetPointerToId(zoneTiles.at(k));
 			if (t->building == nullptr) {
 				House* h = this->builder->BuildHouse(t);
-				this->residents[i].setIntention(MOVEIN);
-				builtHouse = true;
-				std::cout << "Built house " << i << std::endl;
-				break;
+				if (h != nullptr)
+				{
+					this->residents[i].setIntention(MOVEIN);
+					builtHouse = true;
+					std::cout << "Built house " << i << std::endl;
+					break;
+				}
 			}
 		}
 		if (builtHouse) {

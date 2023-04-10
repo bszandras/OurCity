@@ -417,8 +417,16 @@ void Builder::UnHighlightArea()
 
 House* Builder::BuildHouse(Tile* tile)
 {
+	if (!world->getRoadGraph()->isAdjacent(tile))
+	{
+		return nullptr;
+	}
+
 	House* h = world->addHouse(tile);
 	tile->building = h;
 	tile->texId = 21;
-	return nullptr;
+	// 21 a ház
+	// 22 ipar
+	// 23 szolgaltatas
+	return h;
 }
