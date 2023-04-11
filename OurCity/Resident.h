@@ -25,6 +25,7 @@ private:
 	int currentTax;
 	int pastTax;
 	int happiness;
+	int education;
 	ResidentIntetion intention;
 
 public:
