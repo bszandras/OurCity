@@ -194,14 +194,24 @@ bool Builder::DestroySpecBuilding(int where)
 		return false;
 	}
 
-	Building* b = tile->building;
-	wrapper->GetPointerToId(where)->building = nullptr;
+	if (world->getRoadGraph()->searchRoadByCoords(tile->rect.i, tile->rect.j))
+	{
+		scene->getGameState()->income(tile->building->getBuildCost() / 2);
+		world->getRoadGraph()->removeRoad(tile);
+		tile->building = nullptr;
+	}
+	else
+	{
+		Building* b = tile->building;
+		wrapper->GetPointerToId(where)->building = nullptr;
 
-	// TODO
-	// ide fognak kerülni a spec épület update-ek
+		// TODO
+		// ide fognak kerülni a spec épület update-ek
 
-	scene->getGameState()->income(b->getBuildCost() / 2);
-	delete b;
+		scene->getGameState()->income(b->getBuildCost() / 2);
+		delete b;
+	}
+	
 
 	wrapper->UpdateTexIdById(where, 2);
 	if (currentlyHighlighted == where)
