@@ -28,6 +28,11 @@ unsigned short Building::getFireChance()
 	return fireChance;
 }
 
+unsigned char Building::getTileSize()
+{
+	return tileSize;
+}
+
 void Building::catchOnFire()
 {
 	// TODO: implement this

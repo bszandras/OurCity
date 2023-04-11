@@ -57,6 +57,7 @@ private:
 	void SelectZone();
 	void RemoveTileFromZone(int where);
 	bool BuildSpecBuilding(Tile* tile, Building* building, int where, int tex);
+	bool BuildBigSpecBuilding(Tile* tile, Building* building, int where, int tex);
 	bool DestroySpecBuilding(int where);
 public:
 	Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world, GameScene* scene);
@@ -65,6 +66,7 @@ public:
 	void ChangeState(BuilderState state, BuilderSubState subState);
 	void Build(int where);
 	void Highlight(int target);
+	void HighlightBigBuilding(int base);
 	void HighlightArea(Vector2Data mouseWorldPosition, World* world);
 	void UnHighlightArea();
 	House* BuildHouse(Tile* tile);

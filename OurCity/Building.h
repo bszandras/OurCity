@@ -10,6 +10,7 @@ protected:
 	unsigned short buildCost;
 	unsigned short maintenanceCost;
 	unsigned short fireChance;
+	unsigned char tileSize = 1;
 	Tile* tile;
 
 public:
@@ -19,6 +20,7 @@ public:
 	unsigned short getBuildCost();
 	unsigned short getMaintenanceCost();
 	unsigned short getFireChance();
+	unsigned char getTileSize();
 	Tile* getTile();
 
 	void catchOnFire();
