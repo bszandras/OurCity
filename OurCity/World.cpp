@@ -290,14 +290,18 @@ House* World::addHouse(Tile* tile)
 	return &h;
 }
 
-void World::addFactory(Factory factory)
+Factory* World::addFactory(Tile* tile)
 {
-	Factories.push_back(factory);
+	Factory f(tile);
+	Factories.push_back(f);
+	return &f;
 }
 
-void World::addServBuilding(ServiceBuilding servbuilding)
+ServiceBuilding* World::addServBuilding(Tile* tile)
 {
-	ServBuildings.push_back(servbuilding);
+	ServiceBuilding sv(tile);
+	ServBuildings.push_back(sv);
+	return &sv;
 }
 
 std::vector<Zone>* World::getHouseZones()
@@ -318,6 +322,16 @@ std::vector<Zone>* World::getServiceZones()
 std::vector<House>* World::getHouses()
 {
 	return &Houses;
+}
+
+std::vector<Factory>* World::getFactories()
+{
+	return &Factories;
+}
+
+std::vector<ServiceBuilding>* World::getServBuildings()
+{
+	return &ServBuildings;
 }
 
 House* World::getHouse(int id)

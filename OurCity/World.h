@@ -56,13 +56,15 @@ public:
 	void addServiceZone(Zone zone);
 
 	House* addHouse(Tile* tile);
-	void addFactory(Factory factory);
-	void addServBuilding(ServiceBuilding servbuilding);
+	Factory* addFactory(Tile* tile);
+	ServiceBuilding* addServBuilding(Tile* tile);
 
 	std::vector<Zone>* getHouseZones();
 	std::vector<Zone>* getIndustryZones();
 	std::vector<Zone>* getServiceZones();
 	std::vector<House>* getHouses();
+	std::vector<Factory>* getFactories();
+	std::vector<ServiceBuilding>* getServBuildings();
 
 	House* getHouse(int id);
 	Factory* getFactory(int id);

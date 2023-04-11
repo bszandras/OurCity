@@ -26,6 +26,8 @@ class ResidentManager {
 		void createResident();
 		void updateResident();
 		void handleIntention();
+		void buildFactory(int i);
+		void buildService(int i);
 		int getGlobalHappiness();
 
 		int getFactoryCount();

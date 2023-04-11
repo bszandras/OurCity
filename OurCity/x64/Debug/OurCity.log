@@ -1,2 +1,7 @@
-﻿  Resident.cpp
+﻿  ResidentManager.cpp
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(20,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(32,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(44,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(89,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(113,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
   OurCity.vcxproj -> D:\Download_copy\szt\o\x64\Debug\OurCity.exe

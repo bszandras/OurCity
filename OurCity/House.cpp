@@ -40,7 +40,7 @@ void House::setTax(unsigned short tax)
 	this->tax = tax;
 }
 
-void House::addResident(Resident r)
+void House::addResident(Resident* r)
 {
 	this->residents.push_back(r);
 }

@@ -430,3 +430,29 @@ House* Builder::BuildHouse(Tile* tile)
 	// 23 szolgaltatas
 	return h;
 }
+
+Factory* Builder::BuildFactory(Tile* tile)
+{
+	if (!world->getRoadGraph()->isAdjacent(tile))
+	{
+		return nullptr;
+	}
+
+	Factory* f = world->addFactory(tile);
+	tile->building = f;
+	tile->texId = 22;
+	return f;
+}
+
+ServiceBuilding* Builder::BuildService(Tile* tile)
+{
+	if (!world->getRoadGraph()->isAdjacent(tile))
+	{
+		return nullptr;
+	}
+
+	ServiceBuilding* sv = world->addServBuilding(tile);
+	tile->building = sv;
+	tile->texId = 23;
+	return sv;
+}

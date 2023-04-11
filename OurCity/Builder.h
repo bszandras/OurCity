@@ -68,4 +68,6 @@ public:
 	void HighlightArea(Vector2Data mouseWorldPosition, World* world);
 	void UnHighlightArea();
 	House* BuildHouse(Tile* tile);
+	Factory* BuildFactory(Tile* tile);
+	ServiceBuilding* BuildService(Tile* tile);
 };

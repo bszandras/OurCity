@@ -31,63 +31,158 @@ void ResidentManager::handleIntention()
 {
 	int resSize = this->residents.size();
 
-	for(int i = 0; i < resSize; i++)
+	for (int i = 0; i < resSize; i++)
 	{
 		ResidentIntetion intention = this->residents[i].getIntention();
-		switch(this->residents[i].getIntention())
+		switch (this->residents[i].getIntention())
 		{
-			case NOINTENTION:
-				break;
-			case MOVEIN:
+		case NOINTENTION:
+			break;
+		case MOVEIN:
+		{
+			std::vector<House>* houses = this->world->getHouses();
+			unsigned int hSize = houses->size();
+			bool movedIn = false;
+			for (unsigned int j = 0; j < hSize; j++)
 			{
-				std::cout << residents[i].getIntention() << std::endl;
-				
-				std::vector<House>* houses = this->world->getHouses();
-				unsigned int hSize = houses->size();
-				bool movedIn = false;
-				for (unsigned int j = 0; j < hSize; j++)
+				if (houses->at(j).moveIn() && !movedIn)
 				{
-					if (houses->at(j).moveIn() && !movedIn)
+					movedIn = true;
+					houses->at(j).addResident(&residents[i]);
+					residents[i].setHouse(&houses->at(j));
+					std::cout << "Moved in " << i << std::endl;
+					int ra = rand() % 2;
+					if (ra == 0) {
+						this->residents[i].setIntention(INDUSTRYWORK);
+						std::cout << "Finding Ind Work " << i << std::endl;
+					}
+					else {
+						this->residents[i].setIntention(SERVICEWORK);
+						std::cout << "Finding Serv Work " << i << std::endl;
+					}
+					
+					break;
+				}
+			}
+			if (residents[i].getHouse() == nullptr)
+			{
+				buildHouse(i);
+				break;
+			}
+			break;
+		}
+
+		case BUILDHOUSE:
+		{
+			/*
+			if (residents[i].getHouse() == nullptr)
+			{
+				buildHouse(i);
+			}
+			*/
+			break;
+		}
+
+		case INDUSTRYWORK:
+		{
+			std::vector<Factory>* factoryB = this->world->getFactories();
+			unsigned int fSize = factoryB->size();
+			bool working = false;
+			for (unsigned int j = 0; j < fSize; j++)
+			{
+				if (factoryB->at(j).canWorkHere() && !working)
+				{
+					working = true;
+					factoryB->at(j).addWorker(&residents[i]);
+					residents[i].setWorkplace(&factoryB->at(j));
+					std::cout << "Found Work Ind" << i << std::endl;
+					this->residents[i].setIntention(NOINTENTION);
+					break;
+				}
+			}
+			if (residents[i].getWorkplace() == nullptr)
+			{
+				buildFactory(i);
+				break;
+			}
+			break;
+		}
+		case SERVICEWORK:
+		{
+				std::vector<ServiceBuilding>* serviceB = this->world->getServBuildings();
+				unsigned int sSize = serviceB->size();
+				bool workingS = false;
+				for (unsigned int j = 0; j < sSize; j++)
+				{
+					if (serviceB->at(j).canWorkHere() && !workingS)
 					{
-						movedIn = true;
-						houses->at(j).addResident(residents[i]);
-						//TODO
-						residents[i].setHouse(&houses->at(j));
+						workingS = true;
+						serviceB->at(j).addWorker(&residents[i]);
+						residents[i].setWorkplace(&serviceB->at(j));
+						std::cout << "Found Work Serv" << i << std::endl;
 						this->residents[i].setIntention(NOINTENTION);
-						std::cout << "Moved in " << i << " " << residents[i].getIntention() << std::endl;
 						break;
 					}
 				}
-				if (residents[i].getHouse() == nullptr)
+				if (residents[i].getWorkplace() == nullptr)
 				{
-					//nincsen szabad hely -> építkezik
-					//this->residents[i].setIntention(BUILDHOUSE);
-					buildHouse(i);
+					buildService(i);
 					break;
 				}
 				break;
-			}
-				
-			case BUILDHOUSE:
-			{
-				/*
-				if (residents[i].getHouse() == nullptr)
+		}
+		}
+	}
+}
+
+void ResidentManager::buildFactory(int i)
+{
+	std::vector<Zone>* fZones = this->world->getIndustryZones();
+	bool builtFact = false;
+	for (int j = 0; j < fZones->size(); j++)
+	{
+		std::vector<int> zoneTiles = fZones->at(j).getTiles();
+		for (int k = 0; k < zoneTiles.size(); k++) {
+			Tile* t = this->world->getWrapper()->GetPointerToId(zoneTiles.at(k));
+			if (t->building == nullptr) {
+				Factory* f = this->builder->BuildFactory(t);
+				if (f != nullptr)
 				{
-					buildHouse(i);
+					this->residents[i].setIntention(INDUSTRYWORK);
+					builtFact = true;
+					std::cout << "Built Work Ind" << i << std::endl;
+					break;
 				}
-				*/
-				break;
 			}
-				
-			case INDUSTRYWORK:
-				//std::vector<ServiceBuilding>* serviceB =  
-				break;
-			case BUILDINDUSTRY:
-				break;
-			case SERVICEWORK:
-				break;
-			case BUILDSERVICE:
-				break;
+		}
+		if (builtFact) {
+			break;
+		}
+	}
+}
+
+void ResidentManager::buildService(int i)
+{
+	std::vector<Zone>* sZones = this->world->getServiceZones();
+	bool builtServ = false;
+	for (int j = 0; j < sZones->size(); j++)
+	{
+		std::vector<int> zoneTiles = sZones->at(j).getTiles();
+		for (int k = 0; k < zoneTiles.size(); k++) {
+			Tile* t = this->world->getWrapper()->GetPointerToId(zoneTiles.at(k));
+			if (t->building == nullptr) {
+				ServiceBuilding* sv = this->builder->BuildService(t);
+				if (sv != nullptr)
+				{
+					this->residents[i].setIntention(SERVICEWORK);
+					std::cout << "Built Work Serv" << i << std::endl;
+					builtServ = true;
+					break;
+				}
+			}
+		}
+		if (builtServ) {
+			break;
 		}
 	}
 }
