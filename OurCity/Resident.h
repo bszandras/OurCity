@@ -14,6 +14,8 @@ enum ResidentIntetion {
 	BUILDSERVICE
 };
 
+class Workplace;
+class House;
 class Resident
 {
 private:
@@ -23,10 +25,11 @@ private:
 	int currentTax;
 	int pastTax;
 	int happiness;
+	int education;
 	ResidentIntetion intention;
 
 public:
-	Resident();
+	Resident(void);
 
 	void setAge(int age);
 	void setCurrentTax(int tax);
@@ -36,11 +39,13 @@ public:
 	int getAge() const;
 	int getPastTax() const;
 	int getCurrentTax() const;
+	ResidentIntetion getIntention();
 	Workplace* getWorkplace() const;
 	House* getHouse() const;
 
 	void payTax();
 	void calculateHappiness();
+	void setIntention(ResidentIntetion intention);
 };
 
 #endif

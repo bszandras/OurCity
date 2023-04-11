@@ -1,3 +1,5 @@
+#include<iostream>
+
 #include "Zone.h"
 
 Zone::Zone(unsigned char type)
@@ -26,10 +28,13 @@ bool Zone::removeTile(int tileID)
 		return false;
 	else
 	{
-		for (int i = 0; i < tiles.size(); i++)
+		for(size_t i = 0; i < tiles.size(); i++)
 		{
-			tiles.erase(tiles.begin() + i);
-			return true;
+			if(tiles[i] == tileID)
+			{
+				tiles.erase(tiles.begin() + i);
+				return true;
+			}
 		}
 	}
 }
@@ -39,7 +44,9 @@ bool Zone::isTileInZone(int tileID) const
 	for (int i = 0; i < tiles.size(); i++)
 	{
 		if (tiles[i] == tileID)
+		{
 			return true;
+		}
 	}
 	return false;
 }
@@ -47,4 +54,8 @@ bool Zone::isTileInZone(int tileID) const
 std::vector<int> Zone::getTiles() const
 {
 	return tiles;
+}
+int Zone::tileCount()
+{
+	return tiles.size();
 }

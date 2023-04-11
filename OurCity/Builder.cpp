@@ -1,10 +1,12 @@
 #include "Builder.h"
+#include "BuildingsInclude.h"
 
-Builder::Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world)
+Builder::Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world, GameScene* scene)
 {
 	Builder::wrapper = wrapper;
 	Builder::mouse = mouse;
 	Builder::world = world;
+	Builder::scene = scene;
 }
 
 Builder::~Builder()
@@ -32,11 +34,13 @@ void Builder::Build(int where)
 		SelectZone();
 		break;
 	case ZONECANCEL:
+		RemoveTileFromZone(where);
 		break;
 	case BUILDING:
 		BuildSpecBuilding(where);
 		break;
 	case BUILDINGDESTROY:
+		DestroySpecBuilding(where);
 		break;
 	default:
 		break;
@@ -44,27 +48,183 @@ void Builder::Build(int where)
 }
 void Builder::BuildSpecBuilding(int where)
 {
+	Tile* tile = wrapper->GetPointerToId(where);
+	if (tile->hasZone || tile->building != nullptr)
+	{
+		//van itt valami más
+		return;
+	}
 	switch (secondaryState)
 	{
 	case ROAD:
-		if (world->AddRoad(wrapper->GetRectsById(&where, 1)))
+		// a tile-hoz utat kötést a gráf oldja meg és a pénz checket is
+		if (world->AddRoad(wrapper->GetPointerToId(where), scene))
 		{
-			wrapper->UpdateTexIdById(where, 1);
+			wrapper->UpdateTexIdById(where, 14);
 			if (currentlyHighlighted == where)
 			{
-				currentTex = 1;
+				currentTex = 14;
 			}
 		}
 		
 		break;
+	case FOREST:
+	{
+		Tile* tile = wrapper->GetPointerToId(where);
+		{
+			Forest* build = new Forest(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, FOREST);
+
+			if (succ == false)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
+	case POLICESTATION:
+	{
+		Tile* tile = wrapper->GetPointerToId(where);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			PoliceStation* build = new PoliceStation(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, POLICESTATION);
+
+			if (!succ)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
+	case FIRESTATION:
+	{
+		Tile* tile = wrapper->GetPointerToId(where);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			FireStation* build = new FireStation(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, FIRESTATION);
+			
+			if (!succ)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
+	case HIGHSCHOOL:
+	{
+		Tile* tile = wrapper->GetPointerToId(where);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			HighSchool* build = new HighSchool(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, HIGHSCHOOL);
+
+			if (!succ)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
+	case UNIVERSITY:
+	{
+		Tile* tile = wrapper->GetPointerToId(where);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			University* build = new University(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, UNIVERSITY);
+
+			if (!succ)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
+	case STADIUM:
+	{
+		Tile* tile = wrapper->GetPointerToId(where);
+		if (world->getRoadGraph()->isAdjacent(tile))
+		{
+			Stadium* build = new Stadium(tile);
+			bool succ = BuildSpecBuilding(tile, build, where, STADIUM);
+
+			if (!succ)
+			{
+				delete build;
+			}
+		}
+		break;
+	}
 	default:
 		break;
 	}
-
-	//primaryState = BuilderState::NOBUILD;
-	//secondaryState = BuilderSubState::NONE;
 }
+bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int tex)
+{
+	if (tile->building != nullptr)
+	{
+		std::cout << "there is a building already here" << std::endl;
+		return false;
+	}
 
+	if (!scene->getGameState()->hasEnough(building->getBuildCost()))
+	{
+		std::cout << "not enough money for <-building->" << std::endl;
+		return false;
+	}
+
+	wrapper->GetPointerToId(where)->building = building;
+
+	wrapper->UpdateTexIdById(where, tex);
+	if (currentlyHighlighted == where)
+	{
+		currentTex = tex;
+	}
+
+	return true;
+}
+bool Builder::DestroySpecBuilding(int where)
+{
+	Tile* tile = wrapper->GetPointerToId(where);
+	if (tile->building == nullptr)
+	{
+		std::cout << "there is nothing here to destroy" << std::endl;
+		return false;
+	}
+
+	if (world->getRoadGraph()->searchRoadByCoords(tile->rect.i, tile->rect.j))
+	{
+		if (world->getRoadGraph()->hasBuildingNext(tile, world->getNeighboursReadOnly(tile)))
+		{
+			std::cout << "ut mellett epulet" << std::endl;
+			return false;
+		}
+		scene->getGameState()->income(tile->building->getBuildCost() / 2);
+		world->getRoadGraph()->removeRoad(tile);
+		tile->building = nullptr;
+	}
+	else
+	{
+		Building* b = tile->building;
+		wrapper->GetPointerToId(where)->building = nullptr;
+
+		// TODO
+		// ide fognak kerülni a spec épület update-ek
+
+		scene->getGameState()->income(b->getBuildCost() / 2);
+		delete b;
+	}
+	
+
+	wrapper->UpdateTexIdById(where, 2);
+	if (currentlyHighlighted == where)
+	{
+		currentTex = 2;
+	}
+	return true;
+}
 void Builder::SelectZone()
 {
 	// debug 0,0-ból indul a zone highlight
@@ -75,38 +235,62 @@ void Builder::SelectZone()
 		return;
 		break;
 	case HOUSINGZONE:
+	{
+		Zone zone(0);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 5);
+			Tile* tile = wrapper->GetPointerToId(areaHighlightedIds[i]);
+			if (tile -> hasZone || tile -> building != nullptr)
+			{
+				continue;
+			}
+			wrapper->GetPointerToId(areaHighlightedIds[i])->hasZone = true;
+			wrapper->UpdateTexIdById(areaHighlightedIds[i], 11);
 
-			// create zone and push tile into it
-			Zone zone(0);
+			// push tile into zone
 			zone.addTile(areaHighlightedIds[i]);
-			world->addHouseZone(zone);
 		}
+		world->addHouseZone(zone);
 		break;
+	}
 	case INDUSTRIALZONE:
+	{
+		Zone zone(1);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 6);
+			Tile* tile = wrapper->GetPointerToId(areaHighlightedIds[i]);
+			if (tile->hasZone || tile->building != nullptr)
+			{
+				continue;
+			}
+			wrapper->GetPointerToId(areaHighlightedIds[i])->hasZone = true;
+			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 12);
 
 			// create zone and push tile into it
-			Zone zone(1);
 			zone.addTile(areaHighlightedIds[i]);
-			world->addIndustryZone(zone);
 		}
+		world->addIndustryZone(zone);
 		break;
+	}
 	case SERVICEZONE:
+	{
+		Zone zone(2);
 		for (int i = 0; i < areaHighlightedIds.size(); i++)
 		{
-			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 7);
+			Tile* tile = wrapper->GetPointerToId(areaHighlightedIds[i]);
+			if (tile->hasZone || tile->building != nullptr)
+			{
+				continue;
+			}
+			wrapper->GetPointerToId(areaHighlightedIds[i])->hasZone = true;
+			world->getWrapper()->UpdateTexIdById(areaHighlightedIds[i], 13);
 
 			// create zone and push tile into it
-			Zone zone(2);
 			zone.addTile(areaHighlightedIds[i]);
-			world->addServiceZone(zone);
 		}
+		world->addServiceZone(zone);
 		break;
+	}
 	default:
 		std::cout << "something went fucky wucky" << std::endl;
 		return;
@@ -116,10 +300,67 @@ void Builder::SelectZone()
 	currentTex = 0;
 	areaHighlightedIds.clear();
 	areaHighlightedTexes.clear();
-	//primaryState = BuilderState::NOBUILD;
-	//secondaryState = BuilderSubState::NONE;
 }
+void Builder::RemoveTileFromZone(int where)
+{
+	Tile* tile = wrapper->GetPointerToId(where);
+	if (tile->building != nullptr)
+	{
+		return;
+	}
 
+	// egyelõre ez így szar de mûködik
+	for (int j = 0; j < 3; j++)
+	{
+		std::vector<Zone>* zones;
+		switch (j)
+		{
+		case 0:
+			zones = world->getHouseZones();
+			break;
+		case 1:
+			zones = world->getIndustryZones();
+			break;
+		case 2:
+			zones = world->getServiceZones();
+			break;
+		default:
+			std::cout << "valami óriási gebasz van a zóna törléssel" << std::endl;
+			return;
+			break;
+		}
+
+		for (int i = 0; i < zones->size(); i++)
+		{
+			std::vector<int> idsBefore = zones->at(i).getTiles();
+			if (zones->at(i).removeTile(where))
+			{
+				// elég csak where-t update-elni
+				// de sokkal biztosabb ha az egész zóna id-jait update-eljük
+				// wrapper->UpdateTexIdById(where, 2);
+
+				std::vector<int> ids = zones->at(i).getTiles();
+
+				// unhighlight
+				for (int i = 0; i < idsBefore.size(); i++)
+				{
+					wrapper->UpdateTexIdById(idsBefore[i], 2);
+				}
+				// highlight whats left
+				for (int i = 0; i < ids.size(); i++)
+				{
+					wrapper->UpdateTexIdById(ids[i], 11 + j);
+				}
+
+				if (currentlyHighlighted == where)
+				{
+					currentTex = 2;
+				}
+				return;
+			}
+		}
+	}
+}
 void Builder::Highlight(int target)
 {
 	// unhighlight previous highlight
@@ -136,9 +377,8 @@ void Builder::Highlight(int target)
 
 	// new highlight
 	// buildstate dependant highlighting is possible here
-	wrapper->UpdateTexIdById(target, 1);
+	wrapper->UpdateTexIdById(target, 10);
 }
-
 void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 {
 	if (primaryState != BuilderState::ZONE)
@@ -153,20 +393,27 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 
 	UnHighlightArea();
 
-	std::vector<int> ids = world->tileIdsInArea(corner1, corner2);
+	std::vector<int> ids;
+	ids = world->tileIdsInArea(corner1, corner2);
 
 	for (int i = 0; i < ids.size(); i++)
 	{
-		if (std::find(areaHighlightedIds.begin(), areaHighlightedIds.end(), ids[i]) == areaHighlightedIds.end()) {
+		Tile* tile = wrapper->GetPointerToId(ids[i]);
+		if (tile->hasZone || tile->building != nullptr)
+		{
+			continue;
+		}
+
+		if (std::find(areaHighlightedIds.begin(), areaHighlightedIds.end(), ids[i]) == areaHighlightedIds.end())
+		{
 			areaHighlightedIds.push_back(ids[i]);
 			areaHighlightedTexes.push_back(world->getWrapper()->GetRectsById(&ids[i], 1)->texId);
 		}
 		int highlight = secondaryState;
-		highlight += 4;
+		highlight += 10;
 		world->getWrapper()->UpdateTexIdById(ids[i], highlight);
 	}
 }
-
 void Builder::UnHighlightArea()
 {
 	if (areaHighlightedIds.size() == 0)
@@ -181,4 +428,46 @@ void Builder::UnHighlightArea()
 
 	areaHighlightedIds.clear();
 	areaHighlightedTexes.clear();
+}
+
+House* Builder::BuildHouse(Tile* tile)
+{
+	if (!world->getRoadGraph()->isAdjacent(tile))
+	{
+		return nullptr;
+	}
+
+	House* h = world->addHouse(tile);
+	tile->building = h;
+	tile->texId = 21;
+	// 21 a ház
+	// 22 ipar
+	// 23 szolgaltatas
+	return h;
+}
+
+Factory* Builder::BuildFactory(Tile* tile)
+{
+	if (!world->getRoadGraph()->isAdjacent(tile))
+	{
+		return nullptr;
+	}
+
+	Factory* f = world->addFactory(tile);
+	tile->building = f;
+	tile->texId = 22;
+	return f;
+}
+
+ServiceBuilding* Builder::BuildService(Tile* tile)
+{
+	if (!world->getRoadGraph()->isAdjacent(tile))
+	{
+		return nullptr;
+	}
+
+	ServiceBuilding* sv = world->addServBuilding(tile);
+	tile->building = sv;
+	tile->texId = 23;
+	return sv;
 }

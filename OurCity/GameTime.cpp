@@ -1,5 +1,5 @@
 #include "GameTime.h"
-
+#include <string>
 GameTime::GameTime()
 {
 	year = 0;
@@ -14,12 +14,13 @@ GameTime::~GameTime()
 {
 }
 
-void GameTime::update(float deltaTime)
+int GameTime::update(float deltaTime)
 {
+	int returnable = 0;
 	seconds += deltaTime;
 	if (seconds < 1)
 	{
-		return;
+		return 0;
 	}
 	seconds = 0;
 
@@ -29,6 +30,7 @@ void GameTime::update(float deltaTime)
 	{
 		days = hour / 24;
 		hour = hour % 24;
+		returnable = days;
 	}
 	day += days;
 	
@@ -47,7 +49,7 @@ void GameTime::update(float deltaTime)
 		month = month % 12;
 	}
 	year += years;
-
+	return returnable;
 	//std::cout << "Year: " << year << " Month: " << month << " Day: " << day << " Hour: " << hour << std::endl;
 }
 
@@ -75,4 +77,13 @@ void GameTime::changeSpeed(int i)
 			std::cerr << "Invalid speed" << std::endl;
 			break;
 	}
+}
+
+std::string GameTime::getTimeString()
+{
+	std::string returnable;
+
+	returnable = std::to_string(year) + "/" + std::to_string(month) + "/" + std::to_string(day) + ":" + std::to_string(hour);
+
+	return returnable;
 }

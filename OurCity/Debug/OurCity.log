@@ -1,32 +1,68 @@
-﻿  GameScene.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+﻿  Builder.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(223,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(234,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(245,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(316,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(335,20): warning C4018: '<': signed/unsigned mismatch
+  Building.cpp
+  Factory.cpp
+  FireStation.cpp
+  Forest.cpp
+  GameScene.cpp
+  HighSchool.cpp
+  House.cpp
+  MouseController.cpp
   MyApp.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(152,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(193,69): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(216,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(233,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(308,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(324,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(223,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(263,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(306,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(323,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(400,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(416,20): warning C4018: '<': signed/unsigned mismatch
+  PoliceStation.cpp
+  Resident.cpp
+  Road.cpp
+  RoadGraph.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(10,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(20,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(26,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(29,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(146,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(164,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(176,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(188,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(200,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(214,34): warning C4018: '<': signed/unsigned mismatch
+  School.cpp
+  ServiceBuilding.cpp
+  SpecialBuilding.cpp
+  Stadium.cpp
   SubMap.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(29,55): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(29,55): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(29,85): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(29,85): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(54,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(31,55): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(31,55): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(31,85): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(31,85): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\SubMap.cpp(56,20): warning C4018: '<': signed/unsigned mismatch
   TileRect.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\TileRect.cpp(38,18): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-  Window.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
-  World.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(39,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(88,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(89,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Camera.h(9,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\TileRect.cpp(40,18): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
   Generating Code...
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(126): warning C4715: 'Window::SDLInit': not all control paths return a value
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\RoadGraph.cpp(313): warning C4715: 'RoadGraph::getRoadByIndex': not all control paths return a value
+  Compiling...
+  University.cpp
+  Window.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(237,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(269,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(269,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Workplace.cpp
+  World.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(50,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(104,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(105,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(210,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(211,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(213,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\World.cpp(214,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+  Generating Code...
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(131): warning C4715: 'Window::SDLInit': not all control paths return a value
   OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\Debug\OurCity.exe

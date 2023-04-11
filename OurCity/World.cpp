@@ -4,6 +4,7 @@
 
 World::World()
 {
+
 	origoOffset = { 0,0 };
 	reCalculateOrigoOffset();
 
@@ -16,7 +17,7 @@ World::World()
 	{
 		for (int j = 0; j < width + (height / 2); j += SubMap::getSize())
 		{
-			submaps.push_back(SubMap(Vector2Data{(float)(j*64), (float)(i*64)}, 64, this));
+			submaps.push_back(SubMap(Vector2Data{ (float)(j * 64), (float)(i * 64) }, 64, this));
 		}
 	}
 
@@ -30,7 +31,7 @@ World::World()
 			int y = (i * (64 - 41));
 			unsigned char texId = 2;
 			//tileRectWrapper->AddRect(TileRect{ i,j,texId });
-			tileRectWrapper->AddTile({ {j,i}, texId });
+			tileRectWrapper->AddTile({ nullptr, {j,i}, texId });
 
 			int horIndex = x / (SubMap::getSize() * 64);
 			int vertIndex = y / (SubMap::getSize() * 64);
@@ -38,15 +39,15 @@ World::World()
 
 			submaps[mainIndex].addRect(tileRectWrapper->GetLastRectID());
 
-			// tile-t is meg kell csinálni a grafikai reprezentációhoz
+			// tile-t is meg kell csinï¿½lni a grafikai reprezentï¿½ciï¿½hoz
 			//tiles.push_back({ x,y });
 
 		}
 	}
 
-	//töröljük az üres submapokat
+	//tï¿½rï¿½ljï¿½k az ï¿½res submapokat
 	std::vector<SubMap> newSubMaps;
-	newSubMaps.reserve(submapReseve/2);
+	newSubMaps.reserve(submapReseve / 2);
 	for (int i = 0; i < submaps.size(); i++)
 	{
 		if (submaps[i].getRectCount() > 0)
@@ -94,7 +95,7 @@ TileRectWrapper* World::getWrapper()
 
 Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 {
-	//offsetelni kell, mert a négyzetek bal alsó sarka az origin
+	//offsetelni kell, mert a nï¿½gyzetek bal alsï¿½ sarka az origin
 	//worldPos.x -= 32;
 	//worldPos.y -= 11;
 
@@ -105,7 +106,7 @@ Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 	int x = round((worldPos.x - y * 32) / 64);
 
 	//std::cout << x << " " << y << std::endl;
-	return {(float)x, (float)y};
+	return { (float)x, (float)y };
 }
 
 Tile* World::getTileOnCoords(int i, int j)
@@ -114,7 +115,21 @@ Tile* World::getTileOnCoords(int i, int j)
 	index += i;
 	return &tiles[index];
 }
-// elcsúsztatott téglalap kijelölés
+Tile* World::getNeighboursReadOnly(Tile* origin)
+{
+	Tile* tiles = new Tile[4];
+
+	Tile* t = this->tileRectWrapper->GetPointerToId((origin->rect.j + 1) * width + origin->rect.i - 1);
+	tiles[0] = *t;
+	t = this->tileRectWrapper->GetPointerToId((origin->rect.j + 1) * width + origin->rect.i);
+	tiles[1] = *t;
+	t = this->tileRectWrapper->GetPointerToId((origin->rect.j - 1) * width + origin->rect.i);
+	tiles[2] = *t;
+	t = this->tileRectWrapper->GetPointerToId((origin->rect.j - 1) * width + origin->rect.i + 1);
+	tiles[3] = *t;
+	return tiles;
+}
+// elcsï¿½sztatott tï¿½glalap kijelï¿½lï¿½s
 /*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
@@ -141,8 +156,8 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 }
 */
 
-// fix négyzet kijelölés
-
+// fix nï¿½gyzet kijelï¿½lï¿½s
+/*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
 	std::vector<int> returnable;
@@ -164,15 +179,15 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 			{
 				returnable.push_back(id + i);
 			}
-			
+
 		}
 		collumnOffset += 2;
 	}
 	return returnable;
 }
+*/
 
-
-//	TODO isometrikus téglalap
+//	TODO isometrikus tï¿½glalap
 /*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
@@ -201,8 +216,8 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 }
 */
 
-// csík kijelölés
-/*
+// csï¿½k kijelï¿½lï¿½s
+
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
 	std::vector<int> returnable;
@@ -213,38 +228,60 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 	int trY = round(topright.y / (64 - 41));
 	int trX = round((topright.x - trY * 32) / 64);
 
-	// blx és trx egyenlõ akkor jobbrafel vagy balrale
-	// ha nem egyenlõ balrafel vagy jobbrale
-
-	if (blX == trX)
+	if (botleft.x < topright.x)
 	{
-		for (int i = 0; i < trY - blY; i++)
+		if (trY > blY)
 		{
-			int id = ();
+			for (int i = 0; i < trY - blY + 1; i++)
+			{
+				int id = (blY + i) * width + blX;
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < trX - blX + 1; i++)
+			{
+				int id = (blY - i) * width + blX + (i * 1);
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
 		}
 	}
 	else
 	{
-
-	}
-
-	int collumnOffset = -(trX - blX);
-	for (int j = 0; j <= (trX - blX); j++)
-	{
-		for (int i = 0; i <= trX - blX; i++)
+		if (trY > blY)
 		{
-			int id = ((blY - i + j - collumnOffset) * width) + blX;
-			if (id >= 0)
+			for (int i = 0; i < trY - blY + 1; i++)
 			{
-				returnable.push_back(id + i);
+				int id = (blY + i) * width + blX - (i * 1);
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
 			}
-
 		}
-		collumnOffset += 2;
+		else
+		{
+			for (int i = blY - trY; i > 0; i--)
+			{
+				int id = (trY + i) * width + blX;
+				if (id >= 0)
+				{
+					returnable.push_back(id);
+				}
+			}
+		}
 	}
+	
 	return returnable;
 }
-*/
+
 void World::addHouseZone(Zone zone)
 {
 	this->HouseZones.push_back(zone);
@@ -258,6 +295,27 @@ void World::addIndustryZone(Zone zone)
 void World::addServiceZone(Zone zone)
 {
 	this->ServiceZones.push_back(zone);
+}
+
+House* World::addHouse(Tile* tile)
+{
+	House h(tile);
+	Houses.push_back(h);
+	return &h;
+}
+
+Factory* World::addFactory(Tile* tile)
+{
+	Factory f(tile);
+	Factories.push_back(f);
+	return &f;
+}
+
+ServiceBuilding* World::addServBuilding(Tile* tile)
+{
+	ServiceBuilding sv(tile);
+	ServBuildings.push_back(sv);
+	return &sv;
 }
 
 std::vector<Zone>* World::getHouseZones()
@@ -275,7 +333,42 @@ std::vector<Zone>* World::getServiceZones()
 	return &ServiceZones;
 }
 
-bool World::AddRoad(Tile* t)
+std::vector<House>* World::getHouses()
 {
-	return roadGraph.addRoad(t);
+	return &Houses;
+}
+
+std::vector<Factory>* World::getFactories()
+{
+	return &Factories;
+}
+
+std::vector<ServiceBuilding>* World::getServBuildings()
+{
+	return &ServBuildings;
+}
+
+House* World::getHouse(int id)
+{
+	return &Houses.at(id);
+}
+
+Factory* World::getFactory(int id)
+{
+	return &Factories.at(id);
+}
+
+ServiceBuilding* World::getServBuilding(int id)
+{
+	return &ServBuildings.at(id);
+}
+
+bool World::AddRoad(Tile* t, GameScene* scene)
+{
+	return roadGraph.addRoad(t, scene->getGameState());;
+}
+
+RoadGraph* World::getRoadGraph()
+{
+	return &roadGraph;
 }

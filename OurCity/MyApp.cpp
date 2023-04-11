@@ -488,4 +488,14 @@ void CMyApp::ChangeSpeed(int i)
 	scene->getGameTime()->changeSpeed(i);
 }
 
+std::string CMyApp::getGameTime()
+{
+	return scene->getGameTime()->getTimeString();
+}
+
+GameState* CMyApp::getState()
+{
+	return scene->getGameState();
+}
+
 

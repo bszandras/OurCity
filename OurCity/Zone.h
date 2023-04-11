@@ -9,8 +9,8 @@ private:
 	std::vector<int> tiles; // Tile ID-s
 	unsigned char type;
 	// 0 housing
-	// 0 industrial
-	// 0 service
+	// 1 industrial
+	// 2 service
 public:
 	Zone(unsigned char type);
 	~Zone();
@@ -19,6 +19,7 @@ public:
 	bool removeTile(int tileID);
 	bool isTileInZone(int tileID) const;
 	std::vector<int> getTiles() const;
+	int tileCount();
 };
 
 #endif

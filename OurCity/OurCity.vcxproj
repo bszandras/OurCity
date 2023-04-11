@@ -128,6 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +163,7 @@
     <ClCompile Include="FireStation.cpp" />
     <ClCompile Include="Forest.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="GLDebugMessageCallback.cpp" />
     <ClCompile Include="HighSchool.cpp" />
@@ -174,6 +177,7 @@
     <ClCompile Include="MyApp.cpp" />
     <ClCompile Include="PoliceStation.cpp" />
     <ClCompile Include="Resident.cpp" />
+    <ClCompile Include="ResidentManager.cpp" />
     <ClCompile Include="Road.cpp" />
     <ClCompile Include="RoadGraph.cpp" />
     <ClCompile Include="School.cpp" />
@@ -198,6 +202,7 @@
     <ClInclude Include="FireStation.h" />
     <ClInclude Include="Forest.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="GLDebugMessageCallback.h" />
     <ClInclude Include="GLUtils.hpp" />
@@ -211,6 +216,7 @@
     <ClInclude Include="MyApp.h" />
     <ClInclude Include="PoliceStation.h" />
     <ClInclude Include="Resident.h" />
+    <ClInclude Include="ResidentManager.h" />
     <ClInclude Include="Road.h" />
     <ClInclude Include="RoadGraph.h" />
     <ClInclude Include="School.h" />

@@ -1,7 +1,7 @@
-﻿  Window.cpp
-D:\Download_copy\szt\o\OurCity\Window.cpp(237,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(268,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(268,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(337,7): error C2664: 'bool ImGui::BeginPopupModal(const char *,bool *,ImGuiWindowFlags)': cannot convert argument 2 from 'ImGuiWindowFlags' to 'bool *'
-D:\Download_copy\szt\o\OurCity\Window.cpp(337,49): message : Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
-D:\Download_copy\szt\o\OurCity\include\imgui\imgui.h(399,29): message : see declaration of 'ImGui::BeginPopupModal'
+﻿  ResidentManager.cpp
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(20,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(32,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(44,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(77,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(102,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  OurCity.vcxproj -> D:\Download_copy\szt\o\x64\Debug\OurCity.exe
