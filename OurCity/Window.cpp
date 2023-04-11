@@ -359,11 +359,23 @@ int Window::StartGameLoop()
 			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
 			ImGui::OpenPopup("SpecialP");
 		}
+		bool openMyPopUp = false;
 		if (ImGui::BeginPopup("SpecialP")) {
 			if (ImGui::Button("Build")) {
-				ImGui::OpenPopup("SpecialBuilding");
+				openMyPopUp = true;
 			}
-			if (ImGui::BeginPopupModal("SpecialBuilding",NULL,wf)) {
+			ImGui::SameLine();
+			if (ImGui::Button("Delete")) {
+				// change builder state
+				app->ChangeBuilderState(BuilderState::BUILDINGDESTROY, BuilderSubState::NONE);
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+		}
+		if (openMyPopUp) {
+			ImGui::OpenPopup("SpecialBuilding");
+		}
+		if (ImGui::BeginPopupModal("SpecialBuilding",NULL,wf)) {
 				if (ImGui::Button("Road")) {
 					// change builder state
 					app->ChangeBuilderState(BuilderState::BUILDING, BuilderSubState::ROAD);
@@ -403,14 +415,6 @@ int Window::StartGameLoop()
 					ImGui::CloseCurrentPopup();
 				}
 				ImGui::EndPopup();
-			}
-			ImGui::SameLine();
-			if (ImGui::Button("Delete")) {
-				// change builder state
-				app->ChangeBuilderState(BuilderState::BUILDINGDESTROY, BuilderSubState::NONE);
-				ImGui::CloseCurrentPopup();
-			}
-			ImGui::EndPopup();
 		}
 		//app->scene->time->changespeed
 

@@ -1,7 +1,6 @@
-﻿  ResidentManager.cpp
-D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(20,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(32,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(44,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(89,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(113,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+﻿  Window.cpp
+D:\Download_copy\szt\o\OurCity\Window.cpp(244,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(276,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(276,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(131): warning C4715: 'Window::SDLInit': not all control paths return a value
   OurCity.vcxproj -> D:\Download_copy\szt\o\x64\Debug\OurCity.exe
