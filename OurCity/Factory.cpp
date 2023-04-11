@@ -6,6 +6,6 @@ Factory::Factory(Tile* tile) : Workplace(tile)
 	this->maintenanceCost = 0;
 
 	this->tile = tile;
-	this->capacity = 16;
+	this->capacity = 8;
 	this->tax = 0;
 }

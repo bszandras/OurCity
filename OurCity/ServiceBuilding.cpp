@@ -6,6 +6,6 @@ ServiceBuilding::ServiceBuilding(Tile* tile) : Workplace(tile)
 	this->maintenanceCost = 0;
 
 	this->tile = tile;
-	this->capacity = 12;
+	this->capacity = 6;
 	this->tax = 0;
 }

@@ -51,8 +51,7 @@ void ResidentManager::handleIntention()
 					houses->at(j).addResident(&residents[i]);
 					residents[i].setHouse(&houses->at(j));
 					std::cout << "Moved in " << i << std::endl;
-					int ra = rand() % 2;
-					if (ra == 0) {
+					if (this->factoryCount <= this->serviceCount) {
 						this->residents[i].setIntention(INDUSTRYWORK);
 						std::cout << "Finding Ind Work " << i << std::endl;
 					}
@@ -72,17 +71,6 @@ void ResidentManager::handleIntention()
 			break;
 		}
 
-		case BUILDHOUSE:
-		{
-			/*
-			if (residents[i].getHouse() == nullptr)
-			{
-				buildHouse(i);
-			}
-			*/
-			break;
-		}
-
 		case INDUSTRYWORK:
 		{
 			std::vector<Factory>* factoryB = this->world->getFactories();
@@ -96,6 +84,7 @@ void ResidentManager::handleIntention()
 					factoryB->at(j).addWorker(&residents[i]);
 					residents[i].setWorkplace(&factoryB->at(j));
 					std::cout << "Found Work Ind" << i << std::endl;
+					this->factoryCount += 1;
 					this->residents[i].setIntention(NOINTENTION);
 					break;
 				}
@@ -120,6 +109,7 @@ void ResidentManager::handleIntention()
 						serviceB->at(j).addWorker(&residents[i]);
 						residents[i].setWorkplace(&serviceB->at(j));
 						std::cout << "Found Work Serv" << i << std::endl;
+						this->serviceCount += 1;
 						this->residents[i].setIntention(NOINTENTION);
 						break;
 					}
