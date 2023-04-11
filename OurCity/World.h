@@ -49,6 +49,7 @@ public:
 	TileRectWrapper* getWrapper();
 	Vector2Data tileCoorOnWorldPosition(Vector2Data worldPos);
 	Tile* getTileOnCoords(int i, int j);
+	Tile* getNeighboursReadOnly(Tile* origin);
 	std::vector<int> tileIdsInArea(Vector2Data botleft, Vector2Data topright);
 
 	void addHouseZone(Zone zone);

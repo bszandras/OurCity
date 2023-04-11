@@ -217,7 +217,10 @@ int Window::StartGameLoop()
 			{
 				ImGui::CloseCurrentPopup();
 			}
+			ImGui::Text((std::to_string(app->getState()->getMoney()) + " bilpengõ").c_str());
 			ImGui::Text("There will be statistics here!");
+			//ImGui::Text(app->getState()->getMoney());
+			
 
 			ImGui::EndPopup();
 		}

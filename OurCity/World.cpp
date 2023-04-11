@@ -115,6 +115,20 @@ Tile* World::getTileOnCoords(int i, int j)
 	index += i;
 	return &tiles[index];
 }
+Tile* World::getNeighboursReadOnly(Tile* origin)
+{
+	Tile* tiles = new Tile[4];
+
+	Tile* t = this->tileRectWrapper->GetPointerToId((origin->rect.j + 1) * width + origin->rect.i - 1);
+	tiles[0] = *t;
+	t = this->tileRectWrapper->GetPointerToId((origin->rect.j + 1) * width + origin->rect.i);
+	tiles[1] = *t;
+	t = this->tileRectWrapper->GetPointerToId((origin->rect.j - 1) * width + origin->rect.i);
+	tiles[2] = *t;
+	t = this->tileRectWrapper->GetPointerToId((origin->rect.j - 1) * width + origin->rect.i + 1);
+	tiles[3] = *t;
+	return tiles;
+}
 // elcs�sztatott t�glalap kijel�l�s
 /*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)

@@ -196,6 +196,11 @@ bool Builder::DestroySpecBuilding(int where)
 
 	if (world->getRoadGraph()->searchRoadByCoords(tile->rect.i, tile->rect.j))
 	{
+		if (world->getRoadGraph()->hasBuildingNext(tile, world->getNeighboursReadOnly(tile)))
+		{
+			std::cout << "ut mellett epulet" << std::endl;
+			return false;
+		}
 		scene->getGameState()->income(tile->building->getBuildCost() / 2);
 		world->getRoadGraph()->removeRoad(tile);
 		tile->building = nullptr;

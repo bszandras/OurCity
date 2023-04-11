@@ -30,7 +30,7 @@ int GameTime::update(float deltaTime)
 	{
 		days = hour / 24;
 		hour = hour % 24;
-		returnable = 1;
+		returnable = days;
 	}
 	day += days;
 	

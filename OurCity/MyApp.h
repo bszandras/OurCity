@@ -41,6 +41,7 @@ public:
 	void ChangeBuilderState(BuilderState state, BuilderSubState subState);
 	void ChangeSpeed(int i);
 	std::string getGameTime();
+	GameState* getState();
 protected:
 	// shaderekhez szükséges változók
 	GLuint m_programID; // shaderek programja

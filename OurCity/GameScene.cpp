@@ -51,7 +51,9 @@ GameState* GameScene::getGameState()
 
 void GameScene::update()
 {
-	if(gameTime->update(Time::instance->getDelta()) == 1){
+	int days = gameTime->update(Time::instance->getDelta());
+	for(int i = 0; i < days; i++)
+	{
 		residentManager->handleIntention();
 		residentManager->createResident();
 		residentManager->createResident();

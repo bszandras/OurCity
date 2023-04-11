@@ -277,6 +277,19 @@ bool RoadGraph::isConnected(Road* road)
 	return false;
 }
 
+bool RoadGraph::hasBuildingNext(Tile* tile, Tile* neighs)
+{
+    if ((!searchRoadByCoords(neighs[0].rect.i, neighs[0].rect.j) && neighs[0].building != nullptr)
+        || (!searchRoadByCoords(neighs[1].rect.i, neighs[1].rect.j) && neighs[1].building != nullptr)
+        || (!searchRoadByCoords(neighs[2].rect.i, neighs[2].rect.j) && neighs[2].building != nullptr)
+        || (!searchRoadByCoords(neighs[3].rect.i, neighs[3].rect.j) && neighs[3].building != nullptr))
+    {
+        return true;
+    }
+    return false;
+
+}
+
 bool RoadGraph::searchRoadByCoords(int i, int j)
 {
     for (size_t k = 0; k < roads.size(); k++)
