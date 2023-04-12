@@ -192,6 +192,7 @@ bool CMyApp::Init()
 	camDataUniformLoc = glGetUniformLocation(m_programID, "camData");
 	winDataUniformLoc = glGetUniformLocation(m_programID, "windowSize");
 	textureArrayLoc = glGetUniformLocation(m_programID, "textureAtlas");
+	lightMaskLoc = glGetUniformLocation(m_programID, "lightMask");
 	timeCycleLoc = glGetUniformLocation(m_programID, "time_cycle");
 
 	LoadTextures();
@@ -487,8 +488,9 @@ void CMyApp::LoadTextures()
 {
 	GLuint texture;
 	SDL_Surface* surface;
-	//surface = IMG_Load("textureatlas.png");
-	surface = IMG_Load("light-mask.png");
+	surface = IMG_Load("textureatlas.png");
+	//surface = IMG_Load("light-mask.png");
+	//surface = IMG_Load("light-mask2.png");
 	glGenTextures(1, &texture);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -498,6 +500,25 @@ void CMyApp::LoadTextures()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glUniform1i(textureArrayLoc, 0);
+
+	SDL_FreeSurface(surface);
+
+	//return;
+	//light mask
+
+	GLuint texture2;
+	SDL_Surface* surface2;
+	//surface = IMG_Load("textureatlas.png");
+	surface2 = IMG_Load("light-mask.png");
+	glGenTextures(1, &texture2);
+	glActiveTexture(GL_TEXTURE0+1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface2->w, surface2->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface2->pixels);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glUniform1i(lightMaskLoc, 1);
 
 	SDL_FreeSurface(surface);
 }

@@ -6,14 +6,10 @@ in vec3 vs_out_pos;
 out vec4 fs_out_col;
 
 uniform sampler2D textureAtlas;
+uniform sampler2D lightMask;
+
 uniform vec2 windowSize;
 uniform float time_cycle;
-
-float random (vec2 st) {
-    return fract(sin(dot(st.xy,
-                vec2(12.9898,78.233)))*
-				43758.5453123);
-}
 
 void main()
 {
@@ -26,6 +22,7 @@ void main()
 	uvCoords.x += mod(vs_out_col.b, 10) * 0.1;
 
 	vec4 color = texture(textureAtlas, uvCoords);
+	vec4 l_mask = texture(lightMask, uvCoords);
 
 	
 	if(color.w <= 0.4)
@@ -34,37 +31,34 @@ void main()
 	}
 	else
 	{
-		//random
-		vec2 st = gl_FragCoord.xy/windowSize.xy;
-		float rnd = random(st);
-		rnd += 0.1;
+		// kiszámolom, hogy az adott pixel a maszkon mennyire "világos"
+		float lum = l_mask.r + l_mask.g + l_mask.b;
 
-		if(color == vec4(0,1,0,1))
+		if(lum > 1)
 		{
-			if(time_cycle < 0.3)
-			{
-				color = vec4(1,0.95,0,1);
-			}
-			else
-			{
-				color = vec4(0.25,0.38,0.44,1);
-			}
+			lum = 1;
+		}
 
-			color *= rnd;
-			color.a = 1;
+		if(lum >= 0.1 && time_cycle < 0.3)
+		{
+			// ez fade-eli egy kicsit
+			lum *= 1 - time_cycle;
 
-			fs_out_col = color;
+			// az eredeti textúrára rákeveri a fényt
+			// lum*lum miatt az alacsony lum-mal rendelkezõ pixelek gyökösen egyre kevesebb fényt kapnak
+			vec4 col = vec4(1,0.9,0,1);
+			fs_out_col = mix(color, col, lum*lum);
 			return;
 		}
 		else
 		{
-			vec4 night = color - 0.03;
+			// day - night mix
+			vec4 night = color - 0.08;
 			vec4 day = color + 0.08;
 
 			fs_out_col = mix(night, day, time_cycle);
 			return;
 		}
-
 		//error
 		fs_out_col = vec4(1,0,1,1);
 	}
