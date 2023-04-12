@@ -56,6 +56,8 @@ protected:
 
 	GLuint textureArrayLoc;
 
+	GLuint timeCycleLoc;
+
 	int vertCount = 0;
 	
 	//input

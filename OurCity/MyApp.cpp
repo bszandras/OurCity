@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+//#include <algorithm>
 
 #include "MyApp.h"
 
@@ -191,6 +192,7 @@ bool CMyApp::Init()
 	camDataUniformLoc = glGetUniformLocation(m_programID, "camData");
 	winDataUniformLoc = glGetUniformLocation(m_programID, "windowSize");
 	textureArrayLoc = glGetUniformLocation(m_programID, "textureAtlas");
+	timeCycleLoc = glGetUniformLocation(m_programID, "time_cycle");
 
 	LoadTextures();
 
@@ -376,6 +378,27 @@ void CMyApp::Render()
 	glUniform3f(camDataUniformLoc, cam.x, cam.y, cam.z);
 	glUniform2f(winDataUniformLoc, window.x, window.y);
 
+
+	// day - night cycle
+	float time = Time::instance->getFullTime();
+	time /= 6;
+
+	time = sin(time * M_PI + M_PI);
+	time = time * 2 + 1;
+	time /= 2;
+	if (time < 0)
+	{
+		time = 0;
+	}
+	else if (time > 1)
+	{
+		time = 1;
+	}
+
+	glUniform1f(timeCycleLoc, time);
+
+	
+
 	// kirajzolás
 	//A draw hívásokhoz a VAO és a program bindolva kell legyenek (glUseProgram() és glBindVertexArray())
 	//glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -464,7 +487,8 @@ void CMyApp::LoadTextures()
 {
 	GLuint texture;
 	SDL_Surface* surface;
-	surface = IMG_Load("textureatlas.png");
+	//surface = IMG_Load("textureatlas.png");
+	surface = IMG_Load("light-mask.png");
 	glGenTextures(1, &texture);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
