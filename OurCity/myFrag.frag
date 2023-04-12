@@ -6,8 +6,14 @@ in vec3 vs_out_pos;
 out vec4 fs_out_col;
 
 uniform sampler2D textureAtlas;
-
+uniform vec2 windowSize;
 uniform float time_cycle;
+
+float random (vec2 st) {
+    return fract(sin(dot(st.xy,
+                vec2(12.9898,78.233)))*
+				43758.5453123);
+}
 
 void main()
 {
@@ -28,18 +34,13 @@ void main()
 	}
 	else
 	{
-		//brightness adjust
-		//fs_out_col = color + 0.05;
-		//color += 0.05;
-		//float time = time_cycle / 1000;
+		//random
+		vec2 st = gl_FragCoord.xy/windowSize.xy;
+		float rnd = random(st);
+		rnd += 0.1;
 
-		//fs_out_col = mix(color, vec4(229.0,103.0,23.0,color.a), time);
-		//fs_out_col = mix(color, vec4(0.0,0.0,0.0,color.a), time);
-
-		//vec4 night = mix(color, vec4(229,103,23, color.a), 0.002);
 		if(color == vec4(0,1,0,1))
 		{
-
 			if(time_cycle < 0.3)
 			{
 				color = vec4(1,0.95,0,1);
@@ -48,16 +49,24 @@ void main()
 			{
 				color = vec4(0.25,0.38,0.44,1);
 			}
+
+			color *= rnd;
+			color.a = 1;
+
 			fs_out_col = color;
+			return;
 		}
 		else
 		{
 			vec4 night = color - 0.03;
 			vec4 day = color + 0.08;
+
 			fs_out_col = mix(night, day, time_cycle);
+			return;
 		}
 
-		//fs_out_col = mix(vec4(1,0,0,1), vec4(0,1,0,1), time_cycle);
+		//error
+		fs_out_col = vec4(1,0,1,1);
 	}
-	
 }
+
