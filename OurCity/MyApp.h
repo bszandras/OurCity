@@ -55,6 +55,9 @@ protected:
 	GLuint winDataUniformLoc;
 
 	GLuint textureArrayLoc;
+	GLuint lightMaskLoc;
+
+	GLuint timeCycleLoc;
 
 	int vertCount = 0;
 	

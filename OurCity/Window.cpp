@@ -289,6 +289,9 @@ int Window::StartGameLoop()
 			float wnposX = ImGui::GetWindowPos().x;
 			float wnposY = ImGui::GetWindowPos().y;
 			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
+
+			// change builder state
+			app->ChangeBuilderState(BuilderState::NOBUILD, BuilderSubState::NONE);
 			ImGui::OpenPopup("ResidentP");
 		}
 		if (ImGui::BeginPopup("ResidentP")) {
@@ -313,6 +316,9 @@ int Window::StartGameLoop()
 			float wnposX = ImGui::GetWindowPos().x;
 			float wnposY = ImGui::GetWindowPos().y;
 			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
+
+			// change builder state
+			app->ChangeBuilderState(BuilderState::NOBUILD, BuilderSubState::NONE);
 			ImGui::OpenPopup("IndustryP");
 		}
 		if (ImGui::BeginPopup("IndustryP")) {
@@ -337,6 +343,9 @@ int Window::StartGameLoop()
 			float wnposX = ImGui::GetWindowPos().x;
 			float wnposY = ImGui::GetWindowPos().y;
 			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
+
+			// change builder state
+			app->ChangeBuilderState(BuilderState::NOBUILD, BuilderSubState::NONE);
 			ImGui::OpenPopup("ServiceP");
 		}
 		if (ImGui::BeginPopup("ServiceP")) {
@@ -360,6 +369,9 @@ int Window::StartGameLoop()
 			float wnposX = ImGui::GetWindowPos().x;
 			float wnposY = ImGui::GetWindowPos().y;
 			ImGui::SetNextWindowPos(ImVec2(wnposX + 5, wnposY - 35));
+
+			// change builder state
+			app->ChangeBuilderState(BuilderState::NOBUILD, BuilderSubState::NONE);
 			ImGui::OpenPopup("SpecialP");
 		}
 		bool openMyPopUp = false;

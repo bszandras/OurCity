@@ -20,6 +20,9 @@ public:
 	int update(float deltaTime);
 	void changeSpeed(int i);
 	std::string getTimeString();
+
+	int getHour();
+	int getSpeed();
 };
 
 #endif

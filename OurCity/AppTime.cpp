@@ -35,3 +35,8 @@ float Time::getDelta()
 {
 	return deltaTime;
 }
+
+float Time::getFullTime()
+{
+	return time;
+}

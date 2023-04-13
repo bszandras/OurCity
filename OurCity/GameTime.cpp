@@ -87,3 +87,13 @@ std::string GameTime::getTimeString()
 
 	return returnable;
 }
+
+int GameTime::getHour()
+{
+	return hour;
+}
+
+int GameTime::getSpeed()
+{
+	return speed;
+}

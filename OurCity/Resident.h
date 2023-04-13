@@ -19,14 +19,19 @@ class House;
 class Resident
 {
 private:
-	int age;
+	// senki sem öregebb 128-nál szóval lehet 8 bites
+	unsigned char age;
 	Workplace* workplace;
 	House* house;
 	int currentTax;
 	int pastTax;
-	int happiness;
-	int education;
+	// mivel 0-100 ezért lehet 8 bites
+	unsigned char happiness;
+	// 0,1,2 ezért lehet 8 bites
+	unsigned char education;
 	ResidentIntetion intention;
+
+	// 62 bitet spórolunk lakosonként
 
 public:
 	Resident(void);

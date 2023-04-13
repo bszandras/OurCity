@@ -6,6 +6,7 @@ Stadium::Stadium(Tile* tile) : SpecialBuilding(tile)
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
 	this->fireChance = 0;
+	this->tileSize = 4;
 
 	range = 0; // TODO: Set the range!!
 }

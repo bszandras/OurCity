@@ -20,4 +20,5 @@ public:
 	void UpdateTime(float currTime);
 	void SetScale(float s);
 	float getDelta();
+	float getFullTime();
 };

@@ -115,46 +115,43 @@ void Builder::BuildSpecBuilding(int where)
 	case HIGHSCHOOL:
 	{
 		Tile* tile = wrapper->GetPointerToId(where);
-		if (world->getRoadGraph()->isAdjacent(tile))
-		{
-			HighSchool* build = new HighSchool(tile);
-			bool succ = BuildSpecBuilding(tile, build, where, HIGHSCHOOL);
 
-			if (!succ)
-			{
-				delete build;
-			}
+		HighSchool* build = new HighSchool(tile);
+		bool succ = BuildBigSpecBuilding(tile, build, where, HIGHSCHOOL);
+
+		if (!succ)
+		{
+			delete build;
 		}
+		
 		break;
 	}
 	case UNIVERSITY:
 	{
 		Tile* tile = wrapper->GetPointerToId(where);
-		if (world->getRoadGraph()->isAdjacent(tile))
-		{
-			University* build = new University(tile);
-			bool succ = BuildSpecBuilding(tile, build, where, UNIVERSITY);
 
-			if (!succ)
-			{
-				delete build;
-			}
+		University* build = new University(tile);
+		bool succ = BuildBigSpecBuilding(tile, build, where, UNIVERSITY);
+
+		if (!succ)
+		{
+			delete build;
 		}
+		
 		break;
 	}
 	case STADIUM:
 	{
 		Tile* tile = wrapper->GetPointerToId(where);
-		if (world->getRoadGraph()->isAdjacent(tile))
-		{
-			Stadium* build = new Stadium(tile);
-			bool succ = BuildSpecBuilding(tile, build, where, STADIUM);
 
-			if (!succ)
-			{
-				delete build;
-			}
+		Stadium* build = new Stadium(tile);
+		bool succ = BuildBigSpecBuilding(tile, build, where, STADIUM);
+
+		if (!succ)
+		{
+			delete build;
 		}
+		
 		break;
 	}
 	default:
@@ -185,6 +182,73 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 
 	return true;
 }
+bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, int tex)
+{
+	Tile* base1 = tile;
+	Tile* base2 = world->getWrapper()->GetPointerToId(where + world->getWidth());
+	Tile* base3 = world->getWrapper()->GetPointerToId(where + world->getWidth() - 1);
+	Tile* base4 = world->getWrapper()->GetPointerToId(where + world->getWidth() * 2 - 1);
+
+	if (base1->building != nullptr || base2->building != nullptr)
+	{
+		std::cout << "there is a building already here - highschool" << std::endl;
+		return false;
+	}
+	if (tex == UNIVERSITY || tex == STADIUM)
+	{
+		if (base3->building != nullptr || base4->building != nullptr)
+		{
+			std::cout << "there is a building already here" << std::endl;
+			return false;
+		}
+	}
+
+	RoadGraph* road = world->getRoadGraph();
+
+	if (!road->isAdjacent(base1) && !road->isAdjacent(base2))
+	{
+		if (tex != HIGHSCHOOL)
+		{
+			if (!road->isAdjacent(base3) && !road->isAdjacent(base4))
+			{
+				std::cout << "big building not next to road" << std::endl;
+				return false;
+			}
+		}
+		else
+		{
+			std::cout << "big building not next to road - highschool" << std::endl;
+			return false;
+		}
+	}
+	
+	if (!scene->getGameState()->hasEnough(building->getBuildCost()))
+	{
+		std::cout << "not enough money for <-building->" << std::endl;
+		return false;
+	}
+
+	base1->building = building;
+	base2->building = building;
+
+	if (secondaryState != HIGHSCHOOL)
+	{
+		base3->building = building;
+		base4->building = building;
+	}
+
+	for (int i = 0; i < areaHighlightedIds.size(); i++)
+	{
+		wrapper->UpdateTexIdById(areaHighlightedIds[i], tex);
+		areaHighlightedTexes[i] = tex;
+	}
+	//wrapper->UpdateTexIdById(where, tex);
+	if (currentlyHighlighted == where)
+	{
+		currentTex = tex;
+	}
+	return true;
+}
 bool Builder::DestroySpecBuilding(int where)
 {
 	Tile* tile = wrapper->GetPointerToId(where);
@@ -204,26 +268,141 @@ bool Builder::DestroySpecBuilding(int where)
 		scene->getGameState()->income(tile->building->getBuildCost() / 2);
 		world->getRoadGraph()->removeRoad(tile);
 		tile->building = nullptr;
+
+		wrapper->UpdateTexIdById(where, 2);
+		if (currentlyHighlighted == where)
+		{
+			currentTex = 2;
+		}
+		return true;
 	}
 	else
 	{
 		Building* b = tile->building;
-		wrapper->GetPointerToId(where)->building = nullptr;
+		if (b->getTileSize() > 1)
+		{
+			//building update ?
 
-		// TODO
-		// ide fognak kerülni a spec épület update-ek
+			// 3x3-ban ellenõrizni és akkor tuti megtaláljuk a hozzá tartozó tile-okat
+			Tile* top1 = world->getWrapper()->GetPointerToId(where + world->getWidth());
+			Tile* top2 = world->getWrapper()->GetPointerToId(where + world->getWidth() - 1);
+			Tile* highest = world->getWrapper()->GetPointerToId(where + world->getWidth() * 2 - 1);
+			Tile* bot1 = world->getWrapper()->GetPointerToId(where - world->getWidth());
+			Tile* bot2 = world->getWrapper()->GetPointerToId(where - world->getWidth() + 1);
+			Tile* lowest = world->getWrapper()->GetPointerToId(where - world->getWidth() * 2 + 1);
+			Tile* left = world->getWrapper()->GetPointerToId(where - 1);
+			Tile* right = world->getWrapper()->GetPointerToId(where + 1);
 
-		scene->getGameState()->income(b->getBuildCost() / 2);
-		delete b;
+			if (top1->building == b)
+			{
+				top1->building = nullptr;
+				int id = where + world->getWidth();
+				wrapper->UpdateTexIdById(id, 2);
+				if (currentlyHighlighted == id)
+				{
+					currentTex = 2;
+				}
+			}
+			if (top2->building == b)
+			{
+				top2->building = nullptr;
+				int id = where + world->getWidth() - 1;
+				wrapper->UpdateTexIdById(id, 2);
+				if (currentlyHighlighted == id)
+				{
+					currentTex = 2;
+				}
+			}
+			if (highest->building == b)
+			{
+				highest->building = nullptr;
+				int id = where + world->getWidth() * 2 - 1;
+				wrapper->UpdateTexIdById(id, 2);
+				if (currentlyHighlighted == id)
+				{
+					currentTex = 2;
+				}
+			}
+			if (bot1->building == b)
+			{
+				bot1->building = nullptr;
+				int id = where - world->getWidth();
+				wrapper->UpdateTexIdById(id, 2);
+				if (currentlyHighlighted == id)
+				{
+					currentTex = 2;
+				}
+			}
+			if (bot2->building == b)
+			{
+				bot2->building = nullptr;
+				int id = where - world->getWidth() + 1;
+				wrapper->UpdateTexIdById(id, 2);
+				if (currentlyHighlighted == id)
+				{
+					currentTex = 2;
+				}
+			}
+			if (lowest->building == b)
+			{
+				lowest->building = nullptr;
+				int id = where - world->getWidth() * 2 + 1;
+				wrapper->UpdateTexIdById(id, 2);
+				if (currentlyHighlighted == id)
+				{
+					currentTex = 2;
+				}
+			}
+			if (left->building == b)
+			{
+				left->building = nullptr;
+				int id = where - 1;
+				wrapper->UpdateTexIdById(id, 2);
+				if (currentlyHighlighted == id)
+				{
+					currentTex = 2;
+				}
+			}
+			if (right->building == b)
+			{
+				right->building = nullptr;
+				int id = where + 1;
+				wrapper->UpdateTexIdById(id, 2);
+				if (currentlyHighlighted == id)
+				{
+					currentTex = 2;
+				}
+			}
+
+			tile->building = nullptr;
+			wrapper->UpdateTexIdById(where, 2);
+			if (currentlyHighlighted == where)
+			{
+				currentTex = 2;
+			}
+
+			scene->getGameState()->income(b->getBuildCost() / 2);
+			delete b;
+			return true;
+		}
+		else
+		{
+			wrapper->GetPointerToId(where)->building = nullptr;
+
+			// TODO
+			// ide fognak kerülni a spec épület update-ek
+
+			scene->getGameState()->income(b->getBuildCost() / 2);
+			delete b;
+
+			wrapper->UpdateTexIdById(where, 2);
+			if (currentlyHighlighted == where)
+			{
+				currentTex = 2;
+			}
+			return true;
+		}
 	}
-	
-
-	wrapper->UpdateTexIdById(where, 2);
-	if (currentlyHighlighted == where)
-	{
-		currentTex = 2;
-	}
-	return true;
 }
 void Builder::SelectZone()
 {
@@ -363,6 +542,13 @@ void Builder::RemoveTileFromZone(int where)
 }
 void Builder::Highlight(int target)
 {
+	// if big building selected, reroute highlight
+	if (secondaryState == HIGHSCHOOL || secondaryState == UNIVERSITY || secondaryState == STADIUM)
+	{
+		HighlightBigBuilding(target);
+		return;
+	}
+
 	// unhighlight previous highlight
 	wrapper->UpdateTexIdById(currentlyHighlighted, currentTex);
 
@@ -378,6 +564,81 @@ void Builder::Highlight(int target)
 	// new highlight
 	// buildstate dependant highlighting is possible here
 	wrapper->UpdateTexIdById(target, 10);
+}
+void Builder::HighlightBigBuilding(int base)
+{
+	//unhighlight
+	for (int i = 0; i < areaHighlightedIds.size(); i++)
+	{
+		wrapper->UpdateTexIdById(areaHighlightedIds[i], areaHighlightedTexes[i]);
+	}
+
+	areaHighlightedIds.clear();
+	areaHighlightedTexes.clear();
+
+	switch (secondaryState)
+	{
+	case HIGHSCHOOL:
+	{
+		//alap
+		areaHighlightedIds.push_back(base);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&base, 1)->texId);
+		//felette 1
+		int second = base + world->getWidth();
+		areaHighlightedIds.push_back(second);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&second, 1)->texId);
+		break;
+	}
+	case UNIVERSITY:
+	{
+		//alap
+		areaHighlightedIds.push_back(base);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&base, 1)->texId);
+		//felette 1
+		int second = base + world->getWidth();
+		areaHighlightedIds.push_back(second);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&second, 1)->texId);
+		//felette 2
+		second = base + world->getWidth() - 1;
+		areaHighlightedIds.push_back(second);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&second, 1)->texId);
+		//felette 3
+		second = base  + world->getWidth() * 2 - 1;
+		areaHighlightedIds.push_back(second);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&second, 1)->texId);
+		
+		break;
+	}
+		break;
+	case STADIUM:
+	{
+		//alap
+		areaHighlightedIds.push_back(base);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&base, 1)->texId);
+		//felette 1
+		int second = base + world->getWidth();
+		areaHighlightedIds.push_back(second);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&second, 1)->texId);
+		//felette 2
+		second = base + world->getWidth() - 1;
+		areaHighlightedIds.push_back(second);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&second, 1)->texId);
+		//felette 3
+		second = base + world->getWidth() * 2 - 1;
+		areaHighlightedIds.push_back(second);
+		areaHighlightedTexes.push_back(wrapper->GetRectsById(&second, 1)->texId);
+	}
+		break;
+	default:
+		std::cout << "oriasi a gebasz ha idejutunk -> builder highlightbigbuilding" << std::endl;
+		return;
+		break;
+	}
+
+	for (int i = 0; i < areaHighlightedIds.size(); i++)
+	{
+		wrapper->UpdateTexIdById(areaHighlightedIds[i], 10);
+	}
 }
 void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 {
@@ -416,7 +677,8 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 }
 void Builder::UnHighlightArea()
 {
-	if (areaHighlightedIds.size() == 0)
+	if (areaHighlightedIds.size() == 0
+		|| secondaryState == HIGHSCHOOL || secondaryState == UNIVERSITY || secondaryState == STADIUM)
 	{
 		return;
 	}
