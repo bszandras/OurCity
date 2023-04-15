@@ -1,5 +1,5 @@
 ﻿  Window.cpp
-D:\Download_copy\szt\o\OurCity\Window.cpp(169,60): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(169,61): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 D:\Download_copy\szt\o\OurCity\Window.cpp(169,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 D:\Download_copy\szt\o\OurCity\Window.cpp(291,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 D:\Download_copy\szt\o\OurCity\Window.cpp(323,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data

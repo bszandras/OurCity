@@ -166,17 +166,17 @@ int Window::StartGameLoop()
 
 		ImGui::GetIO().FontGlobalScale = 1.4f;
 
-		ImGui::SetNextWindowPos(ImVec2((width*0.5)-5,(height*0.5)-5));
+		ImGui::SetNextWindowPos(ImVec2((width*0.5)-50,(height*0.5)-50));
 
 		ImGui::Begin("Main Menu", &quit, window_flags);
 
 		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
 
-		if (ImGui::Button("Start")) {
+		if (ImGui::Button("Start",ImVec2(100,35))) {
 			gameStarted = true;
 		}
 
-		if (ImGui::Button("Quit")) {
+		if (ImGui::Button("Quit", ImVec2(100, 35))) {
 			gameStarted = true;
 			quit = true;
 		}
