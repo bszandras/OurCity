@@ -149,7 +149,7 @@ int Window::StartGameLoop()
 	// imgui init
 	ImGui_ImplSdlGL3_Init(win);
 
-	while (!gameStarted) 
+	while (!gameStarted && !quit) 
 	{
 		while (SDL_PollEvent(&event))
 		{
@@ -177,7 +177,6 @@ int Window::StartGameLoop()
 		}
 
 		if (ImGui::Button("Quit", ImVec2(100, 35))) {
-			gameStarted = true;
 			quit = true;
 		}
 
