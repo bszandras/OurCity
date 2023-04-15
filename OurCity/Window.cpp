@@ -134,6 +134,7 @@ int Window::StartGameLoop()
 {
 	// véget kell-e érjen a program futása?
 	bool quit = false;
+	bool gameStarted = false;
 
 	// alkalmazás példánya
 	app = new CMyApp();
@@ -147,6 +148,49 @@ int Window::StartGameLoop()
 	}
 	// imgui init
 	ImGui_ImplSdlGL3_Init(win);
+
+	while (!gameStarted) 
+	{
+		while (SDL_PollEvent(&event))
+		{
+			HandleEvents(quit, event);
+		}
+
+		ImGui_ImplSdlGL3_NewFrame(win);
+
+		ImGuiWindowFlags window_flags = 0;
+		window_flags |= ImGuiWindowFlags_NoTitleBar;
+		window_flags |= ImGuiWindowFlags_NoMove;
+		window_flags |= ImGuiWindowFlags_NoResize;
+		window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
+
+		ImGui::GetIO().FontGlobalScale = 1.4f;
+
+		ImGui::SetNextWindowPos(ImVec2((width*0.5)-5,(height*0.5)-5));
+
+		ImGui::Begin("Main Menu", &quit, window_flags);
+
+		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
+
+		if (ImGui::Button("Start")) {
+			gameStarted = true;
+		}
+
+		if (ImGui::Button("Quit")) {
+			gameStarted = true;
+			quit = true;
+		}
+
+		ImGui::PopStyleColor();
+
+		ImGui::End();
+
+		ImGui::Render();
+
+		// sdl double buffering
+		SDL_GL_SwapWindow(win);
+
+	}
 
 	// start loop
 	while (!quit)
@@ -244,7 +288,7 @@ int Window::StartGameLoop()
 
 		ImGui::End();
 
-		ImGui::SetNextWindowPos(ImVec2(width -230, 0.5f));
+		ImGui::SetNextWindowPos(ImVec2(width-300, 0.5f));
 
 		ImGui::Begin("Time", &quit, window_flags);
 
