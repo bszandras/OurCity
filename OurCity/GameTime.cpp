@@ -88,6 +88,11 @@ std::string GameTime::getTimeString()
 	return returnable;
 }
 
+int GameTime::getMonth()
+{
+	return month;
+}
+
 int GameTime::getHour()
 {
 	return hour;

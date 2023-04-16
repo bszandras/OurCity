@@ -7,25 +7,29 @@
 #include "Building.h"
 #include "Road.h"
 #include <vector>
+#include "World.h"
 
+class FireStation;
 class FireTruck
 {
 private:
 	FireStation* station;
-	Vector2Data* currentPosition;
+	Tile* currentPosition;
 	Building* destination;
+	World* world;
 
 public:
 	FireTruck(FireStation* station);
 	~FireTruck();
 
-	void goToFire(std::vector<Road*> path, Building* destination);
+	void goToFire(Building* destination);
+	void goBackToStation();
 
-	void setCurrentPosition(Vector2Data* currentPosition);
+	void setCurrentPosition(Tile* currentPosition);
 	void setDestination(Building* destination);
 
 	FireStation* getStation() const;
-	Vector2Data* getCurrentPosition() const;
+	Tile* getCurrentPosition() const;
 	Building* getDestination() const;
 };
 

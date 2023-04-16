@@ -3,6 +3,7 @@
 
 #include "Workplace.h"
 #include "House.h"
+#include "GameState.h"
 
 enum ResidentIntetion {
 	NOINTENTION,

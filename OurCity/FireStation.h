@@ -4,7 +4,7 @@
 #include "SpecialBuilding.h"
 #include "FireTruck.h"
 #include <vector>
-
+class FireTruck;
 class FireStation : public SpecialBuilding
 {
 private:
