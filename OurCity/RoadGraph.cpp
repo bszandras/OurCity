@@ -325,9 +325,45 @@ Road* RoadGraph::getRoadByIndex(int index)
     }
 }
 
+// TODO: test this
 std::vector<Road*> RoadGraph::shortestPath(Road* start, Road* end)
 {
-    return std::vector<Road*>();
+    std::vector<Road*> path;
+	std::vector<Road*> visited;
+	std::vector<Road*> stack;
+	std::vector<Road*> prev;
+	stack.push_back(start);
+
+    while (!stack.empty())
+    {
+		Road* current = stack.back();
+		stack.pop_back();
+
+        if (current == end)
+        {
+			break;
+		}
+
+        if (std::find(visited.begin(), visited.end(), current) == visited.end())
+        {
+			visited.push_back(current);
+            for (size_t i = 0; i < adjList[current->getId()].size(); i++)
+            {
+				stack.push_back(adjList[current->getId()][i]);
+				prev.push_back(current);
+			}
+		}
+	}
+
+	Road* current = end;
+    while (current != start)
+    {
+		path.push_back(current);
+		current = prev[current->getId()];
+	}
+	path.push_back(start);
+
+	return path;
 }
 
 void RoadGraph::printGraph()
