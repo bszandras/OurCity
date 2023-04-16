@@ -2,6 +2,8 @@
 
 FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 {
+	this->truck = new FireTruck(this);
+
 	// Set the members of the base class
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
@@ -13,6 +15,7 @@ FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 
 FireStation::~FireStation()
 {
+	delete this->truck;
 }
 
 void FireStation::setRange(int r)

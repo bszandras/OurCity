@@ -2,6 +2,7 @@
 #define FIRESTATION_H
 
 #include "SpecialBuilding.h"
+#include "FireTruck.h"
 #include <vector>
 
 class FireStation : public SpecialBuilding
@@ -10,6 +11,7 @@ private:
 	int range;
 	std::vector<int> rangeTiles; // TileIDs of tiles in range
 	bool available;
+	FireTruck* truck;
 
 public:
 	FireStation(Tile* tile);
