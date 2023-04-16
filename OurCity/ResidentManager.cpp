@@ -12,6 +12,7 @@ ResidentManager::ResidentManager(World* world, Builder* builder, GameState* game
 void ResidentManager::createResident()
 {
 	Resident* r = new Resident();
+	r->setCurrentTax(gameState->calculateTax());
 	this->residents.push_back(*r);
 	delete r;
 }

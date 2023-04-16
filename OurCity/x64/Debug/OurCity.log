@@ -1,2 +1,3 @@
-﻿  GameScene.cpp
+﻿  GameState.cpp
+C:\Users\rolan\source\repos\ourcity\OurCity\GameState.cpp(44,17): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe

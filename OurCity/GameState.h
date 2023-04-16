@@ -3,6 +3,9 @@ class GameState
 {
 private:
 	int money;
+	int tax = 500; // Legyen ez az alapadó
+	double taxRate = 1.0;
+
 public:
 	GameState();
 	~GameState();
@@ -10,4 +13,6 @@ public:
 	void spendMoney(int amount);
 	void income(int amount);
 	bool hasEnough(int amount);
+	void setTaxRate(double rate);
+	int calculateTax();
 };

@@ -19,6 +19,7 @@ void Resident::setAge(int age)
 
 void Resident::setCurrentTax(int tax)
 {
+	// ITT kell beállítani majd, hogy oktatás alapján mennyivel fizet több adót.
 	this->currentTax = tax;
 }
 
