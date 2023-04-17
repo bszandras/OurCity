@@ -39,8 +39,13 @@ void GameState::setTaxRate(double rate)
 	this->taxRate = rate;
 }
 
+int GameState::getBaseTax()
+{
+	return baseTax;
+}
+
 int GameState::calculateTax()
 {
-	int returnable = std::round(tax * taxRate);
+	int returnable = std::round(baseTax * taxRate);
 	return returnable;
 }

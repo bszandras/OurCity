@@ -35,7 +35,7 @@ void ResidentManager::updateResidentMonthly()
 			// 20 évnyi munka = 240 hónapnyu munka és ha még annak is a fele, akkor 480 az osztó
 			gameState->spendMoney(residents[i].getPastTax() / 480);
 		}
-		residents[i].calculateHappiness();
+		residents[i].calculateHappiness(gameState->getBaseTax());
 	}
 }
 
@@ -224,6 +224,11 @@ void ResidentManager::buildHouse(int i) {
 		}
 	}
 
+}
+
+int ResidentManager::calculateHappiness()
+{
+	return 0;
 }
 
 int ResidentManager::getFactoryCount()

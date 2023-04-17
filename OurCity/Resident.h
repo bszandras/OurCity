@@ -50,7 +50,7 @@ public:
 	House* getHouse() const;
 
 	void payTax();
-	void calculateHappiness();
+	void calculateHappiness(int baseTax);
 	void setIntention(ResidentIntetion intention);
 };
 

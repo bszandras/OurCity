@@ -34,6 +34,8 @@ class ResidentManager {
 		void buildService(int i);
 		int getGlobalHappiness();
 
+		int calculateHappiness();
+
 		int getFactoryCount();
 		int getServiceCount();
 		void setFactoryCount(int x);
