@@ -18,6 +18,7 @@ public:
 	~Building();
 
 	unsigned short getBuildCost();
+	void setBuildCost(unsigned short c);
 	unsigned short getMaintenanceCost();
 	unsigned short getFireChance();
 	unsigned char getTileSize();

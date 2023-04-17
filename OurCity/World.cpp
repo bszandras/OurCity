@@ -31,8 +31,18 @@ World::World()
 			int y = (i * (64 - 41));
 			unsigned char texId = 2;
 			//tileRectWrapper->AddRect(TileRect{ i,j,texId });
+
 			tileRectWrapper->AddTile({ nullptr, {j,i}, texId });
 
+			int c = rand() % 10;
+			if (c == 1)
+			{
+				Tile* t = tileRectWrapper->GetPointerToId(tileRectWrapper->GetLastRectID());
+				Building* b = new Forest(t);
+				b->setBuildCost(0);
+				t->building = b;
+				t->texId = BuilderSubState::FOREST;
+			}
 			int horIndex = x / (SubMap::getSize() * 64);
 			int vertIndex = y / (SubMap::getSize() * 64);
 			int mainIndex = horIndex + (vertIndex * (width + (height / 2)) / SubMap::getSize());

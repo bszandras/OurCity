@@ -23,6 +23,7 @@ public:
 
 	int getHour();
 	int getSpeed();
+	int getMonth();
 };
 
 #endif

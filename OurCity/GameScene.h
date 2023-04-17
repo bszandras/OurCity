@@ -22,6 +22,9 @@ private:
 	GameTime* gameTime;
 	GameState* gameState;
 
+	int dayCount = 0;
+	int monthCount = 0;
+
 public:
 	GameScene(MouseController* mouse);
 	~GameScene();

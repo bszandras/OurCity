@@ -18,6 +18,11 @@ unsigned short Building::getBuildCost()
 	return buildCost;
 }
 
+void Building::setBuildCost(unsigned short c)
+{
+	buildCost = c;
+}
+
 unsigned short Building::getMaintenanceCost()
 {
 	return maintenanceCost;

@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "GameState.h"
+#include <math.h>
 
 GameState::GameState()
 {
@@ -31,4 +32,20 @@ void GameState::income(int amount)
 bool GameState::hasEnough(int amount)
 {
 	return (money - amount) > 0;
+}
+
+void GameState::setTaxRate(double rate)
+{
+	this->taxRate = rate;
+}
+
+int GameState::getBaseTax()
+{
+	return baseTax;
+}
+
+int GameState::calculateTax()
+{
+	int returnable = std::round(baseTax * taxRate);
+	return returnable;
 }

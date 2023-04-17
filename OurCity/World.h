@@ -21,8 +21,8 @@ class World
 {
 private:
 	Vector2Data origoOffset;
-	int width = 2000;
-	int height = 2000;
+	int width = 500;
+	int height = 500;
 	TileRectWrapper* tileRectWrapper;
 	std::vector<SubMap> submaps;
 	//tile-okat tarthatja a world
