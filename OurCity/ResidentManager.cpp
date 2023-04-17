@@ -1,9 +1,10 @@
 #include "ResidentManager.h"
 
-ResidentManager::ResidentManager(World* world, Builder* builder)
+ResidentManager::ResidentManager(World* world, Builder* builder, GameState* gameState)
 {
 	this->world = world;
 	this->builder = builder;
+	this->gameState = gameState;
 	this->factoryCount = 0;
 	this->serviceCount = 0;
 }
@@ -11,17 +12,39 @@ ResidentManager::ResidentManager(World* world, Builder* builder)
 void ResidentManager::createResident()
 {
 	Resident* r = new Resident();
+	r->setCurrentTax(gameState->calculateTax());
 	this->residents.push_back(*r);
 	delete r;
 }
 
-void ResidentManager::updateResident()
+void ResidentManager::updateResidentMonthly()
 {
 	int resSize = this->residents.size();
 
 	for (int i = 0; i < resSize; i++)
 	{
-		this->residents[i].payTax();
+		if (residents[i].getAge() < 65)
+		{
+			// A játékos megkapja az adó összegét
+			gameState->income(residents[i].getCurrentTax());
+			residents[i].payTax();
+		}
+		else
+		{
+			// A játékos nyugdíjat fizet a lakosnak
+			// 20 évnyi munka = 240 hónapnyu munka és ha még annak is a fele, akkor 480 az osztó
+			gameState->spendMoney(residents[i].getPastTax() / 480);
+		}
+		residents[i].calculateHappiness(gameState->getBaseTax());
+	}
+}
+
+void ResidentManager::updateResidentYearly()
+{
+	int resSize = this->residents.size();
+
+	for (int i = 0; i < resSize; i++)
+	{
 		int age = this->residents[i].getAge() + 1;
 		this->residents[i].setAge(age);
 	}
@@ -201,6 +224,11 @@ void ResidentManager::buildHouse(int i) {
 		}
 	}
 
+}
+
+int ResidentManager::calculateHappiness()
+{
+	return 0;
 }
 
 int ResidentManager::getFactoryCount()

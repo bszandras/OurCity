@@ -3,6 +3,7 @@
 
 #include "Resident.h"
 #include "World.h"
+#include "GamesTate.h"
 
 class Builder;
 class World;
@@ -17,18 +18,23 @@ class ResidentManager {
 
 		World* world;
 		Builder* builder;
+		GameState* gameState;
+		
 
 	public:
-		ResidentManager(World* world,Builder* builder);
+		ResidentManager(World* world,Builder* builder, GameState* gameState);
 		ResidentManager();
 
 		void buildHouse(int i);
 		void createResident();
-		void updateResident();
+		void updateResidentYearly();
+		void updateResidentMonthly();
 		void handleIntention();
 		void buildFactory(int i);
 		void buildService(int i);
 		int getGlobalHappiness();
+
+		int calculateHappiness();
 
 		int getFactoryCount();
 		int getServiceCount();

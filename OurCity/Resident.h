@@ -3,6 +3,7 @@
 
 #include "Workplace.h"
 #include "House.h"
+#include "GameState.h"
 
 enum ResidentIntetion {
 	NOINTENTION,
@@ -49,7 +50,7 @@ public:
 	House* getHouse() const;
 
 	void payTax();
-	void calculateHappiness();
+	void calculateHappiness(int baseTax);
 	void setIntention(ResidentIntetion intention);
 };
 
