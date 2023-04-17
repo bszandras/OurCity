@@ -21,8 +21,8 @@ class World
 {
 private:
 	Vector2Data origoOffset;
-	int width = 2000;
-	int height = 2000;
+	int width = 200;
+	int height = 200;
 	TileRectWrapper* tileRectWrapper;
 	std::vector<SubMap> submaps;
 	//tile-okat tarthatja a world
@@ -50,6 +50,7 @@ public:
 	Vector2Data tileCoorOnWorldPosition(Vector2Data worldPos);
 	Tile* getTileOnCoords(int i, int j);
 	Tile* getNeighboursReadOnly(Tile* origin);
+	Tile** getWritableTilePointersInRadius(Tile* origin, int radius);
 	std::vector<int> tileIdsInArea(Vector2Data botleft, Vector2Data topright);
 
 	void addHouseZone(Zone zone);
