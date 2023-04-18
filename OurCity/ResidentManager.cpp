@@ -19,24 +19,67 @@ void ResidentManager::createResident()
 
 void ResidentManager::updateResidentMonthly()
 {
+	/*
+	House* house = new House(nullptr);
+	Building* buil = (Building*)house;
+	//house = (House*)buil;
+	house = dynamic_cast<House*>(buil);
+
+	return;
+	*/
+	
+
+
+
 	int resSize = this->residents.size();
 
-	for (int i = 0; i < resSize; i++)
+	std::vector<House>* houses = world->getHouses();
+	for (int i = 0; i < world->getHouseZones()->size(); i++)
 	{
-		if (residents[i].getAge() < 65)
+		for (int j = 0; j < world->getHouseZones()->at(i).getTiles().size(); j++)
 		{
-			// A játékos megkapja az adó összegét
-			gameState->income(residents[i].getCurrentTax());
-			residents[i].payTax();
+			Zone z = world->getHouseZones()->at(i);
+			Tile* t = world->getWrapper()->GetPointerToId(world->getHouseZones()->at(i).getTiles().at(j));
+			if (t->building != nullptr)
+			{
+				House* hj = (House*)t->building;
+				std::cout << t->building << std::endl;
+				std::cout << hj << std::endl;
+				/*
+				Building* b = t->building;
+				std::cout << b << std::endl;
+				std::cout<<b->getTile()<<std::endl;
+				hj = dynamic_cast<House*>(b);
+				*/
+				House* h = (House*)t->building;
+				h = dynamic_cast<House*>(h);
+				
+				//House* h = static_cast<House*>(t->building);
+				for (int k = 0; k < h->getResidents().size(); k++)
+				{
+					this->updateResident(h->getResidents().at(k));
+				}
+				
+			}
 		}
-		else
-		{
-			// A játékos nyugdíjat fizet a lakosnak
-			// 20 évnyi munka = 240 hónapnyu munka és ha még annak is a fele, akkor 480 az osztó
-			gameState->spendMoney(residents[i].getPastTax() / 480);
-		}
-		residents[i].calculateHappiness();
 	}
+}
+
+void ResidentManager::updateResident(Resident* resident)
+{
+	if (resident->getAge() < 65)
+	{
+		// A játékos megkapja az adó összegét
+		gameState->income(resident->getCurrentTax());
+		resident->payTax();
+	}
+	else
+	{
+		// A játékos nyugdíjat fizet a lakosnak
+		// 20 évnyi munka = 240 hónapnyu munka és ha még annak is a fele, akkor 480 az osztó
+		gameState->spendMoney(resident->getPastTax() / 480);
+	}
+	resident->calculateHappiness();
 }
 
 void ResidentManager::updateResidentYearly()

@@ -301,7 +301,8 @@ House* World::addHouse(Tile* tile)
 {
 	House h(tile);
 	Houses.push_back(h);
-	return &h;
+
+	return Houses.data() + Houses.size()-1;
 }
 
 Factory* World::addFactory(Tile* tile)

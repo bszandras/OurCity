@@ -24,6 +24,7 @@ public:
 	Tile* getTile();
 
 	void catchOnFire();
+	virtual void toString();
 };
 
 #endif

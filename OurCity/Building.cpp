@@ -38,6 +38,10 @@ void Building::catchOnFire()
 	// TODO: implement this
 }
 
+void Building::toString()
+{
+}
+
 Tile* Building::getTile()
 {
 	return tile;

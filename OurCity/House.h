@@ -24,6 +24,10 @@ public:
 
 	void setTax(unsigned short tax);
 	void addResident(Resident* r);
+
+	void toString() override;
+
+	std::vector<Resident*> getResidents();
 };
 
 #endif

@@ -44,3 +44,13 @@ void House::addResident(Resident* r)
 {
 	this->residents.push_back(r);
 }
+
+void House::toString()
+{
+}
+
+std::vector<Resident*> House::getResidents()
+{
+	return residents;
+}
+
