@@ -38,7 +38,7 @@ CMyApp::~CMyApp(void)
 bool CMyApp::Init()
 {
 	// törlési szín legyen kékes
-	glClearColor(0.125f, 0.25f, 0.5f, 1.0f);
+	glClearColor(1, 0.25f, 0.5f, 1.0f);
 
 	glEnable(GL_CULL_FACE); // kapcsoljuk be a hátrafelé néző lapok eldobását
 	glEnable(GL_DEPTH_TEST); // mélységi teszt bekapcsolása (takarás)
@@ -395,6 +395,7 @@ void CMyApp::Render()
 	{
 		time = 1;
 	}
+
 
 	glUniform1f(timeCycleLoc, time);
 

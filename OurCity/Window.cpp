@@ -146,11 +146,19 @@ int Window::StartGameLoop()
 		std::cout << "[app.Init] Error during the initialization of the application!" << std::endl;
 		return 1;
 	}
+
+	//SDL_Surface* image = SDL_LoadBMP("city.bmp");
+	//SDL_Surface* surface = SDL_GetWindowSurface(win);
+
+	//SDL_BlitSurface(image, NULL, surface, NULL);
+	//SDL_UpdateWindowSurface(win);
+
 	// imgui init
 	ImGui_ImplSdlGL3_Init(win);
 
 	while (!gameStarted && !quit) 
 	{
+
 		while (SDL_PollEvent(&event))
 		{
 			HandleEvents(quit, event);
@@ -166,9 +174,16 @@ int Window::StartGameLoop()
 
 		ImGui::GetIO().FontGlobalScale = 1.4f;
 
+		ImGui::SetNextWindowSize(ImVec2(width, height));
+		ImGui::SetWindowPos(ImVec2(-50,0));
+
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(200, 5, 30, 0));
+
 		ImGui::SetNextWindowPos(ImVec2((width*0.5)-50,(height*0.5)-50));
 
 		ImGui::Begin("Main Menu", &quit, window_flags);
+
+		//ImGui::Text("OUR CITY");
 
 		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
 
@@ -184,12 +199,17 @@ int Window::StartGameLoop()
 
 		ImGui::End();
 
+		ImGui::PopStyleColor();
+
 		ImGui::Render();
 
 		// sdl double buffering
 		SDL_GL_SwapWindow(win);
 
 	}
+
+	//SDL_FreeSurface(image);
+	//SDL_FreeSurface(surface);
 
 	// start loop
 	while (!quit)
