@@ -156,6 +156,11 @@ int Window::StartGameLoop()
 	// imgui init
 	ImGui_ImplSdlGL3_Init(win);
 
+	ImGuiIO& io = ImGui::GetIO();
+	ImFont* font1 = io.Fonts->AddFontFromFileTTF("New Super Mario Font U.ttf", 24.0f);
+	ImFont* font3 = io.Fonts->AddFontFromFileTTF("New Super Mario Font U.ttf", 36.0f);
+	ImFont* font2 = io.Fonts->AddFontFromFileTTF("Fluo Gums.ttf", 140.0f);
+
 	while (!gameStarted && !quit) 
 	{
 
@@ -172,30 +177,40 @@ int Window::StartGameLoop()
 		window_flags |= ImGuiWindowFlags_NoResize;
 		window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
 
-		ImGui::GetIO().FontGlobalScale = 1.4f;
+		ImGui::SetNextWindowPos(ImVec2((width * 0.5) - 250, (height * 0.5) - 200));
+		ImGui::SetNextWindowSize(ImVec2(850, 600));
 
-		ImGui::SetNextWindowSize(ImVec2(width, height));
-		ImGui::SetWindowPos(ImVec2(-50,0));
+		ImGui::Begin("Text", &quit, window_flags);
+
+			ImGui::PushFont(font2);
+
+			ImGui::Text("OUR CITY");
+
+			ImGui::PopFont();
+
+		ImGui::End();
 
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(200, 5, 30, 0));
 
-		ImGui::SetNextWindowPos(ImVec2((width*0.5)-50,(height*0.5)-50));
+		ImGui::SetNextWindowPos(ImVec2((width*0.5)-50,(height*0.5)));
 
 		ImGui::Begin("Main Menu", &quit, window_flags);
 
-		//ImGui::Text("OUR CITY");
+			ImGui::PushFont(font3);
 
-		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
+			ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
 
-		if (ImGui::Button("Start",ImVec2(100,35))) {
-			gameStarted = true;
-		}
+			if (ImGui::Button("Start",ImVec2(115,45))) {
+				gameStarted = true;
+			}
 
-		if (ImGui::Button("Quit", ImVec2(100, 35))) {
-			quit = true;
-		}
+			if (ImGui::Button("Quit", ImVec2(115, 45))) {
+				quit = true;
+			}
 
-		ImGui::PopStyleColor();
+			ImGui::PopStyleColor();
+
+			ImGui::PopFont();
 
 		ImGui::End();
 
@@ -307,7 +322,7 @@ int Window::StartGameLoop()
 
 		ImGui::End();
 
-		ImGui::SetNextWindowPos(ImVec2(width-300, 0.5f));
+		ImGui::SetNextWindowPos(ImVec2(width-215, 0.5f));
 
 		ImGui::Begin("Time", &quit, window_flags);
 
@@ -317,15 +332,15 @@ int Window::StartGameLoop()
 			app->ChangeSpeed(0);
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Speed1")) {
+		if (ImGui::Button(">")) {
 			app->ChangeSpeed(1);
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Speed2")) {
+		if (ImGui::Button(">>")) {
 			app->ChangeSpeed(2);
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Speed3")) {
+		if (ImGui::Button(">>>")) {
 			app->ChangeSpeed(3);
 		}
 		ImGui::Text("Time: ");
