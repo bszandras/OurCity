@@ -143,7 +143,7 @@ Tile** World::getWritableTilePointersInRadius(Tile* origin, int radius)
 {
 	int tileCount = (radius + 1 + radius) * (radius + 1 + radius) - 1;
 	std::cout << tileCount << std::endl;
-	Tile * *returnable = new Tile * [tileCount];
+	Tile** returnable = new Tile* [tileCount];
 
 	int originID = origin->rect.j * width + origin->rect.i;
 	int index = 0;
@@ -243,6 +243,28 @@ Tile** World::getWritableTilePointersInRadius(Tile* origin, int radius)
 			}
 
 		}
+	}
+
+	return returnable;
+}
+Tile** World::getWritableTilePointersInDirectLineOfSight(Tile* origin, int distance)
+{
+	Tile** returnable = new Tile * [distance * 4];
+	int originID = origin->rect.j * width + origin->rect.i;
+	int index = 0;
+
+	// vertical direct line of sight
+	for (int i = -distance; i <= distance; i++)
+	{
+		if (i == 0)
+		{
+			continue;
+		}
+		returnable[index] = tileRectWrapper->GetPointerToId(originID + i * width);
+		index++;
+
+		returnable[index] = tileRectWrapper->GetPointerToId((originID + i * width) - i);
+		index++;
 	}
 
 	return returnable;

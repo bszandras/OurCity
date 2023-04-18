@@ -192,6 +192,18 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 			tiles[i]->texId = 11;
 		}
 	}
+	// direct line of sight demo
+	if (tex == FOREST)
+	{
+		int r = 2;
+		int tileCount = r * 4;
+		Tile** tiles = world->getWritableTilePointersInDirectLineOfSight(tile, r);
+
+		for (int i = 0; i < tileCount; i++)
+		{
+			tiles[i]->texId = 12;
+		}
+	}
 
 	return true;
 }

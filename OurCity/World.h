@@ -51,6 +51,7 @@ public:
 	Tile* getTileOnCoords(int i, int j);
 	Tile* getNeighboursReadOnly(Tile* origin);
 	Tile** getWritableTilePointersInRadius(Tile* origin, int radius);
+	Tile** getWritableTilePointersInDirectLineOfSight(Tile* origin, int distance);
 	std::vector<int> tileIdsInArea(Vector2Data botleft, Vector2Data topright);
 
 	void addHouseZone(Zone zone);
