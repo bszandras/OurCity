@@ -180,6 +180,31 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 		currentTex = tex;
 	}
 
+	// radius demo
+	if (tex == FOREST)
+	{
+		int r = 1;
+		Tile** tiles = world->getWritableTilePointersInRadius(tile, r);
+		int tileCount = (r + 1 + r) * (r + 1 + r) - 1;
+
+		for (int i = 0; i < tileCount; i++)
+		{
+			tiles[i]->texId = 11;
+		}
+	}
+	// direct line of sight demo
+	if (tex == FOREST)
+	{
+		int r = 2;
+		int tileCount = r * 4;
+		Tile** tiles = world->getWritableTilePointersInDirectLineOfSight(tile, r);
+
+		for (int i = 0; i < tileCount; i++)
+		{
+			tiles[i]->texId = 12;
+		}
+	}
+
 	return true;
 }
 bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, int tex)

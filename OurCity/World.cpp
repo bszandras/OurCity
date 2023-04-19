@@ -141,6 +141,136 @@ Tile* World::getNeighboursReadOnly(Tile* origin)
 	tiles[3] = *t;
 	return tiles;
 }
+Tile** World::getWritableTilePointersInRadius(Tile* origin, int radius)
+{
+	int tileCount = (radius + 1 + radius) * (radius + 1 + radius) - 1;
+	std::cout << tileCount << std::endl;
+	Tile** returnable = new Tile* [tileCount];
+
+	int originID = origin->rect.j * width + origin->rect.i;
+	int index = 0;
+
+	// center oszlop
+	for (int i = -radius; i <= radius; i++)
+	{
+		if (i == 0)
+		{
+			continue;
+		}
+
+		returnable[index] = tileRectWrapper->GetPointerToId(originID + i * width);
+		index++;
+	}
+
+	// bal oszlopok
+	for (int i = 1; i <= radius; i++)
+	{
+		int firstID = originID - i;
+		returnable[index] = tileRectWrapper->GetPointerToId(firstID);
+		index++;
+
+		if(index >= tileCount)
+		{
+			std::cout << "tilecount problem, left col center" << std::endl;
+			return returnable;
+		}
+
+		// aktuális bal oszlop lefelé
+		for (int j = 1; j <= radius - i; j++)
+		{
+			returnable[index] = tileRectWrapper->GetPointerToId(firstID - j * width);
+			index++;
+
+			if (index >= tileCount)
+			{
+				std::cout << "tilecount problem left col down" << std::endl;
+				return returnable;
+			}
+		}
+
+		// aktuális bal oszlop felfelé
+		for (int j = 1; j <= radius + i; j++)
+		{
+			returnable[index] = tileRectWrapper->GetPointerToId(firstID + j * width);
+			index++;
+
+			if (index >= tileCount)
+			{
+				std::cout << "tilecount problem left col up" << std::endl;
+				return returnable;
+			}
+		}
+	}
+
+	// jobb oszlopok, ugyanaz mint a bal oszlopok, de tükrözve
+	for (int i = 1; i <= radius; i++)
+	{
+		int firstID = originID + i;
+		returnable[index] = tileRectWrapper->GetPointerToId(firstID);
+		index++;
+
+		if (index >= tileCount)
+		{
+			std::cout << "tilecount problem right col center" << std::endl;
+			return returnable;
+		}
+
+		// aktuális jobb oszlop lefelé
+		for (int j = 1; j <= radius - i; j++)
+		{
+			returnable[index] = tileRectWrapper->GetPointerToId(firstID + j * width);
+			index++;
+
+			if (index >= tileCount)
+			{
+				std::cout << "tilecount problem right col down" << std::endl;
+				return returnable;
+			}
+		}
+
+		// aktuális bal oszlop felfelé
+		for (int j = 1; j <= radius + i; j++)
+		{
+			returnable[index] = tileRectWrapper->GetPointerToId(firstID - j * width);
+			index++;
+
+			if (index >= tileCount)
+			{
+				// itt valamiért utolsónál kiugrik
+				// szóval kommentelve marad a safety check :D
+
+				//std::cout << index << std::endl;
+				//std::cout << "tilecount problem right col up" << std::endl;
+				//return returnable;
+			}
+
+		}
+	}
+
+	return returnable;
+}
+Tile** World::getWritableTilePointersInDirectLineOfSight(Tile* origin, int distance)
+{
+	Tile** returnable = new Tile * [distance * 4];
+	int originID = origin->rect.j * width + origin->rect.i;
+	int index = 0;
+
+	// vertical direct line of sight
+	for (int i = -distance; i <= distance; i++)
+	{
+		if (i == 0)
+		{
+			continue;
+		}
+		returnable[index] = tileRectWrapper->GetPointerToId(originID + i * width);
+		index++;
+
+		returnable[index] = tileRectWrapper->GetPointerToId((originID + i * width) - i);
+		index++;
+	}
+
+	return returnable;
+}
 // elcs�sztatott t�glalap kijel�l�s
 /*
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
