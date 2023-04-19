@@ -20,7 +20,34 @@ void ResidentManager::createResident()
 void ResidentManager::updateResidentMonthly()
 {
 	int resSize = this->residents.size();
+	std::vector<Zone>* houses = world->getHouseZones(); // Az összes ház zóna
+	std::vector<Zone>* industries = world->getIndustryZones();
+	std::vector<Zone>* services = world->getServiceZones();
 
+	// Végigmegyünk minden egyes lakózónán
+	for (size_t i = 0; i < houses->size(); i++)
+	{
+		// Lekérjük a zónában található Tile-ok ID-ját
+		std::vector<int> tileIds = houses->at(i).getTiles();
+
+		// Végigmegyünk a TileID-kon
+		for (size_t j = 0; j < tileIds.size(); j++)
+		{
+			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
+			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
+
+			// Végigmegyünk a lakosokon
+			for (size_t k = 0; k < residents.size(); k++)
+			{
+				House* h = residents[k].getHouse();
+				// Megnézzük, hogy az adott lakos háza a Tile-on van-e
+				if (residents[k].getHouse()->getTile() == world->getTileOnCoords(x,y))
+				{
+					std::cout << "Lakos: " << k << " Haza: " << x << " " << y << std::endl;
+				}
+			}
+		}
+	}
 
 }
 

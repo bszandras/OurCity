@@ -1,10 +1,8 @@
-﻿  World.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(105,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(106,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(225,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(226,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(228,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(229,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(312): warning C4172: returning address of local variable or temporary: f
-C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(319): warning C4172: returning address of local variable or temporary: sv
+﻿  ResidentManager.cpp
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(22,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(74,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(85,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(97,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(130,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(155,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
   OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
