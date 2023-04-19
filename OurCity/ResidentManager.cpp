@@ -19,50 +19,9 @@ void ResidentManager::createResident()
 
 void ResidentManager::updateResidentMonthly()
 {
-	/*
-	House* house = new House(nullptr);
-	Building* buil = (Building*)house;
-	//house = (House*)buil;
-	house = dynamic_cast<House*>(buil);
-
-	return;
-	*/
-	
-
-
-
 	int resSize = this->residents.size();
 
-	std::vector<House>* houses = world->getHouses();
-	for (int i = 0; i < world->getHouseZones()->size(); i++)
-	{
-		for (int j = 0; j < world->getHouseZones()->at(i).getTiles().size(); j++)
-		{
-			Zone z = world->getHouseZones()->at(i);
-			Tile* t = world->getWrapper()->GetPointerToId(world->getHouseZones()->at(i).getTiles().at(j));
-			if (t->building != nullptr)
-			{
-				House* hj = (House*)t->building;
-				std::cout << t->building << std::endl;
-				std::cout << hj << std::endl;
-				/*
-				Building* b = t->building;
-				std::cout << b << std::endl;
-				std::cout<<b->getTile()<<std::endl;
-				hj = dynamic_cast<House*>(b);
-				*/
-				House* h = (House*)t->building;
-				h = dynamic_cast<House*>(h);
-				
-				//House* h = static_cast<House*>(t->building);
-				for (int k = 0; k < h->getResidents().size(); k++)
-				{
-					this->updateResident(h->getResidents().at(k));
-				}
-				
-			}
-		}
-	}
+
 }
 
 void ResidentManager::updateResident(Resident* resident)
