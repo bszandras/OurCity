@@ -34,7 +34,7 @@ void Workplace::setTax(unsigned short tax)
     this->tax = tax;
 }
 
-void Workplace::addWorker(Resident* r)
+void Workplace::addWorker(int id)
 {
-    this->workers.push_back(r);
+    this->workers.push_back(id);
 }

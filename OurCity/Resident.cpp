@@ -3,8 +3,10 @@
 Resident::Resident(void)
 {
 	age = 18;
-	workplace = nullptr;
-	house = nullptr;
+	//workplace = nullptr;
+	workplaceID = 0;
+	//house = nullptr;
+	houseID = 0;
 	currentTax = 0;
 	pastTax = 0;
 	happiness = 100;
@@ -23,14 +25,16 @@ void Resident::setCurrentTax(int tax)
 	this->currentTax = tax;
 }
 
-void Resident::setHouse(House* house)
+void Resident::setHouse(int id)
 {
-	this->house = house;
+	//this->house = house;
+	houseID = id;
 }
 
-void Resident::setWorkplace(Workplace* workplace)
+void Resident::setWorkplace(int id)
 {
-	this->workplace = workplace;
+	//this->workplace = workplace;
+	workplaceID = id;
 }
 
 int Resident::getAge() const
@@ -53,14 +57,16 @@ ResidentIntetion Resident::getIntention()
 	return this->intention;
 }
 
-Workplace* Resident::getWorkplace() const
+int Resident::getWorkplace() const
 {
-	return this->workplace;
+	//return this->workplace;
+	return workplaceID;
 }
 
-House* Resident::getHouse() const
+int Resident::getHouse() const
 {
-	return this->house;
+	//return this->house;
+	return houseID;
 }
 
 void Resident::payTax()

@@ -39,9 +39,15 @@ void ResidentManager::updateResidentMonthly()
 			// Végigmegyünk a lakosokon
 			for (size_t k = 0; k < residents.size(); k++)
 			{
-				House* h = residents[k].getHouse();
+				if (residents[k].getHouse() == 0)
+				{
+					// ezek szerint nem lakik sehol mert 0 a háza
+					continue;
+				}
+				//House* h = residents[k].getHouse();
+				House* h = world->getHouse(residents[k].getHouse() - 1);
 				// Megnézzük, hogy az adott lakos háza a Tile-on van-e
-				if (residents[k].getHouse()->getTile() == world->getTileOnCoords(x,y))
+				if (h->getTile() == world->getTileOnCoords(x,y))
 				{
 					std::cout << "Lakos: " << k << " Haza: " << x << " " << y << std::endl;
 				}
@@ -100,8 +106,9 @@ void ResidentManager::handleIntention()
 				if (houses->at(j).moveIn() && !movedIn)
 				{
 					movedIn = true;
-					houses->at(j).addResident(&residents[i]);
-					residents[i].setHouse(&houses->at(j));
+					houses->at(j).addResident(i);
+					//residents[i].setHouse(&houses->at(j));
+					residents[i].setHouse(j+1);
 					std::cout << "Moved in " << i << std::endl;
 					if (this->factoryCount <= this->serviceCount) {
 						this->residents[i].setIntention(INDUSTRYWORK);
@@ -115,7 +122,7 @@ void ResidentManager::handleIntention()
 					break;
 				}
 			}
-			if (residents[i].getHouse() == nullptr)
+			if (residents[i].getHouse() == 0)
 			{
 				buildHouse(i);
 				break;
@@ -133,15 +140,17 @@ void ResidentManager::handleIntention()
 				if (factoryB->at(j).canWorkHere() && !working)
 				{
 					working = true;
-					factoryB->at(j).addWorker(&residents[i]);
-					residents[i].setWorkplace(&factoryB->at(j));
+					//factoryB->at(j).addWorker(&residents[i]);
+					factoryB->at(j).addWorker(i);
+					//residents[i].setWorkplace(&factoryB->at(j));
+					residents[i].setWorkplace(-1 * (j+1));
 					std::cout << "Found Work Ind" << i << std::endl;
 					this->factoryCount += 1;
 					this->residents[i].setIntention(NOINTENTION);
 					break;
 				}
 			}
-			if (residents[i].getWorkplace() == nullptr)
+			if (residents[i].getWorkplace() == 0)
 			{
 				buildFactory(i);
 				break;
@@ -158,15 +167,17 @@ void ResidentManager::handleIntention()
 					if (serviceB->at(j).canWorkHere() && !workingS)
 					{
 						workingS = true;
-						serviceB->at(j).addWorker(&residents[i]);
-						residents[i].setWorkplace(&serviceB->at(j));
+						//serviceB->at(j).addWorker(&residents[i]);
+						serviceB->at(j).addWorker(i);
+						//residents[i].setWorkplace(&serviceB->at(j));
+						residents[i].setWorkplace(j+1);
 						std::cout << "Found Work Serv" << i << std::endl;
 						this->serviceCount += 1;
 						this->residents[i].setIntention(NOINTENTION);
 						break;
 					}
 				}
-				if (residents[i].getWorkplace() == nullptr)
+				if (residents[i].getWorkplace() == 0)
 				{
 					buildService(i);
 					break;
