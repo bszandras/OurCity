@@ -119,12 +119,14 @@ Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 	return { (float)x, (float)y };
 }
 
+// TAPOSÓAKNA!!!!
 Tile* World::getTileOnCoords(int i, int j)
 {
 	int index = j * width;
 	index += i;
-	return &tiles[index];
+	return this->tileRectWrapper->GetPointerToId(index);
 }
+
 Tile* World::getNeighboursReadOnly(Tile* origin)
 {
 	Tile* tiles = new Tile[4];
@@ -311,7 +313,8 @@ House* World::addHouse(Tile* tile)
 {
 	House h(tile);
 	Houses.push_back(h);
-	return &h;
+
+	return Houses.data() + Houses.size()-1;
 }
 
 Factory* World::addFactory(Tile* tile)

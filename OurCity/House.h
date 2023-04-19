@@ -12,7 +12,8 @@ class House : public Building
 private:
 	unsigned short capacity;
 	unsigned short tax;
-	std::vector<Resident*> residents;
+	//std::vector<Resident*> residents;
+	std::vector<int> residents;
 
 public:
 	House(Tile* tile);
@@ -23,7 +24,11 @@ public:
 	bool moveIn();
 
 	void setTax(unsigned short tax);
-	void addResident(Resident* r);
+	void addResident(int id);
+
+	void toString() override;
+
+	std::vector<int> getResidents();
 };
 
 #endif

@@ -5,6 +5,7 @@
 Zone::Zone(unsigned char type)
 {
 	this->type = type;
+	this->taxRate = 1.0;
 }
 
 Zone::~Zone()
@@ -58,4 +59,14 @@ std::vector<int> Zone::getTiles() const
 int Zone::tileCount()
 {
 	return tiles.size();
+}
+
+double Zone::getTaxRate() const
+{
+	return taxRate;
+}
+
+void Zone::setTaxRate(double taxRate)
+{
+	this->taxRate = taxRate;
 }

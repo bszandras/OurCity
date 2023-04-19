@@ -40,7 +40,17 @@ void House::setTax(unsigned short tax)
 	this->tax = tax;
 }
 
-void House::addResident(Resident* r)
+void House::addResident(int id)
 {
-	this->residents.push_back(r);
+	this->residents.push_back(id);
 }
+
+void House::toString()
+{
+}
+
+std::vector<int> House::getResidents()
+{
+	return residents;
+}
+

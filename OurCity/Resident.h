@@ -22,8 +22,13 @@ class Resident
 private:
 	// senki sem öregebb 128-nál szóval lehet 8 bites
 	unsigned char age;
-	Workplace* workplace;
-	House* house;
+	//Workplace* workplace;
+	// ha negatív akkor service, ha pozitív akkor industry
+	// 0 a nincs workplace, ezért minden értéket offsetelni kell 1-gyel
+	int workplaceID;
+	//House* house;
+	// -1 a nincs háza
+	int houseID;
 	int currentTax;
 	int pastTax;
 	// mivel 0-100 ezért lehet 8 bites
@@ -39,15 +44,19 @@ public:
 
 	void setAge(int age);
 	void setCurrentTax(int tax);
-	void setHouse(House* house);
-	void setWorkplace(Workplace* workplace);
+	//void setHouse(House* house);
+	void setHouse(int id);
+	//void setWorkplace(Workplace* workplace);
+	void setWorkplace(int id);
 
 	int getAge() const;
 	int getPastTax() const;
 	int getCurrentTax() const;
 	ResidentIntetion getIntention();
-	Workplace* getWorkplace() const;
-	House* getHouse() const;
+	//Workplace* getWorkplace() const;
+	int getWorkplace() const;
+	//House* getHouse() const;
+	int getHouse() const;
 
 	void payTax();
 	void calculateHappiness(int baseTax);
