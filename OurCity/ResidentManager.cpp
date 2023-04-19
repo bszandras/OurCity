@@ -80,7 +80,7 @@ void ResidentManager::updateResident(Resident* resident)
 		// 20 �vnyi munka = 240 h�napnyu munka �s ha m�g annak is a fele, akkor 480 az oszt�
 		gameState->spendMoney(resident->getPastTax() / 480);
 	}
-	resident->calculateHappiness();
+	//resident->calculateHappiness();
 }
 
 void ResidentManager::updateResidentYearly()
