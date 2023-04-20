@@ -343,7 +343,12 @@ void CMyApp::Update()
 				}
 				else
 				{
-					std::cout << selectedZone.tileCount << std::endl;
+					std::cout << "tile count: " << selectedZone.tileCount << std::endl;
+					std::cout << "tax multiply: " << selectedZone.z->getTaxRate() << std::endl;
+					
+					// lakos összegzés?
+					// kell, hogy a tile tudja milyen épület van rajta :(
+
 				}
 				
 			}
@@ -501,8 +506,6 @@ void CMyApp::Render()
 	//selectedTileVertices = 0;
 	vertCount = 4 * cursorSize + selectedTileVertices * 4;
 	vert = new Vertex[vertCount];
-	
-	std::cout << vertCount << std::endl;
 
 	//cursor
 	for (int i = 0; i < cursorSize; i++)
@@ -543,6 +546,7 @@ void CMyApp::Render()
 		vert[i * 4 + 2] = { glm::vec3((vec3data.x + 64), (vec3data.y + 64), vec3data.z), glm::vec3(1, 0, t.texId) };
 		vert[i * 4 + 3] = { glm::vec3(vec3data.x, (vec3data.y + 64), vec3data.z), glm::vec3(0, 0, t.texId) };
 	}
+
 
 	glBindBuffer(GL_ARRAY_BUFFER, overlay_vboID); // tegyük "aktívvá" a létrehozott VBO-t
 	// töltsük fel adatokkal az aktív VBO-t

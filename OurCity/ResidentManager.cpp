@@ -161,6 +161,7 @@ void ResidentManager::handleIntention()
 			}
 			if (residents[i].getWorkplace() == 0)
 			{
+				std::cout << "Building industry work" << std::endl;
 				buildFactory(i);
 				break;
 			}
@@ -206,7 +207,7 @@ void ResidentManager::buildFactory(int i)
 		std::vector<int> zoneTiles = fZones->at(j).getTiles();
 		for (int k = 0; k < zoneTiles.size(); k++) {
 			Tile* t = this->world->getWrapper()->GetPointerToId(zoneTiles.at(k));
-			if (t->building == nullptr) {
+			if (t->building == nullptr && t->type == 0) {
 				Factory* f = this->builder->BuildFactory(t);
 				if (f != nullptr)
 				{
@@ -232,7 +233,7 @@ void ResidentManager::buildService(int i)
 		std::vector<int> zoneTiles = sZones->at(j).getTiles();
 		for (int k = 0; k < zoneTiles.size(); k++) {
 			Tile* t = this->world->getWrapper()->GetPointerToId(zoneTiles.at(k));
-			if (t->building == nullptr) {
+			if (t->building == nullptr && t->type == 0) {
 				ServiceBuilding* sv = this->builder->BuildService(t);
 				if (sv != nullptr)
 				{
@@ -257,7 +258,7 @@ void ResidentManager::buildHouse(int i) {
 		std::vector<int> zoneTiles = hZones->at(j).getTiles();
 		for (int k = 0; k < zoneTiles.size(); k++) {
 			Tile* t = this->world->getWrapper()->GetPointerToId(zoneTiles.at(k));
-			if (t->building == nullptr) {
+			if (t->building == nullptr && t->type == 0) {
 				House* h = this->builder->BuildHouse(t);
 				if (h != nullptr)
 				{

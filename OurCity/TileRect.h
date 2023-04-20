@@ -9,6 +9,20 @@ struct TileRect
 };
 struct Tile
 {
+	// pointer 64 bit - 8 byte
+	// id 4 byte
+	// típus 1 byte :(
+	// ha típusa nem spec akkor id-t vesszük figyelembe
+	// ha típusa spec akkor pointert
+
+
+	// vaaagy
+	// ha típusa nem spec
+	// akkor a pointert számként értelmezzük
+	// számként írjuk felül
+	// building = 1 vagy 2 vagy 12342...
+	// sima (int) casttal kilehet szedni az adatot
+
 	// ez ideiglenes csak
 	Building* building;
 	// grafik�ban haszn�lt rect
@@ -18,7 +32,11 @@ struct Tile
 	
 	// ez csak 1 byte
 	bool hasZone = false;
-
+	unsigned char type = 0;
+	// 0 spec
+	// 1 house
+	// 2 industry
+	// 3 service
 };
 
 class TileRectWrapper

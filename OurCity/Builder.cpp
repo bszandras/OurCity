@@ -57,7 +57,7 @@ int Builder::Build(int where)
 void Builder::BuildSpecBuilding(int where)
 {
 	Tile* tile = wrapper->GetPointerToId(where);
-	if (tile->hasZone || tile->building != nullptr)
+	if (tile->hasZone || tile->building != nullptr || tile->type != 0)
 	{
 		//van itt valami más
 		return;
@@ -285,7 +285,7 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 bool Builder::DestroySpecBuilding(int where)
 {
 	Tile* tile = wrapper->GetPointerToId(where);
-	if (tile->building == nullptr)
+	if (tile->building == nullptr || tile->type != 0)	// ha nem 0 akkor ház ipar vagy service, azt sem szabad bontani
 	{
 		std::cout << "there is nothing here to destroy" << std::endl;
 		return false;
@@ -741,11 +741,20 @@ House* Builder::BuildHouse(Tile* tile)
 	}
 
 	House* h = world->addHouse(tile);
-	tile->building = h;
+	tile->building = nullptr;
+	tile->building += world->getHouses()->size()-1;
 	tile->texId = 21;
-	// 21 a ház
-	// 22 ipar
-	// 23 szolgaltatas
+	tile->type = 1;
+
+	/*
+	House* h = &(world->getHouses()->at((int)tile->building / 24));
+	Factory* h = &(world->getFactories()->at((int)tile->building / 24));
+	ServiceBuilding* h = &(world->getServBuildings()->at((int)tile->building / 24));
+	*/
+	//std::cout << world->getHouses()->size() - 1 << std::endl;
+	//std::cout << tile->building << std::endl;
+	//std::cout << (int)tile->building / 24 << std::endl;
+
 	return h;
 }
 
@@ -757,8 +766,14 @@ Factory* Builder::BuildFactory(Tile* tile)
 	}
 
 	Factory* f = world->addFactory(tile);
-	tile->building = f;
+	tile->building = nullptr;
+	tile->building += world->getFactories()->size() - 1;
 	tile->texId = 22;
+	tile->type = 2;
+
+	//std::cout << world->getFactories()->size() - 1 << std::endl;
+	//std::cout << tile->building << std::endl;
+	//std::cout << (int)tile->building / 24 << std::endl;
 	return f;
 }
 
@@ -770,7 +785,9 @@ ServiceBuilding* Builder::BuildService(Tile* tile)
 	}
 
 	ServiceBuilding* sv = world->addServBuilding(tile);
-	tile->building = sv;
+	tile->building = nullptr;
+	tile->building += world->getFactories()->size() - 1;
 	tile->texId = 23;
+	tile->type = 3;
 	return sv;
 }
