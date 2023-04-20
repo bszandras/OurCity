@@ -1,5 +1,6 @@
 #include "Builder.h"
 #include "BuildingsInclude.h"
+#include "Overlay.h"
 
 Builder::Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world, GameScene* scene)
 {
@@ -19,7 +20,13 @@ void Builder::ChangeState(BuilderState state, BuilderSubState subState)
 
 	if (state == BuilderState::NOBUILD)
 	{
-		wrapper->UpdateTexIdById(currentlyHighlighted, currentTex);
+		//wrapper->UpdateTexIdById(currentlyHighlighted, currentTex);
+		Overlay::Cursor(false, { 0 , 0 });
+		Overlay::MultiCursor(false, nullptr, 4);
+	}
+	else
+	{
+
 	}
 }
 
@@ -575,7 +582,7 @@ void Builder::Highlight(int target)
 	}
 
 	// unhighlight previous highlight
-	wrapper->UpdateTexIdById(currentlyHighlighted, currentTex);
+	// wrapper->UpdateTexIdById(currentlyHighlighted, currentTex);
 
 	if (primaryState == NOBUILD)
 	{
@@ -583,12 +590,14 @@ void Builder::Highlight(int target)
 	}
 
 	// store current highlight data
-	currentlyHighlighted = target;
-	currentTex = wrapper->GetRectsById(&target, 1)->texId;
+	// currentlyHighlighted = target;
+	// currentTex = wrapper->GetRectsById(&target, 1)->texId;
 
 	// new highlight
 	// buildstate dependant highlighting is possible here
-	wrapper->UpdateTexIdById(target, 10);
+	// wrapper->UpdateTexIdById(target, 10);
+	Tile* highlit = wrapper->GetPointerToId(target);
+	Overlay::Cursor(true, { (float)highlit->rect.i, (float)highlit->rect.j });
 }
 void Builder::HighlightBigBuilding(int base)
 {
@@ -660,10 +669,15 @@ void Builder::HighlightBigBuilding(int base)
 		break;
 	}
 
+	int size = areaHighlightedIds.size();
+	Vector2Data* positions = new Vector2Data[size];
 	for (int i = 0; i < areaHighlightedIds.size(); i++)
 	{
-		wrapper->UpdateTexIdById(areaHighlightedIds[i], 10);
+		//wrapper->UpdateTexIdById(areaHighlightedIds[i], 10);
+		Tile* t = wrapper->GetPointerToId(areaHighlightedIds[i]);
+		positions[i] = {(float)t->rect.i, (float)t->rect.j};
 	}
+	Overlay::MultiCursor(true, positions, size);
 }
 void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 {
@@ -699,6 +713,7 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 		highlight += 10;
 		world->getWrapper()->UpdateTexIdById(ids[i], highlight);
 	}
+
 }
 void Builder::UnHighlightArea()
 {

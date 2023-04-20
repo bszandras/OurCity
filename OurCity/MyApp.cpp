@@ -17,10 +17,15 @@
 #include "BuildingsInclude.h"
 #include "RoadGraph.h"
 
+
+
 CMyApp::CMyApp(void)
 {
 	m_vaoID = 0;
 	m_vboID = 0;
+	overlay_vaoID = 0;
+	overlay_vboID = 0;
+
 	m_programID = 0;
 	camDataUniformLoc = 0;
 	winDataUniformLoc = 0;
@@ -53,6 +58,8 @@ bool CMyApp::Init()
 	scene = new GameScene(mouseController);
 	
 	time = new Time(SDL_GetTicks() / 1000.0f);
+
+	overlay = new Overlay();
 	//builder = new Builder(scene->getWorld()->getWrapper(), mouseController, scene->getWorld());
 
 	/*
@@ -111,6 +118,10 @@ bool CMyApp::Init()
 	ServiceBuilding* serv = new ServiceBuilding(&t);
 	*/
 
+	// ----------
+	// NORMÁL VAO
+	// ----------
+
 	// 1 db VAO foglalása
 	glGenVertexArrays(1, &m_vaoID);
 	// a frissen generált VAO beállítasa aktívnak
@@ -147,6 +158,51 @@ bool CMyApp::Init()
 		GL_FALSE,
 		sizeof(Vertex),
 		(void*)(sizeof(glm::vec3)) );
+
+	glBindVertexArray(0); // feltöltüttük a VAO-t, kapcsoljuk le
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // feltöltöttük a VBO-t is, ezt is vegyük le
+
+
+	// ----------
+	// OVERLAY VAO
+	// ----------
+
+	// 1 db VAO foglalása
+	glGenVertexArrays(1, &overlay_vaoID);
+	// a frissen generált VAO beállítasa aktívnak
+	glBindVertexArray(overlay_vaoID);
+
+	// hozzunk létre egy új VBO erőforrás nevet
+	glGenBuffers(1, &overlay_vboID);
+	glBindBuffer(GL_ARRAY_BUFFER, overlay_vboID);
+	/*
+	glBindBuffer(GL_ARRAY_BUFFER, m_vboID); // tegyük "aktívvá" a létrehozott VBO-t
+	// töltsük fel adatokkal az aktív VBO-t
+	glBufferData( GL_ARRAY_BUFFER,					// az aktív VBO-ba töltsünk adatokat
+				  sizeof(Vertex) * vertCount,		// ennyi bájt nagyságban
+				  vert,								// erről a rendszermemóriabeli címről olvasva
+				  GL_STATIC_DRAW);					// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévő adatokat
+				  */
+				  // VAO-ban jegyezzük fel, hogy a VBO-ban az első 3 float sizeof(Vertex)-enként lesz az első attribútum (pozíció)
+	glEnableVertexAttribArray(0); // ez lesz majd a pozíció
+	glVertexAttribPointer(
+		(GLuint)0,				// a VB-ben található adatok közül a 0. "indexű" attribútumait állítjuk be
+		3,				// komponens szám
+		GL_FLOAT,		// adatok típusa
+		GL_FALSE,		// normalizált legyen-e
+		sizeof(Vertex),	// stride (0=egymás után)
+		0				// a 0. indexű attribútum hol kezdődik a sizeof(Vertex)-nyi területen belül
+	);
+
+	// a második attribútumhoz pedig a VBO-ban sizeof(Vertex) ugrás után sizeof(glm::vec3)-nyit menve újabb 3 float adatot találunk (szín)
+	glEnableVertexAttribArray(1); // ez lesz majd a szín
+	glVertexAttribPointer(
+		(GLuint)1,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(Vertex),
+		(void*)(sizeof(glm::vec3)));
 
 	glBindVertexArray(0); // feltöltüttük a VAO-t, kapcsoljuk le
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // feltöltöttük a VBO-t is, ezt is vegyük le
@@ -206,6 +262,9 @@ void CMyApp::Clean()
 {
 	glDeleteBuffers(1, &m_vboID);
 	glDeleteVertexArrays(1, &m_vaoID);
+
+	glDeleteBuffers(1, &overlay_vboID);
+	glDeleteVertexArrays(1, &overlay_vaoID);
 
 	glDeleteProgram( m_programID );
 }
@@ -277,6 +336,7 @@ void CMyApp::Update()
 		else if (mouseController->getMouseState() == MouseState::DRAG)
 		{
 			scene->getBuilder()->HighlightArea(mouseController->getRecalculateWorldPosition(scene->getWorld(), scene->getCamera()), scene->getWorld());
+			scene->getBuilder()->Highlight(tileID);
 		}
 		else
 		{
@@ -402,11 +462,62 @@ void CMyApp::Render()
 	//time = 0;
 	glUniform1f(timeCycleLoc, time);
 
-	
-
 	// kirajzolás
 	//A draw hívásokhoz a VAO és a program bindolva kell legyenek (glUseProgram() és glBindVertexArray())
 	//glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDrawArrays(GL_QUADS, 0, vertCount);
+
+	// VAO kikapcsolása
+	glBindVertexArray(0);
+
+	// --------------
+	// OVERLAY RENDER
+	// --------------
+
+	Tile* cursor = Overlay::getCursor();
+	int cursorSize = Overlay::getCursorSize();
+	if (cursor == nullptr)
+	{
+		glUseProgram(0);
+		return;
+	}
+
+	vert = new Vertex[4 * cursorSize];
+	vertCount = 4 * cursorSize;
+
+	for (int i = 0; i < cursorSize; i++)
+	{
+		// rect indexei
+		Vector3Data vec3data = { (cursor + i)->rect.i, (cursor + i)->rect.j, -0.95 };
+		// index -> real position
+		vec3data.x = (vec3data.x * 64) + (vec3data.y * 32);
+		vec3data.y = (vec3data.y * (64 - 41));
+
+		// position offset, hogy rect origin jó helyen legyen
+		vec3data.x -= 32;
+		vec3data.y -= 21;
+
+		vert[i * 4] = { glm::vec3(vec3data.x, vec3data.y, vec3data.z), glm::vec3(0, 1, cursor->texId) };
+		vert[i * 4 + 1] = { glm::vec3((vec3data.x + 64), vec3data.y, vec3data.z), glm::vec3(1, 1, cursor->texId) };
+		vert[i * 4 + 2] = { glm::vec3((vec3data.x + 64), (vec3data.y + 64), vec3data.z), glm::vec3(1, 0, cursor->texId) };
+		vert[i * 4 + 3] = { glm::vec3(vec3data.x, (vec3data.y + 64), vec3data.z), glm::vec3(0, 0, cursor->texId) };
+	}
+	
+
+	glBindBuffer(GL_ARRAY_BUFFER, overlay_vboID); // tegyük "aktívvá" a létrehozott VBO-t
+	// töltsük fel adatokkal az aktív VBO-t
+	glBufferData(GL_ARRAY_BUFFER,					// az aktív VBO-ba töltsünk adatokat
+		sizeof(Vertex)* vertCount,		// ennyi bájt nagyságban
+		vert,								// erről a rendszermemóriabeli címről olvasva
+		//GL_STATIC_DRAW);					// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévő adatokat	
+		GL_STREAM_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	delete[] vert;
+
+	glBindVertexArray(overlay_vaoID);
+
 	glDrawArrays(GL_QUADS, 0, vertCount);
 
 	// VAO kikapcsolása
@@ -472,6 +583,7 @@ void CMyApp::MouseUp(SDL_MouseButtonEvent& mouse)
 	else if(mouse.button == SDL_BUTTON_RIGHT)
 	{
 		scene->getBuilder()->ChangeState(BuilderState::NOBUILD, BuilderSubState::NONE);
+		mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::CLICK);
 	}
 	
 }

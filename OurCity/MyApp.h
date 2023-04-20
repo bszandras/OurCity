@@ -16,6 +16,8 @@
 #include "AppTime.h"
 #include "Builder.h"
 
+#include "Overlay.h"
+
 class CMyApp
 {
 public:
@@ -50,6 +52,9 @@ protected:
 	GLuint m_vaoID; // vertex array object erőforrás azonosító
 	GLuint m_vboID; // vertex buffer object erőforrás azonosító
 
+	GLuint overlay_vaoID;
+	GLuint overlay_vboID;
+
 	//shader adatok
 	GLuint camDataUniformLoc;
 	GLuint winDataUniformLoc;
@@ -73,6 +78,7 @@ protected:
 	GameScene* scene;
 	MouseController* mouseController;
 	Time* time;
+	Overlay* overlay;
 	//Builder* builder;
 };
 

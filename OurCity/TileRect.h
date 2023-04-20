@@ -19,9 +19,6 @@ struct Tile
 	// ez csak 1 byte
 	bool hasZone = false;
 
-	// itt van m�g 2 padding byte
-	// +
-	// +
 };
 
 class TileRectWrapper

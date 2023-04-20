@@ -144,6 +144,9 @@
     <ClCompile Include="FireTruck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Overlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -261,6 +264,9 @@
       <Filter>Header Files\Buildings</Filter>
     </ClInclude>
     <ClInclude Include="FireTruck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Overlay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

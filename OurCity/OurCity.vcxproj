@@ -178,6 +178,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MouseController.cpp" />
     <ClCompile Include="MyApp.cpp" />
+    <ClCompile Include="Overlay.cpp" />
     <ClCompile Include="PoliceStation.cpp" />
     <ClCompile Include="Resident.cpp" />
     <ClCompile Include="ResidentManager.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="include\imgui\imgui_internal.h" />
     <ClInclude Include="MouseController.h" />
     <ClInclude Include="MyApp.h" />
+    <ClInclude Include="Overlay.h" />
     <ClInclude Include="PoliceStation.h" />
     <ClInclude Include="Resident.h" />
     <ClInclude Include="ResidentManager.h" />
