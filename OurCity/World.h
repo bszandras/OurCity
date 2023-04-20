@@ -65,6 +65,9 @@ public:
 	std::vector<Zone>* getHouseZones();
 	std::vector<Zone>* getIndustryZones();
 	std::vector<Zone>* getServiceZones();
+	
+	ZoneStatData getZoneStatsForTile(int tileID);
+
 	std::vector<House>* getHouses();
 	std::vector<Factory>* getFactories();
 	std::vector<ServiceBuilding>* getServBuildings();
@@ -75,4 +78,6 @@ public:
 
 	bool AddRoad(Tile* t, GameScene* scene);
 	RoadGraph* getRoadGraph();
+
+	
 };

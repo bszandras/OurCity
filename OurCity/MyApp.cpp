@@ -330,8 +330,23 @@ void CMyApp::Update()
 		
 		if (mouseController->getMouseState() == MouseState::CLICK)
 		{
-			//std::cout << tileId.x << " " << tileId.y << std::endl;
-			scene->getBuilder()->Build(tileID);
+			int built = scene->getBuilder()->Build(tileID);
+
+			// akkor nem épített, nem is próbált építeni, tehát prolly selection
+
+			if (built == 1)
+			{
+				selectedZone = world->getZoneStatsForTile(tileID);
+				if (selectedZone.z == nullptr)
+				{
+					std::cout << "no zone" << std::endl;
+				}
+				else
+				{
+					std::cout << selectedZone.tileCount << std::endl;
+				}
+				
+			}
 		}
 		else if (mouseController->getMouseState() == MouseState::DRAG)
 		{
@@ -482,9 +497,14 @@ void CMyApp::Render()
 		return;
 	}
 
-	vert = new Vertex[4 * cursorSize];
-	vertCount = 4 * cursorSize;
+	int selectedTileVertices = selectedZone.tileCount;
+	//selectedTileVertices = 0;
+	vertCount = 4 * cursorSize + selectedTileVertices * 4;
+	vert = new Vertex[vertCount];
+	
+	std::cout << vertCount << std::endl;
 
+	//cursor
 	for (int i = 0; i < cursorSize; i++)
 	{
 		// rect indexei
@@ -503,6 +523,26 @@ void CMyApp::Render()
 		vert[i * 4 + 3] = { glm::vec3(vec3data.x, (vec3data.y + 64), vec3data.z), glm::vec3(0, 0, cursor->texId) };
 	}
 	
+	// zóna highlight
+	for (int i = cursorSize; i < cursorSize + selectedTileVertices; i++)
+	{
+		Tile t = selectedZone.tiles[i - cursorSize];
+		t.texId = 11 + selectedZone.z->getType();
+		// rect indexei
+		Vector3Data vec3data = { t.rect.i, t.rect.j, -0.94 };
+		// index -> real position
+		vec3data.x = (vec3data.x * 64) + (vec3data.y * 32);
+		vec3data.y = (vec3data.y * (64 - 41));
+
+		// position offset, hogy rect origin jó helyen legyen
+		vec3data.x -= 32;
+		vec3data.y -= 21;
+
+		vert[i * 4] = { glm::vec3(vec3data.x, vec3data.y, vec3data.z), glm::vec3(0, 1, t.texId) };
+		vert[i * 4 + 1] = { glm::vec3((vec3data.x + 64), vec3data.y, vec3data.z), glm::vec3(1, 1, t.texId) };
+		vert[i * 4 + 2] = { glm::vec3((vec3data.x + 64), (vec3data.y + 64), vec3data.z), glm::vec3(1, 0, t.texId) };
+		vert[i * 4 + 3] = { glm::vec3(vec3data.x, (vec3data.y + 64), vec3data.z), glm::vec3(0, 0, t.texId) };
+	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, overlay_vboID); // tegyük "aktívvá" a létrehozott VBO-t
 	// töltsük fel adatokkal az aktív VBO-t
@@ -518,6 +558,8 @@ void CMyApp::Render()
 
 	glBindVertexArray(overlay_vaoID);
 
+	//overlay ne sötétedjen
+	glUniform1f(timeCycleLoc, 1);
 	glDrawArrays(GL_QUADS, 0, vertCount);
 
 	// VAO kikapcsolása
@@ -584,6 +626,9 @@ void CMyApp::MouseUp(SDL_MouseButtonEvent& mouse)
 	{
 		scene->getBuilder()->ChangeState(BuilderState::NOBUILD, BuilderSubState::NONE);
 		mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::CLICK);
+
+		// clear zone selection
+		selectedZone.tileCount = 0;
 	}
 	
 }

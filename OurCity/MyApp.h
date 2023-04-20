@@ -80,5 +80,8 @@ protected:
 	Time* time;
 	Overlay* overlay;
 	//Builder* builder;
+
+
+	ZoneStatData selectedZone;
 };
 

@@ -30,12 +30,12 @@ void Builder::ChangeState(BuilderState state, BuilderSubState subState)
 	}
 }
 
-void Builder::Build(int where)
+int Builder::Build(int where)
 {
 	switch (primaryState)
 	{
 	case NOBUILD:
-		return;
+		return 1;
 		break;
 	case ZONE:
 		SelectZone();
@@ -52,6 +52,7 @@ void Builder::Build(int where)
 	default:
 		break;
 	}
+	return 0;
 }
 void Builder::BuildSpecBuilding(int where)
 {

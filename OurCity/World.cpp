@@ -476,6 +476,62 @@ std::vector<Zone>* World::getServiceZones()
 	return &ServiceZones;
 }
 
+ZoneStatData World::getZoneStatsForTile(int tileID)
+{
+	ZoneStatData z;
+	z.z = nullptr;
+	z.tileCount = 0;
+	// lakózóna
+	for (int i = 0; i < HouseZones.size(); i++)
+	{
+		if (HouseZones[i].isTileInZone(tileID))
+		{
+			z.z = &HouseZones[i];
+			z.tileCount = HouseZones[i].tileCount();
+			std::vector<int> tiles = HouseZones[i].getTiles();
+			z.tiles = new Tile[z.tileCount];
+			for (int j = 0; j < z.tileCount; j++)
+			{
+				z.tiles[j] = *(tileRectWrapper->GetPointerToId(tiles[j]));
+			}
+			return z;
+		}
+	}
+	// ipar
+	for (int i = 0; i < IndustryZones.size(); i++)
+	{
+		if (IndustryZones[i].isTileInZone(tileID))
+		{
+			z.z = &IndustryZones[i];
+			z.tileCount = IndustryZones[i].tileCount();
+			std::vector<int> tiles = IndustryZones[i].getTiles();
+			z.tiles = new Tile[z.tileCount];
+			for (int j = 0; j < z.tileCount; j++)
+			{
+				z.tiles[j] = *(tileRectWrapper->GetPointerToId(tiles[j]));
+			}
+			return z;
+		}
+	}
+	// service
+	for (int i = 0; i < ServiceZones.size(); i++)
+	{
+		if (ServiceZones[i].isTileInZone(tileID))
+		{
+			z.z = &ServiceZones[i];
+			z.tileCount = ServiceZones[i].tileCount();
+			std::vector<int> tiles = ServiceZones[i].getTiles();
+			z.tiles = new Tile[z.tileCount];
+			for (int j = 0; j < z.tileCount; j++)
+			{
+				z.tiles[j] = *(tileRectWrapper->GetPointerToId(tiles[j]));
+			}
+			return z;
+		}
+	}
+	return z;
+}
+
 std::vector<House>* World::getHouses()
 {
 	return &Houses;

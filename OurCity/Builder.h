@@ -64,7 +64,7 @@ public:
 	~Builder();
 
 	void ChangeState(BuilderState state, BuilderSubState subState);
-	void Build(int where);
+	int Build(int where);
 	void Highlight(int target);
 	void HighlightBigBuilding(int base);
 	void HighlightArea(Vector2Data mouseWorldPosition, World* world);
@@ -72,4 +72,5 @@ public:
 	House* BuildHouse(Tile* tile);
 	Factory* BuildFactory(Tile* tile);
 	ServiceBuilding* BuildService(Tile* tile);
+
 };

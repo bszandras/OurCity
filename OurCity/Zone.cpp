@@ -61,6 +61,11 @@ int Zone::tileCount()
 	return tiles.size();
 }
 
+int Zone::getType()
+{
+	return type;
+}
+
 double Zone::getTaxRate() const
 {
 	return taxRate;
