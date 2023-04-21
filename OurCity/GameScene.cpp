@@ -3,8 +3,10 @@
 GameScene::GameScene(MouseController* mouse)
 {
 	world = new World();
+#ifndef TESTING
 	camera = new Camera({(float)world->getWidth()*64*1.5f/2, (float)world->getHeight()*23/2});
 	//camera = new Camera();
+#endif
 	builder = new Builder(world->getWrapper(), mouse, world, this);
 	gameTime = new GameTime();
 	gameState = new GameState();
@@ -17,16 +19,19 @@ GameScene::GameScene(MouseController* mouse)
 GameScene::~GameScene()
 {
 	delete world;
+#ifndef TESTING
 	delete camera;
+#endif
 	delete builder;
 	delete gameTime;
 	delete gameState;
 }
-
+#ifndef TESTING
 Camera* GameScene::getCamera()
 {
 	return camera;
 }
+#endif
 
 World* GameScene::getWorld()
 {

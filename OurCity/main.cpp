@@ -22,7 +22,8 @@ int main( int argc, char* args[] )
 
 #ifdef TESTING
 	CMyApp* app = new CMyApp();
-
+	app->Init();
+	app->Update();
 #else
 	int vsync = 1;
 

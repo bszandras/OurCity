@@ -5,16 +5,16 @@
 #include "AppTime.h"
 #include "GameState.h"
 #include "ResidentManager.h"
+#include "MouseController.h"
 
 #ifndef TESTING
-#include "MouseController.h"
 #include "Camera.h"
 #endif
 
 class Builder;
 class ResidentManager;
-#ifndef TESTING
 class MouseController;
+#ifndef TESTING
 #endif
 class World;
 class GameScene
@@ -36,7 +36,9 @@ public:
 	GameScene(MouseController* mouse);
 	~GameScene();
 
+#ifndef TESTING
 	Camera* getCamera();
+#endif
 	World* getWorld();
 	Builder* getBuilder();
 	GameTime* getGameTime();
