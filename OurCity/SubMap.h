@@ -1,4 +1,6 @@
 #pragma once
+
+
 #include <vector>
 
 #include "Vector.h"
@@ -7,6 +9,7 @@
 #include "World.h"
 
 class World;
+#ifndef TESTING
 class SubMap
 {
 private:
@@ -31,3 +34,4 @@ public:
 		return size;
 	}
 };
+#endif

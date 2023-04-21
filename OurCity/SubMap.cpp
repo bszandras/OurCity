@@ -5,6 +5,7 @@
 #include "World.h"
 #include "Window.h"
 
+#ifndef TESTING
 SubMap::SubMap(Vector2Data bl, int cs, World* w)
 {
 	botLeft = bl;
@@ -74,3 +75,4 @@ Vector2Data SubMap::getBotLeft()
 {
 	return botLeft;
 }
+#endif

@@ -4,15 +4,20 @@
 #include "RoadGraph.h"
 #include "Vector.h"
 #include "TileRect.h"
+
+#ifndef TESTING
 #include "SubMap.h"
+#endif
+
 #include "Tile.h"
 #include "Zone.h"
 #include "Builder.h"
 
-
 #include "BuildingsInclude.h"
 
+#ifndef TESTING
 class SubMap;
+#endif
 class GameScene;
 class RoadGraph;
 class ResidentManager;
@@ -24,7 +29,9 @@ private:
 	int width = 200;
 	int height = 200;
 	TileRectWrapper* tileRectWrapper;
+#ifndef TESTING
 	std::vector<SubMap> submaps;
+#endif
 	//tile-okat tarthatja a world
 	std::vector<Tile> tiles;
 
@@ -43,7 +50,9 @@ public:
 	~World();
 	Vector2Data getOrigoOffset();
 	void reCalculateOrigoOffset();
+#ifndef TESTING
 	std::vector<SubMap>* getSubmaps();
+#endif
 	int getWidth();
 	int getHeight();
 	TileRectWrapper* getWrapper();
