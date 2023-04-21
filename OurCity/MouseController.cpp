@@ -15,7 +15,7 @@ MouseController::MouseController()
 MouseController::~MouseController()
 {
 }
-
+#ifndef TESTING
 void MouseController::ClearControlFrame()
 {
 	stateThisFrame = MouseState::NOTHING;
@@ -78,3 +78,4 @@ void MouseController::setDragStart(World* world, Camera* camera)
 {
 	worldDragStart = getRecalculateWorldPosition(world, camera);
 }
+#endif
