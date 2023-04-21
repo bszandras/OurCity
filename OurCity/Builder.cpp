@@ -304,7 +304,7 @@ bool Builder::DestroySpecBuilding(int where)
 
 	if (world->getRoadGraph()->searchRoadByCoords(tile->rect.i, tile->rect.j))
 	{
-		if (world->getRoadGraph()->hasBuildingNext(tile, world->getNeighboursReadOnly(tile)))
+		if (world->getRoadGraph()->hasBuildingNext(tile, world->getNeighboursWritablePointers(tile)))
 		{
 			std::cout << "ut mellett epulet" << std::endl;
 			return false;

@@ -162,19 +162,20 @@ void GameScene::update()
 	if (days != 0)
 	{
 		dayCount+= days;
+		world->UpdateFires(days);
 	}
 	if (dayCount >= 30)
 	{
 		residentManager->updateResidentMonthly();
 		dayCount -= 30;
 		monthCount++;
-		std::cout << "month passed" << std::endl;
+		//std::cout << "month passed" << std::endl;
 	}
 	if (monthCount >= 12)
 	{
 		residentManager->updateResidentYearly();
 		monthCount -= 12;
-		std::cout << "year passed" << std::endl;
+		//std::cout << "year passed" << std::endl;
 	}
 
 }

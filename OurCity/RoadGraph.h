@@ -21,7 +21,7 @@ public:
 	bool removeRoad(Tile* tile);
 	bool isAdjacent(Tile* tile);
 	bool isConnected(Road* road);
-	bool hasBuildingNext(Tile* tile, Tile* neighs);
+	bool hasBuildingNext(Tile* tile, Tile** neighs);
 
 	bool searchRoadByCoords(int i, int j);
 	

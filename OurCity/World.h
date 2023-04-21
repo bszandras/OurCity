@@ -55,7 +55,7 @@ public:
 	TileRectWrapper* getWrapper();
 	Vector2Data tileCoorOnWorldPosition(Vector2Data worldPos);
 	Tile* getTileOnCoords(int i, int j);
-	Tile* getNeighboursReadOnly(Tile* origin);
+	Tile** getNeighboursWritablePointers(Tile* origin);
 	Tile** getWritableTilePointersInRadius(Tile* origin, int radius);
 	Tile** getWritableTilePointersInDirectLineOfSight(Tile* origin, int distance);
 	std::vector<int> tileIdsInArea(Vector2Data botleft, Vector2Data topright);
@@ -93,6 +93,6 @@ public:
 	std::vector<SpecialBuilding*>* getBurnableSpecials();
 	int AddFire(Tile* t);
 	std::vector<Fire>* getFires();
-	void UpdateFires(int deltaHours);
+	void UpdateFires(int deltaDays);
 	bool PutOutFire(int tileID);
 };

@@ -1,6 +1,7 @@
 #include "World.h"
 #include "SubMap.h"
 #include "Window.h"
+#include <random>
 
 World::World()
 {
@@ -119,7 +120,6 @@ Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 	return { (float)x, (float)y };
 }
 
-// TAPOSÓAKNA!!!!
 Tile* World::getTileOnCoords(int i, int j)
 {
 	int index = j * width;
@@ -127,18 +127,18 @@ Tile* World::getTileOnCoords(int i, int j)
 	return this->tileRectWrapper->GetPointerToId(index);
 }
 
-Tile* World::getNeighboursReadOnly(Tile* origin)
+Tile** World::getNeighboursWritablePointers(Tile* origin)
 {
-	Tile* tiles = new Tile[4];
+	Tile** tiles = new Tile*[4];
 
 	Tile* t = this->tileRectWrapper->GetPointerToId((origin->rect.j + 1) * width + origin->rect.i - 1);
-	tiles[0] = *t;
+	tiles[0] = t;
 	t = this->tileRectWrapper->GetPointerToId((origin->rect.j + 1) * width + origin->rect.i);
-	tiles[1] = *t;
+	tiles[1] = t;
 	t = this->tileRectWrapper->GetPointerToId((origin->rect.j - 1) * width + origin->rect.i);
-	tiles[2] = *t;
+	tiles[2] = t;
 	t = this->tileRectWrapper->GetPointerToId((origin->rect.j - 1) * width + origin->rect.i + 1);
-	tiles[3] = *t;
+	tiles[3] = t;
 	return tiles;
 }
 Tile** World::getWritableTilePointersInRadius(Tile* origin, int radius)
@@ -632,7 +632,7 @@ std::vector<Fire>* World::getFires()
 	return &fires;
 }
 
-void World::UpdateFires(int deltaHours)
+void World::UpdateFires(int deltaDays)
 {
 	// folytatja a tüzet
 	// ha egy tűz leégett, akkor a tile-ről törli az épületet
@@ -640,6 +640,40 @@ void World::UpdateFires(int deltaHours)
 	// mindenki meghal a tűzben, munkahelyeket előtte fel kell szabadítani
 	// HA MUNKAHELY akkor a lakosok csak munkanélküliek lesznek
 	// resident manager-be kell egy delete lakos függvény ami minden szálat elvarr
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> dis(0, 4);//uniform distribution between 0 and 1
+
+	for (int i = 0; i < fires.size(); i++)
+	{
+		Fire* f = &fires.at(i);
+		f->Update(deltaDays);
+
+		// TERJED A TŰZ
+		if (f->shouldPropagate())
+		{
+			Tile** neighs = getNeighboursWritablePointers(f->getTargetTile());
+			double dir = dis(gen);
+			Tile* newTarget = neighs[(int)trunc(dir)];
+
+			if (newTarget->type != 0 && !newTarget->onFire)
+			{
+				AddFire(newTarget);
+				std::cout << "fire propagation" << std::endl;
+			}
+			else if (newTarget->building != nullptr && newTarget->texId != FIRESTATION
+				&& newTarget->texId != ROAD && newTarget->onFire)
+			{
+				AddFire(newTarget);
+				std::cout << "fire propagation" << std::endl;
+			}
+		}
+		// akkor túl sokáig égett
+		if (f->getBurnTime() > f->getMaxBurnTime())
+		{
+			// leég a ház elmúlik a tűz
+		}
+	}
 }
 
 bool World::PutOutFire(int tileID)
