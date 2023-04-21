@@ -17,6 +17,7 @@ class SubMap;
 class GameScene;
 class RoadGraph;
 class ResidentManager;
+class FireStation;
 
 class World
 {
@@ -40,6 +41,8 @@ private:
 	RoadGraph roadGraph;
 
 	std::vector<Fire> fires;
+	std::vector<FireStation*> fireStations;
+	std::vector<SpecialBuilding*> burnableBuildings;
 
 public:
 	World();
@@ -82,6 +85,12 @@ public:
 	bool AddRoad(Tile* t, GameScene* scene);
 	RoadGraph* getRoadGraph();
 
+	void AddFireStation(FireStation* firestation);
+	void RemoveFireStation(FireStation* firestation);
+	std::vector<FireStation*>* getFireStations();
+	void AddBurnableSpecialBuilding(SpecialBuilding* specialBuilding);
+	void RemoveBurnableSpecialBuilding(SpecialBuilding* specialBuilding);
+	std::vector<SpecialBuilding*>* getBurnableSpecials();
 	int AddFire(Tile* t);
 	std::vector<Fire>* getFires();
 	void UpdateFires(int deltaHours);

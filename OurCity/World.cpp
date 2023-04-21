@@ -572,6 +572,48 @@ RoadGraph* World::getRoadGraph()
 	return &roadGraph;
 }
 
+void World::AddFireStation(FireStation* firestation)
+{
+	fireStations.push_back(firestation);
+}
+
+void World::RemoveFireStation(FireStation* firestation)
+{
+	for (int i = 0; i < fireStations.size(); i++)
+	{
+		if (fireStations.at(i) == firestation)
+		{
+			fireStations.erase(fireStations.begin() + i);
+		}
+	}
+}
+
+std::vector<FireStation*>* World::getFireStations()
+{
+	return &fireStations;
+}
+
+void World::AddBurnableSpecialBuilding(SpecialBuilding* specialBuilding)
+{
+	burnableBuildings.push_back(specialBuilding);
+}
+
+void World::RemoveBurnableSpecialBuilding(SpecialBuilding* specialBuilding)
+{
+	for (int i = 0; i < burnableBuildings.size(); i++)
+	{
+		if (burnableBuildings.at(i) == specialBuilding)
+		{
+			burnableBuildings.erase(burnableBuildings.begin() + i);
+		}
+	}
+}
+
+std::vector<SpecialBuilding*>* World::getBurnableSpecials()
+{
+	return &burnableBuildings;
+}
+
 int World::AddFire(Tile* t)
 {
 	// tile még nem tudja hogy ég
@@ -602,6 +644,13 @@ void World::UpdateFires(int deltaHours)
 
 bool World::PutOutFire(int tileID)
 {
+	if (fireStations.size() == 0)
+	{
+		// akkor nincs tűzoltóság :(
+		// nem oltja el, de capture-öli az egér clicket
+		return true;
+	}
+
 	Tile* t = tileRectWrapper->GetPointerToId(tileID);
 	if (!t->onFire)
 	{

@@ -183,10 +183,21 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 	wrapper->GetPointerToId(where)->building = building;
 
 	wrapper->UpdateTexIdById(where, tex);
+
+	if (tex == FIRESTATION)
+	{
+		world->AddFireStation((FireStation*)building);
+	}
+	else if (tex != FOREST && tex != ROAD)
+	{
+		world->AddBurnableSpecialBuilding((SpecialBuilding*)building);
+	}
+	/*
 	if (currentlyHighlighted == where)
 	{
 		currentTex = tex;
 	}
+	*/
 
 	// radius demo
 	if (tex == FOREST)
@@ -424,6 +435,16 @@ bool Builder::DestroySpecBuilding(int where)
 
 			// TODO
 			// ide fognak kerülni a spec épület update-ek
+
+			// tûzoltóságot remove-olni kell
+			if (b->getTile()->texId == FIRESTATION)
+			{
+				world->RemoveFireStation((FireStation*)b);
+			}
+			else if (b->getTile()->texId != FOREST && b->getTile()->texId != ROAD)
+			{
+				world->AddBurnableSpecialBuilding((SpecialBuilding*)b);
+			}
 
 			scene->getGameState()->income(b->getBuildCost() / 2);
 			delete b;

@@ -5,7 +5,7 @@ PoliceStation::PoliceStation(Tile* tile) : SpecialBuilding(tile)
 	// Set the members of the base class
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
-	this->fireChance = 0;
+	this->fireChance = 3;
 
 	range = 0; // TODO: Set the range!!
 }

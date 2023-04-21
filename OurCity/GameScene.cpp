@@ -81,6 +81,7 @@ void GameScene::update()
 		{
 			int fires = 0;
 			float artificialFireChanceMultiplier = 1;
+			// LAKÓHÁZ
 			std::vector<House>* houses = world->getHouses();
 			for (int i = 0; i < houses->size(); i++)
 			{
@@ -96,6 +97,7 @@ void GameScene::update()
 					}
 				}
 			}
+			// IPAR
 			// fire threshhold
 			if (fires < 1)
 			{
@@ -114,6 +116,7 @@ void GameScene::update()
 					}
 				}
 			}
+			// SZOLGÁLTATÁS
 			// fire threshhold
 			if (fires < 1)
 			{
@@ -123,6 +126,25 @@ void GameScene::update()
 					if (dis(gen) < (double)services->at(i).getFireChance() / 100 * artificialFireChanceMultiplier)
 					{
 						Tile* t = services->at(i).getTile();
+						int succ = world->AddFire(t);
+						fires += succ;
+						if (succ == 1)
+						{
+							break;
+						}
+					}
+				}
+			}
+			// SPEC ÉPÜLETEK
+			// fire threshhold
+			if (fires < 1)
+			{
+				std::vector<SpecialBuilding*>* specials = world->getBurnableSpecials();
+				for (int i = 0; i < specials->size(); i++)
+				{
+					if (dis(gen) < (double)specials->at(i)->getFireChance() / 100 * artificialFireChanceMultiplier)
+					{
+						Tile* t = specials->at(i)->getTile();
 						int succ = world->AddFire(t);
 						fires += succ;
 						if (succ == 1)
