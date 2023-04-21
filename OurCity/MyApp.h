@@ -1,6 +1,8 @@
 #pragma once
+
 #include <vector>
 
+#ifndef TESTING
 // GLEW
 #include <GL/glew.h>
 
@@ -10,13 +12,14 @@
 
 // GLM
 #include <glm/glm.hpp>
+#include "MouseController.h"
+#include "Overlay.h"
+#endif
 
 #include "GameScene.h"
-#include "MouseController.h"
 #include "AppTime.h"
 #include "Builder.h"
 
-#include "Overlay.h"
 
 class CMyApp
 {
@@ -30,6 +33,7 @@ public:
 	void Update();
 	void Render();
 
+#ifndef TESTING
 	void KeyboardDown(SDL_KeyboardEvent&);
 	void KeyboardUp(SDL_KeyboardEvent&);
 	void MouseMove(SDL_MouseMotionEvent&);
@@ -39,12 +43,14 @@ public:
 	void Resize(int, int);
 	//ez átmozog másik osztályba
 	void LoadTextures();
+#endif
 
 	void ChangeBuilderState(BuilderState state, BuilderSubState subState);
 	void ChangeSpeed(int i);
 	std::string getGameTime();
 	GameState* getState();
 protected:
+#ifndef TESTING
 	// shaderekhez szükséges változók
 	GLuint m_programID; // shaderek programja
 
@@ -74,11 +80,12 @@ protected:
 		glm::vec3 p;
 		glm::vec3 c;
 	};
+	Overlay* overlay;
+	MouseController* mouseController;
+#endif
 
 	GameScene* scene;
-	MouseController* mouseController;
 	Time* time;
-	Overlay* overlay;
 	//Builder* builder;
 
 
