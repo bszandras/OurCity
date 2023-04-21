@@ -1,3 +1,4 @@
+#ifndef TESTING
 #define _CRT_SECURE_NO_DEPRECATE
 
 #include <string>
@@ -8,7 +9,6 @@
 // imgui include-ok
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_sdl_gl3.h>
-
 
 
 Window* Window::instance = nullptr;
@@ -566,3 +566,4 @@ int Window::getHeight()
 {
 	return height;
 }
+#endif
