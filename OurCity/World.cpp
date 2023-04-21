@@ -1,6 +1,9 @@
 #include "World.h"
 #include "SubMap.h"
+
+#ifndef TESTING
 #include "Window.h"
+#endif
 
 World::World()
 {
@@ -81,7 +84,9 @@ Vector2Data World::getOrigoOffset()
 
 void World::reCalculateOrigoOffset()
 {
+#ifndef TESTING
 	origoOffset = { Window::instance->getWidth() / 2.0f, Window::instance->getHeight() / 2.0f };
+#endif
 }
 
 std::vector<SubMap>* World::getSubmaps()

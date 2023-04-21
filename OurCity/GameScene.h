@@ -1,26 +1,33 @@
 #pragma once
 #include "World.h"
-#include "Camera.h"
 #include "Builder.h"
-#include "MouseController.h"
 #include "GameTime.h"
 #include "AppTime.h"
 #include "GameState.h"
 #include "ResidentManager.h"
 
+#ifndef TESTING
+#include "MouseController.h"
+#include "Camera.h"
+#endif
+
 class Builder;
 class ResidentManager;
+#ifndef TESTING
 class MouseController;
+#endif
 class World;
 class GameScene
 {
 private:
 	ResidentManager* residentManager;
 	World* world;
-	Camera* camera;
 	Builder* builder;
 	GameTime* gameTime;
 	GameState* gameState;
+#ifndef TESTING
+	Camera* camera;
+#endif
 
 	int dayCount = 0;
 	int monthCount = 0;
