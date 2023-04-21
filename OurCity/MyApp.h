@@ -49,6 +49,7 @@ public:
 	void ChangeSpeed(int i);
 	std::string getGameTime();
 	GameState* getState();
+	GameScene* getScene();
 protected:
 #ifndef TESTING
 	// shaderekhez szükséges változók

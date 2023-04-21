@@ -741,4 +741,9 @@ GameState* CMyApp::getState()
 	return scene->getGameState();
 }
 
+GameScene* CMyApp::getScene()
+{
+	return this->scene;
+}
+
 

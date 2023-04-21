@@ -9,30 +9,35 @@
 
 #ifdef TESTING
 #include "MyApp.h"
+#include "Tester.h"
 #endif
 
+#ifndef TESTING
 int main( int argc, char* args[] )
 {
-#ifdef TESTING
-	std::clog << "[INFO] Application is running in test mode" << std::endl;
-#else
 	std::clog << "[INFO] Application is running in normal mode" << std::endl;
-#endif
 	// width, height, vsync(0 vagy 1)
 
-#ifdef TESTING
-	CMyApp* app = new CMyApp();
-	app->Init();
-	app->Update();
-#else
+
+
 	int vsync = 1;
 
 	Window* window = new Window(800, 800, vsync);
 
 	delete window;
-#endif
 
 	//_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
 	//_CrtDumpMemoryLeaks();
 	return 0;
 }
+#endif
+
+#ifdef TESTING
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
+
+TEST_CASE("Testing the tester", "[tester]")
+{
+	CHECK(1 == 1);
+}
+#endif
