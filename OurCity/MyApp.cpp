@@ -333,23 +333,41 @@ void CMyApp::Update()
 			int built = scene->getBuilder()->Build(tileID);
 
 			// akkor nem épített, nem is próbált építeni, tehát prolly selection
-
 			if (built == 1)
 			{
-				selectedZone = world->getZoneStatsForTile(tileID);
-				if (selectedZone.z == nullptr)
+				// először tűz click check
+				if (!world->PutOutFire(tileID))
 				{
-					std::cout << "no zone" << std::endl;
-				}
-				else
-				{
-					std::cout << "tile count: " << selectedZone.tileCount << std::endl;
-					std::cout << "tax multiply: " << selectedZone.z->getTaxRate() << std::endl;
-					
-					// lakos összegzés?
-					// kell, hogy a tile tudja milyen épület van rajta :(
+					// ha nem tűz click akkor zóna
+					selectedZone = world->getZoneStatsForTile(tileID);
+					if (selectedZone.z == nullptr)
+					{
+						std::cout << "no zone" << std::endl;
+					}
+					else
+					{
+						std::cout << "tile count: " << selectedZone.tileCount << std::endl;
+						std::cout << "tax multiply: " << selectedZone.z->getTaxRate() << std::endl;
 
+						// lakó számlálás demo
+						if (selectedZone.z->getType() == 0)
+						{
+							int residents = 0;
+							for (int i = 0; i < selectedZone.tileCount; i++)
+							{
+								Tile t = selectedZone.tiles[i];
+								if (t.type == 0)
+								{
+									continue;
+								}
+								House h = world->getHouses()->at((int)t.building / 24);
+								residents += h.getResidents().size();
+							}
+							std::cout << residents << std::endl;
+						}
+					}
 				}
+				
 				
 			}
 		}
@@ -502,16 +520,19 @@ void CMyApp::Render()
 		return;
 	}
 
-	int selectedTileVertices = selectedZone.tileCount;
-	//selectedTileVertices = 0;
-	vertCount = 4 * cursorSize + selectedTileVertices * 4;
+	int selectedTiles = selectedZone.tileCount;
+	
+	std::vector<Fire>* fires = scene->getWorld()->getFires();
+	int fireCount = fires->size();
+
+	vertCount = 4 * cursorSize + 4 * selectedTiles + 4 * fireCount;
 	vert = new Vertex[vertCount];
 
 	//cursor
 	for (int i = 0; i < cursorSize; i++)
 	{
 		// rect indexei
-		Vector3Data vec3data = { (cursor + i)->rect.i, (cursor + i)->rect.j, -0.95 };
+		Vector3Data vec3data = { (cursor + i)->rect.i, (cursor + i)->rect.j, -0.97 };
 		// index -> real position
 		vec3data.x = (vec3data.x * 64) + (vec3data.y * 32);
 		vec3data.y = (vec3data.y * (64 - 41));
@@ -527,10 +548,37 @@ void CMyApp::Render()
 	}
 	
 	// zóna highlight
-	for (int i = cursorSize; i < cursorSize + selectedTileVertices; i++)
+	for (int i = cursorSize; i < cursorSize + selectedTiles; i++)
 	{
 		Tile t = selectedZone.tiles[i - cursorSize];
-		t.texId = 11 + selectedZone.z->getType();
+		t.texId = 41 + selectedZone.z->getType();
+		// rect indexei
+		Vector3Data vec3data = { t.rect.i, t.rect.j, -0.96 };
+		// index -> real position
+		vec3data.x = (vec3data.x * 64) + (vec3data.y * 32);
+		vec3data.y = (vec3data.y * (64 - 41));
+
+		// position offset, hogy rect origin jó helyen legyen
+		vec3data.x -= 32;
+		vec3data.y -= 21;
+
+		vert[i * 4] = { glm::vec3(vec3data.x, vec3data.y, vec3data.z), glm::vec3(0, 1, t.texId) };
+		vert[i * 4 + 1] = { glm::vec3((vec3data.x + 64), vec3data.y, vec3data.z), glm::vec3(1, 1, t.texId) };
+		vert[i * 4 + 2] = { glm::vec3((vec3data.x + 64), (vec3data.y + 64), vec3data.z), glm::vec3(1, 0, t.texId) };
+		vert[i * 4 + 3] = { glm::vec3(vec3data.x, (vec3data.y + 64), vec3data.z), glm::vec3(0, 0, t.texId) };
+	}
+
+	// tűz
+	for (int i = cursorSize + selectedTiles; i < cursorSize + selectedTiles + fireCount; i++)
+	{
+		Tile* originalTile = fires->at(i - cursorSize - selectedTiles).getTargetTile();
+		Tile t;
+		t.rect = originalTile->rect;
+		t.texId = 3;
+
+
+		//Tile t = selectedZone.tiles[i - cursorSize];
+		//t.texId = 41 + selectedZone.z->getType();
 		// rect indexei
 		Vector3Data vec3data = { t.rect.i, t.rect.j, -0.94 };
 		// index -> real position
@@ -546,7 +594,6 @@ void CMyApp::Render()
 		vert[i * 4 + 2] = { glm::vec3((vec3data.x + 64), (vec3data.y + 64), vec3data.z), glm::vec3(1, 0, t.texId) };
 		vert[i * 4 + 3] = { glm::vec3(vec3data.x, (vec3data.y + 64), vec3data.z), glm::vec3(0, 0, t.texId) };
 	}
-
 
 	glBindBuffer(GL_ARRAY_BUFFER, overlay_vboID); // tegyük "aktívvá" a létrehozott VBO-t
 	// töltsük fel adatokkal az aktív VBO-t

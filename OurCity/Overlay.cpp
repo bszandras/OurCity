@@ -13,7 +13,7 @@ Overlay::Overlay()
 		for (int i = 0; i < 4; i++)
 		{
 			(instance->cursor + i)->rect = { (unsigned short)-20,(unsigned short)-20 };
-			(instance->cursor + i)->texId = 10;
+			(instance->cursor + i)->texId = 40;
 		}
 
 	}

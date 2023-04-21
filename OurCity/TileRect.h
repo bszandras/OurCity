@@ -29,6 +29,7 @@ struct Tile
 	TileRect rect;
 	// 8 bites integer
 	unsigned char texId = 0;
+	bool onFire = false;
 	
 	// ez csak 1 byte
 	bool hasZone = false;

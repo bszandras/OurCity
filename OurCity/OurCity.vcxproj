@@ -162,6 +162,7 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="FireStation.cpp" />
     <ClCompile Include="FireTruck.cpp" />
     <ClCompile Include="Forest.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="BuildingsInclude.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="Fire.h" />
     <ClInclude Include="FireStation.h" />
     <ClInclude Include="FireTruck.h" />
     <ClInclude Include="Forest.h" />

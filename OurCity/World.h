@@ -8,6 +8,7 @@
 #include "Tile.h"
 #include "Zone.h"
 #include "Builder.h"
+#include "Fire.h"
 
 
 #include "BuildingsInclude.h"
@@ -37,6 +38,8 @@ private:
 	std::vector<ServiceBuilding> ServBuildings;
 
 	RoadGraph roadGraph;
+
+	std::vector<Fire> fires;
 
 public:
 	World();
@@ -79,5 +82,8 @@ public:
 	bool AddRoad(Tile* t, GameScene* scene);
 	RoadGraph* getRoadGraph();
 
-	
+	int AddFire(Tile* t);
+	std::vector<Fire>* getFires();
+	void UpdateFires(int deltaHours);
+	bool PutOutFire(int tileID);
 };

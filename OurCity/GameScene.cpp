@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <random>
 
 GameScene::GameScene(MouseController* mouse)
 {
@@ -57,7 +58,83 @@ void GameScene::update()
 		residentManager->handleIntention();
 		residentManager->createResident();
 		residentManager->createResident();
-		std::cout << "day passed" << std::endl;
+
+		// tûz lehetõség
+		// megszerezzük a világtól, hogy mik gyulladhatnak ki
+		// elsõkörben csak lakóházak, ipar és szolgáltatás mert azt alapból eltároljuk
+		// ha valami kigyullad, a világ kap egy új fire objektumot
+		// fire objektumot a második render pass rendereli
+		// updateelünk minden fire objektumot
+
+		// neten talált menõ és jobb random
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_real_distribution<> dis(0, 1);//uniform distribution between 0 and 1
+		/*
+		for (int n = 0; n < 10; ++n) {
+			std::cout << dis(gen) << ' ';
+		}
+		*/
+		// 10% esély tûzre naponta
+		double f = dis(gen);
+		if (f < 0.1)
+		{
+			int fires = 0;
+			float artificialFireChanceMultiplier = 1;
+			std::vector<House>* houses = world->getHouses();
+			for (int i = 0; i < houses->size(); i++)
+			{
+				double c = dis(gen);
+				if (c < (double)houses->at(i).getFireChance() / 100 * artificialFireChanceMultiplier)
+				{
+					Tile* t = houses->at(i).getTile();
+					int succ = world->AddFire(t);
+					fires += succ;
+					if (succ == 1)
+					{
+						break;
+					}
+				}
+			}
+			// fire threshhold
+			if (fires < 1)
+			{
+				std::vector<Factory>* factories = world->getFactories();
+				for (int i = 0; i < factories->size(); i++)
+				{
+					if (dis(gen) < (double)factories->at(i).getFireChance() / 100 * artificialFireChanceMultiplier)
+					{
+						Tile* t = factories->at(i).getTile();
+						int succ = world->AddFire(t);
+						fires += succ;
+						if (succ == 1)
+						{
+							break;
+						}
+					}
+				}
+			}
+			// fire threshhold
+			if (fires < 1)
+			{
+				std::vector<ServiceBuilding>* services = world->getServBuildings();
+				for (int i = 0; i < services->size(); i++)
+				{
+					if (dis(gen) < (double)services->at(i).getFireChance() / 100 * artificialFireChanceMultiplier)
+					{
+						Tile* t = services->at(i).getTile();
+						int succ = world->AddFire(t);
+						fires += succ;
+						if (succ == 1)
+						{
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		// std::cout << "day passed" << std::endl;
 	}
 
 	if (days != 0)

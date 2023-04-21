@@ -571,3 +571,49 @@ RoadGraph* World::getRoadGraph()
 {
 	return &roadGraph;
 }
+
+int World::AddFire(Tile* t)
+{
+	// tile még nem tudja hogy ég
+	if (t->onFire)
+	{
+		return 0;
+	}
+	Fire f(t);
+	fires.push_back(f);
+	t->onFire = true;
+	return 1;
+}
+
+std::vector<Fire>* World::getFires()
+{
+	return &fires;
+}
+
+void World::UpdateFires(int deltaHours)
+{
+	// folytatja a tüzet
+	// ha egy tűz leégett, akkor a tile-ről törli az épületet
+	// HA HÁZ akkor a lakos is törlődik
+	// mindenki meghal a tűzben, munkahelyeket előtte fel kell szabadítani
+	// HA MUNKAHELY akkor a lakosok csak munkanélküliek lesznek
+	// resident manager-be kell egy delete lakos függvény ami minden szálat elvarr
+}
+
+bool World::PutOutFire(int tileID)
+{
+	Tile* t = tileRectWrapper->GetPointerToId(tileID);
+	if (!t->onFire)
+	{
+		return false;
+	}
+	for (int i = 0; i < fires.size(); i++)
+	{
+		if (fires.at(i).getTargetTile() == t)
+		{
+			fires.erase(fires.begin() + i);
+			t->onFire = false;
+			return true;
+		}
+	}
+}
