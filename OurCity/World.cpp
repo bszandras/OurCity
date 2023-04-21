@@ -659,13 +659,13 @@ void World::UpdateFires(int deltaDays)
 			if (newTarget->type != 0 && !newTarget->onFire)
 			{
 				AddFire(newTarget);
-				std::cout << "fire propagation" << std::endl;
+				//std::cout << "fire propagation" << std::endl;
 			}
 			else if (newTarget->building != nullptr && newTarget->texId != FIRESTATION
 				&& newTarget->texId != ROAD && newTarget->onFire)
 			{
 				AddFire(newTarget);
-				std::cout << "fire propagation" << std::endl;
+				//std::cout << "fire propagation" << std::endl;
 			}
 		}
 		// akkor túl sokáig égett
@@ -678,17 +678,16 @@ void World::UpdateFires(int deltaDays)
 
 bool World::PutOutFire(int tileID)
 {
+	Tile* t = tileRectWrapper->GetPointerToId(tileID);
+	if (!t->onFire)
+	{
+		return false;
+	}
 	if (fireStations.size() == 0)
 	{
 		// akkor nincs tűzoltóság :(
 		// nem oltja el, de capture-öli az egér clicket
 		return true;
-	}
-
-	Tile* t = tileRectWrapper->GetPointerToId(tileID);
-	if (!t->onFire)
-	{
-		return false;
 	}
 	for (int i = 0; i < fires.size(); i++)
 	{

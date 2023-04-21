@@ -31,6 +31,13 @@ void main()
 	}
 	else
 	{
+		//check hogy kell-e világítás
+		if(time_cycle > 1.5)
+		{
+			fs_out_col = color;
+			return;
+		}
+
 		// kiszámolom, hogy az adott pixel a maszkon mennyire "világos"
 		float lum = l_mask.r + l_mask.g + l_mask.b;
 

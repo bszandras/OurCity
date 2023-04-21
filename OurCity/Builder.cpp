@@ -200,6 +200,7 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 	*/
 
 	// radius demo
+	/*
 	if (tex == FOREST)
 	{
 		int r = 1;
@@ -223,7 +224,7 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 			tiles[i]->texId = 12;
 		}
 	}
-
+	*/
 	return true;
 }
 bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, int tex)

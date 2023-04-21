@@ -610,7 +610,7 @@ void CMyApp::Render()
 	glBindVertexArray(overlay_vaoID);
 
 	//overlay ne sötétedjen
-	glUniform1f(timeCycleLoc, 1);
+	glUniform1f(timeCycleLoc, 2);
 	glDrawArrays(GL_QUADS, 0, vertCount);
 
 	// VAO kikapcsolása
