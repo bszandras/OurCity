@@ -5,11 +5,15 @@
 
 #include "Vector.h"
 #include "TileRect.h"
+
+#ifndef TESTING
 #include "Camera.h"
+#endif
+
 #include "World.h"
 
 class World;
-#ifndef TESTING
+
 class SubMap
 {
 private:
@@ -23,7 +27,9 @@ public:
 	~SubMap();
 	std::vector<int> getRectIds();
 	void addRect(int i);
+#ifndef TESTING
 	bool shouldBeCulled(Camera* camera);
+#endif
 	int getRectCount();
 	Vector3Data* getRectData(TileRectWrapper* wrapper);
 	int getRealWidth();
@@ -34,4 +40,3 @@ public:
 		return size;
 	}
 };
-#endif

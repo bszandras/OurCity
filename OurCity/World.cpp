@@ -13,7 +13,7 @@ World::World()
 
 	tileRectWrapper = new TileRectWrapper(width * height);
 	//tiles.reserve(width * height);
-#ifndef TESTING
+
 	int submapReseve = (height / SubMap::getSize()) * ((width + height / 2) / SubMap::getSize());
 	submaps.reserve(submapReseve);
 
@@ -71,7 +71,6 @@ World::World()
 		}
 	}
 	submaps = newSubMaps;
-#endif
 }
 
 World::~World()
@@ -92,12 +91,10 @@ void World::reCalculateOrigoOffset()
 #endif
 }
 
-#ifndef TESTING
 std::vector<SubMap>* World::getSubmaps()
 {
 	return &submaps;
 }
-#endif
 
 int World::getWidth()
 {

@@ -9,12 +9,11 @@
 
 #ifdef TESTING
 #include "MyApp.h"
-#include "Tester.h"
 #endif
 
-#ifndef TESTING
 int main( int argc, char* args[] )
 {
+#ifndef TESTING
 	std::clog << "[INFO] Application is running in normal mode" << std::endl;
 	// width, height, vsync(0 vagy 1)
 
@@ -28,16 +27,14 @@ int main( int argc, char* args[] )
 
 	//_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
 	//_CrtDumpMemoryLeaks();
+#endif
+#ifdef TESTING
+	std::clog << "[INFO] Application is running in test mode" << std::endl;
+	CMyApp *app = new CMyApp();
+	app->Init();
+	app->Update();
+	delete app;
+#endif
+
 	return 0;
 }
-#endif
-
-#ifdef TESTING
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
-
-TEST_CASE("Testing the tester", "[tester]")
-{
-	CHECK(1 == 1);
-}
-#endif
