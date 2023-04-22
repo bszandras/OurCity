@@ -4,9 +4,17 @@
 #include "MyApp.h"
 
 
-TEST_CASE("1 is equal to 1", "[equality]")
+TEST_CASE("Testing tester functionality", "[tester]")
 {
 	REQUIRE(1 == 1);
+}
+
+TEST_CASE("Application initalization tests", "[appInit]")
+{
+	CMyApp* app = new CMyApp();
+	CHECK(app->Init() == true);
+	CHECK(app->getScene() != nullptr);
+	CHECK(app->getState() != nullptr);
 }
 
 TEST_CASE("Road test")
@@ -15,7 +23,8 @@ TEST_CASE("Road test")
 	app->Init();
 	app->Update();
 	World* world = app->getScene()->getWorld();
-	Tile* t1 = world->getTileOnCoords(50, 50);
+
+	Tile* t1 = world->getTileOnCoords(15, 15);
 	CHECK(world->AddRoad(t1, app->getScene()) == true);
 }
 

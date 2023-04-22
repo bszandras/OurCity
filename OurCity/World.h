@@ -23,8 +23,14 @@ class World
 {
 private:
 	Vector2Data origoOffset;
+#ifdef TESTING
+	int width = 30;
+	int height = 30;
+#else
 	int width = 200;
 	int height = 200;
+#endif
+
 	TileRectWrapper* tileRectWrapper;
 	std::vector<SubMap> submaps;
 	//tile-okat tarthatja a world

@@ -21,7 +21,7 @@ void School::setResidents(std::vector<Resident*> residents)
 
 bool School::addResident(Resident* resident)
 {
-	for (size_t i = 0; i < residents.size(); i++)
+	for (std::size_t i = 0; i < residents.size(); i++)
 	{
 		if (residents[i] == resident)
 		{
@@ -34,7 +34,7 @@ bool School::addResident(Resident* resident)
 
 bool School::removeResident(Resident* resident)
 {
-	for (size_t i = 0; i < residents.size(); i++)
+	for (std::size_t i = 0; i < residents.size(); i++)
 	{
 		if (residents[i] == resident)
 		{

@@ -1,5 +1,6 @@
 #include "World.h"
 #include "SubMap.h"
+#include <cmath>
 
 #ifndef TESTING
 #include "Window.h"
