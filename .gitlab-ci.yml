@@ -24,15 +24,12 @@ build:
   # before_script:
   #   - apt update && apt -y install make autoconf
   script:
-    - mkdir -p /tests
     - g++ ./OurCity/*.cpp -D TESTING -w -o ourcitybin
-    - cp ourcitybin tests/
+    - cp ourcitybin ourcitytests
 
 # run tests using the binary built before
 test:
   stage: test
   script:
-    - cd ./tests
-    - ./ourcitybin
-    - cd ..
-    - rm -rf tests/
+    - ./ourcitytests
+    - rm ourcitytests
