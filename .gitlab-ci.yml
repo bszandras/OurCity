@@ -24,7 +24,7 @@ build:
   # before_script:
   #   - apt update && apt -y install make autoconf
   script:
-    - g++ ./OurCity/*.cpp -D TESTING -w 
+    - g++ ./OurCity/*.cpp -D TESTING -w -o ourcity
 
 # run tests using the binary built before
 test:
