@@ -25,11 +25,14 @@ build:
   #   - apt update && apt -y install make autoconf
   script:
     - g++ ./OurCity/*.cpp -D TESTING -w -o ourcitybin
-    - cp ourcitybin ourcitytests
+  artifacts:
+   expire_in: 1 day
+   paths:
+      - ourcitybin
 
 # run tests using the binary built before
 test:
   stage: test
   script:
-    - ./ourcitytests
-    - rm ourcitytests
+    - ./ourcitybin
+    - rm ourcitybin
