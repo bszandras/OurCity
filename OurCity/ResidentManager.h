@@ -3,7 +3,7 @@
 
 #include "Resident.h"
 #include "World.h"
-#include "GamesTate.h"
+#include "GameState.h"
 
 class Builder;
 class World;
