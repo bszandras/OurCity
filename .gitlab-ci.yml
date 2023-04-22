@@ -27,12 +27,10 @@ build:
     - mkdir -p /tests
     - g++ ./OurCity/*.cpp -D TESTING -w -o ourcity
     - cp ourcity /tests
+    - ls
 
 # run tests using the binary built before
 test:
   stage: test
   script:
-    - cd ./tests
-    - ./ourcity
-    - cd ..
-    - rmdir -rf tests
+    - ls
