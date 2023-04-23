@@ -1,12 +1,12 @@
 ﻿  ResidentManager.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(23,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(58,60): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(67,105): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(114,117): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(158,112): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(198,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(209,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(221,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(255,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(283,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-  OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(23,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(58,60): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(67,105): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(114,117): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(160,112): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(201,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(212,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(224,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(258,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(286,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+  OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\x64\Debug\OurCity.exe

@@ -149,8 +149,8 @@ void ResidentManager::updateResidentMonthly()
 
 				if (residents[k].getWorkplace() < 0)
 				{
-					/* Ez a rész a <0 miatt elszáll
-					ServiceBuilding* f = world->getServBuilding(residents[k].getWorkplace() - 1);
+					//Ez a rész a <0 miatt elszáll
+					ServiceBuilding* f = world->getServBuilding(abs(residents[k].getWorkplace()) - 1);
 					
 					// Megnézzük, hogy az adott lakos munkahelye a Tile-on van-e
 					if (f->getTile() == world->getTileOnCoords(x, y))
@@ -160,7 +160,7 @@ void ResidentManager::updateResidentMonthly()
 						sumTax += round(residents[k].getCurrentTax() * services->at(i).getTaxRate() * world->getServiceTaxRate());
 						residentCount++;
 					}
-					*/
+					
 				}
 			}
 		}
@@ -265,7 +265,7 @@ void ResidentManager::handleIntention()
 					//factoryB->at(j).addWorker(&residents[i]);
 					factoryB->at(j).addWorker(i);
 					//residents[i].setWorkplace(&factoryB->at(j));
-					residents[i].setWorkplace(-1 * (j+1));
+					residents[i].setWorkplace(1 * (j+1));
 					std::cout << "Found Work Ind" << i << std::endl;
 					this->factoryCount += 1;
 					this->residents[i].setIntention(NOINTENTION);
@@ -293,7 +293,7 @@ void ResidentManager::handleIntention()
 						//serviceB->at(j).addWorker(&residents[i]);
 						serviceB->at(j).addWorker(i);
 						//residents[i].setWorkplace(&serviceB->at(j));
-						residents[i].setWorkplace(j+1);
+						residents[i].setWorkplace(-1 * (j+1));
 						std::cout << "Found Work Serv" << i << std::endl;
 						this->serviceCount += 1;
 						this->residents[i].setIntention(NOINTENTION);
