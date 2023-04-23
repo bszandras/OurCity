@@ -6,7 +6,7 @@ House::House(Tile* tile) : Building(tile)
 	buildCost = 0;
 	maintenanceCost = 0;
 	//this->fireChance = 5;
-	tile->fireChance = 5;
+	tile->fireChance += 5;
 	capacity = 4;
 	tax = 0;
 }

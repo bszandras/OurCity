@@ -21,7 +21,7 @@ public:
 	unsigned short getBuildCost();
 	void setBuildCost(unsigned short c);
 	unsigned short getMaintenanceCost();
-	unsigned short getFireChance();
+	short getFireChance();
 	unsigned char getTileSize();
 	Tile* getTile();
 

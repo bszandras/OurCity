@@ -24,7 +24,7 @@ Road::Road(Road& t) : SpecialBuilding(t)
 	this->id = t.id;
 	this->buildCost = t.buildCost;
 	//this->fireChance = t.fireChance;
-	tile->fireChance = t.tile->fireChance;
+	tile->fireChance += t.tile->fireChance;
 	this->maintenanceCost = t.maintenanceCost;
 }
 

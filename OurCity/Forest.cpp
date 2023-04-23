@@ -6,7 +6,7 @@ Forest::Forest(Tile* tile) : SpecialBuilding(tile)
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
 	//this->fireChance = 30;
-	tile->fireChance = 30;
+	tile->fireChance += 30;
 
 	this->age = 0; // The initial age is 0!
 }

@@ -338,11 +338,20 @@ void CMyApp::Update()
 				// először tűz click check
 				if (!world->PutOutFire(tileID))
 				{
+					#define DEBUG
+#ifdef DEBUG
+					Tile* t = world->getWrapper()->GetPointerToId(tileID);
+					std::cout << "tile data: " << std::endl;
+					std::cout << "-Fire chance: " << t->fireChance << std::endl;
+					std::cout << "-Happiness modifier: " << t->happinessModifer << std::endl;
+#endif // DEBUG
 					// ha nem tűz click akkor zóna
 					selectedZone = world->getZoneStatsForTile(tileID);
 					if (selectedZone.z == nullptr)
 					{
 						std::cout << "no zone" << std::endl;
+
+
 					}
 					else
 					{

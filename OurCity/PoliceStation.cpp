@@ -6,7 +6,7 @@ PoliceStation::PoliceStation(Tile* tile) : SpecialBuilding(tile)
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
 	//this->fireChance = 3;
-	tile->fireChance = 3;
+	tile->fireChance += 3;
 
 	range = 0; // TODO: Set the range!!
 }

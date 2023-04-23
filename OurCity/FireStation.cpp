@@ -8,7 +8,7 @@ FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
 	//this->fireChance = 0;
-	tile->fireChance = 0;
+	tile->fireChance += 0;
 
 	range = 2;
 	available = true;

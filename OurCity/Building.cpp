@@ -28,7 +28,7 @@ unsigned short Building::getMaintenanceCost()
 	return maintenanceCost;
 }
 
-unsigned short Building::getFireChance()
+short Building::getFireChance()
 {
 	//return fireChance;
 	return tile->fireChance;

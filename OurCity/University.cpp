@@ -6,7 +6,7 @@ University::University(Tile* tile) : School(tile)
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
 	//this->fireChance = 9;
-	tile->fireChance = 9;
+	tile->fireChance += 9;
 	this->tileSize = 4;
 
 	capacity = 0; // TODO: modify capacity if needed
