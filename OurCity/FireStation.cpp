@@ -7,9 +7,10 @@ FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 	// Set the members of the base class
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
-	this->fireChance = 0;
+	//this->fireChance = 0;
+	tile->fireChance = 0;
 
-	range = 0; // TODO: Set the range!!
+	range = 2;
 	available = true;
 }
 
@@ -46,4 +47,23 @@ std::vector<int> FireStation::getRangeTiles() const
 bool FireStation::isAvailable() const
 {
 	return this->available;
+}
+
+void FireStation::UpdateAreaAfterBuilding(Tile** tiles, int tileCount)
+{
+	for (int i = 0; i < tileCount; i++)
+	{
+		tiles[i]->fireChance -= 20;
+		updatedTiles.push_back(tiles[i]);
+	}
+	std::cout << "updated firechances: " << tileCount << std::endl;
+}
+
+void FireStation::UpdateAreaAfterDestruction()
+{
+	for (int i = 0; i < updatedTiles.size(); i++)
+	{
+		updatedTiles[i]->fireChance += 20;
+	}
+	updatedTiles.clear();
 }

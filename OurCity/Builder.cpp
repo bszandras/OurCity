@@ -186,7 +186,28 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 
 	if (tex == FIRESTATION)
 	{
-		world->AddFireStation((FireStation*)building);
+		FireStation* f = (FireStation*)building;
+		world->AddFireStation(f);
+		//update firestation
+		int radius = f->getRange();
+		Tile** tiles = world->getWritableTilePointersInRadius(tile, radius);
+
+		int tileCount = (radius + 1 + radius) * (radius + 1 + radius) - 1;
+
+		// ennyinek elégnek kéne lennie
+		std::vector<Tile*> passable;
+		passable.reserve(tileCount);
+
+		for (int i = 0; i < tileCount; i++)
+		{
+			if (tiles[i] == tile)
+			{
+				continue;
+			}
+			passable.push_back(tiles[i]);
+		}
+		f->UpdateAreaAfterBuilding(passable.data(), passable.size());
+
 	}
 	else if (tex != FOREST && tex != ROAD)
 	{
@@ -282,6 +303,7 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 		base4->building = building;
 	}
 
+	// LEGACY
 	for (int i = 0; i < areaHighlightedIds.size(); i++)
 	{
 		wrapper->UpdateTexIdById(areaHighlightedIds[i], tex);
@@ -292,6 +314,103 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 	{
 		currentTex = tex;
 	}
+	// LEGACY
+
+	//update stadium
+	if (tex == STADIUM)
+	{
+		// EZ FOS KÓD
+		// DE MÛKÖDIK :)
+		Stadium* s = (Stadium*)building;
+		int range = s->getRange();
+
+		Tile** tiles = world->getWritableTilePointersInRadius(base1, range);
+		int tileCount = (range + 1 + range) * (range + 1 + range) - 1;
+
+		// ennyinek elégnek kéne lennie
+		std::vector<Tile*> passable;
+		passable.reserve((range + 2 + range) * (range + 2 + range));
+
+		for (int i = 0; i < tileCount; i++)
+		{
+			if (tiles[i] == base1 || tiles[i] == base2 || tiles[i] == base3 || tiles[i] == base4)
+			{
+				continue;
+			}
+			passable.push_back(tiles[i]);
+		}
+
+		// maradék 3 stadion cella környéke
+		tiles = world->getWritableTilePointersInRadius(base2, range);
+		for (int i = 0; i < tileCount; i++)
+		{
+			if (tiles[i] == base1 || tiles[i] == base2 || tiles[i] == base3 || tiles[i] == base4)
+			{
+				continue;
+			}
+			bool contains = false;
+			for (int j = 0; j < passable.size(); j++)
+			{
+				
+				if (passable[j] == tiles[i])
+				{
+					contains = true;
+					break;
+				}
+			}
+			if (!contains)
+			{
+				passable.push_back(tiles[i]);
+			}
+		}
+		tiles = world->getWritableTilePointersInRadius(base3, range);
+		for (int i = 0; i < tileCount; i++)
+		{
+			if (tiles[i] == base1 || tiles[i] == base2 || tiles[i] == base3 || tiles[i] == base4)
+			{
+				continue;
+			}
+			bool contains = false;
+			for (int j = 0; j < passable.size(); j++)
+			{
+				if (passable[j] == tiles[i])
+				{
+					contains = true;
+					break;
+				}
+			}
+			if (!contains)
+			{
+				passable.push_back(tiles[i]);
+			}
+		}
+		tiles = world->getWritableTilePointersInRadius(base4, range);
+		for (int i = 0; i < tileCount; i++)
+		{
+			if (tiles[i] == base1 || tiles[i] == base2 || tiles[i] == base3 || tiles[i] == base4)
+			{
+				continue;
+			}
+			bool contains = false;
+			for (int j = 0; j < passable.size(); j++)
+			{
+				if (passable[j] == tiles[i])
+				{
+					contains = true;
+					break;
+				}
+			}
+			if (!contains)
+			{
+				passable.push_back(tiles[i]);
+			}
+		}
+
+		s->UpdateAreaAfterBuilding(passable.data(), passable.size());
+	}
+
+
+
 	return true;
 }
 bool Builder::DestroySpecBuilding(int where)
@@ -327,6 +446,12 @@ bool Builder::DestroySpecBuilding(int where)
 		if (b->getTileSize() > 1)
 		{
 			//building update ?
+			if (tile->texId == STADIUM)
+			{
+				Stadium* s = (Stadium*)b;
+				s->UpdateAreaAfterDestruction();
+			}
+
 
 			// 3x3-ban ellenõrizni és akkor tuti megtaláljuk a hozzá tartozó tile-okat
 			Tile* top1 = world->getWrapper()->GetPointerToId(where + world->getWidth());
@@ -440,7 +565,9 @@ bool Builder::DestroySpecBuilding(int where)
 			// tûzoltóságot remove-olni kell
 			if (b->getTile()->texId == FIRESTATION)
 			{
-				world->RemoveFireStation((FireStation*)b);
+				FireStation* f = (FireStation*)b;
+				world->RemoveFireStation(f);
+				f->UpdateAreaAfterDestruction();
 			}
 			else if (b->getTile()->texId != FOREST && b->getTile()->texId != ROAD)
 			{

@@ -10,6 +10,7 @@ class FireStation : public SpecialBuilding
 private:
 	int range;
 	std::vector<int> rangeTiles; // TileIDs of tiles in range
+	std::vector<Tile* > updatedTiles; // updated Tiles
 	bool available;
 	FireTruck* truck;
 
@@ -25,6 +26,8 @@ public:
 	std::vector<int> getRangeTiles() const;
 	bool isAvailable() const;
 
+	void UpdateAreaAfterBuilding(Tile** tiles, int tileCount);
+	void UpdateAreaAfterDestruction();
 };
 
 #endif

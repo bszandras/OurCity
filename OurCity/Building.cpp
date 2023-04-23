@@ -6,7 +6,7 @@ Building::Building(Tile* tile)
 
 	buildCost = 0;
 	maintenanceCost = 0;
-	fireChance = 0;
+	//fireChance = 0;
 }
 
 Building::~Building()
@@ -30,7 +30,8 @@ unsigned short Building::getMaintenanceCost()
 
 unsigned short Building::getFireChance()
 {
-	return fireChance;
+	//return fireChance;
+	return tile->fireChance;
 }
 
 unsigned char Building::getTileSize()

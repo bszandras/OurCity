@@ -144,7 +144,7 @@ Tile** World::getNeighboursWritablePointers(Tile* origin)
 Tile** World::getWritableTilePointersInRadius(Tile* origin, int radius)
 {
 	int tileCount = (radius + 1 + radius) * (radius + 1 + radius) - 1;
-	std::cout << tileCount << std::endl;
+	//std::cout << tileCount << std::endl;
 	Tile** returnable = new Tile* [tileCount];
 
 	int originID = origin->rect.j * width + origin->rect.i;

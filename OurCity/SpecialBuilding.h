@@ -7,6 +7,8 @@ class SpecialBuilding : public Building
 {
 public:
 	SpecialBuilding(Tile* tile);
+	void UpdateAreaAfterBuilding(Tile** tiles, int tileCount);
+	void UpdateAreaAfterDestruction();
 };
 
 #endif

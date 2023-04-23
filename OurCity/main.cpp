@@ -1,9 +1,9 @@
-#define _CRTDBG_MAP_ALLOC
-#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
-#define new DEBUG_NEW
+//#define _CRTDBG_MAP_ALLOC
+//#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+//#define new DEBUG_NEW
 
 // memory leak
-#include <crtdbg.h>
+//#include <crtdbg.h>
 
 #include "Window.h"
 

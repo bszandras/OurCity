@@ -10,7 +10,7 @@ protected:
 	unsigned short buildCost;
 	unsigned short maintenanceCost;
 	// PONTOSAN AHÁNY %, TEHÁT 5% -> FIRECHANCE = 5
-	unsigned short fireChance;
+	//unsigned short fireChance;
 	unsigned char tileSize = 1;
 	Tile* tile;
 
