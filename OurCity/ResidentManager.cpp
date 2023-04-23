@@ -1,4 +1,5 @@
 #include "ResidentManager.h"
+#include <cmath>
 
 ResidentManager::ResidentManager(World* world, Builder* builder, GameState* gameState)
 {
@@ -24,35 +25,55 @@ void ResidentManager::updateResidentMonthly()
 	std::vector<Zone>* industries = world->getIndustryZones();
 	std::vector<Zone>* services = world->getServiceZones();
 
-	// V�gigmegy�nk minden egyes lak�z�n�n
+	// Végigmegyünk minden egyes lakózónán
 	for (size_t i = 0; i < houses->size(); i++)
 	{
-		// Lek�rj�k a z�n�ban tal�lhat� Tile-ok ID-j�t
+		int sumTax = 0;
+		int residentCount = 0;
+
+		int sumPension = 0;
+		int pensionerCount = 0;
+
+		// Lekérjük a zónában található Tile-ok ID-jét
 		std::vector<int> tileIds = houses->at(i).getTiles();
 
-		// V�gigmegy�nk a TileID-kon
+		// Végigmegyünk a TileID-kon
 		for (size_t j = 0; j < tileIds.size(); j++)
 		{
 			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
 			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
 
-			// V�gigmegy�nk a lakosokon
+
+			// Végigmegyünk a lakosokon
 			for (size_t k = 0; k < residents.size(); k++)
 			{
 				if (residents[k].getHouse() == 0)
 				{
-					// ezek szerint nem lakik sehol mert 0 a h�za
+					// ezek szerint nem lakik sehol mert 0 a haza
 					continue;
+				}
+				if (residents[k].getAge() >= 65)
+				{
+					pensionerCount++;
+					sumPension += round((residents[k].getPastTax() / 480));
 				}
 				//House* h = residents[k].getHouse();
 				House* h = world->getHouse(residents[k].getHouse() - 1);
-				// Megn�zz�k, hogy az adott lakos h�za a Tile-on van-e
+				// Megnézzük, hogy az adott lakos háza a Tile-on van-e
 				if (h->getTile() == world->getTileOnCoords(x,y))
 				{
-					std::cout << "Lakos: " << k << " Haza: " << x << " " << y << std::endl;
+					//std::cout << "Lakos: " << k << " Haza: " << x << " " << y << std::endl;
+					// Ha igen, akkor hozzáadjuk az adó összegét a sumTax-hoz
+					sumTax += round(residents[k].getCurrentTax()*houses->at(i).getTaxRate());
+					residentCount++;
+					residents[k].payTax();
 				}
 			}
 		}
+		std::cout << "[INFO] " << i << ". lakozonaban " << residentCount << "db lakos " <<
+			sumTax << " osszegu adot fizet. " << std::endl;
+		std::cout << "[INFO] " << i << ". lakozonaban " << pensionerCount << "db nyugdíjas " <<
+			sumPension << " osszegu nyugdijat kap." << std::endl;
 		/*
 		else
 		{
@@ -70,17 +91,26 @@ void ResidentManager::updateResident(Resident* resident)
 {
 	if (resident->getAge() < 65)
 	{
-		// A j�t�kos megkapja az ad� �sszeg�t
-		gameState->income(resident->getCurrentTax());
+		// A jatekos megkapja az ado osszeget
 		resident->payTax();
 	}
 	else
 	{
 		// A j�t�kos nyugd�jat fizet a lakosnak
 		// 20 �vnyi munka = 240 h�napnyu munka �s ha m�g annak is a fele, akkor 480 az oszt�
-		gameState->spendMoney(resident->getPastTax() / 480);
 	}
 	//resident->calculateHappiness();
+}
+
+void ResidentManager::recalculateResidentTax()
+{
+	for (int i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getAge() < 65)
+		{
+			residents[i].setCurrentTax(gameState->getCurrentTax());
+		}
+	}
 }
 
 void ResidentManager::updateResidentYearly()
@@ -121,11 +151,11 @@ void ResidentManager::handleIntention()
 					std::cout << "Moved in " << i << std::endl;
 					if (this->factoryCount <= this->serviceCount) {
 						this->residents[i].setIntention(INDUSTRYWORK);
-						std::cout << "Finding Ind Work " << i << std::endl;
+						//std::cout << "Finding Ind Work " << i << std::endl;
 					}
 					else {
 						this->residents[i].setIntention(SERVICEWORK);
-						std::cout << "Finding Serv Work " << i << std::endl;
+						//std::cout << "Finding Serv Work " << i << std::endl;
 					}
 					
 					break;
@@ -153,7 +183,7 @@ void ResidentManager::handleIntention()
 					factoryB->at(j).addWorker(i);
 					//residents[i].setWorkplace(&factoryB->at(j));
 					residents[i].setWorkplace(-1 * (j+1));
-					std::cout << "Found Work Ind" << i << std::endl;
+					//std::cout << "Found Work Ind" << i << std::endl;
 					this->factoryCount += 1;
 					this->residents[i].setIntention(NOINTENTION);
 					break;
@@ -161,7 +191,7 @@ void ResidentManager::handleIntention()
 			}
 			if (residents[i].getWorkplace() == 0)
 			{
-				std::cout << "Building industry work" << std::endl;
+				//std::cout << "Building industry work" << std::endl;
 				buildFactory(i);
 				break;
 			}
@@ -181,7 +211,7 @@ void ResidentManager::handleIntention()
 						serviceB->at(j).addWorker(i);
 						//residents[i].setWorkplace(&serviceB->at(j));
 						residents[i].setWorkplace(j+1);
-						std::cout << "Found Work Serv" << i << std::endl;
+						//std::cout << "Found Work Serv" << i << std::endl;
 						this->serviceCount += 1;
 						this->residents[i].setIntention(NOINTENTION);
 						break;
@@ -213,7 +243,7 @@ void ResidentManager::buildFactory(int i)
 				{
 					this->residents[i].setIntention(INDUSTRYWORK);
 					builtFact = true;
-					std::cout << "Built Work Ind" << i << std::endl;
+					//std::cout << "Built Work Ind" << i << std::endl;
 					break;
 				}
 			}
@@ -238,7 +268,7 @@ void ResidentManager::buildService(int i)
 				if (sv != nullptr)
 				{
 					this->residents[i].setIntention(SERVICEWORK);
-					std::cout << "Built Work Serv" << i << std::endl;
+					//std::cout << "Built Work Serv" << i << std::endl;
 					builtServ = true;
 					break;
 				}
@@ -264,7 +294,7 @@ void ResidentManager::buildHouse(int i) {
 				{
 					this->residents[i].setIntention(MOVEIN);
 					builtHouse = true;
-					std::cout << "Built house " << i << std::endl;
+					//std::cout << "Built house " << i << std::endl;
 					break;
 				}
 			}

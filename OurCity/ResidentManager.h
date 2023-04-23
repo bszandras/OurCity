@@ -34,6 +34,7 @@ class ResidentManager {
 		void buildService(int i);
 		int getGlobalHappiness();
 		void updateResident(Resident* resident);
+		void recalculateResidentTax();
 
 		int calculateHappiness();
 
