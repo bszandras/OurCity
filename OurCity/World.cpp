@@ -5,6 +5,9 @@
 
 World::World()
 {
+	housingTaxRate = 1.0;
+	industrialTaxRate = 1.0;
+	serviceTaxRate = 1.0;
 
 	origoOffset = { 0,0 };
 	reCalculateOrigoOffset();
@@ -698,4 +701,34 @@ bool World::PutOutFire(int tileID)
 			return true;
 		}
 	}
+}
+
+void World::setHousingTaxRate(double taxRate)
+{
+	this->housingTaxRate = taxRate;
+}
+
+void World::setIndustrialTaxRate(double taxRate)
+{
+	this->industrialTaxRate = taxRate;
+}
+
+void World::setServiceTaxRate(double taxRate)
+{
+	this->serviceTaxRate = taxRate;
+}
+
+double World::getHousingTaxRate()
+{
+	return housingTaxRate;
+}
+
+double World::getIndustrialTaxRate()
+{
+	return industrialTaxRate;
+}
+
+double World::getServiceTaxRate()
+{
+	return serviceTaxRate;
 }

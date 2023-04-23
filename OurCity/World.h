@@ -38,6 +38,10 @@ private:
 	std::vector<Factory> Factories;
 	std::vector<ServiceBuilding> ServBuildings;
 
+	double housingTaxRate;
+	double industrialTaxRate;
+	double serviceTaxRate;
+
 	RoadGraph roadGraph;
 
 	std::vector<Fire> fires;
@@ -95,4 +99,12 @@ public:
 	std::vector<Fire>* getFires();
 	void UpdateFires(int deltaDays);
 	bool PutOutFire(int tileID);
+
+	void setHousingTaxRate(double taxRate);
+	void setIndustrialTaxRate(double taxRate);
+	void setServiceTaxRate(double taxRate);
+
+	double getHousingTaxRate();
+	double getIndustrialTaxRate();
+	double getServiceTaxRate();
 };
