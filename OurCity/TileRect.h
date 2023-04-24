@@ -29,6 +29,7 @@ struct Tile
 	// kevesebb mint 100
 	short happinessModifer = 0;
 	short fireChance = 0;
+	short publicSafety = 0;
 };
 
 class TileRectWrapper
