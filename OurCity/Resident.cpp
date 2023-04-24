@@ -82,16 +82,10 @@ int Resident::getHouse() const
 
 void Resident::updatePastTax()
 {
-	pastTax += currentTax;
-}
-
-void Resident::payTax()
-{
-	// Csak akkor kell nézni az múltbeli idõt, ha már legalább 45 éves, mert
-	// csak az utolsó 20 évet kell figyelembe venni a nyugdíjnál
 	if (age >= 45 && age <= 65)
 	{
 		pastTax += currentTax;
+
 	}
 }
 

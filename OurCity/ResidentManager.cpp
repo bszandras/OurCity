@@ -46,13 +46,6 @@ void ResidentManager::calculateHousingTax()
 		// Vegigmegyunk a tile-okon
 		for (int j = 0; j < tileIds.size(); j++)
 		{
-			/*
-			// Megnezzuk, hogy van-e epulet a tile-on
-			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
-			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
-
-			Tile* tile = world->getTileOnCoords(x, y);
-			*/
 			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
 			if (tile->type == 1)
 			{
@@ -106,13 +99,6 @@ void ResidentManager::calculateIndustrialTax()
 		// Vegigmegyunk a tile-okon
 		for (int j = 0; j < tileIds.size(); j++)
 		{
-			/*
-			// Megnezzuk, hogy van-e epulet a tile-on
-			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
-			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
-
-			Tile* tile = world->getTileOnCoords(x, y);
-			*/
 			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
 			if (tile->type == 2)
 			{
@@ -154,13 +140,6 @@ void ResidentManager::calculateServiceTax()
 		// Vegigmegyunk a tile-okon
 		for (int j = 0; j < tileIds.size(); j++)
 		{
-			// Megnezzuk, hogy van-e epulet a tile-on
-			/*
-			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
-			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
-
-			Tile* tile = world->getTileOnCoords(x, y);
-			*/
 			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
 
 			if (tile->type == 3)

@@ -59,7 +59,6 @@ public:
 	int getHouse() const;
 	void updatePastTax();
 
-	void payTax();
 	void calculateHappiness(int baseTax);
 	void setIntention(ResidentIntetion intention);
 };
