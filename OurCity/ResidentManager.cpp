@@ -8,6 +8,8 @@ ResidentManager::ResidentManager(World* world, Builder* builder, GameState* game
 	this->gameState = gameState;
 	this->factoryCount = 0;
 	this->serviceCount = 0;
+
+	std::cout << sizeof(Building) << std::endl;
 }
 
 void ResidentManager::createResident()
@@ -44,14 +46,20 @@ void ResidentManager::calculateHousingTax()
 		// Vegigmegyunk a tile-okon
 		for (int j = 0; j < tileIds.size(); j++)
 		{
+			/*
 			// Megnezzuk, hogy van-e epulet a tile-on
 			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
 			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
 
 			Tile* tile = world->getTileOnCoords(x, y);
+			*/
+			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
 			if (tile->type == 1)
 			{
-				House* h = &(world->getHouses()->at((int)tile->building / 24));
+				int houseID = (int)tile->building / 24;
+				std::cout << "houseID: " << houseID << std::endl;
+				std::cout << "housePointer: " << tile->building << std::endl;
+				House* h = &(world->getHouses()->at(houseID));
 				std::vector<int> residentIds = h->getResidents();
 
 				for (int k = 0; k < residentIds.size(); k++)
@@ -98,14 +106,20 @@ void ResidentManager::calculateIndustrialTax()
 		// Vegigmegyunk a tile-okon
 		for (int j = 0; j < tileIds.size(); j++)
 		{
+			/*
 			// Megnezzuk, hogy van-e epulet a tile-on
 			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
 			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
 
 			Tile* tile = world->getTileOnCoords(x, y);
+			*/
+			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
 			if (tile->type == 2)
 			{
-				Factory* h = &(world->getFactories()->at((int)tile->building / 24));
+				int factoryID = (int)tile->building / 24;
+				std::cout << "factoryID: " << factoryID << std::endl;
+				std::cout << "factoryPointer: " << tile->building << std::endl;
+				Factory* h = &(world->getFactories()->at(factoryID));
 				std::vector<int> residentIds = h->getWorkers();
 
 				for (int k = 0; k < residentIds.size(); k++)
@@ -141,13 +155,20 @@ void ResidentManager::calculateServiceTax()
 		for (int j = 0; j < tileIds.size(); j++)
 		{
 			// Megnezzuk, hogy van-e epulet a tile-on
+			/*
 			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
 			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
 
 			Tile* tile = world->getTileOnCoords(x, y);
+			*/
+			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
+
 			if (tile->type == 3)
 			{
-				ServiceBuilding* h = &(world->getServBuildings()->at((int)tile->building / 24));
+				int serviceID = (int)tile->building / 24;
+				std::cout << "serviceID: " << serviceID << std::endl;
+				std::cout << "servicePointer: " << tile->building << std::endl;
+				ServiceBuilding* h = &(world->getServBuildings()->at(serviceID));
 				std::vector<int> residentIds = h->getWorkers();
 
 				for (int k = 0; k < residentIds.size(); k++)
