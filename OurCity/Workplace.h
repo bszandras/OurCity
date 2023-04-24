@@ -24,6 +24,7 @@ public:
 	bool canWorkHere();
 	void setTax(unsigned short tax);
 	void addWorker(int id);
+	std::vector<int> getWorkers();
 };
 
 #endif

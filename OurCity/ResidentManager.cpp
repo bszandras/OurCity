@@ -20,13 +20,17 @@ void ResidentManager::createResident()
 
 void ResidentManager::updateResidentMonthly()
 {
-	int resSize = this->residents.size();
-	std::vector<Zone>* houses = world->getHouseZones(); // Az �sszes h�z z�na
-	std::vector<Zone>* industries = world->getIndustryZones();
-	std::vector<Zone>* services = world->getServiceZones();
+	calculateHousingTax();
+	calculateIndustrialTax();
+	calculateServiceTax();
 
-	// Végigmegyünk minden egyes lakózónán
-	for (size_t i = 0; i < houses->size(); i++)
+}
+
+void ResidentManager::calculateHousingTax()
+{
+	std::vector<Zone>* houses = world->getHouseZones();
+	// Végigmegyunk minden lakozonan
+	for (int i = 0; i < houses->size(); i++)
 	{
 		int sumTax = 0;
 		int residentCount = 0;
@@ -34,155 +38,133 @@ void ResidentManager::updateResidentMonthly()
 		int sumPension = 0;
 		int pensionerCount = 0;
 
-		// Lekérjük a zónában található Tile-ok ID-jét
+		// Lekerjuk a zonahoz tartozo tile-ok id-jat
 		std::vector<int> tileIds = houses->at(i).getTiles();
 
-		// Végigmegyünk a TileID-kon
-		for (size_t j = 0; j < tileIds.size(); j++)
+		// Vegigmegyunk a tile-okon
+		for (int j = 0; j < tileIds.size(); j++)
 		{
+			// Megnezzuk, hogy van-e epulet a tile-on
 			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
 			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
 
-
-			// Végigmegyünk a lakosokon
-			for (size_t k = 0; k < residents.size(); k++)
+			Tile* tile = world->getTileOnCoords(x, y);
+			if (tile->type == 1)
 			{
-				if (residents[k].getHouse() == 0)
+				House* h = &(world->getHouses()->at((int)tile->building / 24));
+				std::vector<int> residentIds = h->getResidents();
+
+				for (int k = 0; k < residentIds.size(); k++)
 				{
-					// ezek szerint nem lakik sehol mert 0 a haza
-					continue;
-				}
-				if (residents[k].getAge() >= 65)
-				{
-					pensionerCount++;
-					sumPension += round((residents[k].getPastTax() / 480));
-				}
-				//House* h = residents[k].getHouse();
-				House* h = world->getHouse(residents[k].getHouse() - 1);
-				// Megnézzük, hogy az adott lakos háza a Tile-on van-e
-				if (h->getTile() == world->getTileOnCoords(x,y))
-				{
-					//std::cout << "Lakos: " << k << " Haza: " << x << " " << y << std::endl;
-					// Ha igen, akkor hozzáadjuk az adó összegét a sumTax-hoz
-					sumTax += round(residents[k].getCurrentTax()*houses->at(i).getTaxRate()*world->getHousingTaxRate());
+					if (residents[residentIds.at(k)].getHouse() == -1)
+					{
+						// ezek szerint nem lakik sehol mert 0 a haza
+						continue;
+					}
+					if (residents[residentIds.at(k)].getAge() >= 65)
+					{
+						pensionerCount++;
+						sumPension += residents[residentIds.at(k)].getPastTax() / 480;
+						continue;
+					}
+					residents[residentIds.at(k)].updatePastTax();
 					residentCount++;
-					residents[k].payTax();
+					sumTax += round(residents[residentIds.at(k)].getCurrentTax() * houses->at(i).getTaxRate() * world->getHousingTaxRate());
 				}
 			}
 		}
 		std::cout << "[INFO] " << i << ". lakozonaban " << residentCount << "db lakos " <<
 			sumTax << " osszegu adot fizet. " << std::endl;
-		std::cout << "[INFO] " << i << ". lakozonaban " << pensionerCount << "db nyugdíjas " <<
-			sumPension << " osszegu nyugdijat kap." << std::endl;
+		gameState->income(sumTax);
+
+		std::cout << "[INFO] " << i << ". lakozonaban " << pensionerCount << "db lakos " <<
+			sumPension << " osszegu nyugdijat kap. " << std::endl;
+		gameState->spendMoney(sumPension);
 	}
-
-
-	// Végigmegyünk minden egyes gyár
-	for (size_t i = 0; i < industries->size(); i++)
-	{
-		int sumTax = 0;
-		int residentCount = 0;
-
-		// Lekérjük a zónában található Tile-ok ID-jét
-		std::vector<int> tileIds = industries->at(i).getTiles();
-
-		// Végigmegyünk a TileID-kon
-		for (size_t j = 0; j < tileIds.size(); j++)
-		{
-			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
-			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
-
-
-			// Végigmegyünk a lakosokon
-			for (size_t k = 0; k < residents.size(); k++)
-			{
-				if (residents[k].getWorkplace() == 0)
-				{
-					// ezek szerint nem dolgozik sehol mert 0 a munkahelye
-					std::cout << "nincs munkahelye" << std::endl;
-					continue;
-				}
-		
-				if (residents[k].getWorkplace() > 0)
-				{
-					Factory* f = world->getFactory(residents[k].getWorkplace() - 1);
-					// Megnézzük, hogy az adott lakos munkahelye a Tile-on van-e
-					if (f->getTile() == world->getTileOnCoords(x, y))
-					{
-						//std::cout << "Lakos: " << k << " Haza: " << x << " " << y << std::endl;
-						// Ha igen, akkor hozzáadjuk az adó összegét a sumTax-hoz
-						sumTax += round(residents[k].getCurrentTax() * industries->at(i).getTaxRate() * world->getIndustrialTaxRate());
-						residentCount++;
-					}
-				}
-			}
-		}
-		std::cout << "[INFO] " << i << ". gyarzonaban " << residentCount << "db lakosra " <<
-			sumTax << " osszegu adot kell fizetni. " << std::endl;
-	}
-
-	// Végigmegyünk minden egyes service-n
-	for (size_t i = 0; i < services->size(); i++)
-	{
-		int sumTax = 0;
-		int residentCount = 0;
-
-		// Lekérjük a zónában található Tile-ok ID-jét
-		std::vector<int> tileIds = services->at(i).getTiles();
-
-		// Végigmegyünk a TileID-kon
-		for (size_t j = 0; j < tileIds.size(); j++)
-		{
-			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
-			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
-
-
-			// Végigmegyünk a lakosokon
-			for (size_t k = 0; k < residents.size(); k++)
-			{
-				if (residents[k].getWorkplace() == 0)
-				{
-					// ezek szerint nem dolgozik sehol mert 0 a munkahelye
-					std::cout << "nincs munkahelye" << std::endl;
-					continue;
-				}
-
-				if (residents[k].getWorkplace() < 0)
-				{
-					//Ez a rész a <0 miatt elszáll
-					ServiceBuilding* f = world->getServBuilding(abs(residents[k].getWorkplace()) - 1);
-					
-					// Megnézzük, hogy az adott lakos munkahelye a Tile-on van-e
-					if (f->getTile() == world->getTileOnCoords(x, y))
-					{
-						//std::cout << "Lakos: " << k << " Haza: " << x << " " << y << std::endl;
-						// Ha igen, akkor hozzáadjuk az adó összegét a sumTax-hoz
-						sumTax += round(residents[k].getCurrentTax() * services->at(i).getTaxRate() * world->getServiceTaxRate());
-						residentCount++;
-					}
-					
-				}
-			}
-		}
-		std::cout << "[INFO] " << i << ". szolgaltatasi zonaban " << residentCount << "db lakosra " <<
-			sumTax << " osszegu adot kell fizetni. " << std::endl;
-	}
-
 }
 
-void ResidentManager::updateResident(Resident* resident)
+void ResidentManager::calculateIndustrialTax()
 {
-	if (resident->getAge() < 65)
+	std::vector<Zone>* industries = world->getIndustryZones();
+
+	for (int i = 0; i < industries->size(); i++)
 	{
-		// A jatekos megkapja az ado osszeget
-		resident->payTax();
+		int sumTax = 0;
+		int residentCount = 0;
+
+		// Lekerjuk a zonahoz tartozo tile-ok id-jat
+		std::vector<int> tileIds = industries->at(i).getTiles();
+
+		// Vegigmegyunk a tile-okon
+		for (int j = 0; j < tileIds.size(); j++)
+		{
+			// Megnezzuk, hogy van-e epulet a tile-on
+			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
+			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
+
+			Tile* tile = world->getTileOnCoords(x, y);
+			if (tile->type == 2)
+			{
+				Factory* h = &(world->getFactories()->at((int)tile->building / 24));
+				std::vector<int> residentIds = h->getWorkers();
+
+				for (int k = 0; k < residentIds.size(); k++)
+				{
+					if (residents[residentIds.at(k)].getWorkplace() == 0)
+					{
+						continue;
+					}
+					residentCount++;
+					sumTax += round(residents[residentIds.at(k)].getCurrentTax() * industries->at(i).getTaxRate() * world->getIndustrialTaxRate());
+				}
+			}
+		}
+		std::cout << "[INFO] " << i << ". ipari zonaban " << residentCount << "db lakos utan " <<
+			sumTax << " osszegu adot kell fizetni. " << std::endl;
+		gameState->income(sumTax);
 	}
-	else
+}
+
+void ResidentManager::calculateServiceTax()
+{
+	std::vector<Zone>* services = world->getServiceZones();
+
+	for (int i = 0; i < services->size(); i++)
 	{
-		// A j�t�kos nyugd�jat fizet a lakosnak
-		// 20 �vnyi munka = 240 h�napnyu munka �s ha m�g annak is a fele, akkor 480 az oszt�
+		int sumTax = 0;
+		int residentCount = 0;
+
+		// Lekerjuk a zonahoz tartozo tile-ok id-jat
+		std::vector<int> tileIds = services->at(i).getTiles();
+
+		// Vegigmegyunk a tile-okon
+		for (int j = 0; j < tileIds.size(); j++)
+		{
+			// Megnezzuk, hogy van-e epulet a tile-on
+			int x = world->getWrapper()->GetPointerToId(tileIds[j])->rect.i;
+			int y = world->getWrapper()->GetPointerToId(tileIds[j])->rect.j;
+
+			Tile* tile = world->getTileOnCoords(x, y);
+			if (tile->type == 3)
+			{
+				ServiceBuilding* h = &(world->getServBuildings()->at((int)tile->building / 24));
+				std::vector<int> residentIds = h->getWorkers();
+
+				for (int k = 0; k < residentIds.size(); k++)
+				{
+					if (residents[residentIds.at(k)].getWorkplace() == 0)
+					{
+						continue;
+					}
+					residentCount++;
+					sumTax += round(residents[residentIds.at(k)].getCurrentTax() * services->at(i).getTaxRate() * world->getServiceTaxRate());
+				}
+			}
+		}
+		std::cout << "[INFO] " << i << ". szolgaltatasi zonaban " << residentCount << "db lakos utan " <<
+			sumTax << " osszegu adot kell fizetni. " << std::endl;
+		gameState->income(sumTax);
 	}
-	//resident->calculateHappiness();
 }
 
 void ResidentManager::recalculateResidentTax()

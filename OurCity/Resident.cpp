@@ -80,6 +80,11 @@ int Resident::getHouse() const
 	return houseID;
 }
 
+void Resident::updatePastTax()
+{
+	pastTax += currentTax;
+}
+
 void Resident::payTax()
 {
 	// Csak akkor kell nézni az múltbeli idõt, ha már legalább 45 éves, mert

@@ -19,6 +19,10 @@ class ResidentManager {
 		World* world;
 		Builder* builder;
 		GameState* gameState;
+
+		void calculateHousingTax();
+		void calculateIndustrialTax();
+		void calculateServiceTax();
 		
 
 	public:
