@@ -22,7 +22,18 @@ void Resident::setAge(int age)
 void Resident::setCurrentTax(int tax)
 {
 	// ITT kell beállítani majd, hogy oktatás alapján mennyivel fizet több adót.
-	this->currentTax = tax;
+	switch (education)
+	{
+	case 1:
+		currentTax = round(tax * 1.1);
+		break;
+	case 2:
+		currentTax = round(tax * 1.2);
+		break;
+	default:
+		currentTax = tax;
+		break;
+	}
 }
 
 void Resident::setHouse(int id)
@@ -69,13 +80,12 @@ int Resident::getHouse() const
 	return houseID;
 }
 
-void Resident::payTax()
+void Resident::updatePastTax()
 {
-	// Csak akkor kell nézni az múltbeli idõt, ha már legalább 45 éves, mert
-	// csak az utolsó 20 évet kell figyelembe venni a nyugdíjnál
 	if (age >= 45 && age <= 65)
 	{
 		pastTax += currentTax;
+
 	}
 }
 

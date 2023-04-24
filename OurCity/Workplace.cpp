@@ -38,3 +38,8 @@ void Workplace::addWorker(int id)
 {
     this->workers.push_back(id);
 }
+
+std::vector<int> Workplace::getWorkers()
+{
+	return workers;
+}

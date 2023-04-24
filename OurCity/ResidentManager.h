@@ -19,6 +19,10 @@ class ResidentManager {
 		World* world;
 		Builder* builder;
 		GameState* gameState;
+
+		void calculateHousingTax();
+		void calculateIndustrialTax();
+		void calculateServiceTax();
 		
 
 	public:
@@ -34,6 +38,7 @@ class ResidentManager {
 		void buildService(int i);
 		int getGlobalHappiness();
 		void updateResident(Resident* resident);
+		void recalculateResidentTax();
 
 		int calculateHappiness();
 

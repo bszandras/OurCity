@@ -665,10 +665,12 @@ void Builder::SelectZone()
 void Builder::RemoveTileFromZone(int where)
 {
 	Tile* tile = wrapper->GetPointerToId(where);
-	if (tile->building != nullptr)
+	if (tile->building != nullptr || tile->type != 0)
 	{
 		return;
 	}
+	tile->type = 0;
+	tile->hasZone = false;
 
 	// egyelõre ez így szar de mûködik
 	for (int j = 0; j < 3; j++)
@@ -698,8 +700,8 @@ void Builder::RemoveTileFromZone(int where)
 			{
 				// elég csak where-t update-elni
 				// de sokkal biztosabb ha az egész zóna id-jait update-eljük
-				// wrapper->UpdateTexIdById(where, 2);
-
+				wrapper->UpdateTexIdById(where, 2);
+				/*
 				std::vector<int> ids = zones->at(i).getTiles();
 
 				// unhighlight
@@ -717,6 +719,7 @@ void Builder::RemoveTileFromZone(int where)
 				{
 					currentTex = 2;
 				}
+				*/
 				return;
 			}
 		}
@@ -935,7 +938,7 @@ ServiceBuilding* Builder::BuildService(Tile* tile)
 
 	ServiceBuilding* sv = world->addServBuilding(tile);
 	tile->building = nullptr;
-	tile->building += world->getFactories()->size() - 1;
+	tile->building += world->getServBuildings()->size() - 1;
 	tile->texId = 23;
 	tile->type = 3;
 	return sv;
