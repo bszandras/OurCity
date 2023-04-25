@@ -48,6 +48,11 @@ void Resident::setWorkplace(int id)
 	workplaceID = id;
 }
 
+void Resident::setEducation(int ed)
+{
+	this->education = ed;
+}
+
 int Resident::getHappiness() const
 {
 	return this->happiness;
@@ -66,6 +71,11 @@ int Resident::getPastTax() const
 int Resident::getCurrentTax() const
 {
 	return this->currentTax;
+}
+
+int Resident::getEducation() const
+{
+	return this->education;
 }
 
 ResidentIntetion Resident::getIntention()

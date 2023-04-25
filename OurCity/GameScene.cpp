@@ -60,18 +60,11 @@ void GameScene::update()
 
 		//boldogság alapján beköltözés
 		int calculateRes = floor(residentManager->getGlobalHappiness() / 10);
+		int moving = std::min(calculateRes, residentManager->residentMoveIn());
 
-		for (int i = 0; i < calculateRes; i++)
+		for (int i = 0; i < moving; i++)
 		{
-			//ha van szabad zóna
-			if (residentManager->residentMoveIn() > 0) 
-			{
-				residentManager->createResident();
-			}
-			else 
-			{
-				break;
-			}
+			residentManager->createResident();
 		}
 
 		// tûz lehetõség

@@ -182,12 +182,73 @@ void ResidentManager::recalculateResidentTax()
 void ResidentManager::updateResidentYearly()
 {
 	int resSize = this->residents.size();
+	int highS = 0;
+	int uniS = 0;
+	int highSCount = world->getHighSchools()->size();
+	int uniSCount = world->getUniversities()->size();
+	maxEducatedHi = resSize / 2;
+	maxEducatedUn = resSize / 4;
 
 	for (int i = 0; i < resSize; i++)
 	{
 		int age = this->residents[i].getAge() + 1;
 		this->residents[i].setAge(age);
+		int ed = this->residents[i].getEducation();
+		if (ed == 1) 
+		{
+			highS++;
+		}
+		else if(ed == 2)
+		{
+			uniS++;
+		}
 	}
+
+	if(highSCount > 0)
+	{
+		if(maxEducatedHi > highS)
+		{
+			int education = highSCount * 5;
+			for(int i = 0; i < resSize; i++)
+			{
+				int ed = this->residents[i].getEducation();
+				if(ed >= 1)
+				{
+					continue;
+				}
+				this->residents[i].setEducation(1);
+				education--;
+				if (education == 0) {
+					break;
+				}
+			}
+
+		}
+	}
+
+	if (uniSCount > 0)
+	{
+		if (maxEducatedUn > uniS)
+		{
+			int education = uniSCount * 3;
+			for (int i = 0; i < resSize; i++)
+			{
+				int ed = this->residents[i].getEducation();
+				if (ed == 2)
+				{
+					continue;
+				}
+				this->residents[i].setEducation(2);
+				education--;
+				if (education == 0) {
+					break;
+				}
+			}
+
+		}
+	}
+
+	
 }
 
 void ResidentManager::handleIntention()
@@ -371,6 +432,15 @@ int ResidentManager::residentMoveIn()
 				{
 					freeSpace++;
 				}
+			}
+			else if (t->type == 1) 
+			{
+				int id = (int)t->building / 24;
+				if(this->world->getHouses()->at(id).moveIn())
+				{
+					freeSpace++;
+				}
+
 			}
 		}
 	}

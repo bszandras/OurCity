@@ -732,3 +732,13 @@ double World::getServiceTaxRate()
 {
 	return serviceTaxRate;
 }
+
+std::vector<HighSchool*>* World::getHighSchools()
+{
+	return &highschools;
+}
+
+std::vector<University*>* World::getUniversities()
+{
+	return &universities;
+}

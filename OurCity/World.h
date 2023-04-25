@@ -47,6 +47,8 @@ private:
 	std::vector<Fire> fires;
 	std::vector<FireStation*> fireStations;
 	std::vector<SpecialBuilding*> burnableBuildings;
+	std::vector<HighSchool*> highschools;
+	std::vector<University*> universities;
 
 public:
 	World();
@@ -107,4 +109,12 @@ public:
 	double getHousingTaxRate();
 	double getIndustrialTaxRate();
 	double getServiceTaxRate();
+
+	std::vector<HighSchool*>* getHighSchools();
+	std::vector<University*>* getUniversities();
+	void addHighschool(HighSchool* h);
+	void removeHighschool();
+	void addUniversity(University* uni);
+	void removeUniversity();
+
 };

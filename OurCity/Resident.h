@@ -48,11 +48,13 @@ public:
 	void setHouse(int id);
 	//void setWorkplace(Workplace* workplace);
 	void setWorkplace(int id);
+	void setEducation(int ed);
 
 	int getHappiness() const;
 	int getAge() const;
 	int getPastTax() const;
 	int getCurrentTax() const;
+	int getEducation() const;
 	ResidentIntetion getIntention();
 	//Workplace* getWorkplace() const;
 	int getWorkplace() const;
