@@ -13,6 +13,7 @@ class ResidentManager {
 		int serviceCount;
 		int maxEducatedUn;
 		int maxEducatedHi;
+		float globalHappiness;
 
 		std::vector<Resident> residents;
 
@@ -36,7 +37,10 @@ class ResidentManager {
 		void handleIntention();
 		void buildFactory(int i);
 		void buildService(int i);
-		int getGlobalHappiness();
+		float getGlobalHappiness();
+
+		int residentMoveIn();
+		void updateGlobalHappiness();
 		void updateResident(Resident* resident);
 		void recalculateResidentTax();
 

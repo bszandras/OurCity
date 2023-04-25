@@ -49,6 +49,7 @@ public:
 	//void setWorkplace(Workplace* workplace);
 	void setWorkplace(int id);
 
+	int getHappiness() const;
 	int getAge() const;
 	int getPastTax() const;
 	int getCurrentTax() const;

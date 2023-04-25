@@ -48,6 +48,11 @@ void Resident::setWorkplace(int id)
 	workplaceID = id;
 }
 
+int Resident::getHappiness() const
+{
+	return this->happiness;
+}
+
 int Resident::getAge() const
 {
 	return this->age;

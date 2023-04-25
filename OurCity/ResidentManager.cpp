@@ -8,6 +8,7 @@ ResidentManager::ResidentManager(World* world, Builder* builder, GameState* game
 	this->gameState = gameState;
 	this->factoryCount = 0;
 	this->serviceCount = 0;
+	this->globalHappiness = 100;
 
 	std::cout << sizeof(Building) << std::endl;
 }
@@ -343,6 +344,49 @@ void ResidentManager::buildService(int i)
 			break;
 		}
 	}
+}
+
+float ResidentManager::getGlobalHappiness()
+{
+	return this->globalHappiness;
+}
+
+int ResidentManager::residentMoveIn()
+{
+	int freeSpace = 0;
+
+	std::vector<Zone>* hZones = this->world->getHouseZones();
+
+	for (int j = 0; j < hZones->size(); j++)
+	{
+		std::vector<int> zoneTiles = hZones->at(j).getTiles();
+
+		for (int k = 0; k < zoneTiles.size(); k++) 
+		{
+			Tile* t = this->world->getWrapper()->GetPointerToId(zoneTiles.at(k));
+
+			if (t->building == nullptr && t->type == 0) 
+			{
+				if (world->getRoadGraph()->isAdjacent(t))
+				{
+					freeSpace++;
+				}
+			}
+		}
+	}
+
+	return freeSpace;
+}
+
+void ResidentManager::updateGlobalHappiness()
+{
+	int sumHappiness = 0;
+	int sizeR = this->residents.size();
+	for (int i = 0; i < sizeR; i++) 
+	{
+		sumHappiness += this->residents[i].getHappiness();
+	}
+	this->globalHappiness = sumHappiness / sizeR;
 }
 
 void ResidentManager::buildHouse(int i) {

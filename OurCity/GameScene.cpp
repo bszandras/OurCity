@@ -56,8 +56,23 @@ void GameScene::update()
 	for(int i = 0; i < days; i++)
 	{
 		residentManager->handleIntention();
-		residentManager->createResident();
-		residentManager->createResident();
+		residentManager->updateGlobalHappiness();
+
+		//boldogság alapján beköltözés
+		int calculateRes = floor(residentManager->getGlobalHappiness() / 10);
+
+		for (int i = 0; i < calculateRes; i++)
+		{
+			//ha van szabad zóna
+			if (residentManager->residentMoveIn() > 0) 
+			{
+				residentManager->createResident();
+			}
+			else 
+			{
+				break;
+			}
+		}
 
 		// tûz lehetõség
 		// megszerezzük a világtól, hogy mik gyulladhatnak ki
