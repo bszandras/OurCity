@@ -675,6 +675,16 @@ void World::UpdateFires(int deltaDays)
 		if (f->getBurnTime() > f->getMaxBurnTime())
 		{
 			// leég a ház elmúlik a tűz
+			int type = f->getTargetTile()->type;
+			if (type == 1) 
+			{
+				//residentmanager loseHouses
+			}
+			else if(type == 2 || type == 3)
+			{
+				//residentmanager loseJob
+				//workplace removeWorker
+			}
 		}
 	}
 }

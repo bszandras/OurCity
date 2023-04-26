@@ -39,6 +39,12 @@ void Workplace::addWorker(int id)
     this->workers.push_back(id);
 }
 
+void Workplace::removeWorker(int id)
+{
+    std::vector<int>::iterator new_end;
+    new_end = remove(this->workers.begin(), this->workers.end(), id);
+}
+
 std::vector<int> Workplace::getWorkers()
 {
 	return workers;

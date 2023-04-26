@@ -179,6 +179,38 @@ void ResidentManager::recalculateResidentTax()
 	}
 }
 
+void ResidentManager::loseHouse(int hosueID)
+{
+	for (int i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getHouse() == hosueID)
+		{
+			residents[i].setHouse(0);
+			residents[i].setWorkplace(0);
+			residents[i].setIntention(MOVEIN);
+		}
+	}
+}
+
+void ResidentManager::loseJob(int jobID)
+{
+	for (int i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getWorkplace() == jobID)
+		{
+			//TODO
+			//factoryCount vagy serviceCount csökken
+			residents[i].setWorkplace(0);
+			if(this->factoryCount <= this->serviceCount) {
+				this->residents[i].setIntention(INDUSTRYWORK);
+			}
+			else {
+				this->residents[i].setIntention(SERVICEWORK);
+			}
+		}
+	}
+}
+
 void ResidentManager::updateResidentYearly()
 {
 	int resSize = this->residents.size();

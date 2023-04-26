@@ -44,6 +44,9 @@ class ResidentManager {
 		void updateResident(Resident* resident);
 		void recalculateResidentTax();
 
+		void loseHouse(int hosueID);
+		void loseJob(int jobID);
+
 		int calculateHappiness();
 
 		int getFactoryCount();
