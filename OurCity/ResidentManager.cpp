@@ -192,21 +192,30 @@ void ResidentManager::loseHouse(int hosueID)
 	}
 }
 
-void ResidentManager::loseJob(int jobID)
+void ResidentManager::loseJobFactory(int jobID)
 {
 	for (int i = 0; i < residents.size(); i++)
 	{
 		if (residents[i].getWorkplace() == jobID)
 		{
-			//TODO
-			//factoryCount vagy serviceCount csökken
 			residents[i].setWorkplace(0);
-			if(this->factoryCount <= this->serviceCount) {
-				this->residents[i].setIntention(INDUSTRYWORK);
-			}
-			else {
-				this->residents[i].setIntention(SERVICEWORK);
-			}
+			this->factoryCount--;
+			this->residents[i].setIntention(INDUSTRYWORK);
+			world->getFactory(jobID)->removeWorker(i);
+		}
+	}
+}
+
+void ResidentManager::loseJobService(int jobID)
+{
+	for (int i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getWorkplace() == jobID)
+		{
+			residents[i].setWorkplace(0);
+			this->serviceCount--;
+			this->residents[i].setIntention(SERVICEWORK);
+			world->getServBuilding(jobID)->removeWorker(i);
 		}
 	}
 }

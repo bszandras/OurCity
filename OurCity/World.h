@@ -47,6 +47,10 @@ private:
 	std::vector<Fire> fires;
 	std::vector<FireStation*> fireStations;
 	std::vector<SpecialBuilding*> burnableBuildings;
+	std::vector<int> burntHouses;
+	std::vector<int> burntFactories;
+	std::vector<int> burntService;
+
 	std::vector<HighSchool*> highschools;
 	std::vector<University*> universities;
 
@@ -101,6 +105,11 @@ public:
 	std::vector<Fire>* getFires();
 	void UpdateFires(int deltaDays);
 	bool PutOutFire(int tileID);
+
+	std::vector<int> getBurntHouses();
+	std::vector<int> getBurntFactories();
+	std::vector<int> getBurntService();
+	void removeBurntBuildings();
 
 	void setHousingTaxRate(double taxRate);
 	void setIndustrialTaxRate(double taxRate);

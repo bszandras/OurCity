@@ -36,4 +36,5 @@ public:
 	GameState* getGameState();
 
 	void update();
+	void HandleBurntBuildings();
 };

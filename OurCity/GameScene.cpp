@@ -171,6 +171,7 @@ void GameScene::update()
 	{
 		dayCount+= days;
 		world->UpdateFires(days);
+		HandleBurntBuildings();
 	}
 	if (dayCount >= 30)
 	{
@@ -185,5 +186,32 @@ void GameScene::update()
 		monthCount -= 12;
 		//std::cout << "year passed" << std::endl;
 	}
+
+}
+
+void GameScene::HandleBurntBuildings()
+{
+	std::vector<int> burntHouses = world->getBurntHouses();
+	std::vector<int> burntFact = world->getBurntFactories();
+	std::vector<int> burntServ = world->getBurntService();
+
+	int burntHSize = burntHouses.size();
+	int burntFSize = burntFact.size();
+	int burntSeSize = burntServ.size();
+
+	for (int i = 0; i < burntHSize; i++) {
+		residentManager->loseHouse(burntHouses[i]);
+	}
+
+	for (int i = 0; i < burntFSize; i++) {
+		residentManager->loseJobFactory(burntFact[i]);
+	}
+
+	for (int i = 0; i < burntSeSize; i++) {
+		residentManager->loseJobService(burntServ[i]);
+	}
+
+	world->removeBurntBuildings();
+
 
 }

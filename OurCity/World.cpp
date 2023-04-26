@@ -676,14 +676,19 @@ void World::UpdateFires(int deltaDays)
 		{
 			// leég a ház elmúlik a tűz
 			int type = f->getTargetTile()->type;
+			int id = (int)f->getTargetTile()->building / 24;
 			if (type == 1) 
 			{
-				//residentmanager loseHouses
+				this->burntHouses.push_back(id);
+
 			}
-			else if(type == 2 || type == 3)
+			else if(type == 2)
 			{
-				//residentmanager loseJob
-				//workplace removeWorker
+				this->burntFactories.push_back(id);
+			}
+			else if (type == 3)
+			{
+				this->burntService.push_back(id);
 			}
 		}
 	}
@@ -711,6 +716,28 @@ bool World::PutOutFire(int tileID)
 			return true;
 		}
 	}
+}
+
+std::vector<int> World::getBurntHouses()
+{
+	return this->burntHouses;
+}
+
+std::vector<int> World::getBurntFactories()
+{
+	return this->burntFactories;
+}
+
+std::vector<int> World::getBurntService()
+{
+	return this->burntService;
+}
+
+void World::removeBurntBuildings()
+{
+	this->burntHouses.clear();
+	this->burntFactories.clear();
+	this->burntService.clear();
 }
 
 void World::setHousingTaxRate(double taxRate)

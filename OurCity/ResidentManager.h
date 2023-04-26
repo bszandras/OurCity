@@ -45,7 +45,8 @@ class ResidentManager {
 		void recalculateResidentTax();
 
 		void loseHouse(int hosueID);
-		void loseJob(int jobID);
+		void loseJobFactory(int jobID);
+		void loseJobService(int jobID);
 
 		int calculateHappiness();
 
