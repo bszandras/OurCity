@@ -148,6 +148,9 @@ int Window::StartGameLoop()
 	// imgui init
 	ImGui_ImplSdlGL3_Init(win);
 
+	float n = 1.0f;
+	bool activeInfo = false;
+
 	// start loop
 	while (!quit)
 	{
@@ -197,9 +200,6 @@ int Window::StartGameLoop()
 				app->ChangeSpeed(1);
 				ImGui::CloseCurrentPopup();
 			}
-			ImGui::Button("Settings");
-			ImGui::Button("Load");
-			ImGui::Button("Save");
 			if (ImGui::Button("Quit")) {
 				quit = true;
 			}
@@ -217,8 +217,15 @@ int Window::StartGameLoop()
 			{
 				ImGui::CloseCurrentPopup();
 			}
-			ImGui::Text((std::to_string(app->getState()->getMoney()) + " bilpengõ").c_str());
-			ImGui::Text("There will be statistics here!");
+			ImGui::Text((std::to_string(app->getState()->getMoney()) + " mobium").c_str());
+			ImGui::Text("Global Tax:");
+			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::Text("Resident Zone Tax:");
+			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::Text("Service Zone Tax:");
+			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::Text("Industrial Zone Tax:");
+			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
 			//ImGui::Text(app->getState()->getMoney());
 			
 
@@ -239,6 +246,22 @@ int Window::StartGameLoop()
 
 			ImGui::EndPopup();
 		}
+		/*
+		if (ImGui::Button("Zone Stat Test")) {
+			activeInfo = true;
+			ImGui::SetNextWindowPos(ImVec2(width/2 - 50,height/2 - 50));
+		}
+		if (activeInfo) {
+			ImGui::Begin("Zone Stat");
+			
+			if (ImGui::Button("Close")) {
+				activeInfo = false;
+			}
+
+			ImGui::End();
+
+		}
+		*/
 
 		ImGui::PopStyleColor();
 
