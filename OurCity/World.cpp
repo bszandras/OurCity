@@ -639,8 +639,8 @@ void World::UpdateFires(int deltaDays)
 {
 	// folytatja a tüzet
 	// ha egy tűz leégett, akkor a tile-ről törli az épületet
-	// HA HÁZ akkor a lakos is törlődik
-	// mindenki meghal a tűzben, munkahelyeket előtte fel kell szabadítani
+	// HA HÁZ akkor
+	// mindenki hajléktalan lesz, munkahelyeket előtte fel kell szabadítani
 	// HA MUNKAHELY akkor a lakosok csak munkanélküliek lesznek
 	// resident manager-be kell egy delete lakos függvény ami minden szálat elvarr
 	std::random_device rd;
@@ -675,8 +675,9 @@ void World::UpdateFires(int deltaDays)
 		if (f->getBurnTime() > f->getMaxBurnTime())
 		{
 			// leég a ház elmúlik a tűz
-			int type = f->getTargetTile()->type;
-			int id = (int)f->getTargetTile()->building / 24;
+			Tile* t = f->getTargetTile();
+			int type = t->type;
+			int id = (int)t->building / 24;
 			if (type == 1) 
 			{
 				this->burntHouses.push_back(id);
@@ -689,6 +690,22 @@ void World::UpdateFires(int deltaDays)
 			else if (type == 3)
 			{
 				this->burntService.push_back(id);
+			}
+			// utolsó lehetőség a spec épület
+			else if (t->building != nullptr)
+			{
+				// itt updatelni kell spec épület hatásokat
+
+			}
+
+			// ha leégett az épület akkor a tűznek is el kell tűnnie
+			for (int i = 0; i < fires.size(); i++)
+			{
+				if (fires.at(i).getTargetTile() == t)
+				{
+					fires.erase(fires.begin() + i);
+					t->onFire = false;
+				}
 			}
 		}
 	}
@@ -735,6 +752,52 @@ std::vector<int> World::getBurntService()
 
 void World::removeBurntBuildings()
 {
+	// clear előtt gondoskodni kell a leégett épületekről
+	for (int i = 0; i < burntHouses.size(); i++)
+	{
+		// resident manager a lakosok dolgait elintézte
+		House* h = getHouse(burntHouses[i]);
+		// tile dolgait kell intézni
+		Tile* t = h->getTile();
+		
+		t->hasZone = true;
+		t->building = nullptr;
+		t->texId = 10 + t->type;
+		t->type = 0;
+
+
+	}
+	for (int i = 0; i < burntFactories.size(); i++)
+	{
+		// resident manager a lakosok dolgait elintézte
+		Factory* f = getFactory(burntFactories[i]);
+		// tile dolgait kell intézni
+		Tile* t = f->getTile();
+		
+		t->hasZone = true;
+		t->building = nullptr;
+		t->texId = 10 + t->type;
+		t->type = 0;
+	}
+	for (int i = 0; i < burntService.size(); i++)
+	{
+		// resident manager a lakosok dolgait elintézte
+		ServiceBuilding* s = getServBuilding(burntService[i]);
+		// tile dolgait kell intézni
+		Tile* t = s->getTile();
+		
+		t->hasZone = true;
+		t->building = nullptr;
+		t->texId = 10 + t->type;
+		t->type = 0;
+	}
+
+	// HATALMAS PROBLÉMA
+	// ÍGY MARAD MERT MÁR TÚLSÁGOSAN BENNE VAN
+	// mivel a 3 zónatípus épületeit mindeki id-val referálja
+	// NEM SZABAD world-> házakat tároló vectorából kiszedni őket
+	// szóval leégett épület benne marad szellem épületnek
+
 	this->burntHouses.clear();
 	this->burntFactories.clear();
 	this->burntService.clear();

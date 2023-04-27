@@ -41,8 +41,15 @@ void Workplace::addWorker(int id)
 
 void Workplace::removeWorker(int id)
 {
-    std::vector<int>::iterator new_end;
-    new_end = remove(this->workers.begin(), this->workers.end(), id);
+    //std::vector<int>::iterator new_end;
+    //new_end = remove(this->workers.begin(), this->workers.end(), id);
+    for (int i = 0; i < workers.size(); i++)
+    {
+        if (workers[i] == id)
+        {
+            workers.erase(workers.begin() + i);
+        }
+    }
 }
 
 std::vector<int> Workplace::getWorkers()

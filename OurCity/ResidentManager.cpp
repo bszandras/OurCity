@@ -181,21 +181,76 @@ void ResidentManager::recalculateResidentTax()
 
 void ResidentManager::loseHouse(int hosueID)
 {
+	House* h = world->getHouse(hosueID);
+	std::vector<int> res = h->getResidents();
+
+	for (int i = 0; i < res.size(); i++)
+	{
+		residents[res[i]].setIntention(MOVEIN);
+		residents[res[i]].setHouse(0);
+
+
+		//residents[res[i]].setWorkplace(0);
+		// industry-ban dolgozik, elveszti a munkályát
+		if (residents[res[i]].getWorkplace() > 0)
+		{
+			world->getFactory(residents[res[i]].getWorkplace() - 1)->removeWorker(res[i]);
+			this->factoryCount--;
+		}
+		// service
+		else
+		{
+			world->getServBuilding(abs(residents[res[i]].getWorkplace()) - 1)->removeWorker(res[i]);
+			this->serviceCount--;
+		}
+		residents[res[i]].setWorkplace(0);
+		// factory-ból nem kell kivenni a dolgozóra mutató id-t mert factory úgyis törölve lesz
+	}
+	/*
 	for (int i = 0; i < residents.size(); i++)
 	{
 		if (residents[i].getHouse() == hosueID)
 		{
 			residents[i].setHouse(0);
-			residents[i].setWorkplace(0);
 			residents[i].setIntention(MOVEIN);
+
+			// industry-ban dolgozik, elveszti a munkályát
+			if (residents[i].getWorkplace() > 0)
+			{
+				world->getFactory(residents[i].getWorkplace() - 1)->removeWorker(i);
+			}
+			// service
+			else
+			{
+				world->getServBuilding(abs(residents[i].getWorkplace()) - 1)->removeWorker(i);
+			}
+			residents[i].setWorkplace(0);
 		}
 	}
+	*/
 }
 
 void ResidentManager::loseJobFactory(int jobID)
 {
+	Factory* f = world->getFactory(jobID);
+	std::vector<int> workers = f->getWorkers();
+
+	for (int i = 0; i < workers.size(); i++)
+	{
+		residents[workers[i]].setWorkplace(0);
+		residents[workers[i]].setIntention(INDUSTRYWORK);
+		// factory-ból nem kell kivenni a dolgozóra mutató id-t mert factory úgyis törölve lesz
+		this->factoryCount--;
+	}
+	
+	/*
 	for (int i = 0; i < residents.size(); i++)
 	{
+		// adott resident iparban dolgozik
+		if (residents[i].getWorkplace() > 0)
+		{
+
+		}
 		if (residents[i].getWorkplace() == jobID)
 		{
 			residents[i].setWorkplace(0);
@@ -204,10 +259,23 @@ void ResidentManager::loseJobFactory(int jobID)
 			world->getFactory(jobID)->removeWorker(i);
 		}
 	}
+	*/
 }
 
 void ResidentManager::loseJobService(int jobID)
 {
+	ServiceBuilding* f = world->getServBuilding(jobID);
+	std::vector<int> workers = f->getWorkers();
+
+	for (int i = 0; i < workers.size(); i++)
+	{
+		residents[workers[i]].setWorkplace(0);
+		residents[workers[i]].setIntention(SERVICEWORK);
+		// factory-ból nem kell kivenni a dolgozóra mutató id-t mert factory úgyis törölve lesz
+		this->serviceCount--;
+	}
+	
+	/*
 	for (int i = 0; i < residents.size(); i++)
 	{
 		if (residents[i].getWorkplace() == jobID)
@@ -218,6 +286,7 @@ void ResidentManager::loseJobService(int jobID)
 			world->getServBuilding(jobID)->removeWorker(i);
 		}
 	}
+	*/
 }
 
 void ResidentManager::updateResidentYearly()
