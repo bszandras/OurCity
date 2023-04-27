@@ -29,6 +29,7 @@ public:
 
 	double getTaxRate() const;
 	void setTaxRate(double taxRate);
+	double* getTaxRateHandle();
 };
 
 struct ZoneStatData

@@ -44,6 +44,8 @@ public:
 	void ChangeSpeed(int i);
 	std::string getGameTime();
 	GameState* getState();
+	ZoneStatData* getSelectedZone();
+	GameScene* getScene();
 protected:
 	// shaderekhez szükséges változók
 	GLuint m_programID; // shaderek programja

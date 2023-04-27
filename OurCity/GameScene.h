@@ -34,6 +34,7 @@ public:
 	Builder* getBuilder();
 	GameTime* getGameTime();
 	GameState* getGameState();
+	ResidentManager* getResidentManager();
 
 	void update();
 	void HandleBurntBuildings();

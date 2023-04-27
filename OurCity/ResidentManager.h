@@ -56,5 +56,6 @@ class ResidentManager {
 		void setServiceCount(int x);
 		int getMaxEducatedUn();
 		int getMaxEducatedHi();
+		Resident* getResident(int id);
 };
 

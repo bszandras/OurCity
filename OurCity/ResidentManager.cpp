@@ -629,3 +629,8 @@ int ResidentManager::getMaxEducatedHi()
 {
 	return this->maxEducatedHi;
 }
+
+Resident* ResidentManager::getResident(int id)
+{
+	return &residents[id];
+}

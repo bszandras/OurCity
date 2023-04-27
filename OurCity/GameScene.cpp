@@ -49,6 +49,11 @@ GameState* GameScene::getGameState()
 	return gameState;
 }
 
+ResidentManager* GameScene::getResidentManager()
+{
+	return residentManager;
+}
+
 
 void GameScene::update()
 {

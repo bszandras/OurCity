@@ -764,4 +764,14 @@ GameState* CMyApp::getState()
 	return scene->getGameState();
 }
 
+ZoneStatData* CMyApp::getSelectedZone()
+{
+	return &selectedZone;
+}
+
+GameScene* CMyApp::getScene()
+{
+	return scene;
+}
+
 

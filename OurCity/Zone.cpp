@@ -75,3 +75,8 @@ void Zone::setTaxRate(double taxRate)
 {
 	this->taxRate = taxRate;
 }
+
+double* Zone::getTaxRateHandle()
+{
+	return &taxRate;
+}

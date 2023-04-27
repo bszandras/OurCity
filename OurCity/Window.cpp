@@ -9,7 +9,7 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_impl_sdl_gl3.h>
 
-
+#include "ZoneTools.h"
 
 Window* Window::instance = nullptr;
 
@@ -262,6 +262,46 @@ int Window::StartGameLoop()
 
 		}
 		*/
+		Zone* z = app->getSelectedZone()->z;
+		if (z != nullptr)
+		{
+			ImGuiWindowFlags zFlags = 0;
+			//zFlags |= ImGuiWindowFlags_NoResize;
+			//zFlags |= ImGuiWindowFlags_NoMove;
+			//zFlags |= ImGuiWindowFlags_ChildWindow;
+
+			ImGui::SetNextWindowPos(ImVec2(width / 2 - 50, height / 2 - 50));
+			ImGui::Begin("Zone Stat", NULL, zFlags);
+
+			std::string data = "";
+			if (z->getType() == 0)
+			{
+				data = "Housing zone";
+			}
+			else if (z->getType() == 1)
+			{
+				data = "Industrial zone";
+			}
+			else
+			{
+				data = "Service zone";
+			}
+			ImGui::Text(data.c_str());
+			data = "Residents: ";
+			data += std::to_string(ZoneTools::getResidentCount(app->getSelectedZone(), app->getScene()->getWorld()));
+			ImGui::Text(data.c_str());
+
+			data = "Average happiness: ";
+			data += std::to_string(ZoneTools::getAverageHappiness(app->getSelectedZone(), app->getScene()->getWorld(), app->getScene()->getResidentManager()));
+			ImGui::Text(data.c_str());
+			//ImGui::Text("Residents: " + )
+
+			if (ImGui::Button("Close")) {
+				//activeInfo = false;
+			}
+
+			ImGui::End();
+		}
 
 		ImGui::PopStyleColor();
 
