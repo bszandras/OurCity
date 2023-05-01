@@ -377,10 +377,13 @@ int Window::StartGameLoop()
 			data += std::to_string(ZoneTools::getAverageHappiness(app->getSelectedZone(), app->getScene()->getWorld(), app->getScene()->getResidentManager()));
 			ImGui::Text(data.c_str());
 			//ImGui::Text("Residents: " + )
-
+			ImGui::Text("Tax:");
+			ImGui::SliderFloat("", z->getTaxRateHandle(), 0.5f, 1.5f, "%.1f");
+			/*
 			if (ImGui::Button("Close")) {
 				//activeInfo = false;
 			}
+			*/
 
 			ImGui::End();
 		}
