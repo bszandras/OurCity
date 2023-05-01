@@ -135,6 +135,7 @@ int Window::StartGameLoop()
 {
 	// véget kell-e érjen a program futása?
 	bool quit = false;
+	bool gameStarted = false;
 
 	// alkalmazás példánya
 	app = new CMyApp();
@@ -146,11 +147,85 @@ int Window::StartGameLoop()
 		std::cout << "[app.Init] Error during the initialization of the application!" << std::endl;
 		return 1;
 	}
+
+	//SDL_Surface* image = SDL_LoadBMP("city.bmp");
+	//SDL_Surface* surface = SDL_GetWindowSurface(win);
+
+	//SDL_BlitSurface(image, NULL, surface, NULL);
+	//SDL_UpdateWindowSurface(win);
+
 	// imgui init
 	ImGui_ImplSdlGL3_Init(win);
 
-	float n = 1.0f;
-	bool activeInfo = false;
+	ImGuiIO& io = ImGui::GetIO();
+	ImFont* font1 = io.Fonts->AddFontFromFileTTF("New Super Mario Font U.ttf", 24.0f);
+	ImFont* font3 = io.Fonts->AddFontFromFileTTF("New Super Mario Font U.ttf", 36.0f);
+	ImFont* font2 = io.Fonts->AddFontFromFileTTF("Fluo Gums.ttf", 140.0f);
+
+	while (!gameStarted && !quit) 
+	{
+
+		while (SDL_PollEvent(&event))
+		{
+			HandleEvents(quit, event);
+		}
+
+		ImGui_ImplSdlGL3_NewFrame(win);
+
+		ImGuiWindowFlags window_flags = 0;
+		window_flags |= ImGuiWindowFlags_NoTitleBar;
+		window_flags |= ImGuiWindowFlags_NoMove;
+		window_flags |= ImGuiWindowFlags_NoResize;
+		window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
+
+		ImGui::SetNextWindowPos(ImVec2((width * 0.5) - 250, (height * 0.5) - 200));
+		ImGui::SetNextWindowSize(ImVec2(850, 600));
+
+		ImGui::Begin("Text", &quit, window_flags);
+
+			ImGui::PushFont(font2);
+
+			ImGui::Text("OUR CITY");
+
+			ImGui::PopFont();
+
+		ImGui::End();
+
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(200, 5, 30, 0));
+
+		ImGui::SetNextWindowPos(ImVec2((width*0.5)-50,(height*0.5)));
+
+		ImGui::Begin("Main Menu", &quit, window_flags);
+
+			ImGui::PushFont(font3);
+
+			ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
+
+			if (ImGui::Button("Start",ImVec2(115,45))) {
+				gameStarted = true;
+			}
+
+			if (ImGui::Button("Quit", ImVec2(115, 45))) {
+				quit = true;
+			}
+
+			ImGui::PopStyleColor();
+
+			ImGui::PopFont();
+
+		ImGui::End();
+
+		ImGui::PopStyleColor();
+
+		ImGui::Render();
+
+		// sdl double buffering
+		SDL_GL_SwapWindow(win);
+
+	}
+
+	//SDL_FreeSurface(image);
+	//SDL_FreeSurface(surface);
 
 	// start loop
 	while (!quit)
@@ -308,7 +383,7 @@ int Window::StartGameLoop()
 
 		ImGui::End();
 
-		ImGui::SetNextWindowPos(ImVec2(width -230, 0.5f));
+		ImGui::SetNextWindowPos(ImVec2(width-215, 0.5f));
 
 		ImGui::Begin("Time", &quit, window_flags);
 
@@ -318,15 +393,15 @@ int Window::StartGameLoop()
 			app->ChangeSpeed(0);
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Speed1")) {
+		if (ImGui::Button(">")) {
 			app->ChangeSpeed(1);
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Speed2")) {
+		if (ImGui::Button(">>")) {
 			app->ChangeSpeed(2);
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Speed3")) {
+		if (ImGui::Button(">>>")) {
 			app->ChangeSpeed(3);
 		}
 		ImGui::Text("Time: ");
