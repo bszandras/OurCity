@@ -12,11 +12,11 @@ C:\Users\rolan\source\repos\ourcity\OurCity\Builder.cpp(825,38): warning C4267: 
   Forest.cpp
   GameScene.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(72,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(208,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(209,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(210,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(211,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(212,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(213,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   GameState.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\GameState.cpp(53,17): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\GameState.cpp(58,17): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   GameTime.cpp
   GLDebugMessageCallback.cpp
   HighSchool.cpp
@@ -54,8 +54,8 @@ C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(621,54): warning C4305: 'i
   Overlay.cpp
   PoliceStation.cpp
   Resident.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Resident.cpp(28,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Resident.cpp(31,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\Resident.cpp(29,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\Resident.cpp(32,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   ResidentManager.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(53,39): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(53,39): warning C4302: 'type cast': truncation from 'Building *' to 'int'
@@ -77,6 +77,8 @@ C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(548,31): warning
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(548,31): warning C4302: 'type cast': truncation from 'Building *' to 'int'
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(564,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(569,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(615,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(703,39): warning C4244: '=': conversion from 'unsigned __int64' to 'float', possible loss of data
   Road.cpp
   RoadGraph.cpp
   School.cpp
@@ -92,7 +94,7 @@ C:\Users\rolan\source\repos\ourcity\OurCity\SubMap.cpp(56,23): warning C4267: 'r
 C:\Users\rolan\source\repos\ourcity\OurCity\SubMap.cpp(63,68): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   test.cpp
   TileRect.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\TileRect.cpp(40,18): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\TileRect.cpp(41,18): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
   University.cpp
   Window.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(274,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data

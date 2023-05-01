@@ -2,6 +2,7 @@
 
 #include "TileRect.h"
 #include "SubMap.h"
+#include <cmath>
 
 
 /*

@@ -641,12 +641,14 @@ void ResidentManager::calculateHappiness(Resident *res)
 	* - erdőre rálátás (+)		* 
 	* Ezeket az adott tile happiness modifyer mezője kezeli
 	*/
+	// Ugyanezt a javítást a munkához
 	int modifier = 0;
 	if (res->getHouse() != 0)
 	{
-		Tile* house = world->getWrapper()->GetPointerToId(res->getHouse());
+		Tile* house = world->getHouse(res->getHouse())->getTile();
 		modifier += house->happinessModifer;
 	}
+	// ID-kra figyelni a workplace-nél 
 	if (res->getWorkplace() != 0)
 	{
 		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
