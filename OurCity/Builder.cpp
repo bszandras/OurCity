@@ -408,7 +408,16 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 
 		s->UpdateAreaAfterBuilding(passable.data(), passable.size());
 	}
-
+	else if (tex == HIGHSCHOOL)
+	{
+		HighSchool* h = (HighSchool*)building;
+		world->addHighschool(h);
+	}
+	else if (tex == UNIVERSITY)
+	{
+		University* h = (University*)building;
+		world->addUniversity(h);
+	}
 
 
 	return true;
@@ -451,7 +460,16 @@ bool Builder::DestroySpecBuilding(int where)
 				Stadium* s = (Stadium*)b;
 				s->UpdateAreaAfterDestruction();
 			}
-
+			else if (tile->texId == HIGHSCHOOL)
+			{
+				HighSchool* h = (HighSchool*)b;
+				world->removeHighschool(h);
+			}
+			else if (tile->texId == UNIVERSITY)
+			{
+				University* h = (University*)b;
+				world->removeUniversity(h);
+			}
 
 			// 3x3-ban ellenõrizni és akkor tuti megtaláljuk a hozzá tartozó tile-okat
 			Tile* top1 = world->getWrapper()->GetPointerToId(where + world->getWidth());

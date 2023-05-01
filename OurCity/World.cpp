@@ -10,6 +10,7 @@
 
 World::World()
 {
+	globalTaxRate = 1.0;
 	housingTaxRate = 1.0;
 	industrialTaxRate = 1.0;
 	serviceTaxRate = 1.0;
@@ -827,19 +828,44 @@ void World::setServiceTaxRate(double taxRate)
 	this->serviceTaxRate = taxRate;
 }
 
-double World::getHousingTaxRate()
+float World::getGlobalTaxRate()
+{
+	return globalTaxRate;
+}
+
+float World::getHousingTaxRate()
 {
 	return housingTaxRate;
 }
 
-double World::getIndustrialTaxRate()
+float World::getIndustrialTaxRate()
 {
 	return industrialTaxRate;
 }
 
-double World::getServiceTaxRate()
+float World::getServiceTaxRate()
 {
 	return serviceTaxRate;
+}
+
+float* World::getGlobalTaxRateHandle()
+{
+	return &globalTaxRate;
+}
+
+float* World::getHousingTaxRateHandle()
+{
+	return &housingTaxRate;
+}
+
+float* World::getIndustrialTaxRateHandle()
+{
+	return &industrialTaxRate;
+}
+
+float* World::getServiceTaxRateHandle()
+{
+	return &serviceTaxRate;
 }
 
 std::vector<HighSchool*>* World::getHighSchools()
@@ -850,4 +876,36 @@ std::vector<HighSchool*>* World::getHighSchools()
 std::vector<University*>* World::getUniversities()
 {
 	return &universities;
+}
+
+void World::addHighschool(HighSchool* h)
+{
+	highschools.push_back(h);
+}
+
+void World::removeHighschool(HighSchool* h)
+{
+	for (int i = 0; i < highschools.size(); i++)
+	{
+		if (highschools.at(i) == h)
+		{
+			highschools.erase(highschools.begin() + i);
+		}
+	}
+}
+
+void World::addUniversity(University* uni)
+{
+	universities.push_back(uni);
+}
+
+void World::removeUniversity(University* uni)
+{
+	for (int i = 0; i < universities.size(); i++)
+	{
+		if (universities.at(i) == uni)
+		{
+			universities.erase(universities.begin() + i);
+		}
+	}
 }

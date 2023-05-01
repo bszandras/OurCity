@@ -46,9 +46,10 @@ private:
 	std::vector<Factory> Factories;
 	std::vector<ServiceBuilding> ServBuildings;
 
-	double housingTaxRate;
-	double industrialTaxRate;
-	double serviceTaxRate;
+	float globalTaxRate;
+	float housingTaxRate;
+	float industrialTaxRate;
+	float serviceTaxRate;
 
 	RoadGraph roadGraph;
 
@@ -125,15 +126,22 @@ public:
 	void setIndustrialTaxRate(double taxRate);
 	void setServiceTaxRate(double taxRate);
 
-	double getHousingTaxRate();
-	double getIndustrialTaxRate();
-	double getServiceTaxRate();
+	float getGlobalTaxRate();
+	float getHousingTaxRate();
+	float getIndustrialTaxRate();
+	float getServiceTaxRate();
+
+	float* getGlobalTaxRateHandle();
+	float* getHousingTaxRateHandle();
+	float* getIndustrialTaxRateHandle();
+	float* getServiceTaxRateHandle();
 
 	std::vector<HighSchool*>* getHighSchools();
 	std::vector<University*>* getUniversities();
+
 	void addHighschool(HighSchool* h);
-	void removeHighschool();
+	void removeHighschool(HighSchool* h);
 	void addUniversity(University* uni);
-	void removeUniversity();
+	void removeUniversity(University* uni);
 
 };

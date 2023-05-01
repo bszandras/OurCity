@@ -286,24 +286,30 @@ int Window::StartGameLoop()
 		if (ImGui::Button("Money")) {
 			ImGui::OpenPopup("Money Statistics");
 		}
-		float n = 1.0f;
+		//float n = 1.0f;
 		if (ImGui::BeginPopupModal("Money Statistics",NULL,wfStat)) 
 		{
 			if (ImGui::Button("Resume")) 
 			{
 				ImGui::CloseCurrentPopup();
 			}
+			// HALVÁNY FOGALMAM SINCS EZ MIÉRT MINDEGYIKET ÁLLÍTJA ÁT EGYSZERRE
 			ImGui::Text((std::to_string(app->getState()->getMoney()) + " mobium").c_str());
+			float* g = app->getScene()->getWorld()->getGlobalTaxRateHandle();
 			ImGui::Text("Global Tax:");
-			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::SliderFloat("", g , 0.5f, 1.5f, "%.1f");
+
+			float* h = app->getScene()->getWorld()->getHousingTaxRateHandle();
 			ImGui::Text("Resident Zone Tax:");
-			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::SliderFloat("", h, 0.5f, 1.5f, "%.1f");
+
+			float* s = app->getScene()->getWorld()->getServiceTaxRateHandle();
 			ImGui::Text("Service Zone Tax:");
-			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::SliderFloat("", s, 0.5f, 1.5f, "%.1f");
+
+			float* i = app->getScene()->getWorld()->getIndustrialTaxRateHandle();
 			ImGui::Text("Industrial Zone Tax:");
-			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
-			//ImGui::Text(app->getState()->getMoney());
-			
+			ImGui::SliderFloat("", i, 0.5f, 1.5f, "%.1f");
 
 			ImGui::EndPopup();
 		}
