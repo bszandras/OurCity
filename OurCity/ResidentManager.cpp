@@ -595,9 +595,112 @@ void ResidentManager::buildHouse(int i) {
 
 }
 
-int ResidentManager::calculateHappiness()
+void ResidentManager::calculateHappiness(Resident *res)
 {
-	return 0;
+	int defHappiness = 50;
+	int happiness = defHappiness;
+		
+	// Ellenorizzuk az osszes szukseges feltetelt es azoknak megfeleloen
+	// Modositjuk a lakos boldogsagat.
+
+	// Ado merteke alapjan
+	if (gameState->getTaxRate() <= 1.2)
+	{
+		happiness += 20;
+	}
+	else
+	{
+		// (1.2-es szorzó felett) - 15 % (és minden további 0.1 es lépésszer -3 %)
+		int defMin = 15;
+		int extraMin = (gameState->getTaxRate() - 1.2) * 10 * 3;
+		happiness -= defMin + extraMin;
+	}
+
+	// Lakohely es munkahely kozti tavolsag alapjan
+	if (res->getHouse() != 0 && res->getWorkplace() != 0)
+	{
+		Tile* house = world->getWrapper()->GetPointerToId(res->getHouse());
+		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
+			
+		double distance = world->getWrapper()->distance(house, workplace);
+		if (distance <= 30.0)
+		{
+			happiness += 10;
+		}
+		else
+		{
+			happiness -= 10;
+		}
+	}
+
+	/**
+	* További cella alapú feltételek:
+	* - lakóhelyhez nincs közel ipari épület (+/-)
+	* - lakóhely és munkahely közbiztonsága (+/-)
+	* - stadionra rálátás (+)
+	* - erdőre rálátás (+)		* 
+	* Ezeket az adott tile happiness modifyer mezője kezeli
+	*/
+	int modifier = 0;
+	if (res->getHouse() != 0)
+	{
+		Tile* house = world->getWrapper()->GetPointerToId(res->getHouse());
+		modifier += house->happinessModifer;
+	}
+	if (res->getWorkplace() != 0)
+	{
+		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
+		modifier += workplace->happinessModifer;
+	}
+	if (res->getHouse() == 0 || res->getWorkplace() == 0 && !(res->getHouse() == 0 && res->getWorkplace() == 0))
+	{
+		happiness += modifier;
+	}
+	if (res->getHouse() != 0 && res->getWorkplace() != 0)
+	{
+		happiness += modifier / 2;
+	}
+
+	// Negatív költségvetés arányosan rontja a boldogságot
+	// Legyen mondjuk: 100.000 egységenként -1% (max 10 százalékig)
+	// És ahány éve negatív a büdzsé annyiszor -3%
+	int money = gameState->getMoney();
+	if (money <= 0)
+	{
+		int defmin = 0;
+		if (money > -1000000)
+		{
+			defmin = gameState->getMoney() / 100000;
+		}
+		else
+		{
+			defmin = -10;
+		}
+		int extraMin = gameState->getNegativeYears() * -3;
+		happiness += defmin + extraMin;
+	}
+
+	// Kiegyensúlyozatlan az ipar és a szolgáltatás aránya
+	// Legyen mondjuk 0.8 és 1.2 között kiegyensúlyozott
+	// Ha kiegyensúlyozatlan akkor -10%
+	double factoryRation = (double)factoryCount / (double)serviceCount;
+	if (factoryRation < 0.8 || factoryRation > 1.2)
+	{
+		happiness -= 10;
+	}
+
+	res->setHappiness(happiness);
+}
+
+void ResidentManager::calculateGlobalHappiness()
+{
+	int sumHappiness = 0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		calculateHappiness(&residents[i]);
+		sumHappiness += residents[i].getHappiness();
+	}
+	this->globalHappiness = sumHappiness / residents.size();
 }
 
 int ResidentManager::getFactoryCount()

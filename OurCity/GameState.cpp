@@ -43,6 +43,11 @@ void GameState::setTaxRate(double rate)
 	this->currentTax = calculateTax();
 }
 
+double GameState::getTaxRate()
+{
+	return taxRate;
+}
+
 int GameState::getBaseTax()
 {
 	return baseTax;
@@ -57,4 +62,19 @@ int GameState::calculateTax()
 int GameState::getCurrentTax()
 {
 	return currentTax;
+}
+
+int GameState::getNegativeYears()
+{
+	return negativeYears;
+}
+
+void GameState::addNegativeYear()
+{
+	negativeYears++;
+}
+
+void GameState::resetNegativeYears()
+{
+	negativeYears = 0;
 }
