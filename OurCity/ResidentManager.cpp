@@ -595,7 +595,7 @@ void ResidentManager::buildHouse(int i) {
 
 }
 
-void ResidentManager::calculateHappiness(Resident res)
+void ResidentManager::calculateHappiness(Resident *res)
 {
 	int defHappiness = 50;
 	int happiness = defHappiness;
@@ -617,10 +617,10 @@ void ResidentManager::calculateHappiness(Resident res)
 	}
 
 	// Lakohely es munkahely kozti tavolsag alapjan
-	if (res.getHouse() != 0 && res.getWorkplace() != 0)
+	if (res->getHouse() != 0 && res->getWorkplace() != 0)
 	{
-		Tile* house = world->getWrapper()->GetPointerToId(res.getHouse());
-		Tile* workplace = world->getWrapper()->GetPointerToId(res.getWorkplace());
+		Tile* house = world->getWrapper()->GetPointerToId(res->getHouse());
+		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
 			
 		double distance = world->getWrapper()->distance(house, workplace);
 		if (distance <= 30.0)
@@ -642,21 +642,21 @@ void ResidentManager::calculateHappiness(Resident res)
 	* Ezeket az adott tile happiness modifyer mezője kezeli
 	*/
 	int modifier = 0;
-	if (res.getHouse() != 0)
+	if (res->getHouse() != 0)
 	{
-		Tile* house = world->getWrapper()->GetPointerToId(res.getHouse());
+		Tile* house = world->getWrapper()->GetPointerToId(res->getHouse());
 		modifier += house->happinessModifer;
 	}
-	if (res.getWorkplace() != 0)
+	if (res->getWorkplace() != 0)
 	{
-		Tile* workplace = world->getWrapper()->GetPointerToId(res.getWorkplace());
+		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
 		modifier += workplace->happinessModifer;
 	}
-	if (res.getHouse() == 0 || res.getWorkplace() == 0 && !(res.getHouse() == 0 && res.getWorkplace() == 0))
+	if (res->getHouse() == 0 || res->getWorkplace() == 0 && !(res->getHouse() == 0 && res->getWorkplace() == 0))
 	{
 		happiness += modifier;
 	}
-	if (res.getHouse() != 0 && res.getWorkplace() != 0)
+	if (res->getHouse() != 0 && res->getWorkplace() != 0)
 	{
 		happiness += modifier / 2;
 	}
@@ -689,7 +689,7 @@ void ResidentManager::calculateHappiness(Resident res)
 		happiness -= 10;
 	}
 
-	res.setHappiness(happiness);
+	res->setHappiness(happiness);
 }
 
 void ResidentManager::calculateGlobalHappiness()
@@ -697,7 +697,7 @@ void ResidentManager::calculateGlobalHappiness()
 	int sumHappiness = 0;
 	for (size_t i = 0; i < residents.size(); i++)
 	{
-		calculateHappiness(residents[i]);
+		calculateHappiness(&residents[i]);
 		sumHappiness += residents[i].getHappiness();
 	}
 	this->globalHappiness = sumHappiness / residents.size();

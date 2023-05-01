@@ -46,7 +46,7 @@ class ResidentManager {
 		void loseJobFactory(int jobID);
 		void loseJobService(int jobID);
 
-		void calculateHappiness(Resident res);
+		void calculateHappiness(Resident* res);
 		void calculateGlobalHappiness();
 		float getGlobalHappiness();
 
