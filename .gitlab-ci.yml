@@ -8,7 +8,7 @@ build:
   stage: build
   script:
     - mkdir -p tests
-    - g++ ./OurCity/*.cpp -D TESTING -w -o ourcitybin
+    - g++ ./OurCity/*.cpp -D TESTING -w -fpermissive -o ourcitybin
     - cp ourcitybin tests/
   artifacts:
     expire_in: 1 day
