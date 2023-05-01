@@ -177,6 +177,8 @@ void GameScene::update()
 		dayCount+= days;
 		world->UpdateFires(days);
 		HandleBurntBuildings();
+		residentManager->calculateGlobalHappiness();
+		std::cout << "Global happiness: " << residentManager->getGlobalHappiness() << std::endl;
 	}
 	if (dayCount >= 30)
 	{

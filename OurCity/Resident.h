@@ -61,8 +61,7 @@ public:
 	//House* getHouse() const;
 	int getHouse() const;
 	void updatePastTax();
-
-	void calculateHappiness(int baseTax);
+	void setHappiness(int happiness);
 	void setIntention(ResidentIntetion intention);
 };
 

@@ -104,18 +104,12 @@ void Resident::updatePastTax()
 	}
 }
 
-void Resident::calculateHappiness(int baseTax)
+void Resident::setHappiness(int happiness)
 {
-	// Az adó mértéke alapján (ITT LEHET BALANCE-OLNI)
-	/*
-	* Gyors példa a számoláshoz:
-	* Az alap évi adó legyen 500.
-	* Ha a játékos nem emel adót (marad 500), akkor nem változik a boldogság
-	* Ha például a játékos felemeli az adót 700-ra, akkor ha a boldogság 100-as volt,
-	* Akkor az emelés után 100 - (700 - 500) / 100 = 100 - 2 = 98 lesz az új boldogság
-	*/
-	this->happiness = happiness - (this->currentTax - baseTax) / 100;
+	this->happiness = happiness;
 }
+
+
 
 void Resident::setIntention(ResidentIntetion intention)
 {

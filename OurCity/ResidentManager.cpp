@@ -641,15 +641,24 @@ void ResidentManager::calculateHappiness(Resident res)
 	* - erdőre rálátás (+)		* 
 	* Ezeket az adott tile happiness modifyer mezője kezeli
 	*/
+	int modifier = 0;
 	if (res.getHouse() != 0)
 	{
 		Tile* house = world->getWrapper()->GetPointerToId(res.getHouse());
-		happiness += house->happinessModifer;
+		modifier += house->happinessModifer;
 	}
 	if (res.getWorkplace() != 0)
 	{
 		Tile* workplace = world->getWrapper()->GetPointerToId(res.getWorkplace());
-		happiness += workplace->happinessModifer;
+		modifier += workplace->happinessModifer;
+	}
+	if (res.getHouse() == 0 || res.getWorkplace() == 0 && !(res.getHouse() == 0 && res.getWorkplace() == 0))
+	{
+		happiness += modifier;
+	}
+	if (res.getHouse() != 0 && res.getWorkplace() != 0)
+	{
+		happiness += modifier / 2;
 	}
 
 	// Negatív költségvetés arányosan rontja a boldogságot
@@ -679,6 +688,8 @@ void ResidentManager::calculateHappiness(Resident res)
 	{
 		happiness -= 10;
 	}
+
+	res.setHappiness(happiness);
 }
 
 void ResidentManager::calculateGlobalHappiness()
