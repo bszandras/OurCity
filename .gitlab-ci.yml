@@ -1,0 +1,24 @@
+image: gcc
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - mkdir -p tests
+    - g++ ./OurCity/*.cpp -D TESTING -w -o ourcitybin
+    - cp ourcitybin tests/
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - "tests/ourcitybin"
+
+test:
+  stage: test
+  script:
+    - cd tests/
+    - ./ourcitybin
+    - cd ..
+    - rm -rf tests/

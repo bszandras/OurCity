@@ -21,6 +21,7 @@ private:
 public:
 	MouseController();
 	~MouseController();
+#ifndef TESTING
 	void ClearControlFrame();
 	void UpdateControlFrame(Vector2Data position, MouseState state);
 	Vector2Data getScreenPosition();
@@ -28,4 +29,5 @@ public:
 	MouseState getMouseState();
 	Vector2Data getWorldDragStart();
 	void setDragStart(World* world, Camera* camera);
+#endif
 };

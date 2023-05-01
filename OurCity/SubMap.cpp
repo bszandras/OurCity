@@ -1,9 +1,16 @@
 #include <iostream>
 //#include <vector>
 #include "SubMap.h"
+
+#ifndef TESTING
 #include "Camera.h"
-#include "World.h"
 #include "Window.h"
+#endif
+
+#include "World.h"
+
+
+
 
 SubMap::SubMap(Vector2Data bl, int cs, World* w)
 {
@@ -25,6 +32,7 @@ void SubMap::addRect(int i)
 {
 	rectIds.push_back(i);
 }
+#ifndef TESTING
 bool SubMap::shouldBeCulled(Camera* camera)
 {
 	//check if submap should be culled
@@ -42,6 +50,7 @@ bool SubMap::shouldBeCulled(Camera* camera)
 	}
 	return false;
 }
+#endif
 int SubMap::getRectCount()
 {
 	return rectIds.size();

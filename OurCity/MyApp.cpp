@@ -5,14 +5,16 @@
 
 #include "MyApp.h"
 
+#ifndef TESTING
 #include <SDL.h>
 #include <SDL_image.h>
 #include "GLUtils.hpp"
+#include "Camera.h"
+#include "Window.h"
+#endif
 
 #include "TileRect.h"
 #include "World.h"
-#include "Camera.h"
-#include "Window.h"
 
 #include "BuildingsInclude.h"
 #include "RoadGraph.h"
@@ -21,6 +23,7 @@
 
 CMyApp::CMyApp(void)
 {
+#ifndef TESTING
 	m_vaoID = 0;
 	m_vboID = 0;
 	overlay_vaoID = 0;
@@ -30,18 +33,22 @@ CMyApp::CMyApp(void)
 	camDataUniformLoc = 0;
 	winDataUniformLoc = 0;
 	textureArrayLoc = 0;
+#endif
 }
 
 
 CMyApp::~CMyApp(void)
 {
+#ifndef TESTING
 	delete mouseController;
+#endif
 	delete scene;
 	delete time;
 }
 
 bool CMyApp::Init()
 {
+#ifndef TESTING
 	// törlési szín legyen kékes
 	glClearColor(0.125f, 0.25f, 0.5f, 1.0f);
 
@@ -55,11 +62,19 @@ bool CMyApp::Init()
 	// geometria létrehozása
 	//
 	mouseController = new MouseController();
-	scene = new GameScene(mouseController);
-	
-	time = new Time(SDL_GetTicks() / 1000.0f);
+#endif
 
+#ifdef TESTING
+	scene = new GameScene(nullptr);
+	time = new Time(1000 / 1000.0f);
+#else
+	time = new Time(SDL_GetTicks() / 1000.0f);
+	scene = new GameScene(mouseController);
 	overlay = new Overlay();
+#endif
+
+	
+
 	//builder = new Builder(scene->getWorld()->getWrapper(), mouseController, scene->getWorld());
 
 	/*
@@ -117,6 +132,8 @@ bool CMyApp::Init()
 	House* house = new House(&t);
 	ServiceBuilding* serv = new ServiceBuilding(&t);
 	*/
+
+#ifndef TESTING
 
 	// ----------
 	// NORMÁL VAO
@@ -254,12 +271,13 @@ bool CMyApp::Init()
 	LoadTextures();
 
 	glUseProgram(0);
-
+#endif
 	return true;
 }
 
 void CMyApp::Clean()
 {
+#ifndef TESTING
 	glDeleteBuffers(1, &m_vboID);
 	glDeleteVertexArrays(1, &m_vaoID);
 
@@ -267,17 +285,25 @@ void CMyApp::Clean()
 	glDeleteVertexArrays(1, &overlay_vaoID);
 
 	glDeleteProgram( m_programID );
+#endif
 }
 
 void CMyApp::Update()
 {
 	// frame elején inicializáljuk az aktuális időt
-	// deltaTime így Update + Render alatt eltellt idő lesz 
+	// deltaTime így Update + Render alatt eltellt idő lesz
+#ifdef TESTING
+	time->UpdateTime(1000 / 1000.0f);
+	scene->update();
+#else
 	time->UpdateTime(SDL_GetTicks() / 1000.0f);
 	scene->update();
 	//std::cout << time->getDelta() << std::endl;
+#endif
 
 	World* world = scene->getWorld();
+
+#ifndef TESTING
 	if (currentlyPressedKeys.size() != 0)
 	{
 		//input handling és camera cuccok
@@ -311,6 +337,7 @@ void CMyApp::Update()
 		}
 		scene->getCamera()->Move(camDir);
 	}
+
 	
 	// DEMO egér input
 	if (mouseController->getMouseState() != MouseState::NOTHING)
@@ -393,10 +420,12 @@ void CMyApp::Update()
 	}
 	// update végi resetek és update-ek
 	mouseController->ClearControlFrame();
+#endif
 }
 
 void CMyApp::Render()
 {
+#ifndef TESTING
 	// töröljük a frampuffert (GL_COLOR_BUFFER_BIT) és a mélységi Z puffert (GL_DEPTH_BUFFER_BIT)
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -627,8 +656,10 @@ void CMyApp::Render()
 
 	// shader kikapcsolása
 	glUseProgram( 0 );
+#endif
 }
 
+#ifndef TESTING
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
 {
 	//ha üres a lista, akkor nem kell ellenőrizni, hogy benne van-e
@@ -647,6 +678,7 @@ void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
 	}
 	currentlyPressedKeys.push_back(key.keysym.sym);
 }
+
 
 void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)
 {
@@ -743,6 +775,7 @@ void CMyApp::LoadTextures()
 
 	SDL_FreeSurface(surface);
 }
+#endif
 
 void CMyApp::ChangeBuilderState(BuilderState state, BuilderSubState subState)
 {

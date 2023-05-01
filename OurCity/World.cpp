@@ -1,7 +1,12 @@
 #include "World.h"
 #include "SubMap.h"
+#include <cmath>
+
+#ifndef TESTING
 #include "Window.h"
+#endif
 #include <random>
+
 
 World::World()
 {
@@ -14,6 +19,7 @@ World::World()
 
 	tileRectWrapper = new TileRectWrapper(width * height);
 	//tiles.reserve(width * height);
+
 	int submapReseve = (height / SubMap::getSize()) * ((width + height / 2) / SubMap::getSize());
 	submaps.reserve(submapReseve);
 
@@ -24,6 +30,7 @@ World::World()
 			submaps.push_back(SubMap(Vector2Data{ (float)(j * 64), (float)(i * 64) }, 64, this));
 		}
 	}
+
 
 	for (unsigned short i = 0; i < height; i++)
 	{
@@ -85,7 +92,9 @@ Vector2Data World::getOrigoOffset()
 
 void World::reCalculateOrigoOffset()
 {
+#ifndef TESTING
 	origoOffset = { Window::instance->getWidth() / 2.0f, Window::instance->getHeight() / 2.0f };
+#endif
 }
 
 std::vector<SubMap>* World::getSubmaps()

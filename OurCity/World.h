@@ -4,12 +4,14 @@
 #include "RoadGraph.h"
 #include "Vector.h"
 #include "TileRect.h"
+
+
 #include "SubMap.h"
+
 #include "Tile.h"
 #include "Zone.h"
 #include "Builder.h"
 #include "Fire.h"
-
 
 #include "BuildingsInclude.h"
 
@@ -23,8 +25,14 @@ class World
 {
 private:
 	Vector2Data origoOffset;
+#ifdef TESTING
+	int width = 30;
+	int height = 30;
+#else
 	int width = 200;
 	int height = 200;
+#endif
+
 	TileRectWrapper* tileRectWrapper;
 	std::vector<SubMap> submaps;
 	//tile-okat tarthatja a world
@@ -59,7 +67,9 @@ public:
 	~World();
 	Vector2Data getOrigoOffset();
 	void reCalculateOrigoOffset();
+
 	std::vector<SubMap>* getSubmaps();
+
 	int getWidth();
 	int getHeight();
 	TileRectWrapper* getWrapper();

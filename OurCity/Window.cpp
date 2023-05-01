@@ -1,3 +1,4 @@
+#ifndef TESTING
 #define _CRT_SECURE_NO_DEPRECATE
 
 #include <string>
@@ -629,3 +630,4 @@ int Window::getHeight()
 {
 	return height;
 }
+#endif

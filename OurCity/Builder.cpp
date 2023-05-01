@@ -834,6 +834,7 @@ void Builder::HighlightBigBuilding(int base)
 }
 void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 {
+#ifndef TESTING
 	if (primaryState != BuilderState::ZONE)
 	{
 		return;
@@ -866,10 +867,12 @@ void Builder::HighlightArea(Vector2Data mouseWorldPosition, World* world)
 		highlight += 10;
 		world->getWrapper()->UpdateTexIdById(ids[i], highlight);
 	}
+#endif
 
 }
 void Builder::UnHighlightArea()
 {
+#ifndef TESTING
 	if (areaHighlightedIds.size() == 0
 		|| secondaryState == HIGHSCHOOL || secondaryState == UNIVERSITY || secondaryState == STADIUM)
 	{
@@ -883,6 +886,7 @@ void Builder::UnHighlightArea()
 
 	areaHighlightedIds.clear();
 	areaHighlightedTexes.clear();
+#endif
 }
 
 House* Builder::BuildHouse(Tile* tile)
