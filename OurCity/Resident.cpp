@@ -1,4 +1,5 @@
 #include "Resident.h"
+#include <cmath>
 
 Resident::Resident(void)
 {
