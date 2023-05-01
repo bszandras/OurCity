@@ -286,7 +286,7 @@ int Window::StartGameLoop()
 		if (ImGui::Button("Money")) {
 			ImGui::OpenPopup("Money Statistics");
 		}
-
+		float n = 1.0f;
 		if (ImGui::BeginPopupModal("Money Statistics",NULL,wfStat)) 
 		{
 			if (ImGui::Button("Resume")) 
