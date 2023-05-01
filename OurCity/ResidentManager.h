@@ -48,7 +48,8 @@ class ResidentManager {
 		void loseJobFactory(int jobID);
 		void loseJobService(int jobID);
 
-		int calculateHappiness();
+
+		void calculateHappiness();
 
 		int getFactoryCount();
 		int getServiceCount();

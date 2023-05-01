@@ -75,3 +75,8 @@ void TileRectWrapper::UpdateTexIdById(int id, int texID)
 {
 	rectArr[id].texId = texID;
 }
+
+double TileRectWrapper::distance(Tile* a, Tile* b)
+{
+	return sqrt(pow(b->rect.i - a->rect.i, 2) + pow(b->rect.j - a->rect.j, 2));
+}

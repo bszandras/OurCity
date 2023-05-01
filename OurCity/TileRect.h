@@ -49,4 +49,6 @@ public:
 	Tile* GetRectsById(int ids[], int rectCount);
 	Tile* GetPointerToId(int id);
 	void UpdateTexIdById(int id, int texID);
+
+	static double distance(Tile* a, Tile* b);
 };
