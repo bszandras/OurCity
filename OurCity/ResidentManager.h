@@ -37,19 +37,18 @@ class ResidentManager {
 		void handleIntention();
 		void buildFactory(int i);
 		void buildService(int i);
-		float getGlobalHappiness();
 
 		int residentMoveIn();
 		void updateGlobalHappiness();
-		void updateResident(Resident* resident);
 		void recalculateResidentTax();
 
 		void loseHouse(int hosueID);
 		void loseJobFactory(int jobID);
 		void loseJobService(int jobID);
 
-
-		void calculateHappiness();
+		void calculateHappiness(Resident res);
+		void calculateGlobalHappiness();
+		float getGlobalHappiness();
 
 		int getFactoryCount();
 		int getServiceCount();
