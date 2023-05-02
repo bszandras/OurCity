@@ -49,11 +49,17 @@ World::World()
 			int c = rand() % 10;
 			if (c == 1)
 			{
+#ifndef TESTING
+
+
+
+
 				Tile* t = tileRectWrapper->GetPointerToId(tileRectWrapper->GetLastRectID());
 				Building* b = new Forest(t);
 				b->setBuildCost(0);
 				t->building = b;
 				t->texId = BuilderSubState::FOREST;
+#endif // !TESTING
 			}
 			int horIndex = x / (SubMap::getSize() * 64);
 			int vertIndex = y / (SubMap::getSize() * 64);
