@@ -343,6 +343,12 @@ int Window::StartGameLoop()
 
 		}
 		*/
+		
+
+		ImGui::PopStyleColor();
+
+		ImGui::End();
+
 		Zone* z = app->getSelectedZone()->z;
 		if (z != nullptr)
 		{
@@ -351,8 +357,10 @@ int Window::StartGameLoop()
 			//zFlags |= ImGuiWindowFlags_NoMove;
 			//zFlags |= ImGuiWindowFlags_ChildWindow;
 
-			ImGui::SetNextWindowPos(ImVec2(width / 2 - 50, height / 2 - 50));
-			ImGui::Begin("Zone Stat", NULL, zFlags);
+			//ImGui::SetNextWindowPos(ImVec2(width / 2 - 50, height / 2 - 50));
+			ImGui::SetNextWindowPos(ImVec2(width -350, height / 2 - 50));
+			//ImGui::Begin("Zone Stat", NULL, zFlags);
+			ImGui::Begin("Zone Stat");
 
 			std::string data = "";
 			if (z->getType() == 0)
@@ -386,10 +394,6 @@ int Window::StartGameLoop()
 
 			ImGui::End();
 		}
-
-		ImGui::PopStyleColor();
-
-		ImGui::End();
 
 		ImGui::SetNextWindowPos(ImVec2(width-215, 0.5f));
 
