@@ -617,10 +617,20 @@ void ResidentManager::calculateHappiness(Resident *res)
 	}
 
 	// Lakohely es munkahely kozti tavolsag alapjan
-	if (res->getHouse() != 0 && res->getWorkplace() != 0)
+	if (res->getHouse() != -1 && res->getWorkplace() != 0)
 	{
-		Tile* house = world->getWrapper()->GetPointerToId(res->getHouse());
-		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
+		Tile* house = world->getHouse(res->getHouse())->getTile();
+		Tile* workplace = nullptr;
+		if (res->getWorkplace() < 0)
+		{
+			// Ha a munkahely negativ, akkor szolgaltatas
+			workplace = world->getServBuilding(res->getWorkplace())->getTile();
+		}
+		else if (res->getWorkplace() > 0)
+		{
+			// Ha a munkahely pozitiv, akkor szolgaltatas
+			workplace = world->getFactory(res->getWorkplace())->getTile();
+		}
 			
 		double distance = world->getWrapper()->distance(house, workplace);
 		if (distance <= 30.0)
@@ -643,7 +653,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 	*/
 	// Ugyanezt a javítást a munkához
 	int modifier = 0;
-	if (res->getHouse() != 0)
+	if (res->getHouse() != -1)
 	{
 		Tile* house = world->getHouse(res->getHouse())->getTile();
 		modifier += house->happinessModifer;
@@ -651,14 +661,24 @@ void ResidentManager::calculateHappiness(Resident *res)
 	// ID-kra figyelni a workplace-nél 
 	if (res->getWorkplace() != 0)
 	{
-		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
+		Tile* workplace = nullptr;
+		if (res->getWorkplace() < 0)
+		{
+			// Ha a munkahely negativ, akkor szolgaltatas
+			workplace = world->getServBuilding(abs(res->getWorkplace()) - 1)->getTile();
+		}
+		else if (res->getWorkplace() > 0)
+		{
+			// Ha a munkahely pozitiv, akkor szolgaltatas
+			workplace = world->getFactory(res->getWorkplace() -1)->getTile();
+		}
 		modifier += workplace->happinessModifer;
 	}
-	if (res->getHouse() == 0 || res->getWorkplace() == 0 && !(res->getHouse() == 0 && res->getWorkplace() == 0))
+	if (res->getHouse() == -1 || res->getWorkplace() == 0 && !(res->getHouse() == -1 && res->getWorkplace() == 0))
 	{
 		happiness += modifier;
 	}
-	if (res->getHouse() != 0 && res->getWorkplace() != 0)
+	if (res->getHouse() != -1 && res->getWorkplace() != 0)
 	{
 		happiness += modifier / 2;
 	}

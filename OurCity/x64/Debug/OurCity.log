@@ -1,12 +1,24 @@
-﻿  Window.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(181,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(181,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(196,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(196,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(349,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(349,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(386,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(418,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(418,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(132): warning C4715: 'Window::SDLInit': not all control paths return a value
+﻿  ResidentManager.cpp
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(53,39): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(53,39): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(74,125): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(106,41): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(106,41): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(119,132): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(148,41): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(148,41): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(161,127): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(294,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(297,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(298,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(366,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(378,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(412,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(440,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(548,31): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(548,31): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(564,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(569,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(615,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(725,39): warning C4244: '=': conversion from 'unsigned __int64' to 'float', possible loss of data
   OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
