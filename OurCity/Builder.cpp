@@ -960,6 +960,7 @@ Factory* Builder::BuildFactory(Tile* tile)
 	int tileCount = (radius + 1 + radius) * (radius + 1 + radius) - 1;
 
 	// ennyinek elégnek kéne lennie
+	
 	std::vector<Tile*> passable;
 	passable.reserve(tileCount);
 
@@ -971,8 +972,9 @@ Factory* Builder::BuildFactory(Tile* tile)
 		}
 		passable.push_back(tiles[i]);
 	}
-	f->UpdateAreaAfterBuilding(passable.data(), passable.size());
 
+	f->UpdateAreaAfterBuilding(passable.data(), tileCount);
+	
 	return f;
 }
 

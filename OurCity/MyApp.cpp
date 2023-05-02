@@ -535,7 +535,7 @@ void CMyApp::Render()
 	// ha ez 1 akkor nappal van
 	// ha 0 akkor éjjel
 	// [0,1] között is lehet
-	//time = 0;
+	//time = 1;
 	glUniform1f(timeCycleLoc, time);
 
 	// kirajzolás

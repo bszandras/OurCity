@@ -1,12 +1,5 @@
-﻿  Window.cpp
-D:\Download_copy\szt\o\OurCity\Window.cpp(181,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(181,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(196,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(196,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(354,62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(354,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(394,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(426,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(426,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(132): warning C4715: 'Window::SDLInit': not all control paths return a value
-  OurCity.vcxproj -> D:\Download_copy\szt\o\x64\Debug\OurCity.exe
+﻿  Builder.cpp
+C:\Users\rolan\source\repos\ourcity\OurCity\Builder.cpp(209,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\Builder.cpp(409,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\Builder.cpp(843,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
