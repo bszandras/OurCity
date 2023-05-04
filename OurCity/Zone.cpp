@@ -66,17 +66,17 @@ int Zone::getType()
 	return type;
 }
 
-double Zone::getTaxRate() const
+float Zone::getTaxRate() const
 {
 	return taxRate;
 }
 
-void Zone::setTaxRate(double taxRate)
+void Zone::setTaxRate(float taxRate)
 {
 	this->taxRate = taxRate;
 }
 
-double* Zone::getTaxRateHandle()
+float* Zone::getTaxRateHandle()
 {
 	return &taxRate;
 }

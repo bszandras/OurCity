@@ -192,19 +192,23 @@ void ResidentManager::loseHouse(int hosueID)
 
 		//residents[res[i]].setWorkplace(0);
 		// industry-ban dolgozik, elveszti a munkályát
-		if (residents[res[i]].getWorkplace() > 0)
+		// van egyáltalán munkahelye
+		if (residents[res[i]].getWorkplace() != 0)
 		{
-			world->getFactory(residents[res[i]].getWorkplace() - 1)->removeWorker(res[i]);
-			this->factoryCount--;
+			if (residents[res[i]].getWorkplace() > 0)
+			{
+				world->getFactory(residents[res[i]].getWorkplace() - 1)->removeWorker(res[i]);
+				this->factoryCount--;
+			}
+			// service
+			else
+			{
+				world->getServBuilding(abs(residents[res[i]].getWorkplace()) - 1)->removeWorker(res[i]);
+				this->serviceCount--;
+			}
+			residents[res[i]].setWorkplace(0);
 		}
-		// service
-		else
-		{
-			world->getServBuilding(abs(residents[res[i]].getWorkplace()) - 1)->removeWorker(res[i]);
-			this->serviceCount--;
-		}
-		residents[res[i]].setWorkplace(0);
-		// factory-ból nem kell kivenni a dolgozóra mutató id-t mert factory úgyis törölve lesz
+		
 	}
 	/*
 	for (int i = 0; i < residents.size(); i++)

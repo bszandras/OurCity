@@ -29,7 +29,11 @@ struct Tile
 	// kevesebb mint 100
 	short happinessModifer = 0;
 	short fireChance = 0;
-	short publicSafety = 0;
+	unsigned char publicSafety = 0;
+	// ez a norm érték
+	// ipar 1-gyel viszi feljebb
+	// erdő 1-gyel lejjebb
+	unsigned char pollution = 50;
 };
 
 class TileRectWrapper

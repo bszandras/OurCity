@@ -17,15 +17,35 @@ TEST_CASE("Application initalization tests", "[appInit]")
 	CHECK(app->getState() != nullptr);
 }
 
-TEST_CASE("Road test")
+TEST_CASE("RoadGraph test")
 {
 	CMyApp* app = new CMyApp();
 	app->Init();
 	app->Update();
 	World* world = app->getScene()->getWorld();
+	RoadGraph* roadGraph = world->getRoadGraph();
+	GameState* state = app->getState();
 
+	// Add first road
 	Tile* t1 = world->getTileOnCoords(15, 15);
-	CHECK(world->AddRoad(t1, app->getScene()) == true);
+	CHECK(roadGraph->addRoad(t1, state) == true);
+
+	// Add some road (check adjacency, allow)
+	Tile* t2 = world->getTileOnCoords(15,16);
+	CHECK(roadGraph->addRoad(t2, state) == true);
+
+	Tile* t3 = world->getTileOnCoords(15, 17);
+	CHECK(roadGraph->addRoad(t3, state) == true);
+
+	// Add road (check adjacency no adjacent)
+	Tile* t4 = world->getTileOnCoords(20,20);
+	CHECK(roadGraph->addRoad(t4, state) == false);
+
+	// Check delete (deny)
+	CHECK(roadGraph->removeRoad(t2) == false);
+
+	// Check delete (allow)
+	CHECK(roadGraph->removeRoad(t3) == true);
 }
 
 

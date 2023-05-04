@@ -14,7 +14,7 @@ private:
 	// 1 industrial
 	// 2 service
 
-	double taxRate;
+	float taxRate;
 	
 public:
 	Zone(unsigned char type);
@@ -27,9 +27,9 @@ public:
 	int tileCount();
 	int getType();
 
-	double getTaxRate() const;
-	void setTaxRate(double taxRate);
-	double* getTaxRateHandle();
+	float getTaxRate() const;
+	void setTaxRate(float taxRate);
+	float* getTaxRateHandle();
 };
 
 struct ZoneStatData

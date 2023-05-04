@@ -286,24 +286,29 @@ int Window::StartGameLoop()
 		if (ImGui::Button("Money")) {
 			ImGui::OpenPopup("Money Statistics");
 		}
-		float n = 1.0f;
+		//float n = 1.0f;
 		if (ImGui::BeginPopupModal("Money Statistics",NULL,wfStat)) 
 		{
-			if (ImGui::Button("Resume")) 
+			if (ImGui::Button("Close")) 
 			{
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::Text((std::to_string(app->getState()->getMoney()) + " mobium").c_str());
+			float* g = app->getScene()->getWorld()->getGlobalTaxRateHandle();
 			ImGui::Text("Global Tax:");
-			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::SliderFloat("##G", g , 0.5f, 1.5f, "%.1f");
+
+			float* h = app->getScene()->getWorld()->getHousingTaxRateHandle();
 			ImGui::Text("Resident Zone Tax:");
-			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::SliderFloat("##R", h, 0.5f, 1.5f, "%.1f");
+
+			float* s = app->getScene()->getWorld()->getServiceTaxRateHandle();
 			ImGui::Text("Service Zone Tax:");
-			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
+			ImGui::SliderFloat("##S", s, 0.5f, 1.5f, "%.1f");
+
+			float* i = app->getScene()->getWorld()->getIndustrialTaxRateHandle();
 			ImGui::Text("Industrial Zone Tax:");
-			ImGui::SliderFloat("", &n, 0.5f, 1.5f);
-			//ImGui::Text(app->getState()->getMoney());
-			
+			ImGui::SliderFloat("##I", i, 0.5f, 1.5f, "%.1f");
 
 			ImGui::EndPopup();
 		}
@@ -314,7 +319,7 @@ int Window::StartGameLoop()
 
 		if (ImGui::BeginPopupModal("Happiness Statistics", NULL, wfStat))
 		{
-			if (ImGui::Button("Resume"))
+			if (ImGui::Button("Close"))
 			{
 				ImGui::CloseCurrentPopup();
 			}
@@ -338,6 +343,12 @@ int Window::StartGameLoop()
 
 		}
 		*/
+		
+
+		ImGui::PopStyleColor();
+
+		ImGui::End();
+
 		Zone* z = app->getSelectedZone()->z;
 		if (z != nullptr)
 		{
@@ -346,8 +357,10 @@ int Window::StartGameLoop()
 			//zFlags |= ImGuiWindowFlags_NoMove;
 			//zFlags |= ImGuiWindowFlags_ChildWindow;
 
-			ImGui::SetNextWindowPos(ImVec2(width / 2 - 50, height / 2 - 50));
-			ImGui::Begin("Zone Stat", NULL, zFlags);
+			//ImGui::SetNextWindowPos(ImVec2(width / 2 - 50, height / 2 - 50));
+			ImGui::SetNextWindowPos(ImVec2(width -350, height / 2 - 50));
+			//ImGui::Begin("Zone Stat", NULL, zFlags);
+			ImGui::Begin("Zone Stat");
 
 			std::string data = "";
 			if (z->getType() == 0)
@@ -371,17 +384,16 @@ int Window::StartGameLoop()
 			data += std::to_string(ZoneTools::getAverageHappiness(app->getSelectedZone(), app->getScene()->getWorld(), app->getScene()->getResidentManager()));
 			ImGui::Text(data.c_str());
 			//ImGui::Text("Residents: " + )
-
+			ImGui::Text("Tax:");
+			ImGui::SliderFloat("", z->getTaxRateHandle(), 0.5f, 1.5f, "%.1f");
+			/*
 			if (ImGui::Button("Close")) {
 				//activeInfo = false;
 			}
+			*/
 
 			ImGui::End();
 		}
-
-		ImGui::PopStyleColor();
-
-		ImGui::End();
 
 		ImGui::SetNextWindowPos(ImVec2(width-215, 0.5f));
 
@@ -619,7 +631,7 @@ int Window::HandleEvents(bool& quit, SDL_Event ev)
 		break;
 	case SDL_KEYDOWN:
 		if (ev.key.keysym.sym == SDLK_ESCAPE)
-			quit = true;
+			//quit = true;
 		app->KeyboardDown(ev.key);
 		break;
 	case SDL_KEYUP:

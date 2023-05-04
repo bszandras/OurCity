@@ -94,5 +94,10 @@ int ZoneTools::getAverageHappiness(ZoneStatData* selected, World* w, ResidentMan
 		returnable += resMan->getResident(residents[i])->getHappiness();
 	}
 
+	if (residents.size() == 0)
+	{
+		return 0;
+	}
+
 	return returnable / residents.size();
 }

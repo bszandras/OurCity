@@ -408,7 +408,16 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 
 		s->UpdateAreaAfterBuilding(passable.data(), passable.size());
 	}
-
+	else if (tex == HIGHSCHOOL)
+	{
+		HighSchool* h = (HighSchool*)building;
+		world->addHighschool(h);
+	}
+	else if (tex == UNIVERSITY)
+	{
+		University* h = (University*)building;
+		world->addUniversity(h);
+	}
 
 
 	return true;
@@ -451,7 +460,16 @@ bool Builder::DestroySpecBuilding(int where)
 				Stadium* s = (Stadium*)b;
 				s->UpdateAreaAfterDestruction();
 			}
-
+			else if (tile->texId == HIGHSCHOOL)
+			{
+				HighSchool* h = (HighSchool*)b;
+				world->removeHighschool(h);
+			}
+			else if (tile->texId == UNIVERSITY)
+			{
+				University* h = (University*)b;
+				world->removeUniversity(h);
+			}
 
 			// 3x3-ban ellenõrizni és akkor tuti megtaláljuk a hozzá tartozó tile-okat
 			Tile* top1 = world->getWrapper()->GetPointerToId(where + world->getWidth());
@@ -930,6 +948,33 @@ Factory* Builder::BuildFactory(Tile* tile)
 	//std::cout << world->getFactories()->size() - 1 << std::endl;
 	//std::cout << tile->building << std::endl;
 	//std::cout << (int)tile->building / 24 << std::endl;
+
+
+	//
+	// NEGATÍV UPDATE
+	//
+
+	int radius = f->getRange();
+	Tile** tiles = world->getWritableTilePointersInRadius(tile, radius);
+
+	int tileCount = (radius + 1 + radius) * (radius + 1 + radius) - 1;
+
+	// ennyinek elégnek kéne lennie
+	
+	std::vector<Tile*> passable;
+	passable.reserve(tileCount);
+
+	for (int i = 0; i < tileCount; i++)
+	{
+		if (tiles[i] == tile)
+		{
+			continue;
+		}
+		passable.push_back(tiles[i]);
+	}
+
+	f->UpdateAreaAfterBuilding(passable.data(), tileCount);
+	
 	return f;
 }
 
