@@ -10,7 +10,7 @@ Factory::Factory(Tile* tile) : Workplace(tile)
 	this->capacity = 8;
 	this->tax = 0;
 	this->range = 2;
-
+	//this->updatedTiles.erase(updatedTiles.begin(), updatedTiles.end());
 }
 
 void Factory::setRange(int r)
@@ -20,7 +20,7 @@ void Factory::setRange(int r)
 
 void Factory::setRangeTiles(std::vector<int> tiles)
 {
-	this->rangeTiles = tiles;
+	//this->rangeTiles = tiles;
 }
 
 void Factory::UpdateAreaAfterBuilding(Tile** tiles, int tileCount)

@@ -470,14 +470,14 @@ Factory* World::addFactory(Tile* tile)
 {
 	Factory f(tile);
 	Factories.push_back(f);
-	return &f;
+	return &Factories.at(Factories.size() - 1);
 }
 
 ServiceBuilding* World::addServBuilding(Tile* tile)
 {
 	ServiceBuilding sv(tile);
 	ServBuildings.push_back(sv);
-	return &sv;
+	return &ServBuildings.at(ServBuildings.size() - 1);
 }
 
 std::vector<Zone>* World::getHouseZones()

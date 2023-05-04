@@ -69,7 +69,7 @@ int Window::SDLInit()
 		100,						// az ablak bal-felsõ sarkának kezdeti Y koordinátája
 		width,						// ablak szélessége
 		height,						// és magassága
-		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_FULLSCREEN_DESKTOP);			// megjelenítési tulajdonságok
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);			// megjelenítési tulajdonságok
 	
 	// ha nem sikerült létrehozni az ablakot, akkor írjuk ki a hibát, amit kaptunk és lépjünk ki
 	if (win == 0)
