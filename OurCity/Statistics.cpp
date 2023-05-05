@@ -31,6 +31,9 @@ void Statistics::updateStats()
 {
 	updateGeneralStatistics();
 	updateHousingStatistics();
+	updateWorkingStatistics();
+	updateEducateStatistics();
+	std::cout << "Modositott statisztikak" << std::endl;
 }
 
 void Statistics::updateGeneralStatistics()
@@ -38,9 +41,9 @@ void Statistics::updateGeneralStatistics()
 	population = scene->getResidentManager()->getResidentCount();
 	avgAge = scene->getResidentManager()->getAverageAge();
 	money = scene->getGameState()->getMoney();
-	scene->getResidentManager()->calculateGlobalHappiness();
-	scene->getResidentManager()->updateGlobalHappiness();
-	avgHappiness = scene->getResidentManager()->getGlobalHappiness();
+	//scene->getResidentManager()->calculateGlobalHappiness();
+	//scene->getResidentManager()->updateGlobalHappiness();
+	//avgHappiness = scene->getResidentManager()->getGlobalHappiness();
 }
 
 void Statistics::updateHousingStatistics()

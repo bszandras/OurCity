@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include <random>
+#include "Statistics.h"
 
 GameScene::GameScene(MouseController* mouse)
 {
@@ -15,6 +16,7 @@ GameScene::GameScene(MouseController* mouse)
 	for (int i = 0; i < 3; i++) {
 		residentManager->createResident();
 	}
+	Statistics::createInstance(this);
 }
 
 GameScene::~GameScene()
@@ -67,6 +69,8 @@ void GameScene::update()
 	{
 		residentManager->handleIntention();
 		residentManager->updateGlobalHappiness();
+
+		Statistics::getInstance();
 
 		//boldogság alapján beköltözés
 		int calculateRes = floor(residentManager->getGlobalHappiness() / 10);

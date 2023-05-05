@@ -14,6 +14,7 @@
 class Builder;
 class ResidentManager;
 class MouseController;
+class Statistics;
 #ifndef TESTING
 #endif
 class World;
@@ -25,6 +26,7 @@ private:
 	Builder* builder;
 	GameTime* gameTime;
 	GameState* gameState;
+	Statistics* statistics;
 #ifndef TESTING
 	Camera* camera;
 #endif
