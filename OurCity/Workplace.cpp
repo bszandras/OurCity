@@ -42,6 +42,12 @@ void Workplace::setTax(unsigned short tax)
 void Workplace::addWorker(int id)
 {
     this->workers.push_back(id);
+
+    if (workers.size() == capacity)
+    {
+        // akkor betelik a munkahely, új sprite
+        tile->texId = 0;
+    }
 }
 
 void Workplace::removeWorker(int id)
@@ -55,6 +61,17 @@ void Workplace::removeWorker(int id)
             workers.erase(workers.begin() + i);
         }
     }
+
+    if (workers.size() < capacity)
+    {
+        // akkor lejjeb lép egy szinttel az épület
+        tile->texId = 0;
+    }
+}
+
+void Workplace::clearWorkers()
+{
+    workers.clear();
 }
 
 std::vector<int> Workplace::getWorkers()

@@ -243,7 +243,7 @@ void ResidentManager::loseJobFactory(int jobID)
 	{
 		residents[workers[i]].setWorkplace(0);
 		residents[workers[i]].setIntention(INDUSTRYWORK);
-		// factory-ból nem kell kivenni a dolgozóra mutató id-t mert factory úgyis törölve lesz
+		// factory-ból nem kell kivenni a dolgozóra mutató id-t mert factory kezelve lesz a world-ben
 		this->factoryCount--;
 	}
 	

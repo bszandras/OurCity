@@ -26,6 +26,7 @@ public:
 	void setTax(unsigned short tax);
 	void addWorker(int id);
 	void removeWorker(int id);
+	void clearWorkers();
 	std::vector<int> getWorkers();
 };
 

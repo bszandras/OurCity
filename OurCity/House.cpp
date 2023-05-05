@@ -49,6 +49,17 @@ void House::setTax(unsigned short tax)
 void House::addResident(int id)
 {
 	this->residents.push_back(id);
+
+	if (residents.size() == capacity)
+	{
+		// akkor betelik a ház, új sprite
+		tile->texId = 0;
+	}
+}
+
+void House::clearResidents()
+{
+	residents.clear();
 }
 
 void House::toString()
