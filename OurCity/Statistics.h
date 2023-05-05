@@ -8,18 +8,36 @@ class Statistics
 private:
 	// Statisztikai adatok
 
-	// Lakás adatok
+	// Általános város statisztika
 	int population; // Teljes népesség
-	int populationInHouse; // Lakosok száma
+	float avgAge; // Átlag életkor
+	int money; // Pénz
+	float avgHappiness; // Átlagos boldogság
+
+	// Lakás adatok
 	int homeless;  // Hajléktalanok száma
+	int populationInHouse; // Lakosok száma
 	int houseCapacity; // Lakóhelyek száma
+	int houseCapacityFree; // Szabad lakóhelyek száma
+	float houseCapacityPercent; // Lakóhelyek kihasználtsága
 
 	// Munka adatok
 	int workers; // Munkások száma
 	int unemployed; // Munkanélküliek száma
 	int workCapacity; // Munkahelyek száma
+	int factoryCapacity; // Gyárak kapacitása
+	int serviceCapacity; // Szolgáltatás kapacitása
 	int industryWorkers; // Ipari munkások száma
 	int serviceWorkers; // Szolgáltatás munkások száma
+	float workingPercentage; // Munkavállalás aránya
+	float serviceIndustryBalance; // Ipar-szolgáltatás munkások balansz aránya (Ha >100, akkor több a szolgáltatási munkás, ha <100, akkor a gyári munkás több
+
+	// Oktatási adatok
+	int highSchoolEducated; // Középiskolai oktatásban részesül
+	int universityEducated; // Egyetemi oktatásban részesült
+	int uneducated; // Tanulatlanok száma
+	int educated; // Tanultak száma
+	int educationPercentage; // Tanultak aránya
 
 
 	GameScene* scene;
@@ -27,11 +45,16 @@ private:
 	~Statistics();
 	static Statistics* instance;
 
+	void updateGeneralStatistics();
+	void updateHousingStatistics();
+	void updateWorkingStatistics();
+
 public:
 	static Statistics* getInstance();
 	static void createInstance(GameScene* gameScene);
 
 	void updateStats();
+
 };
 
 #endif

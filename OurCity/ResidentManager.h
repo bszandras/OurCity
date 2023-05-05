@@ -57,5 +57,11 @@ class ResidentManager {
 		int getMaxEducatedUn();
 		int getMaxEducatedHi();
 		Resident* getResident(int id);
+		int getResidentCount() const;
+		float getAverageAge() const;
+		int getHomeless() const;
+		int getUnemployed() const;
+		int getFactoryWorkerCount() const;
+		int getServiceWorkerCount() const;
 };
 

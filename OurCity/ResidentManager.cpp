@@ -763,3 +763,95 @@ Resident* ResidentManager::getResident(int id)
 {
 	return &residents[id];
 }
+
+int ResidentManager::getResidentCount() const
+{
+	return residents.size();
+}
+
+float ResidentManager::getAverageAge() const
+{
+	float sum = 0.0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		sum += residents[i].getAge();
+	}
+	return sum / residents.size();
+}
+
+int ResidentManager::getHomeless() const
+{
+	int homeless = 0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getHouse() == -1)
+		{
+			homeless++;
+		}
+	}
+	return homeless;
+}
+
+int ResidentManager::getUnemployed() const
+{
+	int unemployed = 0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getWorkplace() == 0)
+		{
+			unemployed++;
+		}
+	}
+	return unemployed;
+}
+
+int ResidentManager::getFactoryWorkerCount() const
+{
+	int factoryWorkers = 0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getWorkplace() > 0)
+		{
+			factoryWorkers++;
+		}
+	}
+	return factoryWorkers;
+}
+
+int ResidentManager::getServiceWorkerCount() const
+{
+	int serviceWorkers = 0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getWorkplace() < 0)
+		{
+			serviceWorkers++;
+		}
+	}
+	return serviceWorkers;
+}
+
+int ResidentManager::getHighSchoolEducated() const
+{
+	int highSchoolEducated = 0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getEducation() == 1)
+		{
+			highSchoolEducated++;
+		}
+	}
+	return highSchoolEducated;
+}
+
+int ResidentManager::getUniversityEducated() const
+{
+	int universityEducated = 0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getEducation() == 2)
+		{
+			universityEducated++;
+		}
+	}
+}
