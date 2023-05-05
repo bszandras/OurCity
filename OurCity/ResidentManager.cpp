@@ -60,7 +60,7 @@ void ResidentManager::calculateHousingTax()
 				{
 					if (residents[residentIds.at(k)].getHouse() == -1)
 					{
-						// ezek szerint nem lakik sehol mert 0 a haza
+						// ezek szerint nem lakik sehol mert -1 a haza
 						continue;
 					}
 					if (residents[residentIds.at(k)].getAge() >= 65)
@@ -187,7 +187,7 @@ void ResidentManager::loseHouse(int hosueID)
 	for (int i = 0; i < res.size(); i++)
 	{
 		residents[res[i]].setIntention(MOVEIN);
-		residents[res[i]].setHouse(0);
+		residents[res[i]].setHouse(-1);
 
 
 		//residents[res[i]].setWorkplace(0);
@@ -388,7 +388,7 @@ void ResidentManager::handleIntention()
 					movedIn = true;
 					houses->at(j).addResident(i);
 					//residents[i].setHouse(&houses->at(j));
-					residents[i].setHouse(j+1);
+					residents[i].setHouse(j);
 					std::cout << "Moved in " << i << std::endl;
 					if (this->factoryCount <= this->serviceCount) {
 						this->residents[i].setIntention(INDUSTRYWORK);
@@ -402,7 +402,7 @@ void ResidentManager::handleIntention()
 					break;
 				}
 			}
-			if (residents[i].getHouse() == 0)
+			if (residents[i].getHouse() == -1)
 			{
 				buildHouse(i);
 				break;
@@ -621,7 +621,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 	}
 
 	// Lakohely es munkahely kozti tavolsag alapjan
-	if (res->getHouse() != 0 && res->getWorkplace() != 0)
+	if (res->getHouse() != -1 && res->getWorkplace() != 0)
 	{
 		Tile* house = world->getWrapper()->GetPointerToId(res->getHouse());
 		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
@@ -647,7 +647,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 	*/
 	// Ugyanezt a javítást a munkához
 	int modifier = 0;
-	if (res->getHouse() != 0)
+	if (res->getHouse() != -1)
 	{
 		Tile* house = world->getHouse(res->getHouse())->getTile();
 		modifier += house->happinessModifer;
@@ -658,6 +658,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
 		modifier += workplace->happinessModifer;
 	}
+	/*
 	if (res->getHouse() == 0 || res->getWorkplace() == 0 && !(res->getHouse() == 0 && res->getWorkplace() == 0))
 	{
 		happiness += modifier;
@@ -666,6 +667,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 	{
 		happiness += modifier / 2;
 	}
+	*/
 
 	// Negatív költségvetés arányosan rontja a boldogságot
 	// Legyen mondjuk: 100.000 egységenként -1% (max 10 százalékig)

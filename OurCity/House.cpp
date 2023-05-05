@@ -20,6 +20,11 @@ unsigned short House::getCapacity()
 	return capacity;
 }
 
+void House::setCapacity(unsigned short cap)
+{
+	capacity = cap;
+}
+
 unsigned short House::getTax()
 {
 	return tax;

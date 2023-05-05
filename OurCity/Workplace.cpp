@@ -13,6 +13,11 @@ unsigned short Workplace::getCapacity() const
     return capacity;
 }
 
+void Workplace::setCapacity(unsigned short cap)
+{
+    capacity = cap;
+}
+
 unsigned short Workplace::getTax() const
 {
     return tax;

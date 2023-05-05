@@ -20,6 +20,7 @@ public:
 	~House();
 
 	unsigned short getCapacity();
+	void setCapacity(unsigned short cap);
 	unsigned short getTax();
 	bool moveIn();
 

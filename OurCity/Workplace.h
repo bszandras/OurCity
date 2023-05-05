@@ -19,6 +19,7 @@ public:
 	Workplace(Tile* tile);
 
 	unsigned short getCapacity() const;
+	void setCapacity(unsigned short cap);
 	unsigned short getTax() const;
 
 	bool canWorkHere();
