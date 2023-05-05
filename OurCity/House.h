@@ -26,6 +26,7 @@ public:
 
 	void setTax(unsigned short tax);
 	void addResident(int id);
+	void removeResident(int id);
 	void clearResidents();
 
 	void toString() override;

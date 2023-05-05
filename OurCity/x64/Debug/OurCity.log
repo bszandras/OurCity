@@ -1,3 +1,3 @@
-﻿  House.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\House.cpp(35,46): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+﻿  Workplace.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Workplace.cpp(28,48): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
   OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\x64\Debug\OurCity.exe

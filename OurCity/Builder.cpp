@@ -917,7 +917,7 @@ House* Builder::BuildHouse(Tile* tile)
 	House* h = world->addHouse(tile);
 	tile->building = nullptr;
 	tile->building += world->getHouses()->size()-1;
-	tile->texId = 21;
+	tile->texId = 21 + 3;
 	tile->type = 1;
 
 	/*
@@ -942,7 +942,7 @@ Factory* Builder::BuildFactory(Tile* tile)
 	Factory* f = world->addFactory(tile);
 	tile->building = nullptr;
 	tile->building += world->getFactories()->size() - 1;
-	tile->texId = 22;
+	tile->texId = 22 + 3;
 	tile->type = 2;
 
 	//std::cout << world->getFactories()->size() - 1 << std::endl;
@@ -988,7 +988,7 @@ ServiceBuilding* Builder::BuildService(Tile* tile)
 	ServiceBuilding* sv = world->addServBuilding(tile);
 	tile->building = nullptr;
 	tile->building += world->getServBuildings()->size() - 1;
-	tile->texId = 23;
+	tile->texId = 23 + 3;
 	tile->type = 3;
 	return sv;
 }

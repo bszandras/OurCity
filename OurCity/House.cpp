@@ -53,7 +53,25 @@ void House::addResident(int id)
 	if (residents.size() == capacity)
 	{
 		// akkor betelik a ház, új sprite
-		tile->texId = 0;
+		tile->texId -= 3;
+	}
+}
+
+void House::removeResident(int id)
+{
+	bool fullbefore = residents.size() == capacity;
+	for (int i = 0; i < residents.size(); i++)
+	{
+		if (residents[i] == id)
+		{
+			residents.erase(residents.begin() + i);
+		}
+	}
+
+	if (residents.size() < capacity && fullbefore)
+	{
+		// akkor lejjeb lép egy szinttel az épület
+		tile->texId += 3;
 	}
 }
 
