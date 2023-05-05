@@ -796,30 +796,3 @@ int ResidentManager::getHomeless() const
 	}
 	return homeless;
 }
-
-
-int ResidentManager::getHighSchoolEducated() const
-{
-	int highSchoolEducated = 0;
-	for (size_t i = 0; i < residents.size(); i++)
-	{
-		if (residents[i].getEducation() == 1)
-		{
-			highSchoolEducated++;
-		}
-	}
-	return highSchoolEducated;
-}
-
-int ResidentManager::getUniversityEducated() const
-{
-	int universityEducated = 0;
-	for (size_t i = 0; i < residents.size(); i++)
-	{
-		if (residents[i].getEducation() == 2)
-		{
-			universityEducated++;
-		}
-	}
-	return universityEducated;
-}
