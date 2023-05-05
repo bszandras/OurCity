@@ -33,7 +33,6 @@ void Statistics::updateStats()
 	updateHousingStatistics();
 	updateWorkingStatistics();
 	updateEducateStatistics();
-	std::cout << "Modositott statisztikak" << std::endl;
 }
 
 void Statistics::updateGeneralStatistics()
