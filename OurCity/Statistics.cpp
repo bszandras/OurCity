@@ -57,4 +57,21 @@ void Statistics::updateWorkingStatistics()
 			  scene->getResidentManager()->getFactoryWorkerCount();
 	workCapacity = scene->getResidentManager()->getFactoryCount() * 8 +
 				   scene->getResidentManager()->getServiceCount() * 6;
+	factoryCapacity = scene->getResidentManager()->getFactoryCount() * 8;
+	serviceCapacity = scene->getResidentManager()->getServiceCount() * 6;
+	workingPercentage = (float)workers / (float)population * 100;
+	serviceIndustryBalance = (float)scene->getResidentManager()->getServiceWorkerCount() / 
+							 (float)scene->getResidentManager()->getFactoryWorkerCount() * 100;
+}
+
+void Statistics::updateEducateStatistics()
+{
+	highSchoolEducated = scene->getResidentManager()->getHighSchoolEducated();
+	universityEducated = scene->getResidentManager()->getUniversityEducated();
+	uneducated = scene->getResidentManager()->getResidentCount() - 
+				 scene->getResidentManager()->getHighSchoolEducated() - 
+				 scene->getResidentManager()->getUniversityEducated();
+	educated = scene->getResidentManager()->getHighSchoolEducated() + 
+			   scene->getResidentManager()->getUniversityEducated();
+	educationPercentage = (float)educated / (float)population * 100;
 }

@@ -48,6 +48,7 @@ private:
 	void updateGeneralStatistics();
 	void updateHousingStatistics();
 	void updateWorkingStatistics();
+	void updateEducateStatistics();
 
 public:
 	static Statistics* getInstance();

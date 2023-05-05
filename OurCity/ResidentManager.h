@@ -63,5 +63,7 @@ class ResidentManager {
 		int getUnemployed() const;
 		int getFactoryWorkerCount() const;
 		int getServiceWorkerCount() const;
+		int getHighSchoolEducated() const;
+		int getUniversityEducated() const;
 };
 

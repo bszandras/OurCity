@@ -854,4 +854,5 @@ int ResidentManager::getUniversityEducated() const
 			universityEducated++;
 		}
 	}
+	return universityEducated;
 }

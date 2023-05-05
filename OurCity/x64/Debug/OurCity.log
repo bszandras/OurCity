@@ -1,24 +1,25 @@
 ﻿  ResidentManager.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(53,39): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(53,39): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(74,125): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(74,125): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(106,41): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(106,41): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(119,132): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(119,132): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(148,41): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(148,41): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(161,127): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(294,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(297,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(298,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(366,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(378,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(412,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(440,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(548,31): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(548,31): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(564,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(569,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(615,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(725,39): warning C4244: '=': conversion from 'unsigned __int64' to 'float', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(161,127): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(298,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(301,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(302,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(370,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(382,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(416,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(444,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(552,31): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(552,31): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(568,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(573,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(619,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(729,39): warning C4244: '=': conversion from 'unsigned __int64' to 'float', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(769,25): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
