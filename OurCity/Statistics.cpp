@@ -38,6 +38,8 @@ void Statistics::updateGeneralStatistics()
 	population = scene->getResidentManager()->getResidentCount();
 	avgAge = scene->getResidentManager()->getAverageAge();
 	money = scene->getGameState()->getMoney();
+	scene->getResidentManager()->calculateGlobalHappiness();
+	scene->getResidentManager()->updateGlobalHappiness();
 	avgHappiness = scene->getResidentManager()->getGlobalHappiness();
 }
 
@@ -52,26 +54,44 @@ void Statistics::updateHousingStatistics()
 
 void Statistics::updateWorkingStatistics()
 {
-	unemployed = scene->getResidentManager()->getUnemployed();
-	workers = scene->getResidentManager()->getServiceWorkerCount() + 
-			  scene->getResidentManager()->getFactoryWorkerCount();
-	workCapacity = scene->getResidentManager()->getFactoryCount() * 8 +
-				   scene->getResidentManager()->getServiceCount() * 6;
-	factoryCapacity = scene->getResidentManager()->getFactoryCount() * 8;
-	serviceCapacity = scene->getResidentManager()->getServiceCount() * 6;
+	unemployed = scene->getResidentManager()->getResidentCount()-
+					 scene->getResidentManager()->getFactoryCount() -
+					 scene->getResidentManager()->getServiceCount();
+	workers = scene->getResidentManager()->getFactoryCount() +
+				  scene->getResidentManager()->getServiceCount();
+	workCapacity = scene->getWorld()->getFactories()->size()*8 +
+					   scene->getWorld()->getServBuildings()->size()*6;
+	factoryCapacity = scene->getWorld()->getFactories()->size()*8;
+	serviceCapacity = scene->getWorld()->getServBuildings()->size()*6;
 	workingPercentage = (float)workers / (float)population * 100;
-	serviceIndustryBalance = (float)scene->getResidentManager()->getServiceWorkerCount() / 
-							 (float)scene->getResidentManager()->getFactoryWorkerCount() * 100;
+	serviceIndustryBalance = (float)scene->getResidentManager()->getServiceCount() / (float)scene->getResidentManager()->getFactoryCount() * 100;
 }
 
 void Statistics::updateEducateStatistics()
 {
-	highSchoolEducated = scene->getResidentManager()->getHighSchoolEducated();
-	universityEducated = scene->getResidentManager()->getUniversityEducated();
-	uneducated = scene->getResidentManager()->getResidentCount() - 
-				 scene->getResidentManager()->getHighSchoolEducated() - 
-				 scene->getResidentManager()->getUniversityEducated();
-	educated = scene->getResidentManager()->getHighSchoolEducated() + 
-			   scene->getResidentManager()->getUniversityEducated();
+	highSchoolEducated = 0;
+	universityEducated = 0;
+	uneducated = 0;
+
+	std::vector<Resident> residents = scene->getResidentManager()->getResidents();
+
+	for (int i = 0; i < residents.size(); i++)
+	{
+		int education = residents[i].getEducation();
+		if (education == 0)
+		{
+			uneducated++;
+		}
+		else if (education == 1)
+		{
+			highSchoolEducated++;
+		}
+		else if (education == 2)
+		{
+			universityEducated++;
+		}
+	}
+
+	educated = highSchoolEducated + universityEducated;
 	educationPercentage = (float)educated / (float)population * 100;
 }

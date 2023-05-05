@@ -729,6 +729,11 @@ void ResidentManager::calculateGlobalHappiness()
 	this->globalHappiness = sumHappiness / residents.size();
 }
 
+std::vector<Resident> ResidentManager::getResidents()
+{
+	return this->residents;
+}
+
 int ResidentManager::getFactoryCount()
 {
 	return this->factoryCount;
@@ -792,44 +797,6 @@ int ResidentManager::getHomeless() const
 	return homeless;
 }
 
-int ResidentManager::getUnemployed() const
-{
-	int unemployed = 0;
-	for (size_t i = 0; i < residents.size(); i++)
-	{
-		if (residents[i].getWorkplace() == 0)
-		{
-			unemployed++;
-		}
-	}
-	return unemployed;
-}
-
-int ResidentManager::getFactoryWorkerCount() const
-{
-	int factoryWorkers = 0;
-	for (size_t i = 0; i < residents.size(); i++)
-	{
-		if (residents[i].getWorkplace() > 0)
-		{
-			factoryWorkers++;
-		}
-	}
-	return factoryWorkers;
-}
-
-int ResidentManager::getServiceWorkerCount() const
-{
-	int serviceWorkers = 0;
-	for (size_t i = 0; i < residents.size(); i++)
-	{
-		if (residents[i].getWorkplace() < 0)
-		{
-			serviceWorkers++;
-		}
-	}
-	return serviceWorkers;
-}
 
 int ResidentManager::getHighSchoolEducated() const
 {

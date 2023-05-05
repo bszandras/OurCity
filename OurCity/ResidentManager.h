@@ -50,6 +50,7 @@ class ResidentManager {
 		void calculateGlobalHappiness();
 		float getGlobalHappiness();
 
+		std::vector<Resident> getResidents();
 		int getFactoryCount();
 		int getServiceCount();
 		void setFactoryCount(int x);
@@ -60,10 +61,5 @@ class ResidentManager {
 		int getResidentCount() const;
 		float getAverageAge() const;
 		int getHomeless() const;
-		int getUnemployed() const;
-		int getFactoryWorkerCount() const;
-		int getServiceWorkerCount() const;
-		int getHighSchoolEducated() const;
-		int getUniversityEducated() const;
 };
 
