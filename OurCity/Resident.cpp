@@ -7,7 +7,7 @@ Resident::Resident(void)
 	//workplace = nullptr;
 	workplaceID = 0;
 	//house = nullptr;
-	houseID = 0;
+	houseID = -1;
 	currentTax = 0;
 	pastTax = 0;
 	happiness = 100;

@@ -20,6 +20,11 @@ unsigned short House::getCapacity()
 	return capacity;
 }
 
+void House::setCapacity(unsigned short cap)
+{
+	capacity = cap;
+}
+
 unsigned short House::getTax()
 {
 	return tax;
@@ -44,6 +49,35 @@ void House::setTax(unsigned short tax)
 void House::addResident(int id)
 {
 	this->residents.push_back(id);
+
+	if (residents.size() == capacity)
+	{
+		// akkor betelik a ház, új sprite
+		tile->texId -= 3;
+	}
+}
+
+void House::removeResident(int id)
+{
+	bool fullbefore = residents.size() == capacity;
+	for (int i = 0; i < residents.size(); i++)
+	{
+		if (residents[i] == id)
+		{
+			residents.erase(residents.begin() + i);
+		}
+	}
+
+	if (residents.size() < capacity && fullbefore)
+	{
+		// akkor lejjeb lép egy szinttel az épület
+		tile->texId += 3;
+	}
+}
+
+void House::clearResidents()
+{
+	residents.clear();
 }
 
 void House::toString()

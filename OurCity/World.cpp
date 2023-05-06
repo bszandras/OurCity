@@ -773,6 +773,8 @@ void World::removeBurntBuildings()
 	{
 		// resident manager a lakosok dolgait elintézte
 		House* h = getHouse(burntHouses[i]);
+		h->setCapacity(0);
+		h->clearResidents();
 		// tile dolgait kell intézni
 		Tile* t = h->getTile();
 		
@@ -787,6 +789,8 @@ void World::removeBurntBuildings()
 	{
 		// resident manager a lakosok dolgait elintézte
 		Factory* f = getFactory(burntFactories[i]);
+		f->setCapacity(0);
+		f->clearWorkers();
 		// tile dolgait kell intézni
 		Tile* t = f->getTile();
 		
@@ -799,6 +803,8 @@ void World::removeBurntBuildings()
 	{
 		// resident manager a lakosok dolgait elintézte
 		ServiceBuilding* s = getServBuilding(burntService[i]);
+		s->setCapacity(0);
+		s->clearWorkers();
 		// tile dolgait kell intézni
 		Tile* t = s->getTile();
 		

@@ -20,11 +20,14 @@ public:
 	~House();
 
 	unsigned short getCapacity();
+	void setCapacity(unsigned short cap);
 	unsigned short getTax();
 	bool moveIn();
 
 	void setTax(unsigned short tax);
 	void addResident(int id);
+	void removeResident(int id);
+	void clearResidents();
 
 	void toString() override;
 

@@ -13,6 +13,11 @@ unsigned short Workplace::getCapacity() const
     return capacity;
 }
 
+void Workplace::setCapacity(unsigned short cap)
+{
+    capacity = cap;
+}
+
 unsigned short Workplace::getTax() const
 {
     return tax;
@@ -37,12 +42,19 @@ void Workplace::setTax(unsigned short tax)
 void Workplace::addWorker(int id)
 {
     this->workers.push_back(id);
+
+    if (workers.size() == capacity)
+    {
+        // akkor betelik a munkahely, új sprite
+        tile->texId -= 3;
+    }
 }
 
 void Workplace::removeWorker(int id)
 {
     //std::vector<int>::iterator new_end;
     //new_end = remove(this->workers.begin(), this->workers.end(), id);
+    bool fullbefore = workers.size() == capacity;
     for (int i = 0; i < workers.size(); i++)
     {
         if (workers[i] == id)
@@ -50,6 +62,17 @@ void Workplace::removeWorker(int id)
             workers.erase(workers.begin() + i);
         }
     }
+
+    if (workers.size() < capacity && fullbefore)
+    {
+        // akkor lejjeb lép egy szinttel az épület
+        tile->texId += 3;
+    }
+}
+
+void Workplace::clearWorkers()
+{
+    workers.clear();
 }
 
 std::vector<int> Workplace::getWorkers()

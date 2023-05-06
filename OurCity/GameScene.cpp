@@ -108,7 +108,7 @@ void GameScene::update()
 			for (int i = 0; i < houses->size(); i++)
 			{
 				double c = dis(gen);
-				if (c < (double)houses->at(i).getFireChance() / 100 * artificialFireChanceMultiplier)
+				if (c < (double)houses->at(i).getFireChance() / 100 * artificialFireChanceMultiplier && houses->at(i).getCapacity() != 0)
 				{
 					Tile* t = houses->at(i).getTile();
 					int succ = world->AddFire(t);
@@ -126,7 +126,7 @@ void GameScene::update()
 				std::vector<Factory>* factories = world->getFactories();
 				for (int i = 0; i < factories->size(); i++)
 				{
-					if (dis(gen) < (double)factories->at(i).getFireChance() / 100 * artificialFireChanceMultiplier)
+					if (dis(gen) < (double)factories->at(i).getFireChance() / 100 * artificialFireChanceMultiplier && factories->at(i).getCapacity() != 0)
 					{
 						Tile* t = factories->at(i).getTile();
 						int succ = world->AddFire(t);
@@ -145,7 +145,7 @@ void GameScene::update()
 				std::vector<ServiceBuilding>* services = world->getServBuildings();
 				for (int i = 0; i < services->size(); i++)
 				{
-					if (dis(gen) < (double)services->at(i).getFireChance() / 100 * artificialFireChanceMultiplier)
+					if (dis(gen) < (double)services->at(i).getFireChance() / 100 * artificialFireChanceMultiplier && services->at(i).getCapacity() != 0)
 					{
 						Tile* t = services->at(i).getTile();
 						int succ = world->AddFire(t);
