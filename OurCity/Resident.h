@@ -63,6 +63,7 @@ public:
 	void updatePastTax();
 	void setHappiness(int happiness);
 	void setIntention(ResidentIntetion intention);
+	int calculatePension();
 };
 
 #endif

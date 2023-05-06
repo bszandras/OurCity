@@ -116,3 +116,8 @@ void Resident::setIntention(ResidentIntetion intention)
 {
 	this->intention = intention;
 }
+
+int Resident::calculatePension()
+{
+	return pastTax / 480;
+}

@@ -13,6 +13,8 @@ private:
 	float avgAge; // Átlag életkor
 	int money; // Pénz
 	float avgHappiness; // Átlagos boldogság
+	int pensionerCount; // Nyugdíjasok száma
+	float avgPension; // Átlagnyugdíj
 
 	// Lakás adatok
 	int homeless;  // Hajléktalanok száma
