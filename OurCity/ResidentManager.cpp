@@ -619,12 +619,13 @@ void ResidentManager::calculateHappiness(Resident *res)
 		int extraMin = (gameState->getTaxRate() - 1.1) * 10 * 3;
 		happiness -= defMin + extraMin;
 	}
-
+	
+	Tile* house = nullptr;
+	Tile* workplace = nullptr;
 	// Lakohely es munkahely kozti tavolsag alapjan
 	if (res->getHouse() != -1 && res->getWorkplace() != 0)
 	{
-		Tile* house = world->getHouse(res->getHouse())->getTile();
-		Tile* workplace = nullptr;
+		house = world->getHouse(res->getHouse())->getTile();
 		if (res->getWorkplace() < 0)
 		{
 			// Ha a munkahely negativ, akkor szolgaltatas
@@ -658,25 +659,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 
 	int houseModifier = 0;
 	int workPlaceModifier = 0;
-	Tile* house = nullptr;
-	Tile* workplace = nullptr;
-	if (res->getHouse() != -1)
-	{
-		house = world->getHouse(res->getHouse())->getTile();
-	}
-	if (res->getWorkplace() != 0)
-	{
-		if (res->getWorkplace() < 0)
-		{
-			// Ha a munkahely negativ, akkor szolgaltatas
-			workplace = world->getServBuilding(abs(res->getWorkplace()) - 1)->getTile();
-		}
-		else if (res->getWorkplace() > 0)
-		{
-			// Ha a munkahely pozitiv, akkor szolgaltatas
-			workplace = world->getFactory(abs(res->getWorkplace()) -1)->getTile();
-		}
-	}
+
 	if (house != nullptr)
 	{
 		// Van-e a közelben ipari terület?
@@ -713,7 +696,40 @@ void ResidentManager::calculateHappiness(Resident *res)
 		}
 	}
 
-	happiness += houseModifier;
+	if (workplace != nullptr)
+	{
+		if (workplace->publicSafety > 0)
+		{
+			workPlaceModifier += 10;
+			int extra = getResidentCount() / 100000;
+			if (extra > 10)
+			{
+				workPlaceModifier += 10;
+			}
+			else
+			{
+				workPlaceModifier += extra;
+			}
+		}
+
+		if (workplace->happinessModifer > 0)
+		{
+			workPlaceModifier += 10;
+		}
+	}
+
+	if (workplace == nullptr && house != nullptr)
+	{
+		happiness += houseModifier;
+	}
+	else if (workplace != nullptr && house == nullptr)
+	{
+		happiness += workPlaceModifier;
+	}
+	else if (workplace != nullptr && house != nullptr)
+	{
+		happiness += (houseModifier + workPlaceModifier) / 2;
+	}
 
 
 	// Negatív költségvetés arányosan rontja a boldogságot
