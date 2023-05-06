@@ -608,15 +608,15 @@ void ResidentManager::calculateHappiness(Resident *res)
 	// Modositjuk a lakos boldogsagat.
 
 	// Ado merteke alapjan
-	if (gameState->getTaxRate() <= 1.2)
+	if (gameState->getTaxRate() <= 1.0)
 	{
 		happiness += 20;
 	}
 	else
 	{
-		// (1.2-es szorzó felett) - 15 % (és minden további 0.1 es lépésszer -3 %)
+		// (1.1-es szorzó felett) - 15 % (és minden további 0.1 es lépésszer -3 %)
 		int defMin = 15;
-		int extraMin = (gameState->getTaxRate() - 1.2) * 10 * 3;
+		int extraMin = (gameState->getTaxRate() - 1.1) * 10 * 3;
 		happiness -= defMin + extraMin;
 	}
 
@@ -628,12 +628,12 @@ void ResidentManager::calculateHappiness(Resident *res)
 		if (res->getWorkplace() < 0)
 		{
 			// Ha a munkahely negativ, akkor szolgaltatas
-			workplace = world->getServBuilding(res->getWorkplace())->getTile();
+			workplace = world->getServBuilding(abs(res->getWorkplace()) -1)->getTile();
 		}
 		else if (res->getWorkplace() > 0)
 		{
 			// Ha a munkahely pozitiv, akkor szolgaltatas
-			workplace = world->getFactory(res->getWorkplace())->getTile();
+			workplace = world->getFactory(abs(res->getWorkplace()) -1)->getTile();
 		}
 			
 		double distance = world->getWrapper()->distance(house, workplace);
@@ -655,17 +655,17 @@ void ResidentManager::calculateHappiness(Resident *res)
 	* - erdőre rálátás (+)		* 
 	* Ezeket az adott tile happiness modifyer mezője kezeli
 	*/
-	// Ugyanezt a javítást a munkához
-	int modifier = 0;
+
+	int houseModifier = 0;
+	int workPlaceModifier = 0;
+	Tile* house = nullptr;
+	Tile* workplace = nullptr;
 	if (res->getHouse() != -1)
 	{
-		Tile* house = world->getHouse(res->getHouse())->getTile();
-		modifier += house->happinessModifer;
+		house = world->getHouse(res->getHouse())->getTile();
 	}
-	// ID-kra figyelni a workplace-nél 
 	if (res->getWorkplace() != 0)
 	{
-		Tile* workplace = nullptr;
 		if (res->getWorkplace() < 0)
 		{
 			// Ha a munkahely negativ, akkor szolgaltatas
@@ -674,20 +674,47 @@ void ResidentManager::calculateHappiness(Resident *res)
 		else if (res->getWorkplace() > 0)
 		{
 			// Ha a munkahely pozitiv, akkor szolgaltatas
-			workplace = world->getFactory(res->getWorkplace() -1)->getTile();
+			workplace = world->getFactory(abs(res->getWorkplace()) -1)->getTile();
 		}
-		modifier += workplace->happinessModifer;
 	}
-	/*
-	if (res->getHouse() == 0 || res->getWorkplace() == 0 && !(res->getHouse() == 0 && res->getWorkplace() == 0))
+	if (house != nullptr)
 	{
-		happiness += modifier;
+		// Van-e a közelben ipari terület?
+		if (house->pollution <= 50)
+		{
+			houseModifier += 10;
+		}
+		else if (house->pollution > 50)
+		{
+			houseModifier -= 10;
+		}
+
+		// Közbiztonság (+ 10%), (+ lakosszám / 100000), mivel minél többen vannak, annál
+		// Fontosabb, de max 20%
+		if (house->publicSafety > 0)
+		{
+			houseModifier += 10;
+			int extra = getResidentCount() / 100000;
+			if (extra > 10)
+			{
+				houseModifier += 10;
+			}
+			else
+			{
+				houseModifier += extra;
+			}
+		}
+
+		// Stadionra rálátás (ez még a happinessModifiert használja, de csak ez,
+		// Szóval ha >0 akkor lát styadionra.
+		if (house->happinessModifer > 0)
+		{
+			houseModifier += 10;
+		}
 	}
-	if (res->getHouse() != -1 && res->getWorkplace() != 0)
-	{
-		happiness += modifier / 2;
-	}
-	*/
+
+	happiness += houseModifier;
+
 
 	// Negatív költségvetés arányosan rontja a boldogságot
 	// Legyen mondjuk: 100.000 egységenként -1% (max 10 százalékig)

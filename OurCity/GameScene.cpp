@@ -68,9 +68,13 @@ void GameScene::update()
 	for(int i = 0; i < days; i++)
 	{
 		residentManager->handleIntention();
+		residentManager->calculateGlobalHappiness();
 		residentManager->updateGlobalHappiness();
 
+		std::cout << "Globalis boldogsag: " << residentManager->getGlobalHappiness() << std::endl;
+
 		Statistics::getInstance();
+		std::cout << "Statisztikak frissultek, program nem crashelt :D" << std::endl;
 
 		//boldogság alapján beköltözés
 		int calculateRes = floor(residentManager->getGlobalHappiness() / 10);

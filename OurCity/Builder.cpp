@@ -191,7 +191,7 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 		//update firestation
 		int radius = f->getRange();
 		Tile** tiles = world->getWritableTilePointersInRadius(tile, radius);
-
+		
 		int tileCount = (radius + 1 + radius) * (radius + 1 + radius) - 1;
 
 		// ennyinek elégnek kéne lennie
@@ -207,7 +207,6 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 			passable.push_back(tiles[i]);
 		}
 		f->UpdateAreaAfterBuilding(passable.data(), passable.size());
-
 	}
 	else if (tex != FOREST && tex != ROAD)
 	{
