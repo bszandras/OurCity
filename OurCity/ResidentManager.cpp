@@ -635,7 +635,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 			// Ha a munkahely pozitiv, akkor szolgaltatas
 			workplace = world->getFactory(abs(res->getWorkplace()) -1)->getTile();
 		}
-			
+		
 		double distance = world->getWrapper()->distance(house, workplace);
 		if (distance <= 30.0)
 		{
