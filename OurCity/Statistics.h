@@ -58,6 +58,33 @@ public:
 
 	void updateStats();
 
+	// Getterek az összes adattaghoz
+	int getPopulation();
+	float getAvgAge();
+	int getMoney();
+	float getAvgHappiness();
+	int getPensionerCount();
+	float getAvgPension();
+	int getHomeless();
+	int getPopulationInHouse();
+	int getHouseCapacity();
+	int getHouseCapacityFree();
+	float getHouseCapacityPercent();
+	int getWorkers();
+	int getUnemployed();
+	int getWorkCapacity();
+	int getFactoryCapacity();
+	int getServiceCapacity();
+	int getIndustryWorkers();
+	int getServiceWorkers();
+	float getWorkingPercentage();
+	float getServiceIndustryBalance();
+	int getHighSchoolEducated();
+	int getUniversityEducated();
+	int getUneducated();
+	int getEducated();
+	int getEducationPercentage();
+
 };
 
 #endif

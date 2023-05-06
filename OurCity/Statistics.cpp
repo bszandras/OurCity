@@ -35,6 +35,131 @@ void Statistics::updateStats()
 	updateEducateStatistics();
 }
 
+int Statistics::getPopulation()
+{
+	return population;
+}
+
+float Statistics::getAvgAge()
+{
+	return avgAge;
+}
+
+int Statistics::getMoney()
+{
+	return money;
+}
+
+float Statistics::getAvgHappiness()
+{
+	return avgHappiness;
+}
+
+int Statistics::getPensionerCount()
+{
+	return pensionerCount;
+}
+
+float Statistics::getAvgPension()
+{
+	return avgPension;
+}
+
+int Statistics::getHomeless()
+{
+	return homeless;
+}
+
+int Statistics::getPopulationInHouse()
+{
+	return populationInHouse;
+}
+
+int Statistics::getHouseCapacity()
+{
+	return houseCapacity;
+}
+
+int Statistics::getHouseCapacityFree()
+{
+	return houseCapacityFree;
+}
+
+float Statistics::getHouseCapacityPercent()
+{
+	return houseCapacityPercent;
+}
+
+int Statistics::getWorkers()
+{
+	return workers;
+}
+
+int Statistics::getUnemployed()
+{
+	return unemployed;
+}
+
+int Statistics::getWorkCapacity()
+{
+	return workCapacity;
+}
+
+int Statistics::getFactoryCapacity()
+{
+	return factoryCapacity;
+}
+
+int Statistics::getServiceCapacity()
+{
+	return serviceCapacity;
+}
+
+int Statistics::getIndustryWorkers()
+{
+	return industryWorkers;
+}
+
+int Statistics::getServiceWorkers()
+{
+	return serviceWorkers;
+}
+
+float Statistics::getWorkingPercentage()
+{
+	return workingPercentage;
+}
+
+float Statistics::getServiceIndustryBalance()
+{
+	return serviceIndustryBalance;
+}
+
+int Statistics::getHighSchoolEducated()
+{
+	return highSchoolEducated;
+}
+
+int Statistics::getUniversityEducated()
+{
+	return universityEducated;
+}
+
+int Statistics::getUneducated()
+{
+	return uneducated;
+}
+
+int Statistics::getEducated()
+{
+	return educated;
+}
+
+int Statistics::getEducationPercentage()
+{
+	return educationPercentage;
+}
+
 void Statistics::updateGeneralStatistics()
 {
 	population = scene->getResidentManager()->getResidentCount();
