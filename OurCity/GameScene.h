@@ -25,6 +25,7 @@ private:
 	Builder* builder;
 	GameTime* gameTime;
 	GameState* gameState;
+	bool gameOver;
 #ifndef TESTING
 	Camera* camera;
 #endif
@@ -44,6 +45,8 @@ public:
 	GameTime* getGameTime();
 	GameState* getGameState();
 	ResidentManager* getResidentManager();
+	void isGameOver();
+	bool getGameOver();
 
 	void update();
 	void HandleBurntBuildings();

@@ -260,6 +260,20 @@ int Window::StartGameLoop()
 		wfStat |= ImGuiWindowFlags_NoResize;
 		wfStat |= ImGuiWindowFlags_NoMove;
 
+		if (app->getScene()->getGameOver())
+		{
+			ImGui::OpenPopup("Game Over");
+		}
+
+		if (ImGui::BeginPopupModal("Game Over", NULL, wf)) {
+			ImGui::Text("GAME OVER");
+			if (ImGui::Button("Quit")) 
+			{
+				quit = true;
+			}
+			ImGui::EndPopup();
+		}
+
 		ImGui::PushStyleColor(ImGuiCol_WindowBg, IM_COL32(200, 5, 30, 0));
 		ImGui::SetNextWindowPos(ImVec2(0.5f, 0.5f));
 

@@ -11,6 +11,7 @@ GameScene::GameScene(MouseController* mouse)
 	builder = new Builder(world->getWrapper(), mouse, world, this);
 	gameTime = new GameTime();
 	gameState = new GameState();
+	gameOver = false;
 	residentManager = new ResidentManager(world, builder, gameState);
 	for (int i = 0; i < 3; i++) {
 		residentManager->createResident();
@@ -57,6 +58,22 @@ GameState* GameScene::getGameState()
 ResidentManager* GameScene::getResidentManager()
 {
 	return residentManager;
+}
+
+bool GameScene::getGameOver()
+{
+	return this->gameOver;
+}
+
+void GameScene::isGameOver()
+{
+	int resSize = residentManager->getResSize();
+	//mindenkori max lakos szám alapján?
+	// + happiness
+	if (resSize < 100) //nem végleges
+	{
+		this->gameOver = true;
+	}
 }
 
 
@@ -199,6 +216,7 @@ void GameScene::update()
 	{
 		residentManager->updateResidentYearly();
 		monthCount -= 12;
+		isGameOver();
 		//std::cout << "year passed" << std::endl;
 	}
 

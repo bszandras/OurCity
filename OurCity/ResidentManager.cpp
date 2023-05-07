@@ -1,5 +1,6 @@
 #include "ResidentManager.h"
 #include <cmath>
+#include <random>
 
 ResidentManager::ResidentManager(World* world, Builder* builder, GameState* gameState)
 {
@@ -316,6 +317,15 @@ void ResidentManager::updateResidentYearly()
 		{
 			uniS++;
 		}
+		if (age >= 65)
+		{
+			int deathChance = this->residents[i].getDeathChance() + 0.05;
+			this->residents[i].setDeathChance(deathChance);
+		}
+		if (residents[i].getHappiness() < 20)
+		{
+
+		}
 	}
 
 	if(highSCount > 0)
@@ -362,6 +372,7 @@ void ResidentManager::updateResidentYearly()
 		}
 	}
 
+	residentDeathAndMove();
 	
 }
 
@@ -739,6 +750,77 @@ int ResidentManager::getMaxEducatedUn()
 int ResidentManager::getMaxEducatedHi()
 {
 	return this->maxEducatedHi;
+}
+
+int ResidentManager::getResSize()
+{
+	std::cout << this->residents.size() << std::endl;
+	return this->residents.size();
+}
+
+void ResidentManager::residentDeathAndMove()
+{
+	int resSize = residents.size();
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_real_distribution<> dis(0, 1);
+	double f = dis(gen);
+
+	for (int i = 0; i < resSize; i++)
+	{
+		int age = residents[i].getAge();
+		if (age >= 65)
+		{
+			float chance = this->residents[i].getDeathChance();
+			if (f < chance)
+			{
+				int h = residents[i].getHouse();
+				int w = residents[i].getWorkplace();
+				this->world->getHouse(h)->removeResident(i);
+				int workplaceID = residents[i].getWorkplace();
+				if (workplaceID < 0) //service
+				{
+					workplaceID = abs(workplaceID) - 1;
+					this->world->getServBuilding(workplaceID)->removeWorker(i);
+					this->serviceCount--;
+				}
+				else if (workplaceID > 0) //factory
+				{
+					workplaceID--;
+					this->world->getFactory(workplaceID)->removeWorker(i);
+					this->factoryCount--;
+				}
+
+				residents.erase(residents.begin() + i);
+			}
+		}
+		else
+		{
+			int happiness = residents[i].getHappiness();
+			if (happiness < 20)
+			{
+				int h = residents[i].getHouse();
+				int w = residents[i].getWorkplace();
+				this->world->getHouse(h)->removeResident(i);
+				int workplaceID = residents[i].getWorkplace();
+				if (workplaceID < 0) //service
+				{
+					workplaceID = abs(workplaceID) - 1;
+					this->world->getServBuilding(workplaceID)->removeWorker(i);
+					this->serviceCount--;
+				}
+				else if (workplaceID > 0) //factory
+				{
+					workplaceID--;
+					this->world->getFactory(workplaceID)->removeWorker(i);
+					this->factoryCount--;
+				}
+
+				residents.erase(residents.begin() + i);
+			}
+		}
+
+	}
 }
 
 Resident* ResidentManager::getResident(int id)

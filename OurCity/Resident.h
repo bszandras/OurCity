@@ -36,6 +36,7 @@ private:
 	// 0,1,2 ezért lehet 8 bites
 	unsigned char education;
 	ResidentIntetion intention;
+	float deathChance;
 
 	// 62 bitet spórolunk lakosonként
 
@@ -62,6 +63,8 @@ public:
 	int getHouse() const;
 	void updatePastTax();
 	void setHappiness(int happiness);
+	void setDeathChance(int deathChance);
+	int getDeathChance();
 	void setIntention(ResidentIntetion intention);
 };
 

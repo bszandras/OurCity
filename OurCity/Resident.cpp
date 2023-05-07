@@ -13,6 +13,7 @@ Resident::Resident(void)
 	happiness = 100;
 	education = 0;
 	intention = MOVEIN;
+	deathChance = 0.0;
 }
 
 void Resident::setAge(int age)
@@ -110,6 +111,15 @@ void Resident::setHappiness(int happiness)
 	this->happiness = happiness;
 }
 
+void Resident::setDeathChance(int deathChance)
+{
+	this->deathChance = deathChance;
+}
+
+int Resident::getDeathChance()
+{
+	return this->deathChance;
+}
 
 
 void Resident::setIntention(ResidentIntetion intention)

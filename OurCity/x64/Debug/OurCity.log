@@ -1,3 +1,109 @@
-﻿  Workplace.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Workplace.cpp(28,48): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-  OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\x64\Debug\OurCity.exe
+﻿  Builder.cpp
+D:\Download_copy\szt\o\OurCity\Builder.cpp(209,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\Builder.cpp(409,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\Builder.cpp(843,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  FireStation.cpp
+  FireTruck.cpp
+  GameScene.cpp
+D:\Download_copy\szt\o\OurCity\GameScene.cpp(89,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\GameScene.cpp(231,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\GameScene.cpp(232,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\GameScene.cpp(233,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  MouseController.cpp
+  MyApp.cpp
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(352,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(399,58): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(399,58): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(400,45): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(488,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(523,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(564,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(573,46): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(573,68): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(573,78): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(594,34): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(594,44): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(594,54): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(621,34): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(621,44): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\MyApp.cpp(621,54): warning C4305: 'initializing': truncation from 'double' to 'float'
+  ResidentManager.cpp
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(54,39): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(54,39): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(75,125): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(107,41): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(107,41): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(120,132): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(149,41): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(149,41): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(162,127): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(299,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(302,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(303,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(322,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(381,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(393,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(427,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(455,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(563,31): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(563,31): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(579,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(584,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(630,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(722,39): warning C4244: '=': conversion from 'unsigned __int64' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(758,31): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(763,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ResidentManager.cpp(774,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  SubMap.cpp
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(39,55): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(39,55): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(39,85): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(39,85): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(56,23): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\SubMap.cpp(63,68): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  TileRect.cpp
+D:\Download_copy\szt\o\OurCity\TileRect.cpp(41,18): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
+  Window.cpp
+D:\Download_copy\szt\o\OurCity\Window.cpp(181,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(181,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(196,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(196,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(375,58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(375,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(412,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(444,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\Window.cpp(444,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  World.cpp
+D:\Download_copy\szt\o\OurCity\World.cpp(135,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(136,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(386,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(387,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(389,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(390,10): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(696,30): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\World.cpp(696,30): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\World.cpp(830,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(835,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Download_copy\szt\o\OurCity\World.cpp(840,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  ZoneTools.cpp
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(15,49): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(15,49): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(16,41): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(28,54): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(28,54): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(29,39): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(41,66): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(41,66): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(42,39): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(61,49): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(61,49): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(74,54): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(74,54): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(87,66): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(87,66): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+D:\Download_copy\szt\o\OurCity\ZoneTools.cpp(102,38): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+  Generating Code...
+D:\Download_copy\szt\o\OurCity\World.cpp(752): warning C4715: 'World::PutOutFire': not all control paths return a value
+D:\Download_copy\szt\o\OurCity\Window.cpp(132): warning C4715: 'Window::SDLInit': not all control paths return a value
+  OurCity.vcxproj -> D:\Download_copy\szt\o\x64\Debug\OurCity.exe
