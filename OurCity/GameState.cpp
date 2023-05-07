@@ -6,6 +6,7 @@
 GameState::GameState()
 {
 	money = 100000;
+	sumMaintenance = 0;
 	currentTax = calculateTax();
 }
 
@@ -77,4 +78,19 @@ void GameState::addNegativeYear()
 void GameState::resetNegativeYears()
 {
 	negativeYears = 0;
+}
+
+void GameState::addToMaintenance(int maintenance)
+{
+	this->sumMaintenance += maintenance;
+}
+
+void GameState::subFromMaintenance(int maintenance)
+{
+	this->sumMaintenance -= maintenance;
+}
+
+int GameState::getSumMaintenance()
+{
+	return this->sumMaintenance;
 }

@@ -308,6 +308,8 @@ int Window::StartGameLoop()
 				ImGui::CloseCurrentPopup();
 			}
 			ImGui::Text((std::to_string(app->getState()->getMoney()) + " mobium").c_str());
+			ImGui::Text("Current Maintenance Cost:");
+			ImGui::Text((std::to_string(app->getState()->getSumMaintenance()) + " mobium").c_str());
 			float* g = app->getScene()->getWorld()->getGlobalTaxRateHandle();
 			ImGui::Text("Global Tax:");
 			ImGui::SliderFloat("##G", g , 0.5f, 1.5f, "%.1f");

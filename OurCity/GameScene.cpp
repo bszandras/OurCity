@@ -210,6 +210,9 @@ void GameScene::update()
 		residentManager->updateResidentMonthly();
 		dayCount -= 30;
 		monthCount++;
+		//kipróbálásra
+		//int maintenanceCost = this->getGameState()->getSumMaintenance();
+		//this->getGameState()->spendMoney(maintenanceCost);
 		//std::cout << "month passed" << std::endl;
 	}
 	if (monthCount >= 12)
@@ -217,6 +220,8 @@ void GameScene::update()
 		residentManager->updateResidentYearly();
 		monthCount -= 12;
 		isGameOver();
+		int maintenanceCost = this->getGameState()->getSumMaintenance();
+		this->getGameState()->spendMoney(maintenanceCost);
 		//std::cout << "year passed" << std::endl;
 	}
 

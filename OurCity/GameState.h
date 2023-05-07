@@ -9,6 +9,7 @@ private:
 	short negativeYears = 0; // Hány éve negatív a város költségvetése
 	double taxRate = 1.0;
 	int currentTax;
+	int sumMaintenance;
 
 public:
 	GameState();
@@ -25,4 +26,7 @@ public:
 	int getNegativeYears();
 	void addNegativeYear();
 	void resetNegativeYears();
+	void addToMaintenance(int maintenance);
+	void subFromMaintenance(int maintenance);
+	int getSumMaintenance();
 };
