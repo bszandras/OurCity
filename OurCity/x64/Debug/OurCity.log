@@ -19,7 +19,7 @@ C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(552,31): warning
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(552,31): warning C4302: 'type cast': truncation from 'Building *' to 'int'
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(568,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(573,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(619,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(774,39): warning C4244: '=': conversion from 'unsigned __int64' to 'float', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(819,25): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(620,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(796,39): warning C4244: '=': conversion from 'unsigned __int64' to 'float', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(841,25): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
