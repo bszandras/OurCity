@@ -647,7 +647,7 @@ int Window::HandleEvents(bool& quit, SDL_Event ev)
 		break;
 	case SDL_KEYDOWN:
 		if (ev.key.keysym.sym == SDLK_ESCAPE)
-			//quit = true;
+			quit = true;
 		app->KeyboardDown(ev.key);
 		break;
 	case SDL_KEYUP:

@@ -662,6 +662,7 @@ void CMyApp::Render()
 #ifndef TESTING
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
 {
+	//std::cout << key.keysym.sym << std::endl;
 	//ha üres a lista, akkor nem kell ellenőrizni, hogy benne van-e
 	if (currentlyPressedKeys.size() == 0)
 	{

@@ -280,14 +280,14 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 	Tile* base3 = world->getWrapper()->GetPointerToId(where + world->getWidth() - 1);
 	Tile* base4 = world->getWrapper()->GetPointerToId(where + world->getWidth() * 2 - 1);
 
-	if (base1->building != nullptr || base2->building != nullptr)
+	if (base1->building != nullptr || base2->building != nullptr || base1->type != 0 || base2->type != 0)
 	{
 		std::cout << "there is a building already here - highschool" << std::endl;
 		return false;
 	}
 	if (tex == UNIVERSITY || tex == STADIUM)
 	{
-		if (base3->building != nullptr || base4->building != nullptr)
+		if (base3->building != nullptr || base4->building != nullptr || base3->type != 0 || base4->type != 0)
 		{
 			std::cout << "there is a building already here" << std::endl;
 			return false;
