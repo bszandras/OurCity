@@ -1,4 +1,7 @@
 #pragma once
+
+#ifndef TESTING
+
 // GLEW
 #include <GL/glew.h>
 
@@ -36,3 +39,5 @@ public:
 	int getWidth();
 	int getHeight();
 };
+
+#endif
