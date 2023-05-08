@@ -255,6 +255,7 @@
     <ClCompile Include="ServiceBuilding.cpp" />
     <ClCompile Include="SpecialBuilding.cpp" />
     <ClCompile Include="Stadium.cpp" />
+    <ClCompile Include="Statistics.cpp" />
     <ClCompile Include="SubMap.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TileRect.cpp" />
@@ -300,6 +301,7 @@
     <ClInclude Include="ServiceBuilding.h" />
     <ClInclude Include="SpecialBuilding.h" />
     <ClInclude Include="Stadium.h" />
+    <ClInclude Include="Statistics.h" />
     <ClInclude Include="SubMap.h" />
     <ClInclude Include="TileRect.h" />
     <ClInclude Include="University.h" />

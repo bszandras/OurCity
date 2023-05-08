@@ -7,7 +7,7 @@ PoliceStation::PoliceStation(Tile* tile) : SpecialBuilding(tile)
 	this->maintenanceCost = 30;
 	//this->fireChance = 3;
 	tile->fireChance += 3;
-	range = 0; // TODO: Set the range!!
+	range = 30; // TODO: Set the range!!
 	bonusHappiness = 20;
 }
 
@@ -31,12 +31,6 @@ void PoliceStation::UpdateAreaAfterBuilding(Tile** tiles, int tileCount)
 	{
 		tiles[i]->publicSafety += 1;
 		updatedTiles.push_back(tiles[i]);
-		// Ezzel garantáljuk, hogy ha egy tile több policestation sugaraba esik, akkor is
-		// Csak egyszer növeljük a boldogságot.
-		if (tiles[i]->publicSafety == 1)
-		{
-			tiles[i]->happinessModifer += bonusHappiness;
-		}
 	}
 }
 
@@ -45,12 +39,6 @@ void PoliceStation::UpdateAreaAfterDestruction()
 	for (int i = 0; i < updatedTiles.size(); i++)
 	{
 		updatedTiles[i]->publicSafety -= 1;
-		// Ezzel garantáljuk, hogy ha egy tile több policestation sugaraba esik, akkor is
-		// Csak egyszer csökkentjük a boldogságot.
-		if (updatedTiles[i]->publicSafety == 0)
-		{
-			updatedTiles[i]->happinessModifer -= bonusHappiness;
-		}
 	}
 	updatedTiles.clear();
 }

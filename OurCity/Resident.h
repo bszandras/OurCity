@@ -66,6 +66,7 @@ public:
 	void setDeathChance(int deathChance);
 	int getDeathChance();
 	void setIntention(ResidentIntetion intention);
+	int calculatePension();
 };
 
 #endif

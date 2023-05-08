@@ -619,32 +619,53 @@ void ResidentManager::calculateHappiness(Resident *res)
 	// Modositjuk a lakos boldogsagat.
 
 	// Ado merteke alapjan
-	if (gameState->getTaxRate() <= 1.2)
+	if (gameState->getTaxRate() <= 1.0)
 	{
+		//std::cout << "Az ado alacsony (+20)" << std::endl;
 		happiness += 20;
 	}
 	else
 	{
-		// (1.2-es szorzó felett) - 15 % (és minden további 0.1 es lépésszer -3 %)
+		// (1.1-es szorzó felett) - 15 % (és minden további 0.1 es lépésszer -3 %)
 		int defMin = 15;
-		int extraMin = (gameState->getTaxRate() - 1.2) * 10 * 3;
+		int extraMin = (gameState->getTaxRate() - 1.1) * 10 * 3;
+		//std::cout << "Az ado magas: -" << defMin + extraMin << std::endl;
 		happiness -= defMin + extraMin;
 	}
-
+	
+	Tile* house = nullptr;
+	Tile* workplace = nullptr;
 	// Lakohely es munkahely kozti tavolsag alapjan
-	if (res->getHouse() != -1 && res->getWorkplace() != 0)
+	if (res->getHouse() != -1)
 	{
-		Tile* house = world->getWrapper()->GetPointerToId(res->getHouse());
-		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
-			
+		house = world->getHouse(res->getHouse())->getTile();
+	}
+	if (res->getWorkplace() != -1)
+	{
+		if (res->getWorkplace() < 0)
+		{
+			// Ha a munkahely negativ, akkor szolgaltatas
+			workplace = world->getServBuilding(abs(res->getWorkplace()) - 1)->getTile();
+		}
+		else if (res->getWorkplace() > 0)
+		{
+			// Ha a munkahely pozitiv, akkor szolgaltatas
+			workplace = world->getFactory(abs(res->getWorkplace()) - 1)->getTile();
+		}
+	}
+		
+	if (house != nullptr && workplace != nullptr)
+	{
 		double distance = world->getWrapper()->distance(house, workplace);
 		if (distance <= 30.0)
 		{
 			happiness += 10;
+			//std::cout << "Kozel van a munkahely (+10)" << std::endl;
 		}
 		else
 		{
 			happiness -= 10;
+			//std::cout << "Messze van a munkahely (-10)" << std::endl;
 		}
 	}
 
@@ -656,33 +677,96 @@ void ResidentManager::calculateHappiness(Resident *res)
 	* - erdőre rálátás (+)		* 
 	* Ezeket az adott tile happiness modifyer mezője kezeli
 	*/
-	// Ugyanezt a javítást a munkához
-	int modifier = 0;
-	if (res->getHouse() != -1)
+
+	int houseModifier = 0;
+	int workPlaceModifier = 0;
+
+	if (house != nullptr)
 	{
-		Tile* house = world->getHouse(res->getHouse())->getTile();
-		modifier += house->happinessModifer;
+		//std::cout << "Lakohely szennyezettsege: " << house->pollution << std::endl;
+		// Van-e a közelben ipari terület?
+		if (house->pollution <= 50)
+		{
+			//std::cout << "Nincs a haz kozeleben ipari epulet +10" << std::endl;
+			houseModifier += 10;
+		}
+		else if (house->pollution > 50)
+		{
+			//std::cout << "Van a haz kozeleben ipari epulet -10" << std::endl;
+			houseModifier -= 10;
+		}
+
+		// Közbiztonság (+ 10%), (+ lakosszám / 100000), mivel minél többen vannak, annál
+		// Fontosabb, de max 20%
+		if (house->publicSafety > 0)
+		{
+			houseModifier += 10;
+			int extra = getResidentCount() / 100000;
+			if (extra > 10)
+			{
+				houseModifier += 10;
+				//std::cout << "Van kozbiztonsag a hazanal +10" << std::endl;
+			}
+			else
+			{
+				houseModifier += extra;
+				//std::cout << "Van kozbiztonsag a hazanal +10+" << extra << std::endl;
+			}
+		}
+
+		// Stadionra rálátás (ez még a happinessModifiert használja, de csak ez,
+		// Szóval ha >0 akkor lát styadionra.
+		if (house->happinessModifer > 0)
+		{
+			houseModifier += 10;
+			//std::cout << "Lat staionra hazbol +10" << std::endl;
+		}
 	}
-	// ID-kra figyelni a workplace-nél 
-	if (res->getWorkplace() != 0)
+
+	if (workplace != nullptr)
 	{
-		Tile* workplace = world->getWrapper()->GetPointerToId(res->getWorkplace());
-		modifier += workplace->happinessModifer;
+		if (workplace->publicSafety > 0)
+		{
+			workPlaceModifier += 10;
+			int extra = getResidentCount() / 100000;
+			if (extra > 10)
+			{
+				workPlaceModifier += 10;
+				//std::cout << "Van kozbiztonsag a munkahelyen +10" << std::endl;
+			}
+			else
+			{
+				workPlaceModifier += extra;
+				//std::cout << "Van kozbiztonsag a munkahelyen: +10" << extra << std::endl;
+			}
+		}
+
+		if (workplace->happinessModifer > 0)
+		{
+			workPlaceModifier += 10;
+			//std::cout << "Ralat a stadionra a munkahelyrol +10" << std::endl;
+		}
 	}
-	/*
-	if (res->getHouse() == 0 || res->getWorkplace() == 0 && !(res->getHouse() == 0 && res->getWorkplace() == 0))
+
+	if (workplace == nullptr && house != nullptr)
 	{
-		happiness += modifier;
+		//std::cout << "Csak haza van" << std::endl;
+		happiness += houseModifier;
 	}
-	if (res->getHouse() != 0 && res->getWorkplace() != 0)
+	else if (workplace != nullptr && house == nullptr)
 	{
-		happiness += modifier / 2;
+		//std::cout << "Ennek nem kene kiirodnia, de ha latod, akkor csak munkahelye van" << std::endl;
+		happiness += workPlaceModifier;
 	}
-	*/
+	else if (workplace != nullptr && house != nullptr)
+	{
+		//std::cout << "Van munkahelye es haza is" << std::endl;
+		happiness += (houseModifier + workPlaceModifier) / 2;
+	}
+
 
 	// Negatív költségvetés arányosan rontja a boldogságot
 	// Legyen mondjuk: 100.000 egységenként -1% (max 10 százalékig)
-	// És ahány éve negatív a büdzsé annyiszor -3%
 	int money = gameState->getMoney();
 	if (money <= 0)
 	{
@@ -695,8 +779,8 @@ void ResidentManager::calculateHappiness(Resident *res)
 		{
 			defmin = -10;
 		}
-		int extraMin = gameState->getNegativeYears() * -3;
-		happiness += defmin + extraMin;
+		happiness += defmin;
+		//std::cout << "Negativ koltsegvetes nyakonvagta a kedvet :(" << std::endl;
 	}
 
 	// Kiegyensúlyozatlan az ipar és a szolgáltatás aránya
@@ -706,6 +790,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 	if (factoryRation < 0.8 || factoryRation > 1.2)
 	{
 		happiness -= 10;
+		//std::cout << "Kiegyensulyozatlan az ipar es a szolgaltatas aranya -10" << std::endl;
 	}
 
 	res->setHappiness(happiness);
@@ -720,6 +805,11 @@ void ResidentManager::calculateGlobalHappiness()
 		sumHappiness += residents[i].getHappiness();
 	}
 	this->globalHappiness = sumHappiness / residents.size();
+}
+
+std::vector<Resident> ResidentManager::getResidents()
+{
+	return this->residents;
 }
 
 int ResidentManager::getFactoryCount()
@@ -826,4 +916,32 @@ void ResidentManager::residentDeathAndMove()
 Resident* ResidentManager::getResident(int id)
 {
 	return &residents[id];
+}
+
+int ResidentManager::getResidentCount() const
+{
+	return residents.size();
+}
+
+float ResidentManager::getAverageAge() const
+{
+	float sum = 0.0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		sum += residents[i].getAge();
+	}
+	return sum / residents.size();
+}
+
+int ResidentManager::getHomeless() const
+{
+	int homeless = 0;
+	for (size_t i = 0; i < residents.size(); i++)
+	{
+		if (residents[i].getHouse() == -1)
+		{
+			homeless++;
+		}
+	}
+	return homeless;
 }
