@@ -634,10 +634,10 @@ void ResidentManager::calculateHappiness(Resident *res)
 	// Modositjuk a lakos boldogsagat.
 
 	// Ado merteke alapjan
-	std::cout << "Ado: " << world->getGlobalTaxRate() << std::endl;
+	//std::cout << "Ado: " << world->getGlobalTaxRate() << std::endl;
 	if (world->getGlobalTaxRate() <= 1.0)
 	{
-		std::cout << "Az ado alacsony (+20)" << std::endl;
+		//std::cout << "Az ado alacsony (+20)" << std::endl;
 		happiness += 20;
 	}
 	else

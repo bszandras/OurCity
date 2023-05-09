@@ -626,13 +626,20 @@ bool Builder::DestroySpecBuilding(int where)
 				world->RemoveFireStation(f);
 				f->UpdateAreaAfterDestruction();
 			}
+			else if (b->getTile()->texId == POLICESTATION)
+			{
+				PoliceStation* p = (PoliceStation*)b;
+				//world->RemoveFireStation(p);
+				p->UpdateAreaAfterDestruction();
+				world->RemoveBurnableSpecialBuilding((SpecialBuilding*)b);
+			}
 			else if (b->getTile()->texId != FOREST && b->getTile()->texId != ROAD)
 			{
-				world->AddBurnableSpecialBuilding((SpecialBuilding*)b);
+				world->RemoveBurnableSpecialBuilding((SpecialBuilding*)b);
 			}
 
 			scene->getGameState()->income(b->getBuildCost() / 2);
-			scene->getGameState()->addTransaction("Big deconstruction: +", b->getBuildCost() / 2);
+			scene->getGameState()->addTransaction("Deconstruction: +", b->getBuildCost() / 2);
 			scene->getGameState()->subFromMaintenance(b->getMaintenanceCost());
 			delete b;
 

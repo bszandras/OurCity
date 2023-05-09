@@ -368,22 +368,22 @@ void CMyApp::Update()
 					#define DEBUG
 #ifdef DEBUG
 					Tile* t = world->getWrapper()->GetPointerToId(tileID);
-					std::cout << "tile data: " << std::endl;
-					std::cout << "-Fire chance: " << t->fireChance << std::endl;
-					std::cout << "-Happiness modifier: " << t->happinessModifer << std::endl;
+					//std::cout << "tile data: " << std::endl;
+					//std::cout << "-Fire chance: " << t->fireChance << std::endl;
+					//std::cout << "-Happiness modifier: " << t->happinessModifer << std::endl;
 #endif // DEBUG
 					// ha nem tűz click akkor zóna
 					selectedZone = world->getZoneStatsForTile(tileID);
 					if (selectedZone.z == nullptr)
 					{
-						std::cout << "no zone" << std::endl;
+						//std::cout << "no zone" << std::endl;
 
 
 					}
 					else
 					{
-						std::cout << "tile count: " << selectedZone.tileCount << std::endl;
-						std::cout << "tax multiply: " << selectedZone.z->getTaxRate() << std::endl;
+						//std::cout << "tile count: " << selectedZone.tileCount << std::endl;
+						//std::cout << "tax multiply: " << selectedZone.z->getTaxRate() << std::endl;
 
 						// lakó számlálás demo
 						if (selectedZone.z->getType() == 0)
@@ -399,7 +399,7 @@ void CMyApp::Update()
 								House h = world->getHouses()->at((int)t.building / 24);
 								residents += h.getResidents().size();
 							}
-							std::cout << residents << std::endl;
+							//std::cout << residents << std::endl;
 						}
 					}
 				}

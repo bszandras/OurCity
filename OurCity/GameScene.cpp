@@ -212,6 +212,8 @@ void GameScene::update()
 		residentManager->updateGlobalHappiness();
 		std::cout << "Global happiness: " << residentManager->getGlobalHappiness() << std::endl;
 		*/
+		residentManager->calculateGlobalHappiness();
+		residentManager->updateGlobalHappiness();
 	}
 	if (dayCount >= 30)
 	{

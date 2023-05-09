@@ -190,7 +190,12 @@ void Statistics::updateHousingStatistics()
 {
 	homeless = scene->getResidentManager()->getHomeless();
 	populationInHouse = scene->getResidentManager()->getResidentCount() - homeless;
-	houseCapacity = scene->getWorld()->getHouses()->size() * 4;
+	//houseCapacity = scene->getWorld()->getHouses()->size() * 4;
+	houseCapacity = 0;
+	for (int i = 0; i < scene->getWorld()->getHouses()->size(); i++)
+	{
+		houseCapacity += scene->getWorld()->getHouses()->at(i).getCapacity();
+	}
 	houseCapacityFree = houseCapacity - populationInHouse;
 	houseCapacityPercent = (float)populationInHouse / (float)houseCapacity * 100;
 }
@@ -202,10 +207,21 @@ void Statistics::updateWorkingStatistics()
 					 scene->getResidentManager()->getServiceCount();
 	workers = scene->getResidentManager()->getFactoryCount() +
 				  scene->getResidentManager()->getServiceCount();
-	workCapacity = scene->getWorld()->getFactories()->size()*8 +
-					   scene->getWorld()->getServBuildings()->size()*6;
-	factoryCapacity = scene->getWorld()->getFactories()->size()*8;
-	serviceCapacity = scene->getWorld()->getServBuildings()->size()*6;
+	//workCapacity = scene->getWorld()->getFactories()->size()*8 +
+					   //scene->getWorld()->getServBuildings()->size()*6;
+	//factoryCapacity = scene->getWorld()->getFactories()->size()*8;
+	factoryCapacity = 0;
+	serviceCapacity = 0;
+	for (int i = 0; i < scene->getWorld()->getFactories()->size(); i++)
+	{
+		factoryCapacity += scene->getWorld()->getFactories()->at(i).getCapacity();
+	}
+	//serviceCapacity = scene->getWorld()->getServBuildings()->size()*6;
+	for (int i = 0; i < scene->getWorld()->getServBuildings()->size(); i++)
+	{
+		serviceCapacity += scene->getWorld()->getServBuildings()->at(i).getCapacity();
+	}
+	workCapacity = factoryCapacity + serviceCapacity;
 	workingPercentage = (float)workers / (float)population * 100;
 
 	// ez buzisan mûködik ha leég az összes factory
