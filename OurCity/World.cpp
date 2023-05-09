@@ -840,6 +840,11 @@ void World::setServiceTaxRate(double taxRate)
 	this->serviceTaxRate = taxRate;
 }
 
+int World::getBaseTax()
+{
+	return baseTax;
+}
+
 float World::getGlobalTaxRate()
 {
 	return globalTaxRate;

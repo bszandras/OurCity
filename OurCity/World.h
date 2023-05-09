@@ -46,6 +46,7 @@ private:
 	std::vector<Factory> Factories;
 	std::vector<ServiceBuilding> ServBuildings;
 
+	int baseTax = 500;
 	float globalTaxRate;
 	float housingTaxRate;
 	float industrialTaxRate;
@@ -126,6 +127,7 @@ public:
 	void setIndustrialTaxRate(double taxRate);
 	void setServiceTaxRate(double taxRate);
 
+	int getBaseTax();
 	float getGlobalTaxRate();
 	float getHousingTaxRate();
 	float getIndustrialTaxRate();

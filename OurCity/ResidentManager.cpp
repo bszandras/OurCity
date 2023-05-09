@@ -17,13 +17,14 @@ ResidentManager::ResidentManager(World* world, Builder* builder, GameState* game
 void ResidentManager::createResident()
 {
 	Resident* r = new Resident();
-	r->setCurrentTax(gameState->calculateTax());
+	r->setCurrentTax(world->getBaseTax()*world->getGlobalTaxRate());
 	this->residents.push_back(*r);
 	delete r;
 }
 
 void ResidentManager::updateResidentMonthly()
 {
+	recalculateResidentTax();
 	calculateHousingTax();
 	calculateIndustrialTax();
 	calculateServiceTax();
@@ -175,7 +176,7 @@ void ResidentManager::recalculateResidentTax()
 	{
 		if (residents[i].getAge() < 65)
 		{
-			residents[i].setCurrentTax(gameState->getCurrentTax());
+			residents[i].setCurrentTax(world->getBaseTax()*world->getGlobalTaxRate());
 		}
 	}
 }
@@ -619,17 +620,18 @@ void ResidentManager::calculateHappiness(Resident *res)
 	// Modositjuk a lakos boldogsagat.
 
 	// Ado merteke alapjan
-	if (gameState->getTaxRate() <= 1.0)
+	std::cout << "Ado: " << world->getGlobalTaxRate() << std::endl;
+	if (world->getGlobalTaxRate() <= 1.0)
 	{
-		//std::cout << "Az ado alacsony (+20)" << std::endl;
+		std::cout << "Az ado alacsony (+20)" << std::endl;
 		happiness += 20;
 	}
 	else
 	{
 		// (1.1-es szorzó felett) - 15 % (és minden további 0.1 es lépésszer -3 %)
 		int defMin = 15;
-		int extraMin = (gameState->getTaxRate() - 1.1) * 10 * 3;
-		//std::cout << "Az ado magas: -" << defMin + extraMin << std::endl;
+		int extraMin = (world->getGlobalTaxRate() - 1.1) * 10 * 3;
+		std::cout << "Az ado magas: -" << defMin + extraMin << std::endl;
 		happiness -= defMin + extraMin;
 	}
 	
