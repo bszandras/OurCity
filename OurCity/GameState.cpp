@@ -7,7 +7,6 @@ GameState::GameState()
 {
 	money = 100000;
 	sumMaintenance = 0;
-	currentTax = calculateTax();
 }
 
 GameState::~GameState()
@@ -34,35 +33,6 @@ void GameState::income(int amount)
 bool GameState::hasEnough(int amount)
 {
 	return (money - amount) > 0;
-}
-
-// ENNEK A FUGGVENYNEK A MEGHIVASA UTAN KOZELEZO!!!! MEGHIVNI A RESIDENTMANAGER
-// A RecalculateResidentTax() függvényét!
-void GameState::setTaxRate(double rate)
-{
-	this->taxRate = rate;
-	this->currentTax = calculateTax();
-}
-
-double GameState::getTaxRate()
-{
-	return taxRate;
-}
-
-int GameState::getBaseTax()
-{
-	return baseTax;
-}
-
-int GameState::calculateTax()
-{
-	int returnable = std::round(baseTax * taxRate);
-	return returnable;
-}
-
-int GameState::getCurrentTax()
-{
-	return currentTax;
 }
 
 int GameState::getNegativeYears()
