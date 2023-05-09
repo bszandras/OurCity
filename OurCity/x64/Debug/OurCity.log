@@ -1,6 +1,4 @@
-﻿  Builder.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(216,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(239,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(444,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(891,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  Helicopter.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Helicopter.cpp(68,21): warning C4244: '=': conversion from 'float' to 'unsigned short', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Helicopter.cpp(69,21): warning C4244: '=': conversion from 'float' to 'unsigned short', possible loss of data
   OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\x64\Debug\OurCity.exe

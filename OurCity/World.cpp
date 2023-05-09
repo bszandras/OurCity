@@ -713,6 +713,14 @@ void World::UpdateFires(int deltaDays)
 				// itt updatelni kell spec épület hatásokat
 
 			}
+			// ha leégett az épület az odatartó helikoptert haza kell küldeni
+			for (int i = 0; i < helicopters.size(); i++)
+			{
+				if (helicopters.at(i)->getTargetFire() == f)
+				{
+					helicopters.at(i)->FireBurned();
+				}
+			}
 
 			// ha leégett az épület akkor a tűznek is el kell tűnnie
 			for (int i = 0; i < fires.size(); i++)
@@ -740,6 +748,42 @@ bool World::PutOutFire(int tileID)
 		// nem oltja el, de capture-öli az egér clicket
 		return true;
 	}
+	Fire* targetFire = nullptr;
+	for (int i = 0; i < fires.size(); i++)
+	{
+		if (fires.at(i).getTargetTile() == t)
+		{
+			targetFire = &fires.at(i);
+		}
+	}
+	if (targetFire == nullptr)
+	{
+		return true;
+	}
+	Tile* stationTile = fireStations.at(0)->getTile();
+	Vector2Data start;
+	start.x = (stationTile->rect.i * 64) + (stationTile->rect.j * 32);
+	start.y = (stationTile->rect.j * (64 - 41));
+
+	Vector2Data end;
+	end.x = (t->rect.i * 64) + (t->rect.j * 32);
+	end.y = (t->rect.j * (64 - 41));
+
+	Helicopter* heli = new Helicopter(start, end, targetFire);
+	helicopters.push_back(heli);
+	return true;
+	/*
+	Tile* t = tileRectWrapper->GetPointerToId(tileID);
+	if (!t->onFire)
+	{
+		return false;
+	}
+	if (fireStations.size() == 0)
+	{
+		// akkor nincs tűzoltóság :(
+		// nem oltja el, de capture-öli az egér clicket
+		return true;
+	}
 	for (int i = 0; i < fires.size(); i++)
 	{
 		if (fires.at(i).getTargetTile() == t)
@@ -749,6 +793,57 @@ bool World::PutOutFire(int tileID)
 			return true;
 		}
 	}
+	*/
+}
+
+void World::AdvanceHelicopters(float deltaTime)
+{
+	for (int i = 0; i < helicopters.size(); i++)
+	{
+		Helicopter* h = helicopters.at(i);
+		h->AdvanceRotor();
+		h->MoveToTarget(deltaTime);
+		if (h->HasArrived() && h->getTargetFire() != nullptr)
+		{
+			Fire* f = h->getTargetFire();
+			for (int j = 0; j < fires.size(); j++)
+			{
+				Tile* t = f->getTargetTile();
+				if (fires.at(j).getTargetTile() == t)
+				{
+					fires.erase(fires.begin() + j);
+					t->onFire = false;
+					break;
+				}
+			}
+			std::cout << "put out fire" << std::endl;
+			//put out
+			//check for nearby fires
+			h->ReturnHome();
+		}
+		else if (h->HasArrived() && h->getTargetFire() == nullptr)
+		{
+			RemoveHelicopter(h);
+			break;
+		}
+	}
+}
+
+void World::RemoveHelicopter(Helicopter* heli)
+{
+	for (int i = 0; i < helicopters.size(); i++)
+	{
+		if (helicopters.at(i) == heli)
+		{
+			helicopters.erase(helicopters.begin() + i);
+			return;
+		}
+	}
+}
+
+std::vector<Helicopter*>* World::getHelicopters()
+{
+	return &helicopters;
 }
 
 std::vector<int> World::getBurntHouses()

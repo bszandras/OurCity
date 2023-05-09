@@ -12,6 +12,7 @@
 #include "Zone.h"
 #include "Builder.h"
 #include "Fire.h"
+#include "Helicopter.h"
 
 #include "BuildingsInclude.h"
 
@@ -60,6 +61,7 @@ private:
 	std::vector<int> burntHouses;
 	std::vector<int> burntFactories;
 	std::vector<int> burntService;
+	std::vector<Helicopter*> helicopters;
 
 	std::vector<HighSchool*> highschools;
 	std::vector<University*> universities;
@@ -117,6 +119,9 @@ public:
 	std::vector<Fire>* getFires();
 	void UpdateFires(int deltaDays);
 	bool PutOutFire(int tileID);
+	void AdvanceHelicopters(float deltaTime);
+	void RemoveHelicopter(Helicopter* heli);
+	std::vector<Helicopter*>* getHelicopters();
 
 	std::vector<int> getBurntHouses();
 	std::vector<int> getBurntFactories();

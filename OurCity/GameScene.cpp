@@ -81,6 +81,7 @@ void GameScene::isGameOver()
 
 void GameScene::update()
 {
+	world->AdvanceHelicopters(Time::instance->getDelta());
 	int days = gameTime->update(Time::instance->getDelta());
 	for(int i = 0; i < days; i++)
 	{

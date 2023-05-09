@@ -18,6 +18,7 @@
 
 #include "BuildingsInclude.h"
 #include "RoadGraph.h"
+#include "Helicopter.h"
 
 
 
@@ -563,7 +564,10 @@ void CMyApp::Render()
 	std::vector<Fire>* fires = scene->getWorld()->getFires();
 	int fireCount = fires->size();
 
-	vertCount = 4 * cursorSize + 4 * selectedTiles + 4 * fireCount;
+	std::vector<Helicopter*>* helicopters = world->getHelicopters();
+	int helicopterCount = helicopters->size();
+
+	vertCount = 4 * cursorSize + 4 * selectedTiles + 4 * fireCount + 4 * helicopterCount;
 	vert = new Vertex[vertCount];
 
 	//cursor
@@ -633,6 +637,32 @@ void CMyApp::Render()
 		vert[i * 4 + 3] = { glm::vec3(vec3data.x, (vec3data.y + 64), vec3data.z), glm::vec3(0, 0, t.texId) };
 	}
 
+	// helicopter
+	for (int i = cursorSize + selectedTiles + fireCount; i < cursorSize + selectedTiles + fireCount + helicopterCount; i++)
+	{
+		Tile heliTile = helicopters->at(i - cursorSize - selectedTiles - fireCount)->getTile();
+		Tile t;
+		t.rect = heliTile.rect;
+		t.texId = 50 + heliTile.texId;
+
+
+		//Tile t = selectedZone.tiles[i - cursorSize];
+		//t.texId = 41 + selectedZone.z->getType();
+		// rect indexei
+		Vector3Data vec3data = { t.rect.i, t.rect.j, -0.945 };
+		// index -> real position
+		//vec3data.x = (vec3data.x * 64) + (vec3data.y * 32);
+		//vec3data.y = (vec3data.y * (64 - 41));
+
+		// position offset, hogy rect origin jó helyen legyen
+		vec3data.x -= 32;
+		vec3data.y -= 21;
+
+		vert[i * 4] = { glm::vec3(vec3data.x, vec3data.y, vec3data.z), glm::vec3(0, 1, t.texId) };
+		vert[i * 4 + 1] = { glm::vec3((vec3data.x + 64), vec3data.y, vec3data.z), glm::vec3(1, 1, t.texId) };
+		vert[i * 4 + 2] = { glm::vec3((vec3data.x + 64), (vec3data.y + 64), vec3data.z), glm::vec3(1, 0, t.texId) };
+		vert[i * 4 + 3] = { glm::vec3(vec3data.x, (vec3data.y + 64), vec3data.z), glm::vec3(0, 0, t.texId) };
+	}
 	glBindBuffer(GL_ARRAY_BUFFER, overlay_vboID); // tegyük "aktívvá" a létrehozott VBO-t
 	// töltsük fel adatokkal az aktív VBO-t
 	glBufferData(GL_ARRAY_BUFFER,					// az aktív VBO-ba töltsünk adatokat

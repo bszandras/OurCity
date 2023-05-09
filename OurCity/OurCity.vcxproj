@@ -236,6 +236,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="GLDebugMessageCallback.cpp" />
+    <ClCompile Include="Helicopter.cpp" />
     <ClCompile Include="HighSchool.cpp" />
     <ClCompile Include="House.cpp" />
     <ClCompile Include="include\imgui\imgui.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="GLDebugMessageCallback.h" />
     <ClInclude Include="GLUtils.hpp" />
+    <ClInclude Include="Helicopter.h" />
     <ClInclude Include="HighSchool.h" />
     <ClInclude Include="House.h" />
     <ClInclude Include="include\imgui\imconfig.h" />

@@ -54,6 +54,10 @@ int Builder::Build(int where)
 	}
 	return 0;
 }
+/// <summary>
+/// 
+/// </summary>
+/// <param name="where"></param>
 void Builder::BuildSpecBuilding(int where)
 {
 	Tile* tile = wrapper->GetPointerToId(where);
@@ -166,6 +170,14 @@ void Builder::BuildSpecBuilding(int where)
 		break;
 	}
 }
+/// <summary>
+/// 
+/// </summary>
+/// <param name="tile"></param>
+/// <param name="building"></param>
+/// <param name="where"></param>
+/// <param name="tex"></param>
+/// <returns></returns>
 bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int tex)
 {
 	if (tile->building != nullptr)
@@ -652,6 +664,7 @@ bool Builder::DestroySpecBuilding(int where)
 		}
 	}
 }
+
 void Builder::SelectZone()
 {
 	// debug 0,0-ból indul a zone highlight

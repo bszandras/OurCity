@@ -95,4 +95,39 @@ public:
 		ret.y = -ret.y;
 		return ret;
 	}
+	/// <summary>
+	/// Lineárisan interpolál két vektor között
+	/// </summary>
+	/// <param name="a">Elsõ vektor</param>
+	/// <param name="b">Második vektor</param>
+	/// <param name="time">Idõ, 0-1 közötti érték</param>
+	/// <returns>Interpolált vektor</returns>
+	static Vector2Data Interpolate(Vector2Data a, Vector2Data b, float time)
+	{
+		if (time < 0)
+		{
+			time = 0;
+		}
+		else if (time > 1)
+		{
+			time = 1;
+		}
+
+		Vector2Data ret;
+		ret.x = b.x * time + a.x * (1 - time);
+		ret.y = b.y * time + a.y * (1 - time);
+
+		return ret;
+	}
+	/// <summary>
+	/// Két vektor távolságát lehet ezzel kiszámolni
+	/// </summary>
+	/// <param name="a">Egyik vektor</param>
+	/// <param name="b">Másik vektor</param>
+	/// <returns>Távolság</returns>
+	static float Distance(Vector2Data a, Vector2Data b)
+	{
+		float d = sqrt(b.x * a.x + b.y * a.y);
+		return d;
+	}
 };
