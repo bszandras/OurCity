@@ -6,6 +6,7 @@
 #define new DEBUG_NEW
 */
 #include <iostream>
+#include <cmath>
 struct Vector2Data
 {
 	float x = 0;
