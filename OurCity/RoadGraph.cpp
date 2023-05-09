@@ -62,6 +62,7 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
             return false;
         }
         state->spendMoney(road->getBuildCost());
+        state->addTransaction("Road built: ", -road->getBuildCost());
         state->addToMaintenance(road->getMaintenanceCost());
         tile->building = road;
 
@@ -87,6 +88,7 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
         return false;
     }
     state->spendMoney(road->getBuildCost());
+    state->addTransaction("Road built: ", -road->getBuildCost());
     state->addToMaintenance(road->getMaintenanceCost());
     tile->building = road;
 

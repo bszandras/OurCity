@@ -1,5 +1,12 @@
 #pragma once
+#include <vector>
+#include <string>
 
+struct Transaction
+{
+	std::string name;
+	int amount;
+};
 
 class GameState
 {
@@ -10,6 +17,7 @@ private:
 	double taxRate = 1.0;
 	int currentTax;
 	int sumMaintenance;
+	std::vector<Transaction> transactions;
 
 public:
 	GameState();
@@ -29,4 +37,7 @@ public:
 	void addToMaintenance(int maintenance);
 	void subFromMaintenance(int maintenance);
 	int getSumMaintenance();
+
+	void addTransaction(std::string name, int amount);
+	std::vector<Transaction>* getTransactions();
 };

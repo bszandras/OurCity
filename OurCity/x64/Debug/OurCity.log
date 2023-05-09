@@ -1,30 +1,35 @@
-﻿  MyApp.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(352,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(399,58): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(399,58): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(400,45): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(488,32): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(523,12): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(564,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(573,46): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(573,68): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(573,78): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(594,34): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(594,44): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(594,54): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(621,34): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(621,44): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\MyApp.cpp(621,54): warning C4305: 'initializing': truncation from 'double' to 'float'
-  Window.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(181,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(181,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(196,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(196,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(377,58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(377,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(414,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(446,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(446,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Builder.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(216,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(239,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(444,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(884,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  ResidentManager.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(54,39): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(54,39): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(75,125): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(113,41): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(113,41): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(126,132): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(159,41): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(159,41): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(172,127): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(313,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(316,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(317,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(336,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(395,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(407,39): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(441,41): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(469,42): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(577,31): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(577,31): warning C4302: 'type cast': truncation from 'Building *' to 'int'
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(593,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(598,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(645,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(821,39): warning C4244: '=': conversion from 'unsigned __int64' to 'float', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(862,31): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(867,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(878,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ResidentManager.cpp(937,25): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   Generating Code...
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(132): warning C4715: 'Window::SDLInit': not all control paths return a value
   OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\x64\Debug\OurCity.exe

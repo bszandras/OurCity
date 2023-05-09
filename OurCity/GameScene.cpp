@@ -230,6 +230,7 @@ void GameScene::update()
 		isGameOver();
 		int maintenanceCost = this->getGameState()->getSumMaintenance();
 		this->getGameState()->spendMoney(maintenanceCost);
+		this->getGameState()->addTransaction("Building maintenance: ", -maintenanceCost);
 		//std::cout << "year passed" << std::endl;
 	}
 

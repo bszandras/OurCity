@@ -173,19 +173,23 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 		std::cout << "there is a building already here" << std::endl;
 		return false;
 	}
-
-	if (!scene->getGameState()->hasEnough(building->getBuildCost()))
+	GameState* gameState = scene->getGameState();
+	/*
+	if (!gameState->hasEnough(building->getBuildCost()))
 	{
 		//Ekkor is lehet építeni! -> mínuszba megy a város és kölcsönbõl mûködik
 		std::cout << "not enough money for <-building->" << std::endl;
 		return false;
 	}
+	*/
 
 	wrapper->GetPointerToId(where)->building = building;
 
 	wrapper->UpdateTexIdById(where, tex);
 
-	scene->getGameState()->addToMaintenance(building->getMaintenanceCost());
+	gameState->spendMoney(building->getBuildCost());
+	gameState->addTransaction("Construction: ", -building->getBuildCost());
+	gameState->addToMaintenance(building->getMaintenanceCost());
 
 	if (tex == FIRESTATION)
 	{
@@ -313,13 +317,17 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 		}
 	}
 	
+	/*
 	if (!scene->getGameState()->hasEnough(building->getBuildCost()))
 	{
 		std::cout << "not enough money for <-building->" << std::endl;
 		return false;
 	}
-
-	scene->getGameState()->addToMaintenance(building->getMaintenanceCost());
+	*/
+	GameState* gameState = scene->getGameState();
+	gameState->spendMoney(building->getBuildCost());
+	gameState->addTransaction("Big construction: ", -building->getBuildCost());
+	gameState->addToMaintenance(building->getMaintenanceCost());
 
 	base1->building = building;
 	base2->building = building;
@@ -466,6 +474,7 @@ bool Builder::DestroySpecBuilding(int where)
 			return false;
 		}
 		scene->getGameState()->income(tile->building->getBuildCost() / 2);
+		scene->getGameState()->addTransaction("Deconstruction: +", tile->building->getBuildCost() / 2);
 		scene->getGameState()->subFromMaintenance(tile->building->getMaintenanceCost());
 		world->getRoadGraph()->removeRoad(tile);
 		tile->building = nullptr;
@@ -598,6 +607,7 @@ bool Builder::DestroySpecBuilding(int where)
 			}
 
 			scene->getGameState()->income(b->getBuildCost() / 2);
+			scene->getGameState()->addTransaction("Big deconstruction: +", b->getBuildCost() / 2);
 			scene->getGameState()->subFromMaintenance(b->getMaintenanceCost());
 			delete b;
 			return true;
@@ -622,6 +632,7 @@ bool Builder::DestroySpecBuilding(int where)
 			}
 
 			scene->getGameState()->income(b->getBuildCost() / 2);
+			scene->getGameState()->addTransaction("Big deconstruction: +", b->getBuildCost() / 2);
 			scene->getGameState()->subFromMaintenance(b->getMaintenanceCost());
 			delete b;
 

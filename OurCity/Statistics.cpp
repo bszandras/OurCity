@@ -179,7 +179,11 @@ void Statistics::updateGeneralStatistics()
 			avgPension += residents[i].calculatePension();
 		}
 	}
-	avgPension /= pensionerCount;
+	if (pensionerCount != 0)
+	{
+		avgPension /= pensionerCount;
+	}
+	
 }
 
 void Statistics::updateHousingStatistics()
@@ -203,7 +207,15 @@ void Statistics::updateWorkingStatistics()
 	factoryCapacity = scene->getWorld()->getFactories()->size()*8;
 	serviceCapacity = scene->getWorld()->getServBuildings()->size()*6;
 	workingPercentage = (float)workers / (float)population * 100;
-	serviceIndustryBalance = (float)scene->getResidentManager()->getServiceCount() / (float)scene->getResidentManager()->getFactoryCount() * 100;
+
+	// ez buzisan mûködik ha leég az összes factory
+	/*
+	if (scene->getResidentManager()->getServiceCount() == 0)
+	{
+		serviceIndustryBalance = 1;
+	}
+	*/
+	serviceIndustryBalance = (float)scene->getResidentManager()->getServiceCount() / (float)scene->getResidentManager()->getFactoryCount();
 }
 
 void Statistics::updateEducateStatistics()

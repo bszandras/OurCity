@@ -76,13 +76,19 @@ void ResidentManager::calculateHousingTax()
 				}
 			}
 		}
+		/*
 		std::cout << "[INFO] " << i << ". lakozonaban " << residentCount << "db lakos " <<
 			sumTax << " osszegu adot fizet. " << std::endl;
+			*/
 		gameState->income(sumTax);
+		gameState->addTransaction("Monthly housing tax: +", sumTax);
 
+		/*
 		std::cout << "[INFO] " << i << ". lakozonaban " << pensionerCount << "db lakos " <<
 			sumPension << " osszegu nyugdijat kap. " << std::endl;
+			*/
 		gameState->spendMoney(sumPension);
+		gameState->addTransaction("Monthly pension: ", -sumPension);
 	}
 }
 
@@ -121,9 +127,13 @@ void ResidentManager::calculateIndustrialTax()
 				}
 			}
 		}
+		/*
 		std::cout << "[INFO] " << i << ". ipari zonaban " << residentCount << "db lakos utan " <<
 			sumTax << " osszegu adot kell fizetni. " << std::endl;
+			*/
 		gameState->income(sumTax);
+		//gameState->income(sumTax);
+		gameState->addTransaction("Monthly industry tax: +", sumTax);
 	}
 }
 
@@ -163,9 +173,13 @@ void ResidentManager::calculateServiceTax()
 				}
 			}
 		}
+		/*
 		std::cout << "[INFO] " << i << ". szolgaltatasi zonaban " << residentCount << "db lakos utan " <<
 			sumTax << " osszegu adot kell fizetni. " << std::endl;
+			*/
 		gameState->income(sumTax);
+		//gameState->income(sumTax);
+		gameState->addTransaction("Monthly service tax: +", sumTax);
 	}
 }
 
@@ -324,7 +338,7 @@ void ResidentManager::updateResidentYearly()
 		}
 		if (residents[i].getHappiness() < 20)
 		{
-
+			// kiköltözés?
 		}
 	}
 

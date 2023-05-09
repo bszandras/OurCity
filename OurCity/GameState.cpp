@@ -94,3 +94,13 @@ int GameState::getSumMaintenance()
 {
 	return this->sumMaintenance;
 }
+
+void GameState::addTransaction(std::string name, int amount)
+{
+	transactions.push_back({ name, amount });
+}
+
+std::vector<Transaction>* GameState::getTransactions()
+{
+	return &transactions;
+}
