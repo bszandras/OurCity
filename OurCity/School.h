@@ -15,8 +15,9 @@ public:
 	School(Tile* tile);
 	~School();
 
-	void setCapacity(int c);
+	void setCapacity(int capacity);
 	void setResidents(std::vector<Resident*> residents);
+
 	bool addResident(Resident* resident);
 	bool removeResident(Resident* resident);
 
