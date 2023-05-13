@@ -29,9 +29,9 @@ unsigned short Building::getBuildCost()
 /// Beállítja az épület építési költségét.
 /// </summary>
 /// <param name="c">Az új építési költség</param>
-void Building::setBuildCost(unsigned short c)
+void Building::setBuildCost(unsigned short cost)
 {
-	buildCost = c;
+	buildCost = cost;
 }
 
 /// <summary>

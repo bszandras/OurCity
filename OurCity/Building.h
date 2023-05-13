@@ -23,9 +23,7 @@ public:
 	Tile* getTile();
 	short getFireChance();
 
-	void setBuildCost(unsigned short c);
-
-	
+	void setBuildCost(unsigned short cost);
 
 	virtual void toString();
 };
