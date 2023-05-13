@@ -2,9 +2,9 @@
 #define FIRESTATION_H
 
 #include "SpecialBuilding.h"
-#include "FireTruck.h"
+//#include "FireTruck.h"
 #include <vector>
-class FireTruck;
+//class FireTruck;
 class FireStation : public SpecialBuilding
 {
 private:
@@ -13,7 +13,7 @@ private:
 	std::vector<Tile* > updatedTiles; // updated Tiles
 
 	bool available;
-	FireTruck* truck;
+	//FireTruck* truck;
 
 public:
 	FireStation(Tile* tile);
@@ -24,6 +24,8 @@ public:
 
 	int getRange() const;
 	bool isAvailable() const;
+	void HeliStarted();
+	void HeliArrived();
 
 	void UpdateAreaAfterBuilding(Tile** tiles, int tileCount);
 	void UpdateAreaAfterDestruction();

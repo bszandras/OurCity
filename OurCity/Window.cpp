@@ -16,6 +16,10 @@
 
 Window* Window::instance = nullptr;
 
+/// <summary>
+/// Inicializálja az SDL-t és OpenGL-t
+/// </summary>
+/// <returns></returns>
 int Window::SDLInit()
 {
 	//SDL cucc
@@ -133,6 +137,10 @@ int Window::SDLInit()
 	StartGameLoop();
 }
 
+/// <summary>
+/// Elindítja a játékot
+/// </summary>
+/// <returns></returns>
 int Window::StartGameLoop()
 {
 	// véget kell-e érjen a program futása?
@@ -748,6 +756,12 @@ int Window::StartGameLoop()
 	return 0;
 }
 
+/// <summary>
+/// Kezeli az inputokat
+/// </summary>
+/// <param name="quit">Kilépési boolean címe</param>
+/// <param name="ev">Input event</param>
+/// <returns></returns>
 int Window::HandleEvents(bool& quit, SDL_Event ev)
 {
 	// imgui megkapja az sdl-tõl az inputot
@@ -819,6 +833,13 @@ int Window::HandleEvents(bool& quit, SDL_Event ev)
 	return 0;
 }
 
+/// <summary>
+/// Ablak konstruktor
+/// </summary>
+/// <param name="w">Ablak szélessége</param>
+/// <param name="h">Ablak magassága</param>
+/// <param name="swap">V-Sync</param>
+/// <returns></returns>
 Window::Window(int w, int h, int swap)
 {
 	if (instance != nullptr)
@@ -843,11 +864,19 @@ Window::~Window()
 	delete app;
 }
 
+/// <summary>
+/// Visszaadja az ablak szélességét
+/// </summary>
+/// <returns></returns>
 int Window::getWidth()
 {
 	return width;
 }
 
+/// <summary>
+/// Visszaadja az ablak magasságát
+/// </summary>
+/// <returns></returns>
 int Window::getHeight()
 {
 	return height;

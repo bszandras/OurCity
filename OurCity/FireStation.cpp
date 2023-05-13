@@ -6,8 +6,9 @@
 /// <param name="tile">A Tile, amire a tûzoltóságot építjük</param>
 FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 {
-	this->truck = new FireTruck(this);
-
+	//this->truck = new FireTruck(this);
+	available = true;
+	// Set the members of the base class
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
 	tile->fireChance += 0;
@@ -21,7 +22,7 @@ FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 /// </summary>
 FireStation::~FireStation()
 {
-	delete this->truck;
+	//delete this->truck;
 }
 
 /// <summary>
@@ -60,6 +61,16 @@ bool FireStation::isAvailable() const
 	return this->available;
 }
 
+void FireStation::HeliStarted()
+{
+	available = false;
+}
+
+void FireStation::HeliArrived()
+{
+	available = true;
+}
+
 /// <summary>
 /// A tûzoltóság megépítése után frissíti a környezõ cellákat (csökkenti a tûz kialakulásának esélyét)
 /// </summary>
@@ -72,6 +83,7 @@ void FireStation::UpdateAreaAfterBuilding(Tile** tiles, int tileCount)
 		tiles[i]->fireChance -= 20;
 		updatedTiles.push_back(tiles[i]);
 	}
+	//std::cout << "updated firechances: " << tileCount << std::endl;
 }
 
 /// <summary>
