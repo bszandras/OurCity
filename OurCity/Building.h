@@ -9,8 +9,7 @@ class Building
 protected:
 	unsigned short buildCost;
 	unsigned short maintenanceCost;
-	// PONTOSAN AHÁNY %, TEHÁT 5% -> FIRECHANCE = 5
-	//unsigned short fireChance;
+
 	unsigned char tileSize = 1;
 	Tile* tile;
 
@@ -19,13 +18,15 @@ public:
 	~Building();
 
 	unsigned short getBuildCost();
-	void setBuildCost(unsigned short c);
 	unsigned short getMaintenanceCost();
-	short getFireChance();
 	unsigned char getTileSize();
 	Tile* getTile();
+	short getFireChance();
 
-	void catchOnFire();
+	void setBuildCost(unsigned short c);
+
+	
+
 	virtual void toString();
 };
 
