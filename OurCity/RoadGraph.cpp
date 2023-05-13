@@ -46,14 +46,14 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
     // Ha a i vagy j koordináta 0, akkor nem engedjük lerakni az utat.
     if (tile->rect.i == 0 || tile->rect.j == 0)
     {
-		std::cout << "Road has coordinate i or j = 0" << std::endl;
+		//std::cout << "Road has coordinate i or j = 0" << std::endl;
 		return false;
 	}
 
     // Ha már létezik út a koordinátákon, akkor nem engedünk lerakni új utat.
     if (searchRoadByCoords(tile->rect.i, tile->rect.j))
     {
-        std::cout << "Road already exists" << std::endl;
+        //std::cout << "Road already exists" << std::endl;
         return false;
     }
 
@@ -63,7 +63,7 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
 		Road* road = new Road(tile);
         if (!state->hasEnough(road->getBuildCost()))
         {
-            std::cout << "Not enough money for road" << std::endl;
+            //std::cout << "Not enough money for road" << std::endl;
             delete road;
             return false;
         }
@@ -80,7 +80,7 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
     // Ha a gráfban már van út, akkor ellenõrizzük, hogy a lerakni kívánt út szomszédos-e valamelyikkel.
     if (!isAdjacent(tile))
     {
-        std::cout << "Road is not adjacent to any other road" << std::endl;
+        //std::cout << "Road is not adjacent to any other road" << std::endl;
         return false;
     }
 
@@ -91,7 +91,7 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
     // Ha a játékosnak nincs elég pénze új út építésére, akkor elutasítjuk
     if (!state->hasEnough(road->getBuildCost()))
     {
-        std::cout << "Not enough money for road" << std::endl;
+        //std::cout << "Not enough money for road" << std::endl;
         delete road;
         return false;
     }
@@ -149,7 +149,7 @@ bool RoadGraph::removeRoad(Tile* tile)
     // Ellenõrizzük, hogy a törölni kívánt út benne van-e a gráfban
     if (!searchRoadByCoords(tile->rect.i, tile->rect.j))
     {
-		std::cout << "Road does not exist" << std::endl;
+		//std::cout << "Road does not exist" << std::endl;
 		return false;
 	}
 
@@ -158,7 +158,7 @@ bool RoadGraph::removeRoad(Tile* tile)
     // Ellenõrizzük, hogy a törölni kívánt út nélkül a gráf összefüggõ marad-e
     if (!isConnected(del))
     {
-		std::cout << "Graph is not connected" << std::endl;
+		//std::cout << "Graph is not connected" << std::endl;
 		return false;
 	}
 
@@ -168,7 +168,7 @@ bool RoadGraph::removeRoad(Tile* tile)
         if (roads[i] == del)
         {
 			roads.erase(roads.begin() + i);
-            std::cout << "Road removed from roads vector" << std::endl;
+            //std::cout << "Road removed from roads vector" << std::endl;
 			break;
 		}
 	}
