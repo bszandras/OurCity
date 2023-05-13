@@ -1,28 +1,38 @@
 #include "Workplace.h"
 
+/// <summary>
+/// Munkahely konstruktor
+/// </summary>
+/// <param name="tile">A Tile, amire a munkahelyet építjük</param>
 Workplace::Workplace(Tile* tile) : Building(tile)
 {
     this->tile = tile;
     tile->building = this;
     capacity = 0;
-    tax = 0;
 }
 
+/// <summary>
+/// Megadja a munkahely kapacitását (mennyien dolgozhatnak ott)
+/// </summary>
+/// <returns>A munkahely kapacitása</returns>
 unsigned short Workplace::getCapacity() const
 {
     return capacity;
 }
 
+/// <summary>
+/// Beállítja a munkahely kapacitását.
+/// </summary>
+/// <param name="cap">A munkahely kapacitása (mennyien dolgozhatnak ott)</param>
 void Workplace::setCapacity(unsigned short cap)
 {
     capacity = cap;
 }
 
-unsigned short Workplace::getTax() const
-{
-    return tax;
-}
-
+/// <summary>
+/// Megmondja, hogy lehet-e még dolgozni a munkahelyen.
+/// </summary>
+/// <returns>true, ha van még szabad hely, false, ha nincs</returns>
 bool Workplace::canWorkHere()
 {
     unsigned int resSize = this->workers.size();
@@ -34,11 +44,10 @@ bool Workplace::canWorkHere()
     return false;
 }
 
-void Workplace::setTax(unsigned short tax)
-{
-    this->tax = tax;
-}
-
+/// <summary>
+/// Hozzáad egy munkást a munkahelyhez
+/// </summary>
+/// <param name="id">A lakos ID-ja</param>
 void Workplace::addWorker(int id)
 {
     this->workers.push_back(id);
@@ -50,6 +59,10 @@ void Workplace::addWorker(int id)
     }
 }
 
+/// <summary>
+/// Eltávolítja a munkást a munkahelyrõl
+/// </summary>
+/// <param name="id">A lakos ID-ja</param>
 void Workplace::removeWorker(int id)
 {
     //std::vector<int>::iterator new_end;
@@ -70,11 +83,18 @@ void Workplace::removeWorker(int id)
     }
 }
 
+/// <summary>
+/// Törli az összes lakost a munkahelyrõl
+/// </summary>
 void Workplace::clearWorkers()
 {
     workers.clear();
 }
 
+/// <summary>
+/// Visszaadja a munkahelyen dolgozó lakosokat
+/// </summary>
+/// <returns>A munkahelyen dolgozó lakosok ID-ja</returns>
 std::vector<int> Workplace::getWorkers()
 {
 	return workers;

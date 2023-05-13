@@ -3,23 +3,17 @@ C:\Users\rolan\source\repos\ourcity\OurCity\Builder.cpp(228,62): warning C4267: 
 C:\Users\rolan\source\repos\ourcity\OurCity\Builder.cpp(251,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\Builder.cpp(456,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\Builder.cpp(904,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Building.cpp
   Factory.cpp
-  Fire.cpp
   FireStation.cpp
   FireTruck.cpp
-  Forest.cpp
   GameScene.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(98,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(248,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(249,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\GameScene.cpp(250,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Helicopter.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Helicopter.cpp(68,21): warning C4244: '=': conversion from 'float' to 'unsigned short', possible loss of data
-C:\Users\rolan\source\repos\ourcity\OurCity\Helicopter.cpp(69,21): warning C4244: '=': conversion from 'float' to 'unsigned short', possible loss of data
   HighSchool.cpp
   House.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\House.cpp(35,46): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\House.cpp(44,46): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
   MouseController.cpp
   MyApp.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(353,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
@@ -42,8 +36,6 @@ C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(625,54): warning C4305: 'i
 C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(652,34): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
 C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(652,44): warning C4838: conversion from 'unsigned short' to 'float' requires a narrowing conversion
 C:\Users\rolan\source\repos\ourcity\OurCity\MyApp.cpp(652,55): warning C4305: 'initializing': truncation from 'double' to 'float'
-  Overlay.cpp
-  PoliceStation.cpp
   Resident.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\Resident.cpp(30,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\Resident.cpp(33,21): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
@@ -79,14 +71,8 @@ C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(864,31): warning
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(869,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(880,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\ResidentManager.cpp(939,25): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-  Road.cpp
-  RoadGraph.cpp
   School.cpp
-  Generating Code...
-  Compiling...
   ServiceBuilding.cpp
-  SpecialBuilding.cpp
-  Stadium.cpp
   Statistics.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\Statistics.cpp(263,60): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   SubMap.cpp
@@ -112,7 +98,7 @@ C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(533,39): warning C4244: '
 C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(565,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(565,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Workplace.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Workplace.cpp(28,48): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\rolan\source\repos\ourcity\OurCity\Workplace.cpp(38,48): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
   World.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(135,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(136,8): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
@@ -129,8 +115,9 @@ C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(770,21): warning C4244: '=
 C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(925,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(930,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\rolan\source\repos\ourcity\OurCity\World.cpp(935,25): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Zone.cpp
-C:\Users\rolan\source\repos\ourcity\OurCity\Zone.cpp(61,21): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(134): warning C4715: 'Window::SDLInit': not all control paths return a value
+  Compiling...
   ZoneTools.cpp
 C:\Users\rolan\source\repos\ourcity\OurCity\ZoneTools.cpp(15,49): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
 C:\Users\rolan\source\repos\ourcity\OurCity\ZoneTools.cpp(15,49): warning C4302: 'type cast': truncation from 'Building *' to 'int'
@@ -150,6 +137,4 @@ C:\Users\rolan\source\repos\ourcity\OurCity\ZoneTools.cpp(87,66): warning C4302:
 C:\Users\rolan\source\repos\ourcity\OurCity\ZoneTools.cpp(102,38): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   main.cpp
   Generating Code...
-C:\Users\rolan\source\repos\ourcity\OurCity\Zone.cpp(41): warning C4715: 'Zone::removeTile': not all control paths return a value
-C:\Users\rolan\source\repos\ourcity\OurCity\Window.cpp(134): warning C4715: 'Window::SDLInit': not all control paths return a value
   OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
