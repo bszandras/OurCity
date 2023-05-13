@@ -128,7 +128,8 @@ public:
 	/// <returns>Távolság</returns>
 	static float Distance(Vector2Data a, Vector2Data b)
 	{
-		float d = sqrt(b.x * a.x + b.y * a.y);
+		//float d = sqrt(b.x * a.x + b.y * a.y);
+		float d = sqrt(pow(b.x - a.x,2) + pow(b.y - a.y,2));
 		return d;
 	}
 };

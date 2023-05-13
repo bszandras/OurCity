@@ -2,8 +2,8 @@
 
 FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 {
-	this->truck = new FireTruck(this);
-
+	//this->truck = new FireTruck(this);
+	available = true;
 	// Set the members of the base class
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
@@ -16,7 +16,7 @@ FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 
 FireStation::~FireStation()
 {
-	delete this->truck;
+	//delete this->truck;
 }
 
 void FireStation::setRange(int r)
@@ -49,6 +49,16 @@ bool FireStation::isAvailable() const
 	return this->available;
 }
 
+void FireStation::HeliStarted()
+{
+	available = false;
+}
+
+void FireStation::HeliArrived()
+{
+	available = true;
+}
+
 void FireStation::UpdateAreaAfterBuilding(Tile** tiles, int tileCount)
 {
 	for (int i = 0; i < tileCount; i++)
@@ -56,7 +66,7 @@ void FireStation::UpdateAreaAfterBuilding(Tile** tiles, int tileCount)
 		tiles[i]->fireChance -= 20;
 		updatedTiles.push_back(tiles[i]);
 	}
-	std::cout << "updated firechances: " << tileCount << std::endl;
+	// std::cout << "updated firechances: " << tileCount << std::endl;
 }
 
 void FireStation::UpdateAreaAfterDestruction()

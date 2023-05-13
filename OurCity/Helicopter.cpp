@@ -1,19 +1,34 @@
 #include "Helicopter.h"
 
-Helicopter::Helicopter(Vector2Data origin, Vector2Data target, Fire* f)
+/// <summary>
+/// Tûzoltó helikopter konstruktor
+/// </summary>
+/// <param name="origin">Kezdõ pozíciója a helinek</param>
+/// <param name="target">Célja a helinek</param>
+/// <param name="f">Cél tûz</param>
+/// <param name="home">Tûzoltóállomás ami otthona</param>
+/// <returns></returns>
+Helicopter::Helicopter(Vector2Data origin, Vector2Data target, Fire* f, FireStation* home)
 {
-	home = origin;
+	//home = origin;
 	start = origin;
 	end = target;
 	targetFire = f;
 	targetTime = Vector2Tool::Distance(start, end) / 64;
 	flightTime = 0;
+	homeStation = home;
+	TileRect rect = homeStation->getTile()->rect;
+	homePosition.x = (rect.i * 64) + (rect.j * 32);
+	homePosition.y = (rect.j * (64 - 41));
 }
 
 Helicopter::~Helicopter()
 {
 }
 
+/// <summary>
+/// Eggyel tovább lépteti a rotor animációt
+/// </summary>
 void Helicopter::AdvanceRotor()
 {
 	texID++;
@@ -23,11 +38,15 @@ void Helicopter::AdvanceRotor()
 	}
 }
 
+/// <summary>
+/// Mozgatja a helikoptert a célja felé
+/// </summary>
+/// <param name="deltaTime"></param>
 void Helicopter::MoveToTarget(float deltaTime)
 {
-	if (targetFire == nullptr && end.x != home.x && end.y != home.y)
+	if (targetFire == nullptr && end.x != homePosition.x && end.y != homePosition.y)
 	{
-		SetTarget(home);
+		SetTarget(homePosition);
 	}
 
 	// interpolate már 0-1 idõt kap
@@ -48,6 +67,10 @@ void Helicopter::MoveToTarget(float deltaTime)
 	}
 }
 
+/// <summary>
+/// Átállítja a helikopter célját
+/// </summary>
+/// <param name="target">Új célpozíció</param>
 void Helicopter::SetTarget(Vector2Data target)
 {
 	start = position;
@@ -57,11 +80,19 @@ void Helicopter::SetTarget(Vector2Data target)
 	flightTime = 0;
 }
 
+/// <summary>
+/// Megérkezett-e a helikopter?
+/// </summary>
+/// <returns></returns>
 bool Helicopter::HasArrived()
 {
 	return arrived;
 }
 
+/// <summary>
+/// Visszaadja a helikoptert reprezentáló Tile-t
+/// </summary>
+/// <returns></returns>
 Tile Helicopter::getTile()
 {
 	Tile t;
@@ -71,19 +102,38 @@ Tile Helicopter::getTile()
 	return t;
 }
 
+/// <summary>
+/// Visszaadja a helikopter céltûzét
+/// </summary>
+/// <returns></returns>
 Fire* Helicopter::getTargetFire()
 {
 	return targetFire;
 }
 
+/// <summary>
+/// Visszaadja a helikopter állomását
+/// </summary>
+/// <returns></returns>
+FireStation* Helicopter::getStation()
+{
+	return homeStation;
+}
+
+/// <summary>
+/// Szól a helikopternek, hogy a céltûz eltûnt valami okból
+/// </summary>
 void Helicopter::FireBurned()
 {
 	targetFire = nullptr;
 }
 
+/// <summary>
+/// Hazaküldi a helikoptert
+/// </summary>
 void Helicopter::ReturnHome()
 {
 	targetFire = nullptr;
 	arrived = false;
-	SetTarget(home);
+	SetTarget(homePosition);
 }

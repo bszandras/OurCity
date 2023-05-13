@@ -1,6 +1,8 @@
 #pragma once
 #include "Fire.h"
+#include "FireStation.h"
 #include "Vector.h"
+
 class Helicopter
 {
 private:
@@ -8,8 +10,8 @@ private:
 	// a rotorok 3 fázisa
 	int texID = 0;
 	int rotorPhaseLength = 3;
-	float moveSpeed = 100;
-	Vector2Data home;
+	float moveSpeed = 2.5;
+	Vector2Data homePosition;
 	Vector2Data position;
 	Vector2Data start;
 	Vector2Data end;
@@ -17,8 +19,9 @@ private:
 	float targetTime;
 	bool arrived = false;
 	Fire* targetFire;
+	FireStation* homeStation = nullptr;
 public:
-	Helicopter(Vector2Data origin, Vector2Data target, Fire* f);
+	Helicopter(Vector2Data origin, Vector2Data target, Fire* f, FireStation* home);
 	~Helicopter();
 	void AdvanceRotor();
 	void MoveToTarget(float deltaTime);
@@ -26,6 +29,7 @@ public:
 	bool HasArrived();
 	Tile getTile();
 	Fire* getTargetFire();
+	FireStation* getStation();
 	void FireBurned();
 	void ReturnHome();
 };

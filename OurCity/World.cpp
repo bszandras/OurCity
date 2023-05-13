@@ -760,40 +760,50 @@ bool World::PutOutFire(int tileID)
 	{
 		return true;
 	}
-	Tile* stationTile = fireStations.at(0)->getTile();
-	Vector2Data start;
-	start.x = (stationTile->rect.i * 64) + (stationTile->rect.j * 32);
-	start.y = (stationTile->rect.j * (64 - 41));
 
 	Vector2Data end;
 	end.x = (t->rect.i * 64) + (t->rect.j * 32);
 	end.y = (t->rect.j * (64 - 41));
 
-	Helicopter* heli = new Helicopter(start, end, targetFire);
-	helicopters.push_back(heli);
-	return true;
-	/*
-	Tile* t = tileRectWrapper->GetPointerToId(tileID);
-	if (!t->onFire)
+	FireStation* station = nullptr;
+	float dist = 1000000;
+	int closestID = -1;
+	// find closest available firestation
+	std::cout << "Fire pos " << end.x << " " << end.y << std::endl;
+	for (int i = 0; i < fireStations.size(); i++)
 	{
-		return false;
-	}
-	if (fireStations.size() == 0)
-	{
-		// akkor nincs tűzoltóság :(
-		// nem oltja el, de capture-öli az egér clicket
-		return true;
-	}
-	for (int i = 0; i < fires.size(); i++)
-	{
-		if (fires.at(i).getTargetTile() == t)
+		TileRect r = fireStations.at(i)->getTile()->rect;
+		Vector2Data spos;
+		spos.x = (r.i * 64) + (r.j * 32);
+		spos.y = (r.j * (64 - 41));
+		std::cout << "Station pos " << spos.x << " " << spos.y << std::endl;
+		float distance = Vector2Tool::Distance(end, spos);
+		std::cout << distance <<" " <<i<< std::endl;
+		if (distance < dist && fireStations.at(i)->isAvailable())
 		{
-			fires.erase(fires.begin() + i);
-			t->onFire = false;
-			return true;
+			station = fireStations.at(i);
+			dist = distance;
+			closestID = i;
 		}
 	}
-	*/
+	std::cout << "closestid " << closestID << std::endl;
+	//FireStation* station = fireStations.at(0);
+	if (station == nullptr || !station->isAvailable())
+	{
+		return true;
+	}
+	station->HeliStarted();
+
+	Tile* stationTile = station->getTile();
+	Vector2Data start;
+	start.x = (stationTile->rect.i * 64) + (stationTile->rect.j * 32);
+	start.y = (stationTile->rect.j * (64 - 41));
+
+	
+
+	Helicopter* heli = new Helicopter(start, end, targetFire, station);
+	helicopters.push_back(heli);
+	return true;
 }
 
 void World::AdvanceHelicopters(float deltaTime)
@@ -823,6 +833,7 @@ void World::AdvanceHelicopters(float deltaTime)
 		}
 		else if (h->HasArrived() && h->getTargetFire() == nullptr)
 		{
+			h->getStation()->HeliArrived();
 			RemoveHelicopter(h);
 			break;
 		}
