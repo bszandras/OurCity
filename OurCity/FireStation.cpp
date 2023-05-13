@@ -6,9 +6,6 @@
 /// <param name="tile">A Tile, amire a tûzoltóságot építjük</param>
 FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 {
-	//this->truck = new FireTruck(this);
-	available = true;
-	// Set the members of the base class
 	this->buildCost = 100;
 	this->maintenanceCost = 30;
 	tile->fireChance += 0;
@@ -17,12 +14,9 @@ FireStation::FireStation(Tile* tile) : SpecialBuilding(tile)
 	available = true;
 }
 
-/// <summary>
-/// Tûzoltóság destruktor
-/// </summary>
 FireStation::~FireStation()
 {
-	//delete this->truck;
+
 }
 
 /// <summary>
@@ -61,11 +55,17 @@ bool FireStation::isAvailable() const
 	return this->available;
 }
 
+/// <summary>
+/// A helikopter elindul a tûzoltóságról
+/// </summary>
 void FireStation::HeliStarted()
 {
 	available = false;
 }
 
+/// <summary>
+/// A helikopter megérkezik a tûzoltóságról
+/// </summary>
 void FireStation::HeliArrived()
 {
 	available = true;

@@ -13,7 +13,6 @@ private:
 	std::vector<Tile* > updatedTiles; // updated Tiles
 
 	bool available;
-	//FireTruck* truck;
 
 public:
 	FireStation(Tile* tile);
