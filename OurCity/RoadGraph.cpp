@@ -7,7 +7,7 @@ RoadGraph::RoadGraph()
 
 RoadGraph::~RoadGraph()
 {
-    // Deleting all the roads in the roads vector
+    // Törli (destruktort hív) az összes utat a roads vektorból
     for (int i = 0; i < roads.size(); i++)
     {
 		delete roads[i];
@@ -35,23 +35,29 @@ RoadGraph::RoadGraph(RoadGraph& t)
 	}
 }
 
+/// <summary>
+/// Végrehajtja a szükséges ellenõrzéseket, majd ha lehet akkor hozzáadja az új utat a gráfhoz.
+/// </summary>
+/// <param name="tile">A tile, amelyikre az utat akarjuk rakni</param>
+/// <param name="state">A gameState</param>
+/// <returns>true, ha sikeres az út lerakás. false, ha sikeretlen</returns>
 bool RoadGraph::addRoad(Tile* tile, GameState* state)
 {
-    // If the road to add has coordinate i or j = 0 return false
+    // Ha a i vagy j koordináta 0, akkor nem engedjük lerakni az utat.
     if (tile->rect.i == 0 || tile->rect.j == 0)
     {
 		std::cout << "Road has coordinate i or j = 0" << std::endl;
 		return false;
 	}
 
-    // If a road with the same coordinates already exists, return false
+    // Ha már létezik út a koordinátákon, akkor nem engedünk lerakni új utat.
     if (searchRoadByCoords(tile->rect.i, tile->rect.j))
     {
         std::cout << "Road already exists" << std::endl;
         return false;
     }
 
-    // If the the graph does not contain any roads, add the first road
+    // Ha még nincs egyetlen út sem a gráfban, hozzáadjuk az elsõt.
     if (roads.size() == 0)
     {
 		Road* road = new Road(tile);
@@ -71,31 +77,35 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
 		return true;
 	}
 
-    // If the graph contains road and the new road is not adjacent to any other road, return false
+    // Ha a gráfban már van út, akkor ellenõrizzük, hogy a lerakni kívánt út szomszédos-e valamelyikkel.
     if (!isAdjacent(tile))
     {
         std::cout << "Road is not adjacent to any other road" << std::endl;
         return false;
     }
 
-    // If the graph contains roads and the new road is adjacent to at least one other road, add the new road
+    // Ha a gráfban már van út, és a lerakni kívánt út szomszédos legalább egy másik úttal,
+    // akkor hozzáadjuk az új utat a gráfhoz.
     Road* road = new Road(tile);
 
+    // Ha a játékosnak nincs elég pénze új út építésére, akkor elutasítjuk
     if (!state->hasEnough(road->getBuildCost()))
     {
         std::cout << "Not enough money for road" << std::endl;
         delete road;
         return false;
     }
+
+    // Ellenkezõ esetben levonjuk a pénzt, és hozzáadjuk az új utat a gráfhoz
     state->spendMoney(road->getBuildCost());
     state->addTransaction("Road built: ", -road->getBuildCost());
     state->addToMaintenance(road->getMaintenanceCost());
-    tile->building = road;
 
+    tile->building = road;
     roads.push_back(road);
     adjList.push_back(std::vector<Road*>());
 
-    // Add the new road to the adjacency list of the adjacent roads
+    // Hozzáadjuk az új utat a szomszédos utak szomszédsági listájához
     Road* topLeft = getRoadByCoords(tile->rect.i-1, tile->rect.j+1);
     Road* topRight = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
     Road* botLeft = getRoadByCoords(tile->rect.i, tile->rect.j-1);
@@ -128,11 +138,15 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
 	return true;
 }
 
-// TODO: Ha 2 vagy annál több út van, akkor nem engedi kitörölni a (0)-s indexû utat,
-// azt mondja, hogy nem kapcsolódik a gráf
+/// <summary>
+/// Végrehajtja a szükséges ellenõrzéseket, majd
+/// törli a paraméterként kapott tile-on lévõ utat a gráfból.
+/// </summary>
+/// <param name="tile">A tile, amin a törölni kívánt út található</param>
+/// <returns>true, ha sikeres a törlés, false, ha nem</returns>
 bool RoadGraph::removeRoad(Tile* tile)
 {
-    // Check if the road to remove is in the graph
+    // Ellenõrizzük, hogy a törölni kívánt út benne van-e a gráfban
     if (!searchRoadByCoords(tile->rect.i, tile->rect.j))
     {
 		std::cout << "Road does not exist" << std::endl;
@@ -140,14 +154,15 @@ bool RoadGraph::removeRoad(Tile* tile)
 	}
 
     Road* del = getRoadByCoords(tile->rect.i, tile->rect.j);
-    // Check if the graph still connected after removing the road
+
+    // Ellenõrizzük, hogy a törölni kívánt út nélkül a gráf összefüggõ marad-e
     if (!isConnected(del))
     {
 		std::cout << "Graph is not connected" << std::endl;
 		return false;
 	}
 
-    // Remove the road from the roads vector
+    // Töröljük az utat a roads vektorból
     for (int i = 0; i < roads.size(); i++)
     {
         if (roads[i] == del)
@@ -158,7 +173,7 @@ bool RoadGraph::removeRoad(Tile* tile)
 		}
 	}
 
-	// Remove the road from the adjacency list of the adjacent roads
+    // Töröljük az utat a szomszédos utak szomszédossági listájából
     Road* topLeft = getRoadByCoords(tile->rect.i - 1, tile->rect.j + 1);
     Road* topRight = getRoadByCoords(tile->rect.i, tile->rect.j + 1);
     Road* botLeft = getRoadByCoords(tile->rect.i, tile->rect.j - 1);
@@ -212,22 +227,27 @@ bool RoadGraph::removeRoad(Tile* tile)
 		}
 	}
 
-	// Remove the road from the adjacency list of the graph
+    // Töröljük az utat a gráf szomszédossági listájából
     adjList.erase(adjList.begin() + del->getId());
 
-    // Normalize the indexes of the roads in the roads vector
+    // A roads vektorban normalizáljuk az utak indexeit.
     for (int i = del->getId(); i < roads.size(); i++)
     {
         roads[i]->setId(roads[i]->getId() - 1);
     }
 
 
-    // Delete the road
+    // Töröljük (dekontrusáljuk) a törölt utat
     delete del;
 
     return true;
 }
 
+/// <summary>
+/// Megnézi, hogy a paraméterként kapott tile szomszédos-e egy úttal.
+/// </summary>
+/// <param name="tile">A tile, amelyikrõl tudni szeretnénk, hogy van-e a szomszédságában út</param>
+/// <returns>true, ha van, false, ha nincs</returns>
 bool RoadGraph::isAdjacent(Tile* tile)
 {
     Road* topLeft = getRoadByCoords(tile->rect.i - 1, tile->rect.j + 1);
@@ -242,15 +262,20 @@ bool RoadGraph::isAdjacent(Tile* tile)
     return false;
 }
 
+/// <summary>
+/// Ellenõrzi, hogy a paraméterben kapott út nélkül összefüggõ marad-e a gráf
+/// </summary>
+/// <param name="road">Az út, amelyik nélkül meg akarjuk nézni, hogy összefüggõ marad-e a gráf</param>
+/// <returns>true, ha összefüggõ marad, false, ha nem</returns>
 bool RoadGraph::isConnected(Road* road)
 {
-    // If the graph contains only one road, it is connected
+    // Ha a gráf csak egyetlen utat tartalmaz, akkor összefüggõ
     if (roads.size() == 1)
     {
 		return true;
 	}
 
-	// If the graph contains more than one road, check if the graph is connected after removing the road
+    // Ha a gráfban több út is van, akkor nézzük meg, hogy összefüggõ marad-e az út nélkül
 	std::vector<Road*> visited;
 	std::vector<Road*> stack;
 	stack.push_back(roads[0]);
@@ -282,12 +307,19 @@ bool RoadGraph::isConnected(Road* road)
 	return false;
 }
 
-// TODO
-// NEM DETEKTÁLJA A LEGELSÕ LAKÓHÁZAT
-// IPART VAGY SERVICE-T
-// FIGYELNIE KELL A TILE TYPE-JÁRA IS
+
+/// <summary>
+/// Ellenõrzi, hogy az út mellett van-e épület
+/// </summary>
+/// <param name="tile">A tile, amin az út van</param>
+/// <param name="neighs">Az út szomszéd tile-jai.</param>
+/// <returns>true, ha van false, ha nincs</returns>
 bool RoadGraph::hasBuildingNext(Tile* tile, Tile** neighs)
 {
+    // TODO
+    // NEM DETEKTÁLJA A LEGELSÕ LAKÓHÁZAT
+    // IPART VAGY SERVICE-T
+    // FIGYELNIE KELL A TILE TYPE-JÁRA IS
     if ((!searchRoadByCoords(neighs[0]->rect.i, neighs[0]->rect.j) && neighs[0]->building != nullptr)
         || (!searchRoadByCoords(neighs[1]->rect.i, neighs[1]->rect.j) && neighs[1]->building != nullptr)
         || (!searchRoadByCoords(neighs[2]->rect.i, neighs[2]->rect.j) && neighs[2]->building != nullptr)
@@ -299,6 +331,12 @@ bool RoadGraph::hasBuildingNext(Tile* tile, Tile** neighs)
 
 }
 
+/// <summary>
+/// Megnézi, hogy az adott koordinátkon található-e út
+/// </summary>
+/// <param name="i">Az x koordináta</param>
+/// <param name="j">Az y koordináta</param>
+/// <returns>true, ha található rajta út, false, ha nem</returns>
 bool RoadGraph::searchRoadByCoords(int i, int j)
 {
     for (size_t k = 0; k < roads.size(); k++)
@@ -311,6 +349,12 @@ bool RoadGraph::searchRoadByCoords(int i, int j)
     return false;
 }
 
+/// <summary>
+/// Visszaadja az adott koordinátán található utat
+/// </summary>
+/// <param name="i">Az x koordináta</param>
+/// <param name="j">Az y koordináta</param>
+/// <returns>Az útra mutató pointer, különben nullptr, ha nincs az adott koordinátán út</returns>
 Road* RoadGraph::getRoadByCoords(int i, int j)
 {
     for (size_t k = 0; k < roads.size(); k++)
@@ -323,6 +367,11 @@ Road* RoadGraph::getRoadByCoords(int i, int j)
     return nullptr;
 }
 
+/// <summary>
+/// Visszaadja az adott utat az indexe alapján
+/// </summary>
+/// <param name="index">Az út indexe a roads vektorban</param>
+/// <returns>Az útra mutató pointer, különben nullptr, ha nem létezik olyan index</returns>
 Road* RoadGraph::getRoadByIndex(int index)
 {
     for (size_t k = 0; k < roads.size(); k++)
@@ -332,9 +381,17 @@ Road* RoadGraph::getRoadByIndex(int index)
             return roads[k];
         }
     }
+    return nullptr;
 }
 
-// TODO: test this
+/// <summary>
+/// Két pont közötti legrövidebb utat adja meg
+/// TODO: tesztelés
+/// TODO: ha nem használjuk, akkor vegyük ki!
+/// </summary>
+/// <param name="start">Az út kezdõpontja</param>
+/// <param name="end">Az út végpontja</param>
+/// <returns>Egy vektor, amely a legrövidebb utat tartalmazza, Road pointerek formájában. </returns>
 std::vector<Road*> RoadGraph::shortestPath(Road* start, Road* end)
 {
     std::vector<Road*> path;
@@ -375,6 +432,9 @@ std::vector<Road*> RoadGraph::shortestPath(Road* start, Road* end)
 	return path;
 }
 
+/// <summary>
+/// Kiírja a konzolra a gráfot.
+/// </summary>
 void RoadGraph::printGraph()
 {
     for (size_t i = 0; i < adjList.size(); i++)
