@@ -7,12 +7,11 @@
 #include "Resident.h"
 
 class Resident;
+
 class House : public Building
 {
 private:
 	unsigned short capacity;
-	unsigned short tax;
-	//std::vector<Resident*> residents;
 	std::vector<int> residents;
 
 public:
@@ -20,18 +19,16 @@ public:
 	~House();
 
 	unsigned short getCapacity();
-	void setCapacity(unsigned short cap);
-	unsigned short getTax();
-	bool moveIn();
+	std::vector<int> getResidents();
 
-	void setTax(unsigned short tax);
+	void setCapacity(unsigned short cap);
+
+	bool moveIn();
 	void addResident(int id);
 	void removeResident(int id);
 	void clearResidents();
 
 	void toString() override;
-
-	std::vector<int> getResidents();
 };
 
 #endif
