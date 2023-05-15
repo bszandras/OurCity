@@ -255,6 +255,7 @@ int Window::StartGameLoop()
 		// imgui beépített demo window
 		//ImGui::ShowTestWindow();
 		// imgui render, ez elé kell minden imguis cuccnak kerülnie
+
 		ImGuiWindowFlags window_flags = 0;
 		window_flags |= ImGuiWindowFlags_NoTitleBar;
 		window_flags |= ImGuiWindowFlags_NoMove;
@@ -295,6 +296,7 @@ int Window::StartGameLoop()
 			app->ChangeSpeed(0);
 			ImGui::OpenPopup("Menu");
 		}
+		
 		if (ImGui::BeginPopupModal("Menu",NULL,wf)) {
 			if (ImGui::Button("Resume")) {
 				app->ChangeSpeed(1);
@@ -351,6 +353,7 @@ int Window::StartGameLoop()
 			ImGui::EndPopup();
 		}
 
+
 		if (ImGui::Button("Happiness")) {
 			ImGui::OpenPopup("Happiness Statistics");
 		}
@@ -369,11 +372,12 @@ int Window::StartGameLoop()
 			ImGui::EndPopup();
 		}
 
-		if (ImGui::Button("Residents")) {
+		if (ImGui::Button("Statistics")) {
 			ImGui::OpenPopup("Resident Statistics");
 		}
 		//float n = 1.0f;
-		if (ImGui::BeginPopupModal("Resident Statistics"))
+		ImGui::SetNextWindowSize(ImVec2(width / 3, height / 2));
+		if (ImGui::BeginPopupModal("Resident Statistics", NULL, wfStat))
 		{
 			if (ImGui::Button("Close"))
 			{
@@ -381,92 +385,112 @@ int Window::StartGameLoop()
 			}
 			Statistics* stats = Statistics::getInstance();
 			// innen kezdõdik a félmillió stat
-			ImGui::Text("Resident Statistics");
-			ImGui::Text("General statistics:");
+			//ImGui::Text("Resident Statistics");
 			std::string text2 = "Population: " + std::to_string(stats->getPopulation());
-			ImGui::Text(text2.c_str());
+			if (ImGui::TreeNode("General statistics"))
+			{
 
-			text2 = "Average age: " + std::to_string((int)round(stats->getAvgAge()));
-			ImGui::Text(text2.c_str());
+				//ImGui::Text("General statistics:");
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Average age: " + std::to_string((int)round(stats->getAvgAge()));
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Average happiness: " + std::to_string((int)round(stats->getAvgHappiness()));
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Pensioners: " + std::to_string(stats->getPensionerCount());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Average pension: " + std::to_string((int)round(stats->getAvgPension()));
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				ImGui::TreePop();
+			}
 
-			text2 = "Average happiness: " + std::to_string((int)round(stats->getAvgHappiness()));
-			ImGui::Text(text2.c_str());
-
-			text2 = "Pensioners: " + std::to_string(stats->getPensionerCount());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Average pension: " + std::to_string((int)round(stats->getAvgPension()));
-			ImGui::Text(text2.c_str());
-
-			ImGui::Text("\nHousing statistics:");
-			text2 = "Homeless people: " + std::to_string(stats->getHomeless());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Homie people: " + std::to_string(stats->getPopulationInHouse());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Maximum housing spaces: " + std::to_string(stats->getHouseCapacity());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Free housing spaces: " + std::to_string(stats->getHouseCapacityFree());
-			ImGui::Text(text2.c_str());
+			if (ImGui::TreeNode("Housing statistics"))
+			{
+				//ImGui::Text("\nHousing statistics:");
+				text2 = "Homeless people: " + std::to_string(stats->getHomeless());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Homie people: " + std::to_string(stats->getPopulationInHouse());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Maximum housing spaces: " + std::to_string(stats->getHouseCapacity());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Free housing spaces: " + std::to_string(stats->getHouseCapacityFree());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				ImGui::TreePop();
+			}
 
 			//stats gethousecappercent
-
-			ImGui::Text("\nWork statistics:");
-			text2 = "Working people: " + std::to_string(stats->getWorkers());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Unemployed people: " + std::to_string(stats->getUnemployed());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Total jobs: " + std::to_string(stats->getWorkCapacity());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Factory jobs: " + std::to_string(stats->getFactoryCapacity());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Service jobs: " + std::to_string(stats->getServiceCapacity());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Industry workers: " + std::to_string(stats->getIndustryWorkers());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Service workers: " + std::to_string(stats->getServiceWorkers());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Work percentage: " + std::to_string((int)round(stats->getWorkingPercentage()));
-			ImGui::Text(text2.c_str());
-
-			std::string balance = " ";
-			if (stats->getServiceIndustryBalance() < 1)
+			if (ImGui::TreeNode("Work statistics"))
 			{
-				balance = "more industry";
+
+				//ImGui::Text("\nWork statistics:");
+				text2 = "Working people: " + std::to_string(stats->getWorkers());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Unemployed people: " + std::to_string(stats->getUnemployed());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Total jobs: " + std::to_string(stats->getWorkCapacity());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Factory jobs: " + std::to_string(stats->getFactoryCapacity());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Service jobs: " + std::to_string(stats->getServiceCapacity());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Industry workers: " + std::to_string(stats->getIndustryWorkers());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Service workers: " + std::to_string(stats->getServiceWorkers());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Work percentage: " + std::to_string((int)round(stats->getWorkingPercentage()));
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				std::string balance = " ";
+				if (stats->getServiceIndustryBalance() < 1)
+				{
+					balance = "more industry";
+				}
+				else
+				{
+					balance = "more service";
+				}
+				text2 = "Industry - service balance: " + balance;
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				ImGui::TreePop();
 			}
-			else
+
+			if (ImGui::TreeNode("Education statistics"))
 			{
-				balance = "more service";
+
+				//ImGui::Text("\nEducation statistics:");
+				text2 = "Educated people: " + std::to_string(stats->getEducated());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Uneducated people: " + std::to_string(stats->getUneducated());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Highschool educations: " + std::to_string(stats->getHighSchoolEducated());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "University educations: " + std::to_string(stats->getUniversityEducated());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				text2 = "Educated percentage: " + std::to_string(stats->getEducationPercentage());
+				ImGui::Text(text2.c_str());
+				ImGui::Separator();
+				ImGui::TreePop();
 			}
-			text2 = "Industry - service balance: " + balance;
-			ImGui::Text(text2.c_str());
-
-
-			ImGui::Text("\nEducation statistics:");
-			text2 = "Educated people: " + std::to_string(stats->getEducated());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Uneducated people: " + std::to_string(stats->getUneducated());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Highschool educations: " + std::to_string(stats->getHighSchoolEducated());
-			ImGui::Text(text2.c_str());
-
-			text2 = "University educations: " + std::to_string(stats->getUniversityEducated());
-			ImGui::Text(text2.c_str());
-
-			text2 = "Educated percentage: " + std::to_string(stats->getEducationPercentage());
-			ImGui::Text(text2.c_str());
-
 
 			ImGui::EndPopup();
 		}

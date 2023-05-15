@@ -194,6 +194,11 @@ void ResidentManager::recalculateResidentTax()
 		}
 	}
 }
+/// <summary>
+/// Ház leégése esetén az ott lakók hajlétalanná válnak.
+/// 
+/// </summary>
+/// <param name="hosueID"></param> A megsemmisült ház.
 
 void ResidentManager::loseHouse(int hosueID)
 {
@@ -250,6 +255,11 @@ void ResidentManager::loseHouse(int hosueID)
 	*/
 }
 
+/// <summary>
+/// Gyár leégése esetén az ott dolgozók munkanélkülivé válnak.
+/// </summary>
+/// <param name="jobID"></param> A leégett gyár.
+
 void ResidentManager::loseJobFactory(int jobID)
 {
 	Factory* f = world->getFactory(jobID);
@@ -282,6 +292,10 @@ void ResidentManager::loseJobFactory(int jobID)
 	*/
 }
 
+/// <summary>
+/// Szolgáltatási épület leégése esetén az ott dolgozók munkanélkülivé válnak.
+/// </summary>
+/// <param name="jobID"></param> A leégett szolgáltatási épület.
 void ResidentManager::loseJobService(int jobID)
 {
 	ServiceBuilding* f = world->getServBuilding(jobID);
@@ -308,6 +322,10 @@ void ResidentManager::loseJobService(int jobID)
 	}
 	*/
 }
+
+/// <summary>
+/// Lakosok adatainak évi frissítése, köztük a koruk és az oktatás.
+/// </summary>
 
 void ResidentManager::updateResidentYearly()
 {
@@ -390,6 +408,10 @@ void ResidentManager::updateResidentYearly()
 	residentDeathAndMove();
 	
 }
+
+/// <summary>
+/// Lakosok igényeinek a kezelője. Beköltözés, munkakeresés.
+/// </summary>
 
 void ResidentManager::handleIntention()
 {
@@ -495,6 +517,11 @@ void ResidentManager::handleIntention()
 	}
 }
 
+/// <summary>
+/// Gyár építése ha arra van megfelelő terület.
+/// </summary>
+/// <param name="i"></param> Az építő lakos.
+
 void ResidentManager::buildFactory(int i)
 {
 	std::vector<Zone>* fZones = this->world->getIndustryZones();
@@ -520,6 +547,11 @@ void ResidentManager::buildFactory(int i)
 		}
 	}
 }
+
+/// <summary>
+/// Szolgáltatási épület építése ha arra van megfelelő terület.
+/// </summary>
+/// <param name="i"></param> Az építő lakos.
 
 void ResidentManager::buildService(int i)
 {
@@ -551,6 +583,11 @@ float ResidentManager::getGlobalHappiness()
 {
 	return this->globalHappiness;
 }
+
+/// <summary>
+/// Lakos beköltözik, ha arra van megfelelő terület és átáll a szándéka munkakeresésre ha sikerült. Ha nincs akkor először házat épít.
+/// </summary>
+/// <returns></returns>
 
 int ResidentManager::residentMoveIn()
 {
@@ -588,6 +625,10 @@ int ResidentManager::residentMoveIn()
 	return freeSpace;
 }
 
+/// <summary>
+/// A globális boldogság frissítése, a lakosok alapján.
+/// </summary>
+
 void ResidentManager::updateGlobalHappiness()
 {
 	int sumHappiness = 0;
@@ -598,6 +639,11 @@ void ResidentManager::updateGlobalHappiness()
 	}
 	this->globalHappiness = sumHappiness / sizeR;
 }
+
+/// <summary>
+/// Lakos házat épít, majd ha sikerült beköltözik.
+/// </summary>
+/// <param name="i"></param>
 
 void ResidentManager::buildHouse(int i) {
 	std::vector<Zone>* hZones = this->world->getHouseZones();
@@ -624,6 +670,11 @@ void ResidentManager::buildHouse(int i) {
 	}
 
 }
+
+/// <summary>
+/// Lakosok boldogságának a kiszámítása.
+/// </summary>
+/// <param name="res"></param>
 
 void ResidentManager::calculateHappiness(Resident *res)
 {
@@ -863,6 +914,10 @@ int ResidentManager::getResSize()
 	std::cout << this->residents.size() << std::endl;
 	return this->residents.size();
 }
+
+/// <summary>
+/// Lakosok elhalálozását (nyugdíjasoknál) és elköltözését (nyugdíj előtt állóknál) kezelő függvény. 
+/// </summary>
 
 void ResidentManager::residentDeathAndMove()
 {
