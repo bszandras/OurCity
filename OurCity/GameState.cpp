@@ -50,16 +50,28 @@ void GameState::resetNegativeYears()
 	negativeYears = 0;
 }
 
+/// <summary>
+/// Új fenntartási költség hozzáadása.
+/// </summary>
+/// <param name="maintenance"> Új fenntartási költség.</param>
 void GameState::addToMaintenance(int maintenance)
 {
 	this->sumMaintenance += maintenance;
 }
 
+/// <summary>
+/// Lebontott épület esetén a fenntartási költség kivonása.
+/// </summary>
+/// <param name="maintenance"> Régi fenntartási költség.</param>
 void GameState::subFromMaintenance(int maintenance)
 {
 	this->sumMaintenance -= maintenance;
 }
 
+/// <summary>
+/// Az összesített éppeni fenntartási költség.
+/// </summary>
+/// <returns></returns>
 int GameState::getSumMaintenance()
 {
 	return this->sumMaintenance;
