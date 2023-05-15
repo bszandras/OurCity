@@ -11,8 +11,10 @@ class ResidentManager {
 	private:
 		int factoryCount;
 		int serviceCount;
+
 		int maxEducatedUn;
 		int maxEducatedHi;
+
 		float globalHappiness;
 
 		std::vector<Resident> residents;
@@ -30,39 +32,40 @@ class ResidentManager {
 		ResidentManager(World* world,Builder* builder, GameState* gameState);
 		ResidentManager();
 
-		void buildHouse(int i);
 		void createResident();
 		void updateResidentYearly();
 		void updateResidentMonthly();
+
 		void handleIntention();
+		void buildHouse(int i);
 		void buildFactory(int i);
 		void buildService(int i);
-
 		int residentMoveIn();
-		void updateGlobalHappiness();
-		void recalculateResidentTax();
 
 		void loseHouse(int hosueID);
 		void loseJobFactory(int jobID);
 		void loseJobService(int jobID);
+		void residentDeathAndMove();
 
+		void updateGlobalHappiness();
+		void recalculateResidentTax();
 		void calculateHappiness(Resident* res);
 		void calculateGlobalHappiness();
-		float getGlobalHappiness();
 
-		std::vector<Resident> getResidents();
-		int getFactoryCount();
-		int getServiceCount();
 		void setFactoryCount(int x);
 		void setServiceCount(int x);
-		int getMaxEducatedUn();
-		int getMaxEducatedHi();
-		int getResSize();
 
-		void residentDeathAndMove();
+		std::vector<Resident> getResidents();
 		Resident* getResident(int id);
+		int getResSize();
 		int getResidentCount() const;
+		float getGlobalHappiness();
 		float getAverageAge() const;
 		int getHomeless() const;
+		int getFactoryCount();
+		int getServiceCount();
+		int getMaxEducatedUn();
+		int getMaxEducatedHi();
+
 };
 
