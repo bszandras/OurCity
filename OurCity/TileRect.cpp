@@ -3,19 +3,11 @@
 #include "TileRect.h"
 #include "SubMap.h"
 #include <cmath>
-
-
-/*
-void TileRectWrapper::CreateTileRect(int i, int j, int t)
-{
-	TileRect tile;
-	tile.i = i;
-	tile.j = j;
-	tile.texID = t;
-	
-	AddRect(tile);
-}
-*/
+/// <summary>
+/// Cellákat tároló objektum konstruktora
+/// </summary>
+/// <param name="mRects">Maximum cellaszám</param>
+/// <returns></returns>
 TileRectWrapper::TileRectWrapper(int mRects)
 {
 	maxRects = mRects;
@@ -23,9 +15,12 @@ TileRectWrapper::TileRectWrapper(int mRects)
 }
 TileRectWrapper::~TileRectWrapper(void)
 {
-	//delete[] rectArr;
 	delete rectArr;
 }
+/// <summary>
+/// A wrapperhez hozzáadja a paraméterként kapott cellát
+/// </summary>
+/// <param name="tile"></param>
 void TileRectWrapper::AddTile(Tile tile)
 {
 	if (endPointer >= maxRects)
@@ -36,6 +31,10 @@ void TileRectWrapper::AddTile(Tile tile)
 	rectArr[endPointer] = tile;
 	endPointer++;
 }
+/// <summary>
+/// Memóriában átmozgatja a cellákat.
+/// Erre akkor van szükség amikor elfogyott a cellák tárolására szánt szabad memória
+/// </summary>
 void TileRectWrapper::ReallocRects()
 {
 	maxRects *= 1.1f;
@@ -49,12 +48,24 @@ void TileRectWrapper::ReallocRects()
 	delete rectArr;
 	rectArr = newArr;
 }
+/// <summary>
+/// Visszaadja a legutoljára hozzáadott cella ID-ját
+/// </summary>
+/// <returns></returns>
 int TileRectWrapper::GetLastRectID()
 {
 	return endPointer - 1;
 }
+
 // EZT CSAK ADAT OLVASÁSRA HASZNÁLJUK
 // NEM POINTERT AD AZ EREDETI ADATRA HANEM ÉRTÉKET AD VISSZ
+
+/// <summary>
+/// Visszaadja a paraméterként kapott cellaid-k adatmásolatait
+/// </summary>
+/// <param name="ids">ID-k</param>
+/// <param name="rectCount">ID-k darabszáma</param>
+/// <returns></returns>
 Tile* TileRectWrapper::GetRectsById(int ids[], int rectCount)
 {
 	int idCount = rectCount;
@@ -63,20 +74,34 @@ Tile* TileRectWrapper::GetRectsById(int ids[], int rectCount)
 	for (int i = 0; i < idCount; i++)
 	{
 		returnable[i] = rectArr[ids[i]];
-		//returnable[i] = { rectArr[i].rect.i, rectArr[i].rect.j };
 	}
 
 	return returnable;
 }
+/// <summary>
+/// Visszaadja a paraméterként kapott ID-hoz tartozó pointert
+/// </summary>
+/// <param name="id"></param>
+/// <returns></returns>
 Tile* TileRectWrapper::GetPointerToId(int id)
 {
 	return &rectArr[id];
 }
+/// <summary>
+/// Frissíti a paraméterben kapott ID-hoz tartozó cella textúraID-ját
+/// </summary>
+/// <param name="id">Cella ID-ja</param>
+/// <param name="texID">Új textúra szám</param>
 void TileRectWrapper::UpdateTexIdById(int id, int texID)
 {
 	rectArr[id].texId = texID;
 }
-
+/// <summary>
+/// Visszaadja két cella közti távolságot
+/// </summary>
+/// <param name="a"></param>
+/// <param name="b"></param>
+/// <returns></returns>
 double TileRectWrapper::distance(Tile* a, Tile* b)
 {
 	return sqrt(pow(b->rect.i - a->rect.i, 2) + pow(b->rect.j - a->rect.j, 2));

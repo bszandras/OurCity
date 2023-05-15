@@ -21,7 +21,11 @@
 #include "Helicopter.h"
 
 
-
+/// <summary>
+/// Szimuláció konstruktora
+/// </summary>
+/// <param name=""></param>
+/// <returns></returns>
 CMyApp::CMyApp(void)
 {
 #ifndef TESTING
@@ -47,6 +51,10 @@ CMyApp::~CMyApp(void)
 	delete time;
 }
 
+/// <summary>
+/// Ez inicializál mindent, a szimulációs logikát és a rendereléshez szükséges erőforrásokat is.
+/// </summary>
+/// <returns>Igazzal tér vissza ha sikeres az inicializáció.</returns>
 bool CMyApp::Init()
 {
 #ifndef TESTING
@@ -74,66 +82,6 @@ bool CMyApp::Init()
 	overlay = new Overlay();
 #endif
 
-	
-
-	//builder = new Builder(scene->getWorld()->getWrapper(), mouseController, scene->getWorld());
-
-	/*
-	std::vector<int> ids = scene->getWorld()->tileIdsInArea({ 0,0 }, { 250,128 });
-	std::cout << ids.size() << std::endl;
-
-	for (int i = 0; i < ids.size(); i++)
-	{
-		scene->getWorld()->getWrapper()->UpdateTexIdById(ids[i], 0);
-	}
-	*/
-	/*
-	Tile t;
-	t.rect.i = 0;
-	t.rect.j = 1;
-
-	Tile t1;
-	t1.rect.i = 1;
-	t1.rect.j = 2;
-
-	Tile t2;
-	t2.rect.i = 1;
-	t2.rect.j = 1;
-
-	Tile t3;
-	t3.rect.i = 1;
-	t3.rect.j = 3;
-
-	Tile t4;
-	t4.rect.i = 2;
-	t4.rect.j = 2;
-
-	Tile t5;
-	t5.rect.i = 2;
-	t5.rect.j = 3;
-
-	RoadGraph* roadGraph = new RoadGraph();
-	roadGraph->addRoad(&t);
-	roadGraph->addRoad(&t1);
-	roadGraph->addRoad(&t2);
-	roadGraph->addRoad(&t3);
-	roadGraph->addRoad(&t4);
-	roadGraph->addRoad(&t5);
-	roadGraph->printGraph();
-	std::cout << "----------------" << std::endl;
-	roadGraph->removeRoad(&t5);
-	roadGraph->removeRoad(&t4);
-	roadGraph->removeRoad(&t3);
-	roadGraph->removeRoad(&t2);
-
-	roadGraph->printGraph();
-
-
-	Factory* fact = new Factory(&t);
-	House* house = new House(&t);
-	ServiceBuilding* serv = new ServiceBuilding(&t);
-	*/
-
 #ifndef TESTING
 
 	// ----------
@@ -148,14 +96,7 @@ bool CMyApp::Init()
 	// hozzunk létre egy új VBO erőforrás nevet
 	glGenBuffers(1, &m_vboID); 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
-	/*
-	glBindBuffer(GL_ARRAY_BUFFER, m_vboID); // tegyük "aktívvá" a létrehozott VBO-t
-	// töltsük fel adatokkal az aktív VBO-t
-	glBufferData( GL_ARRAY_BUFFER,					// az aktív VBO-ba töltsünk adatokat
-				  sizeof(Vertex) * vertCount,		// ennyi bájt nagyságban
-				  vert,								// erről a rendszermemóriabeli címről olvasva
-				  GL_STATIC_DRAW);					// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévő adatokat	
-				  */
+	
 	// VAO-ban jegyezzük fel, hogy a VBO-ban az első 3 float sizeof(Vertex)-enként lesz az első attribútum (pozíció)
 	glEnableVertexAttribArray(0); // ez lesz majd a pozíció
 	glVertexAttribPointer(
@@ -193,15 +134,8 @@ bool CMyApp::Init()
 	// hozzunk létre egy új VBO erőforrás nevet
 	glGenBuffers(1, &overlay_vboID);
 	glBindBuffer(GL_ARRAY_BUFFER, overlay_vboID);
-	/*
-	glBindBuffer(GL_ARRAY_BUFFER, m_vboID); // tegyük "aktívvá" a létrehozott VBO-t
-	// töltsük fel adatokkal az aktív VBO-t
-	glBufferData( GL_ARRAY_BUFFER,					// az aktív VBO-ba töltsünk adatokat
-				  sizeof(Vertex) * vertCount,		// ennyi bájt nagyságban
-				  vert,								// erről a rendszermemóriabeli címről olvasva
-				  GL_STATIC_DRAW);					// úgy, hogy a VBO-nkba nem tervezünk ezután írni és minden kirajzoláskor felhasnzáljuk a benne lévő adatokat
-				  */
-				  // VAO-ban jegyezzük fel, hogy a VBO-ban az első 3 float sizeof(Vertex)-enként lesz az első attribútum (pozíció)
+
+	// VAO-ban jegyezzük fel, hogy a VBO-ban az első 3 float sizeof(Vertex)-enként lesz az első attribútum (pozíció)
 	glEnableVertexAttribArray(0); // ez lesz majd a pozíció
 	glVertexAttribPointer(
 		(GLuint)0,				// a VB-ben található adatok közül a 0. "indexű" attribútumait állítjuk be
@@ -276,6 +210,9 @@ bool CMyApp::Init()
 	return true;
 }
 
+/// <summary>
+/// Felszabadítja a renderelésnél felhasznált erőforrásokat.
+/// </summary>
 void CMyApp::Clean()
 {
 #ifndef TESTING
@@ -289,6 +226,10 @@ void CMyApp::Clean()
 #endif
 }
 
+/// <summary>
+/// Játék update tick-je.
+/// Ebben fut a szimuláció és ez kezeli a felhasználói inputot.
+/// </summary>
 void CMyApp::Update()
 {
 	// frame elején inicializáljuk az aktuális időt
@@ -351,10 +292,6 @@ void CMyApp::Update()
 			return;
 		}
 		int tileID = (tileId.y * world->getWidth() + tileId.x);
-		//world->getWrapper()->UpdateTexIdById((tileId.y * world->getWidth() + tileId.x), 1);
-
-		//Tile* t = world->getTileOnCoords(tileId.x, tileId.y);
-		//std::cout << t->x << " " << t->y << std::endl;
 		
 		if (mouseController->getMouseState() == MouseState::CLICK)
 		{
@@ -369,43 +306,10 @@ void CMyApp::Update()
 					#define DEBUG
 #ifdef DEBUG
 					Tile* t = world->getWrapper()->GetPointerToId(tileID);
-					//std::cout << "tile data: " << std::endl;
-					//std::cout << "-Fire chance: " << t->fireChance << std::endl;
-					//std::cout << "-Happiness modifier: " << t->happinessModifer << std::endl;
 #endif // DEBUG
 					// ha nem tűz click akkor zóna
 					selectedZone = world->getZoneStatsForTile(tileID);
-					if (selectedZone.z == nullptr)
-					{
-						//std::cout << "no zone" << std::endl;
-
-
-					}
-					else
-					{
-						//std::cout << "tile count: " << selectedZone.tileCount << std::endl;
-						//std::cout << "tax multiply: " << selectedZone.z->getTaxRate() << std::endl;
-
-						// lakó számlálás demo
-						if (selectedZone.z->getType() == 0)
-						{
-							int residents = 0;
-							for (int i = 0; i < selectedZone.tileCount; i++)
-							{
-								Tile t = selectedZone.tiles[i];
-								if (t.type == 0)
-								{
-									continue;
-								}
-								House h = world->getHouses()->at((int)t.building / 24);
-								residents += h.getResidents().size();
-							}
-							//std::cout << residents << std::endl;
-						}
-					}
 				}
-				
-				
 			}
 		}
 		else if (mouseController->getMouseState() == MouseState::DRAG)
@@ -424,6 +328,11 @@ void CMyApp::Update()
 #endif
 }
 
+/// <summary>
+/// Renderelés
+/// Először a világot jeleníti meg, majd az Overlay-eket
+/// Overlay-be tartozik a kurzor, kijelölések, tűzesetek és helikopterek
+/// </summary>
 void CMyApp::Render()
 {
 #ifndef TESTING
@@ -432,7 +341,6 @@ void CMyApp::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//cullcheck és vertex data konstruálás
-
 	World* world = scene->getWorld();
 	Camera* camera = scene->getCamera();
 
@@ -473,8 +381,6 @@ void CMyApp::Render()
 		//rect y-jából tudok z-depth-et számolni, betolom egy -0.9 - 0.9 space-be
 		//rect.z-ben alapból texid van
 		float rectDepth = currRect.y / 64 / worldHeight;	//[0,1]
-		//rectDepth *= 1.9f;									//[0,1.8]
-		//rectDepth -= 0.9f;									//[-0.9, 0.9]
 		rectDepth *= 0.9f;
 		//ezek valamiért sok cpu időbe kerülnek
 		//azért furcsa, mert a memória terület már le van foglalva, csak fel kell tölteni adattal
@@ -618,10 +524,6 @@ void CMyApp::Render()
 		t.rect = originalTile->rect;
 		t.texId = 3;
 
-
-		//Tile t = selectedZone.tiles[i - cursorSize];
-		//t.texId = 41 + selectedZone.z->getType();
-		// rect indexei
 		Vector3Data vec3data = { t.rect.i, t.rect.j, -0.94 };
 		// index -> real position
 		vec3data.x = (vec3data.x * 64) + (vec3data.y * 32);
@@ -646,13 +548,7 @@ void CMyApp::Render()
 		t.texId = 50 + heliTile.texId;
 
 
-		//Tile t = selectedZone.tiles[i - cursorSize];
-		//t.texId = 41 + selectedZone.z->getType();
-		// rect indexei
 		Vector3Data vec3data = { t.rect.i, t.rect.j, -0.945 };
-		// index -> real position
-		//vec3data.x = (vec3data.x * 64) + (vec3data.y * 32);
-		//vec3data.y = (vec3data.y * (64 - 41));
 
 		// position offset, hogy rect origin jó helyen legyen
 		vec3data.x -= 32;
@@ -690,6 +586,10 @@ void CMyApp::Render()
 }
 
 #ifndef TESTING
+/// <summary>
+/// Ezzel a függvénnyel kapja meg az applikáció az ablaktól a billentyűzet LENYOMÁS inputokat.
+/// </summary>
+/// <param name="key">Billentyűkód</param>
 void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
 {
 	//std::cout << key.keysym.sym << std::endl;
@@ -709,8 +609,10 @@ void CMyApp::KeyboardDown(SDL_KeyboardEvent& key)
 	}
 	currentlyPressedKeys.push_back(key.keysym.sym);
 }
-
-
+/// <summary>
+/// Ezzel a függvénnyel kapja meg az applikáció az ablaktól a billentyűzet FELENGEDÉS inputokat.
+/// </summary>
+/// <param name="key">Billentyűkód</param>
 void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)
 {
 	if (currentlyPressedKeys.size() == 0)
@@ -727,18 +629,27 @@ void CMyApp::KeyboardUp(SDL_KeyboardEvent& key)
 	}
 	
 }
-
+/// <summary>
+/// Ezzel a függvénnyel kapja meg az applikáció az ablaktól az egér MOZGATÁS inputokat.
+/// </summary>
+/// <param name="mouse">Egér kód</param>
 void CMyApp::MouseMove(SDL_MouseMotionEvent& mouse)
 {
 	mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::MOVED);
 }
-
+/// <summary>
+/// Ezzel a függvénnyel kapja meg az applikáció az ablaktól az egér GOMBLENYOMÁS inputokat.
+/// </summary>
+/// <param name="mouse">Egér kód</param>
 void CMyApp::MouseDown(SDL_MouseButtonEvent& mouse)
 {
 	mouseController->UpdateControlFrame({ (float)mouse.x, (float)mouse.y }, MouseState::DRAG);
 	mouseController->setDragStart(scene->getWorld(), scene->getCamera());
 }
-
+/// <summary>
+/// Ezzel a függvénnyel kapja meg az applikáció az ablaktól az egér GOMBFELENGEDÉS inputokat.
+/// </summary>
+/// <param name="mouse">Egér kód</param>
 void CMyApp::MouseUp(SDL_MouseButtonEvent& mouse)
 {
 	if (mouse.button == SDL_BUTTON_LEFT)
@@ -755,26 +666,32 @@ void CMyApp::MouseUp(SDL_MouseButtonEvent& mouse)
 	}
 	
 }
-
+/// <summary>
+/// Ezzel a függvénnyel kapja meg az applikáció az ablaktól az egér GÖRGŐ inputokat.
+/// </summary>
+/// <param name="mouse">Egér kód</param>
 void CMyApp::MouseWheel(SDL_MouseWheelEvent& wheel)
 {
 }
-
-// a két paraméterben az új ablakméret szélessége (_w) és magassága (_h) található
+/// <summary>
+/// Ezzel a függvénnyel kapja meg az applikáció az ablaktól az új ablak méretét.
+/// </summary>
+/// <param name="_w">Új szélesség</param>
+/// <param name="_h">Új magasság</param>
 void CMyApp::Resize(int _w, int _h)
 {
 	glViewport(0, 0, _w, _h );
 	//ez fontos
 	scene->getWorld()->reCalculateOrigoOffset();
 }
-
+/// <summary>
+/// Textúra betöltő függvény
+/// </summary>
 void CMyApp::LoadTextures()
 {
 	GLuint texture;
 	SDL_Surface* surface;
 	surface = IMG_Load("textureatlas.png");
-	//surface = IMG_Load("light-mask.png");
-	//surface = IMG_Load("light-mask2.png");
 	glGenTextures(1, &texture);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -787,12 +704,11 @@ void CMyApp::LoadTextures()
 
 	SDL_FreeSurface(surface);
 
-	//return;
+
 	//light mask
 
 	GLuint texture2;
 	SDL_Surface* surface2;
-	//surface = IMG_Load("textureatlas.png");
 	surface2 = IMG_Load("light-mask.png");
 	glGenTextures(1, &texture2);
 	glActiveTexture(GL_TEXTURE0+1);
@@ -807,32 +723,51 @@ void CMyApp::LoadTextures()
 	SDL_FreeSurface(surface);
 }
 #endif
-
+/// <summary>
+/// Külső elérésű függvény ami irányítja a játékos építkezésé módját.
+/// </summary>
+/// <param name="state">Elsődleges építkezési mód</param>
+/// <param name="subState">Másodlagos építkezési mód</param>
 void CMyApp::ChangeBuilderState(BuilderState state, BuilderSubState subState)
 {
 	scene->getBuilder()->ChangeState(state, subState);
 }
-
+/// <summary>
+/// Külső elérésű függvény ami irányítja a játék sebességét.
+/// </summary>
+/// <param name="i"></param>
 void CMyApp::ChangeSpeed(int i)
 {
 	scene->getGameTime()->changeSpeed(i);
 }
-
+/// <summary>
+/// Játékidő getter
+/// </summary>
+/// <returns></returns>
 std::string CMyApp::getGameTime()
 {
 	return scene->getGameTime()->getTimeString();
 }
-
+/// <summary>
+/// GameState getter
+/// </summary>
+/// <returns></returns>
 GameState* CMyApp::getState()
 {
 	return scene->getGameState();
 }
-
+/// <summary>
+/// Kívülről ezzel lehet elérni, hogy a játékos melyik zónára kattintott rá.
+/// </summary>
+/// <returns></returns>
 ZoneStatData* CMyApp::getSelectedZone()
 {
 	return &selectedZone;
 }
-
+/// <summary>
+/// GameScene getter 
+/// </summary>
+/// <returns></returns>
 GameScene* CMyApp::getScene()
 {
 	return scene;

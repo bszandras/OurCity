@@ -1,5 +1,11 @@
 #include "ZoneTools.h"
 
+/// <summary>
+/// Megszámolja, hogy egy zónában hányan laknak/dolgoznak
+/// </summary>
+/// <param name="selected">Kiválasztott zóna</param>
+/// <param name="w">Világra pointer</param>
+/// <returns>Lakosok száma</returns>
 int ZoneTools::getResidentCount(ZoneStatData* selected, World* w)
 {
 	int returnable = 0;
@@ -44,7 +50,13 @@ int ZoneTools::getResidentCount(ZoneStatData* selected, World* w)
 	}
 	return returnable;
 }
-
+/// <summary>
+/// Kiszámolja, hogy az adott zónában mennyi az átlag elégedettség
+/// </summary>
+/// <param name="selected">Kiválasztott zóna</param>
+/// <param name="w">Világra pointer</param>
+/// <param name="resMan">Resident Manager pointer</param>
+/// <returns>Átlagos boldogság</returns>
 int ZoneTools::getAverageHappiness(ZoneStatData* selected, World* w, ResidentManager* resMan)
 {
 	int returnable = 0;

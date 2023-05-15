@@ -7,7 +7,11 @@
 #endif
 #include <random>
 
-
+/// <summary>
+/// Világ konstruktora
+/// Ez hozza létre az összes celláját, alrégióját a térképnek
+/// </summary>
+/// <returns></returns>
 World::World()
 {
 	globalTaxRate = 1.0;
@@ -91,61 +95,86 @@ World::~World()
 	// TODO destruktor
 	delete tileRectWrapper;
 }
-
+/// <summary>
+/// Világ origó offset/pozíció gettere
+/// </summary>
+/// <returns></returns>
 Vector2Data World::getOrigoOffset()
 {
 	return origoOffset;
 }
-
+/// <summary>
+/// Újra számolja az origo offsetet
+/// Ez fontos a megjelenítő ablak átméretezésekor
+/// </summary>
 void World::reCalculateOrigoOffset()
 {
 #ifndef TESTING
 	origoOffset = { Window::instance->getWidth() / 2.0f, Window::instance->getHeight() / 2.0f };
 #endif
 }
-
+/// <summary>
+/// Alrégiók gettere
+/// </summary>
+/// <returns></returns>
 std::vector<SubMap>* World::getSubmaps()
 {
 	return &submaps;
 }
-
+/// <summary>
+/// Világ szélesség gettere
+/// </summary>
+/// <returns></returns>
 int World::getWidth()
 {
 	return width;
 }
-
+/// <summary>
+/// Világ magasság gettere
+/// </summary>
+/// <returns></returns>
 int World::getHeight()
 {
 	return height;
 }
+/// <summary>
+/// TileWrapper gettere
+/// (Lásd TileRect file)
+/// </summary>
+/// <returns></returns>
 TileRectWrapper* World::getWrapper()
 {
 	return tileRectWrapper;
 }
-
+/// <summary>
+/// Világ pozíciót, cella koordinátává konvertál
+/// </summary>
+/// <param name="worldPos">Világ pozíció</param>
+/// <returns>Cella kooridnáta</returns>
 Vector2Data World::tileCoorOnWorldPosition(Vector2Data worldPos)
 {
-	//offsetelni kell, mert a n�gyzetek bal als� sarka az origin
-	//worldPos.x -= 32;
-	//worldPos.y -= 11;
-
-	//int y = worldPos.y / (64 - 41);
-	//int x = (worldPos.x - y * 32) / 64;
-
 	int y = round(worldPos.y / (64 - 41));
 	int x = round((worldPos.x - y * 32) / 64);
 
-	//std::cout << x << " " << y << std::endl;
 	return { (float)x, (float)y };
 }
-
+/// <summary>
+/// Lekéri az adott koordinátán lévő cellát
+/// </summary>
+/// <param name="i">X koordináta</param>
+/// <param name="j">Y kooridnáta</param>
+/// <returns>Cella pointere</returns>
 Tile* World::getTileOnCoords(int i, int j)
 {
 	int index = j * width;
 	index += i;
 	return this->tileRectWrapper->GetPointerToId(index);
 }
-
+/// <summary>
+/// Lekéri egy cella összes szomszédját
+/// </summary>
+/// <param name="origin">Eredeti cella</param>
+/// <returns>Szomszédos cellák tömbje</returns>
 Tile** World::getNeighboursWritablePointers(Tile* origin)
 {
 	Tile** tiles = new Tile*[4];
@@ -160,10 +189,15 @@ Tile** World::getNeighboursWritablePointers(Tile* origin)
 	tiles[3] = t;
 	return tiles;
 }
+/// <summary>
+/// Lekéri egy cella összes szomszédját egy sugárban
+/// </summary>
+/// <param name="origin">Eredeti cella</param>
+/// <param name="radius">Keresési sugár</param>
+/// <returns>Cellák tömbje</returns>
 Tile** World::getWritableTilePointersInRadius(Tile* origin, int radius)
 {
 	int tileCount = (radius + 1 + radius) * (radius + 1 + radius) - 1;
-	//std::cout << tileCount << std::endl;
 	Tile** returnable = new Tile* [tileCount];
 
 	int originID = origin->rect.j * width + origin->rect.i;
@@ -268,6 +302,12 @@ Tile** World::getWritableTilePointersInRadius(Tile* origin, int radius)
 
 	return returnable;
 }
+/// <summary>
+/// Lekéri egy cella összes szomszédját amire direkt rálát egy bizonyos távolságon belül
+/// </summary>
+/// <param name="origin">Eredeti cella</param>
+/// <param name="distance">Keresési távolság</param>
+/// <returns>Cellák tömbje</returns>
 Tile** World::getWritableTilePointersInDirectLineOfSight(Tile* origin, int distance)
 {
 	Tile** returnable = new Tile * [distance * 4];
@@ -290,95 +330,12 @@ Tile** World::getWritableTilePointersInDirectLineOfSight(Tile* origin, int dista
 
 	return returnable;
 }
-// elcs�sztatott t�glalap kijel�l�s
-/*
-std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
-{
-	std::vector<int> returnable;
-
-	int blY = round(botleft.y / (64 - 41));
-	int blX = round((botleft.x - blY * 32) / 64);
-
-	int trY = round(topright.y / (64 - 41));
-	int trX = round((topright.x - trY * 32) / 64);
-
-	//int idOffset = 0;
-
-	for (int j = 0; j <= trY - blY; j++)
-	{
-		for (int i = 0; i <= trX - blX; i++)
-		{
-			int id = ((blY + j) * width) + blX;
-			returnable.push_back(id + i);
-		}
-	}
-	//std::cout << returnable.size() << std::endl;
-	return returnable;
-}
-*/
-
-// fix n�gyzet kijel�l�s
-/*
-std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
-{
-	std::vector<int> returnable;
-
-	int blY = round(botleft.y / (64 - 41));
-	int blX = round((botleft.x - blY * 32) / 64);
-
-	int trY = round(topright.y / (64 - 41));
-	int trX = round((topright.x - trY * 32) / 64);
-
-
-	int collumnOffset = -(trX - blX);
-	for (int j = 0; j <= (trX - blX); j++)
-	{
-		for (int i = 0; i <= trX - blX; i++)
-		{
-			int id = ((blY - i + j - collumnOffset) * width) + blX;
-			if (id >= 0)
-			{
-				returnable.push_back(id + i);
-			}
-
-		}
-		collumnOffset += 2;
-	}
-	return returnable;
-}
-*/
-
-//	TODO isometrikus t�glalap
-/*
-std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
-{
-	std::vector<int> returnable;
-
-	int blY = round(botleft.y / (64 - 41));
-	int blX = round((botleft.x - blY * 32) / 64);
-
-	int trY = round(topright.y / (64 - 41));
-	int trX = round((topright.x - trY * 32) / 64);
-
-
-	int collumnOffset = -(trX - blX);
-	int width = trX - blX;
-	int height = width + (trY - blY) - width;
-	for (int j = 0; j <= height; j++)
-	{
-		for (int i = 0; i <= width; i++)
-		{
-			int id = ((blY - i + j - collumnOffset) * World::width) + blX;
-			returnable.push_back(id + i);
-		}
-		collumnOffset += 2;
-	}
-	return returnable;
-}
-*/
-
-// cs�k kijel�l�s
-
+/// <summary>
+/// Egy sávban visszaad minden cella ID-t
+/// </summary>
+/// <param name="botleft">Sáv kezdőpontja</param>
+/// <param name="topright">Sáv végpontja</param>
+/// <returns>Cella ID-k</returns>
 std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 {
 	std::vector<int> returnable;
@@ -442,22 +399,35 @@ std::vector<int> World::tileIdsInArea(Vector2Data botleft, Vector2Data topright)
 	
 	return returnable;
 }
-
+/// <summary>
+/// Világhoz hozzáadja az új lakózónát
+/// </summary>
+/// <param name="zone">Új lakózóna</param>
 void World::addHouseZone(Zone zone)
 {
 	this->HouseZones.push_back(zone);
 }
-
+/// <summary>
+/// Világhoz hozzáadja az új iparizónát
+/// </summary>
+/// <param name="zone">Új iparizóna</param>
 void World::addIndustryZone(Zone zone)
 {
 	this->IndustryZones.push_back(zone);
 }
-
+/// <summary>
+/// Világhoz hozzáadja az új szolgáltatásizónát
+/// </summary>
+/// <param name="zone">Új szolgáltatásizóna</param>
 void World::addServiceZone(Zone zone)
 {
 	this->ServiceZones.push_back(zone);
 }
-
+/// <summary>
+/// Vilához hozzáad egy új házat az adott mezőn
+/// </summary>
+/// <param name="tile">Cél mező</param>
+/// <returns>Lakóház pointere</returns>
 House* World::addHouse(Tile* tile)
 {
 	House h(tile);
@@ -465,36 +435,57 @@ House* World::addHouse(Tile* tile)
 
 	return Houses.data() + Houses.size()-1;
 }
-
+/// <summary>
+/// Vilához hozzáad egy új gyárat az adott mezőn
+/// </summary>
+/// <param name="tile">Cél mező</param>
+/// <returns>Gyár pointere</returns>
 Factory* World::addFactory(Tile* tile)
 {
 	Factory f(tile);
 	Factories.push_back(f);
 	return &Factories.at(Factories.size() - 1);
 }
-
+/// <summary>
+/// Vilához hozzáad egy új szolgáltatási épületet az adott mezőn
+/// </summary>
+/// <param name="tile">Cél mező</param>
+/// <returns>Szolgáltatási épület pointere</returns>
 ServiceBuilding* World::addServBuilding(Tile* tile)
 {
 	ServiceBuilding sv(tile);
 	ServBuildings.push_back(sv);
 	return &ServBuildings.at(ServBuildings.size() - 1);
 }
-
+/// <summary>
+/// Visszaadja a lakózónák gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<Zone>* World::getHouseZones()
 {
 	return &HouseZones;
 }
-
+/// <summary>
+/// Visszaadja az iparizónák gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<Zone>* World::getIndustryZones()
 {
 	return &IndustryZones;
 }
-
+/// <summary>
+/// Visszaadja a szolgáltatásizónák gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<Zone>* World::getServiceZones()
 {
 	return &ServiceZones;
 }
-
+/// <summary>
+/// Visszaadja az adott cellához tartozó zónát
+/// </summary>
+/// <param name="tileID">Cél cella</param>
+/// <returns></returns>
 ZoneStatData World::getZoneStatsForTile(int tileID)
 {
 	ZoneStatData z;
@@ -550,52 +541,87 @@ ZoneStatData World::getZoneStatsForTile(int tileID)
 	}
 	return z;
 }
-
+/// <summary>
+/// Visszaadja a lakóházak gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<House>* World::getHouses()
 {
 	return &Houses;
 }
-
+/// <summary>
+/// Visszaadja a gyárak gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<Factory>* World::getFactories()
 {
 	return &Factories;
 }
-
+/// <summary>
+/// Visszaadja a szolgáltatási épületek gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<ServiceBuilding>* World::getServBuildings()
 {
 	return &ServBuildings;
 }
-
+/// <summary>
+/// Visszadja a kér lakóházat
+/// </summary>
+/// <param name="id">ID</param>
+/// <returns></returns>
 House* World::getHouse(int id)
 {
 	return &Houses.at(id);
 }
-
+/// <summary>
+/// Visszadja a kér gyárat
+/// </summary>
+/// <param name="id">ID</param>
+/// <returns></returns>
 Factory* World::getFactory(int id)
 {
 	return &Factories.at(id);
 }
-
+/// <summary>
+/// Visszadja a kér szolgáltatási épületet
+/// </summary>
+/// <param name="id">ID</param>
+/// <returns></returns>
 ServiceBuilding* World::getServBuilding(int id)
 {
 	return &ServBuildings.at(id);
 }
-
+/// <summary>
+/// Hozzáad a világhoz, útgráfhoz az új utat
+/// </summary>
+/// <param name="t">Cél cella</param>
+/// <param name="scene">GameScene pointere</param>
+/// <returns>Igaz, ha sikeres az új út hozzáadása</returns>
 bool World::AddRoad(Tile* t, GameScene* scene)
 {
 	return roadGraph.addRoad(t, scene->getGameState());;
 }
-
+/// <summary>
+/// Útgráf getter
+/// </summary>
+/// <returns></returns>
 RoadGraph* World::getRoadGraph()
 {
 	return &roadGraph;
 }
-
+/// <summary>
+/// Hozzáad a világhoz egy új tűzoltóságot
+/// </summary>
+/// <param name="firestation">Új tűzoltóság pointere</param>
 void World::AddFireStation(FireStation* firestation)
 {
 	fireStations.push_back(firestation);
 }
-
+/// <summary>
+/// Töröl a világból egy tűzoltóságot
+/// </summary>
+/// <param name="firestation">Törlendő tűzoltóság pointere</param>
 void World::RemoveFireStation(FireStation* firestation)
 {
 	for (int i = 0; i < fireStations.size(); i++)
@@ -606,17 +632,26 @@ void World::RemoveFireStation(FireStation* firestation)
 		}
 	}
 }
-
+/// <summary>
+/// Visszaadja a tűzoltóságok gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<FireStation*>* World::getFireStations()
 {
 	return &fireStations;
 }
-
+/// <summary>
+/// A világhoz adja a paraméterként kapott leégethető speciális épületet
+/// </summary>
+/// <param name="specialBuilding">Leégethető speciális épület</param>
 void World::AddBurnableSpecialBuilding(SpecialBuilding* specialBuilding)
 {
 	burnableBuildings.push_back(specialBuilding);
 }
-
+/// <summary>
+/// Törli a világból a leégethető speciális épületet
+/// </summary>
+/// <param name="specialBuilding"></param>
 void World::RemoveBurnableSpecialBuilding(SpecialBuilding* specialBuilding)
 {
 	for (int i = 0; i < burnableBuildings.size(); i++)
@@ -627,12 +662,19 @@ void World::RemoveBurnableSpecialBuilding(SpecialBuilding* specialBuilding)
 		}
 	}
 }
-
+/// <summary>
+/// Visszaadja a leégethető speciális épületek gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<SpecialBuilding*>* World::getBurnableSpecials()
 {
 	return &burnableBuildings;
 }
-
+/// <summary>
+/// A világhoz ad egy új tűzet
+/// </summary>
+/// <param name="t">Tűre mutató pointer</param>
+/// <returns></returns>
 int World::AddFire(Tile* t)
 {
 	// tile még nem tudja hogy ég
@@ -645,12 +687,18 @@ int World::AddFire(Tile* t)
 	t->onFire = true;
 	return 1;
 }
-
+/// <summary>
+/// Visszaadja a tűzek gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<Fire>* World::getFires()
 {
 	return &fires;
 }
-
+/// <summary>
+/// Előrébb lépteti a tűzeket, kezeli a terjedést és leégést
+/// </summary>
+/// <param name="deltaDays">Legutóbbi frissítés óta eltellt napok</param>
 void World::UpdateFires(int deltaDays)
 {
 	// folytatja a tüzet
@@ -734,7 +782,12 @@ void World::UpdateFires(int deltaDays)
 		}
 	}
 }
-
+/// <summary>
+/// Tűzoltó függvény.
+/// A paraméterként kapott cella ID-ján megpróbálja eloltani a tűzet, indít helikoptert.
+/// </summary>
+/// <param name="tileID"></param>
+/// <returns></returns>
 bool World::PutOutFire(int tileID)
 {
 	Tile* t = tileRectWrapper->GetPointerToId(tileID);
@@ -769,16 +822,13 @@ bool World::PutOutFire(int tileID)
 	float dist = 1000000;
 	int closestID = -1;
 	// find closest available firestation
-	std::cout << "Fire pos " << end.x << " " << end.y << std::endl;
 	for (int i = 0; i < fireStations.size(); i++)
 	{
 		TileRect r = fireStations.at(i)->getTile()->rect;
 		Vector2Data spos;
 		spos.x = (r.i * 64) + (r.j * 32);
 		spos.y = (r.j * (64 - 41));
-		std::cout << "Station pos " << spos.x << " " << spos.y << std::endl;
 		float distance = Vector2Tool::Distance(end, spos);
-		std::cout << distance <<" " <<i<< std::endl;
 		if (distance < dist && fireStations.at(i)->isAvailable())
 		{
 			station = fireStations.at(i);
@@ -786,8 +836,6 @@ bool World::PutOutFire(int tileID)
 			closestID = i;
 		}
 	}
-	std::cout << "closestid " << closestID << std::endl;
-	//FireStation* station = fireStations.at(0);
 	if (station == nullptr || !station->isAvailable())
 	{
 		return true;
@@ -799,13 +847,14 @@ bool World::PutOutFire(int tileID)
 	start.x = (stationTile->rect.i * 64) + (stationTile->rect.j * 32);
 	start.y = (stationTile->rect.j * (64 - 41));
 
-	
-
 	Helicopter* heli = new Helicopter(start, end, targetFire, station);
 	helicopters.push_back(heli);
 	return true;
 }
-
+/// <summary>
+/// Frissíti a helikoptereket. Mozgatja a pozíciójuk és frissíti a rotorokat.
+/// </summary>
+/// <param name="deltaTime">Legutóbbi frissítés óta eltellt másodpercek</param>
 void World::AdvanceHelicopters(float deltaTime)
 {
 	for (int i = 0; i < helicopters.size(); i++)
@@ -839,7 +888,10 @@ void World::AdvanceHelicopters(float deltaTime)
 		}
 	}
 }
-
+/// <summary>
+/// Törli a világból a paraméterként kapott helikopter pointerét
+/// </summary>
+/// <param name="heli">Törlendő helikopter</param>
 void World::RemoveHelicopter(Helicopter* heli)
 {
 	for (int i = 0; i < helicopters.size(); i++)
@@ -851,27 +903,41 @@ void World::RemoveHelicopter(Helicopter* heli)
 		}
 	}
 }
-
+/// <summary>
+/// Visszaadja a helikopterek gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<Helicopter*>* World::getHelicopters()
 {
 	return &helicopters;
 }
-
+/// <summary>
+/// Visszaadja a leégett lakóházak ID-jait
+/// </summary>
+/// <returns></returns>
 std::vector<int> World::getBurntHouses()
 {
 	return this->burntHouses;
 }
-
+/// <summary>
+/// Visszaadja a leégett gyárak ID-jait
+/// </summary>
+/// <returns></returns>
 std::vector<int> World::getBurntFactories()
 {
 	return this->burntFactories;
 }
-
+/// <summary>
+/// Visszaadja a leégett szolgáltatási épületek ID-jait
+/// </summary>
+/// <returns></returns>
 std::vector<int> World::getBurntService()
 {
 	return this->burntService;
 }
-
+/// <summary>
+/// Kezeli a leégett épületek sorsát
+/// </summary>
 void World::removeBurntBuildings()
 {
 	// clear előtt gondoskodni kell a leégett épületekről
@@ -930,82 +996,130 @@ void World::removeBurntBuildings()
 	this->burntFactories.clear();
 	this->burntService.clear();
 }
-
+/// <summary>
+/// Globális lakossági adószorzó settere
+/// </summary>
+/// <param name="taxRate"></param>
 void World::setHousingTaxRate(double taxRate)
 {
 	this->housingTaxRate = taxRate;
 }
-
+/// <summary>
+/// Globális ipari adószorzó settere
+/// </summary>
+/// <param name="taxRate"></param>
 void World::setIndustrialTaxRate(double taxRate)
 {
 	this->industrialTaxRate = taxRate;
 }
-
+/// <summary>
+/// Globális szolgáltatási adószorzó settere
+/// </summary>
+/// <param name="taxRate"></param>
 void World::setServiceTaxRate(double taxRate)
 {
 	this->serviceTaxRate = taxRate;
 }
-
+/// <summary>
+/// Alap adó gettere
+/// </summary>
+/// <returns></returns>
 int World::getBaseTax()
 {
 	return baseTax;
 }
-
+/// <summary>
+/// Globális adószorzó gettere
+/// </summary>
+/// <returns></returns>
 float World::getGlobalTaxRate()
 {
 	return globalTaxRate;
 }
-
+/// <summary>
+/// Globális lakossági adószorzó gettere
+/// </summary>
+/// <returns></returns>
 float World::getHousingTaxRate()
 {
 	return housingTaxRate;
 }
-
+/// <summary>
+/// Globális ipari adószorzó gettere
+/// </summary>
+/// <returns></returns>
 float World::getIndustrialTaxRate()
 {
 	return industrialTaxRate;
 }
-
+/// <summary>
+/// Globális szolgáltatási adószorzó gettere
+/// </summary>
+/// <returns></returns>
 float World::getServiceTaxRate()
 {
 	return serviceTaxRate;
 }
-
+/// <summary>
+/// Globális adószorzó pointer gettere
+/// </summary>
+/// <returns></returns>
 float* World::getGlobalTaxRateHandle()
 {
 	return &globalTaxRate;
 }
-
+/// <summary>
+/// Globális lakossági adószorzó pointer gettere
+/// </summary>
+/// <returns></returns>
 float* World::getHousingTaxRateHandle()
 {
 	return &housingTaxRate;
 }
-
+/// <summary>
+/// Globális ipari adószorzó pointer gettere
+/// </summary>
+/// <returns></returns>
 float* World::getIndustrialTaxRateHandle()
 {
 	return &industrialTaxRate;
 }
-
+/// <summary>
+/// Globális szolgáltatási adószorzó pointer gettere
+/// </summary>
+/// <returns></returns>
 float* World::getServiceTaxRateHandle()
 {
 	return &serviceTaxRate;
 }
-
+/// <summary>
+/// Visszaadja a középiskolák gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<HighSchool*>* World::getHighSchools()
 {
 	return &highschools;
 }
-
+/// <summary>
+/// Visszaadja az egyetemek gyűjteményét
+/// </summary>
+/// <returns></returns>
 std::vector<University*>* World::getUniversities()
 {
 	return &universities;
 }
-
+/// <summary>
+/// Hozzáadja a világhoz a paraméterként kapott középiskolát
+/// </summary>
+/// <param name="h"></param>
 void World::addHighschool(HighSchool* h)
 {
 	highschools.push_back(h);
 }
-
+/// <summary>
+/// Törli a világból a paraméterként kapott középiskolát
+/// </summary>
+/// <param name="h"></param>
 void World::removeHighschool(HighSchool* h)
 {
 	for (int i = 0; i < highschools.size(); i++)
@@ -1016,12 +1130,18 @@ void World::removeHighschool(HighSchool* h)
 		}
 	}
 }
-
+/// <summary>
+/// Hozzáadja a világhoz a paraméterként kapott egyetemet
+/// </summary>
+/// <param name="h"></param>
 void World::addUniversity(University* uni)
 {
 	universities.push_back(uni);
 }
-
+/// <summary>
+/// Törli a világból a paraméterként kapott egyetemet
+/// </summary>
+/// <param name="h"></param>
 void World::removeUniversity(University* uni)
 {
 	for (int i = 0; i < universities.size(); i++)
