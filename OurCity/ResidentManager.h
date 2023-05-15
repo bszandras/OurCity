@@ -26,7 +26,6 @@ class ResidentManager {
 		void calculateHousingTax();
 		void calculateIndustrialTax();
 		void calculateServiceTax();
-		
 
 	public:
 		ResidentManager(World* world,Builder* builder, GameState* gameState);
