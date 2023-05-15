@@ -6,8 +6,6 @@
 class Statistics
 {
 private:
-	// Statisztikai adatok
-
 	// Általános város statisztika
 	int population; // Teljes népesség
 	float avgAge; // Átlag életkor
