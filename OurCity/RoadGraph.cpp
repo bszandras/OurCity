@@ -316,14 +316,10 @@ bool RoadGraph::isConnected(Road* road)
 /// <returns>true, ha van false, ha nincs</returns>
 bool RoadGraph::hasBuildingNext(Tile* tile, Tile** neighs)
 {
-    // TODO
-    // NEM DETEKTÁLJA A LEGELSÕ LAKÓHÁZAT
-    // IPART VAGY SERVICE-T
-    // FIGYELNIE KELL A TILE TYPE-JÁRA IS
-    if ((!searchRoadByCoords(neighs[0]->rect.i, neighs[0]->rect.j) && neighs[0]->building != nullptr)
-        || (!searchRoadByCoords(neighs[1]->rect.i, neighs[1]->rect.j) && neighs[1]->building != nullptr)
-        || (!searchRoadByCoords(neighs[2]->rect.i, neighs[2]->rect.j) && neighs[2]->building != nullptr)
-        || (!searchRoadByCoords(neighs[3]->rect.i, neighs[3]->rect.j) && neighs[3]->building != nullptr))
+    if ((!searchRoadByCoords(neighs[0]->rect.i, neighs[0]->rect.j) && (neighs[0]->building != nullptr || neighs[0]->type != 0))
+        || (!searchRoadByCoords(neighs[1]->rect.i, neighs[1]->rect.j) && (neighs[1]->building != nullptr || neighs[1]->type != 0))
+        || (!searchRoadByCoords(neighs[2]->rect.i, neighs[2]->rect.j) && (neighs[2]->building != nullptr || neighs[2]->type != 0))
+        || (!searchRoadByCoords(neighs[3]->rect.i, neighs[3]->rect.j) && (neighs[3]->building != nullptr || neighs[3]->type != 0)))
     {
         return true;
     }
