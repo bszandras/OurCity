@@ -22,6 +22,10 @@ void ResidentManager::createResident()
 	delete r;
 }
 
+/// <summary>
+/// Frissíti a lakos adóösszegét a jelenlegi adókulcsok alapján.
+/// Ezután beszedi a megfelelő adókat
+/// </summary>
 void ResidentManager::updateResidentMonthly()
 {
 	recalculateResidentTax();
@@ -31,10 +35,13 @@ void ResidentManager::updateResidentMonthly()
 
 }
 
+/// <summary>
+/// Kiszámolja, hogy a lakosoknak mennyi adót kell fizetniük a lakóhelyükön
+/// </summary>
 void ResidentManager::calculateHousingTax()
 {
 	std::vector<Zone>* houses = world->getHouseZones();
-	// Végigmegyunk minden lakozonan
+
 	for (int i = 0; i < houses->size(); i++)
 	{
 		int sumTax = 0;
@@ -43,10 +50,8 @@ void ResidentManager::calculateHousingTax()
 		int sumPension = 0;
 		int pensionerCount = 0;
 
-		// Lekerjuk a zonahoz tartozo tile-ok id-jat
 		std::vector<int> tileIds = houses->at(i).getTiles();
 
-		// Vegigmegyunk a tile-okon
 		for (int j = 0; j < tileIds.size(); j++)
 		{
 			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
@@ -77,22 +82,17 @@ void ResidentManager::calculateHousingTax()
 				}
 			}
 		}
-		/*
-		std::cout << "[INFO] " << i << ". lakozonaban " << residentCount << "db lakos " <<
-			sumTax << " osszegu adot fizet. " << std::endl;
-			*/
 		gameState->income(sumTax);
 		gameState->addTransaction("Monthly housing tax: +", sumTax);
 
-		/*
-		std::cout << "[INFO] " << i << ". lakozonaban " << pensionerCount << "db lakos " <<
-			sumPension << " osszegu nyugdijat kap. " << std::endl;
-			*/
 		gameState->spendMoney(sumPension);
 		gameState->addTransaction("Monthly pension: ", -sumPension);
 	}
 }
 
+/// <summary>
+/// Kiszámolja az ipari területek után járó adót
+/// </summary>
 void ResidentManager::calculateIndustrialTax()
 {
 	std::vector<Zone>* industries = world->getIndustryZones();
@@ -102,10 +102,8 @@ void ResidentManager::calculateIndustrialTax()
 		int sumTax = 0;
 		int residentCount = 0;
 
-		// Lekerjuk a zonahoz tartozo tile-ok id-jat
 		std::vector<int> tileIds = industries->at(i).getTiles();
 
-		// Vegigmegyunk a tile-okon
 		for (int j = 0; j < tileIds.size(); j++)
 		{
 			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
@@ -128,16 +126,15 @@ void ResidentManager::calculateIndustrialTax()
 				}
 			}
 		}
-		/*
-		std::cout << "[INFO] " << i << ". ipari zonaban " << residentCount << "db lakos utan " <<
-			sumTax << " osszegu adot kell fizetni. " << std::endl;
-			*/
+
 		gameState->income(sumTax);
-		//gameState->income(sumTax);
 		gameState->addTransaction("Monthly industry tax: +", sumTax);
 	}
 }
 
+/// <summary>
+/// Kiszámolja a kiszolgáló épületek után járó adót
+/// </summary>
 void ResidentManager::calculateServiceTax()
 {
 	std::vector<Zone>* services = world->getServiceZones();
@@ -147,10 +144,8 @@ void ResidentManager::calculateServiceTax()
 		int sumTax = 0;
 		int residentCount = 0;
 
-		// Lekerjuk a zonahoz tartozo tile-ok id-jat
 		std::vector<int> tileIds = services->at(i).getTiles();
 
-		// Vegigmegyunk a tile-okon
 		for (int j = 0; j < tileIds.size(); j++)
 		{
 			Tile* tile = world->getWrapper()->GetPointerToId(tileIds[j]);
@@ -174,16 +169,14 @@ void ResidentManager::calculateServiceTax()
 				}
 			}
 		}
-		/*
-		std::cout << "[INFO] " << i << ". szolgaltatasi zonaban " << residentCount << "db lakos utan " <<
-			sumTax << " osszegu adot kell fizetni. " << std::endl;
-			*/
 		gameState->income(sumTax);
-		//gameState->income(sumTax);
 		gameState->addTransaction("Monthly service tax: +", sumTax);
 	}
 }
 
+/// <summary>
+/// Újraszámolja az összes lakos adóját.
+/// </summary>
 void ResidentManager::recalculateResidentTax()
 {
 	for (int i = 0; i < residents.size(); i++)
@@ -194,6 +187,7 @@ void ResidentManager::recalculateResidentTax()
 		}
 	}
 }
+
 /// <summary>
 /// Ház leégése esetén az ott lakók hajlétalanná válnak.
 /// 
@@ -579,6 +573,10 @@ void ResidentManager::buildService(int i)
 	}
 }
 
+/// <summary>
+/// Visszaadja a lakosok boldogságát
+/// </summary>
+/// <returns></returns>
 float ResidentManager::getGlobalHappiness()
 {
 	return this->globalHappiness;
@@ -628,7 +626,6 @@ int ResidentManager::residentMoveIn()
 /// <summary>
 /// A globális boldogság frissítése, a lakosok alapján.
 /// </summary>
-
 void ResidentManager::updateGlobalHappiness()
 {
 	int sumHappiness = 0;
@@ -672,10 +669,9 @@ void ResidentManager::buildHouse(int i) {
 }
 
 /// <summary>
-/// Lakosok boldogságának a kiszámítása.
+/// Kiszámolja az adott lakos boldogságát.
 /// </summary>
-/// <param name="res"></param>
-
+/// <param name="res">A lakos, akinek a boldogságát számoljuk</param>
 void ResidentManager::calculateHappiness(Resident *res)
 {
 	int defHappiness = 50;
@@ -685,10 +681,8 @@ void ResidentManager::calculateHappiness(Resident *res)
 	// Modositjuk a lakos boldogsagat.
 
 	// Ado merteke alapjan
-	//std::cout << "Ado: " << world->getGlobalTaxRate() << std::endl;
 	if (world->getGlobalTaxRate() <= 1.0)
 	{
-		//std::cout << "Az ado alacsony (+20)" << std::endl;
 		happiness += 20;
 	}
 	else
@@ -696,12 +690,13 @@ void ResidentManager::calculateHappiness(Resident *res)
 		// (1.1-es szorzó felett) - 15 % (és minden további 0.1 es lépésszer -3 %)
 		int defMin = 15;
 		int extraMin = (world->getGlobalTaxRate() - 1.1) * 10 * 3;
-		std::cout << "Az ado magas: -" << defMin + extraMin << std::endl;
+
 		happiness -= defMin + extraMin;
 	}
 	
 	Tile* house = nullptr;
 	Tile* workplace = nullptr;
+
 	// Lakohely es munkahely kozti tavolsag alapjan
 	if (res->getHouse() != -1)
 	{
@@ -727,12 +722,10 @@ void ResidentManager::calculateHappiness(Resident *res)
 		if (distance <= 30.0)
 		{
 			happiness += 10;
-			//std::cout << "Kozel van a munkahely (+10)" << std::endl;
 		}
 		else
 		{
 			happiness -= 10;
-			//std::cout << "Messze van a munkahely (-10)" << std::endl;
 		}
 	}
 
@@ -750,16 +743,13 @@ void ResidentManager::calculateHappiness(Resident *res)
 
 	if (house != nullptr)
 	{
-		//std::cout << "Lakohely szennyezettsege: " << house->pollution << std::endl;
 		// Van-e a közelben ipari terület?
 		if (house->pollution <= 50)
 		{
-			//std::cout << "Nincs a haz kozeleben ipari epulet +10" << std::endl;
 			houseModifier += 10;
 		}
 		else if (house->pollution > 50)
 		{
-			//std::cout << "Van a haz kozeleben ipari epulet -10" << std::endl;
 			houseModifier -= 10;
 		}
 
@@ -772,12 +762,10 @@ void ResidentManager::calculateHappiness(Resident *res)
 			if (extra > 10)
 			{
 				houseModifier += 10;
-				//std::cout << "Van kozbiztonsag a hazanal +10" << std::endl;
 			}
 			else
 			{
 				houseModifier += extra;
-				//std::cout << "Van kozbiztonsag a hazanal +10+" << extra << std::endl;
 			}
 		}
 
@@ -786,7 +774,6 @@ void ResidentManager::calculateHappiness(Resident *res)
 		if (house->happinessModifer > 0)
 		{
 			houseModifier += 10;
-			//std::cout << "Lat staionra hazbol +10" << std::endl;
 		}
 	}
 
@@ -799,19 +786,16 @@ void ResidentManager::calculateHappiness(Resident *res)
 			if (extra > 10)
 			{
 				workPlaceModifier += 10;
-				//std::cout << "Van kozbiztonsag a munkahelyen +10" << std::endl;
 			}
 			else
 			{
 				workPlaceModifier += extra;
-				//std::cout << "Van kozbiztonsag a munkahelyen: +10" << extra << std::endl;
 			}
 		}
 
 		if (workplace->happinessModifer > 0)
 		{
 			workPlaceModifier += 10;
-			//std::cout << "Ralat a stadionra a munkahelyrol +10" << std::endl;
 		}
 	}
 
@@ -857,12 +841,14 @@ void ResidentManager::calculateHappiness(Resident *res)
 	if (factoryRation < 0.8 || factoryRation > 1.2)
 	{
 		happiness -= 10;
-		//std::cout << "Kiegyensulyozatlan az ipar es a szolgaltatas aranya -10" << std::endl;
 	}
 
 	res->setHappiness(happiness);
 }
 
+/// <summary>
+/// A lakosok boldogsága alapján kiszámolja a város átlagos boldogságát
+/// </summary>
 void ResidentManager::calculateGlobalHappiness()
 {
 	int sumHappiness = 0;
@@ -984,16 +970,29 @@ void ResidentManager::residentDeathAndMove()
 	}
 }
 
+/// <summary>
+/// ID alapján megadja a kért lakost
+/// </summary>
+/// <param name="id">A lakos ID-je</param>
+/// <returns>A lakos</returns>
 Resident* ResidentManager::getResident(int id)
 {
 	return &residents[id];
 }
 
+/// <summary>
+/// Megadja, hogy összesen hány lakos van a városban
+/// </summary>
+/// <returns>A lakosok száma</returns>
 int ResidentManager::getResidentCount() const
 {
 	return residents.size();
 }
 
+/// <summary>
+/// Kiszámolja a lakosok átlagéletkorás
+/// </summary>
+/// <returns>A lakosok átlagéletkroa</returns>
 float ResidentManager::getAverageAge() const
 {
 	float sum = 0.0;
@@ -1004,6 +1003,10 @@ float ResidentManager::getAverageAge() const
 	return sum / residents.size();
 }
 
+/// <summary>
+/// Megadja, hogy hány hajléktalan van a városban
+/// </summary>
+/// <returns>A hajléktalanok száma</returns>
 int ResidentManager::getHomeless() const
 {
 	int homeless = 0;
