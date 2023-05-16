@@ -292,7 +292,7 @@ int Window::StartGameLoop()
 
 		ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(53, 121, 65, 255));
 
-		if (ImGui::Button("ESC")) {
+		if (ImGui::Button("Options")) {
 			app->ChangeSpeed(0);
 			ImGui::OpenPopup("Menu");
 		}
@@ -338,22 +338,32 @@ int Window::StartGameLoop()
 			ImGui::Text("Industrial Zone Tax:");
 			ImGui::SliderFloat("##I", i, 0.5f, 1.5f, "%.1f");
 
-			std::vector<Transaction>* trans = app->getState()->getTransactions();
-			//std::cout << trans->size() << std::endl;
-			if (trans->size() != 0)
+			if (ImGui::TreeNode("Transactions:")) 
 			{
-				for (int i = trans->size() - 1; i >= 0; i--)
+				std::vector<Transaction>* trans = app->getState()->getTransactions();
+				//std::cout << trans->size() << std::endl;
+				if (trans->size() != 0)
 				{
-					std::string transaction = trans->at(i).name + std::to_string(trans->at(i).amount);
-					ImGui::Text(transaction.c_str());
+					int limit = 10;
+					if (trans->size() < 10)
+					{
+						limit = trans->size();
+					}
+					for (int i = trans->size() - 1; i >= limit; i--)
+					{
+						std::string transaction = trans->at(i).name + std::to_string(trans->at(i).amount);
+						ImGui::Text(transaction.c_str());
+						ImGui::Separator();
+					}
 				}
+				ImGui::TreePop();
 			}
 
 
 			ImGui::EndPopup();
 		}
 
-
+		/*
 		if (ImGui::Button("Happiness")) {
 			ImGui::OpenPopup("Happiness Statistics");
 		}
@@ -370,7 +380,7 @@ int Window::StartGameLoop()
 			ImGui::Text(text.c_str());
 
 			ImGui::EndPopup();
-		}
+		}*/
 
 		if (ImGui::Button("Statistics")) {
 			ImGui::OpenPopup("Resident Statistics");
