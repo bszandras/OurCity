@@ -110,8 +110,6 @@ void ResidentManager::calculateIndustrialTax()
 			if (tile->type == 2)
 			{
 				int factoryID = (int)tile->building / 24;
-				std::cout << "factoryID: " << factoryID << std::endl;
-				std::cout << "factoryPointer: " << tile->building << std::endl;
 				Factory* h = &(world->getFactories()->at(factoryID));
 				std::vector<int> residentIds = h->getWorkers();
 
@@ -153,8 +151,6 @@ void ResidentManager::calculateServiceTax()
 			if (tile->type == 3)
 			{
 				int serviceID = (int)tile->building / 24;
-				std::cout << "serviceID: " << serviceID << std::endl;
-				std::cout << "servicePointer: " << tile->building << std::endl;
 				ServiceBuilding* h = &(world->getServBuildings()->at(serviceID));
 				std::vector<int> residentIds = h->getWorkers();
 
@@ -223,28 +219,6 @@ void ResidentManager::loseHouse(int hosueID)
 		}
 		
 	}
-	/*
-	for (int i = 0; i < residents.size(); i++)
-	{
-		if (residents[i].getHouse() == hosueID)
-		{
-			residents[i].setHouse(0);
-			residents[i].setIntention(MOVEIN);
-
-			// industry-ban dolgozik, elveszti a munkályát
-			if (residents[i].getWorkplace() > 0)
-			{
-				world->getFactory(residents[i].getWorkplace() - 1)->removeWorker(i);
-			}
-			// service
-			else
-			{
-				world->getServBuilding(abs(residents[i].getWorkplace()) - 1)->removeWorker(i);
-			}
-			residents[i].setWorkplace(0);
-		}
-	}
-	*/
 }
 
 /// <summary>
@@ -263,24 +237,6 @@ void ResidentManager::loseJobFactory(int jobID)
 		// factory-ból nem kell kivenni a dolgozóra mutató id-t mert factory kezelve lesz a world-ben
 		this->factoryCount--;
 	}
-	
-	/*
-	for (int i = 0; i < residents.size(); i++)
-	{
-		// adott resident iparban dolgozik
-		if (residents[i].getWorkplace() > 0)
-		{
-
-		}
-		if (residents[i].getWorkplace() == jobID)
-		{
-			residents[i].setWorkplace(0);
-			this->factoryCount--;
-			this->residents[i].setIntention(INDUSTRYWORK);
-			world->getFactory(jobID)->removeWorker(i);
-		}
-	}
-	*/
 }
 
 /// <summary>
@@ -299,19 +255,6 @@ void ResidentManager::loseJobService(int jobID)
 		// factory-ból nem kell kivenni a dolgozóra mutató id-t mert factory úgyis törölve lesz
 		this->serviceCount--;
 	}
-	
-	/*
-	for (int i = 0; i < residents.size(); i++)
-	{
-		if (residents[i].getWorkplace() == jobID)
-		{
-			residents[i].setWorkplace(0);
-			this->serviceCount--;
-			this->residents[i].setIntention(SERVICEWORK);
-			world->getServBuilding(jobID)->removeWorker(i);
-		}
-	}
-	*/
 }
 
 /// <summary>

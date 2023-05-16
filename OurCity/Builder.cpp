@@ -2,6 +2,14 @@
 #include "BuildingsInclude.h"
 #include "Overlay.h"
 
+/// <summary>
+/// Builder konstruktor. Ez az osztály kezel minden építkezést.
+/// </summary>
+/// <param name="wrapper">A cella wrapper objektum</param>
+/// <param name="mouse">Egér kezelõ objektum</param>
+/// <param name="world">Világ</param>
+/// <param name="scene">Játék jelenet</param>
+/// <returns></returns>
 Builder::Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world, GameScene* scene)
 {
 	Builder::wrapper = wrapper;
@@ -13,6 +21,11 @@ Builder::Builder(TileRectWrapper* wrapper, MouseController* mouse, World* world,
 Builder::~Builder()
 {
 }
+/// <summary>
+/// Átállítja a Builder aktuális funkcióját
+/// </summary>
+/// <param name="state">Elsõdleges funkció</param>
+/// <param name="subState">Másodlagos funkció</param>
 void Builder::ChangeState(BuilderState state, BuilderSubState subState)
 {
 	primaryState = state;
@@ -29,7 +42,11 @@ void Builder::ChangeState(BuilderState state, BuilderSubState subState)
 
 	}
 }
-
+/// <summary>
+/// Elkezdi az építkezés folyamatát
+/// </summary>
+/// <param name="where">Cél cella</param>
+/// <returns></returns>
 int Builder::Build(int where)
 {
 	switch (primaryState)
@@ -55,9 +72,9 @@ int Builder::Build(int where)
 	return 0;
 }
 /// <summary>
-/// 
+/// Speciális épületek építõ függvénye
 /// </summary>
-/// <param name="where"></param>
+/// <param name="where"><Cél cella/param>
 void Builder::BuildSpecBuilding(int where)
 {
 	Tile* tile = wrapper->GetPointerToId(where);
@@ -171,12 +188,12 @@ void Builder::BuildSpecBuilding(int where)
 	}
 }
 /// <summary>
-/// 
+/// Ez valósítja meg a konkrét építkezést
 /// </summary>
-/// <param name="tile"></param>
-/// <param name="building"></param>
-/// <param name="where"></param>
-/// <param name="tex"></param>
+/// <param name="tile">Cél cella</param>
+/// <param name="building">Cél épület</param>
+/// <param name="where">Cella id-ja</param>
+/// <param name="tex">Épület/textúra típus</param>
 /// <returns></returns>
 bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int tex)
 {
@@ -289,6 +306,14 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 	*/
 	return true;
 }
+/// <summary>
+/// Több ce
+/// </summary>
+/// <param name="tile"></param>
+/// <param name="building"></param>
+/// <param name="where"></param>
+/// <param name="tex"></param>
+/// <returns></returns>
 bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, int tex)
 {
 	Tile* base1 = tile;
