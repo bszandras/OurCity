@@ -70,9 +70,15 @@ bool GameScene::getGameOver()
 void GameScene::isGameOver()
 {
 	int resSize = residentManager->getResSize();
-	//mindenkori max lakos szám alapján?
-	// + happiness
-	if (resSize < 100) //nem végleges
+	if (residentManager->getGlobalHappiness() < 35) 
+	{
+		unhappyYears++;
+	}
+	else
+	{
+		unhappyYears = 0;
+	}
+	if (unhappyYears > 2)
 	{
 		this->gameOver = true;
 	}

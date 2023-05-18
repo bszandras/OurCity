@@ -177,7 +177,7 @@ void ResidentManager::recalculateResidentTax()
 {
 	for (int i = 0; i < residents.size(); i++)
 	{
-		if (residents[i].getAge() < 65)
+		if (residents[i].getAge() < 65 && residents[i].getIntention() != GHOST)
 		{
 			residents[i].setCurrentTax(world->getBaseTax()*world->getGlobalTaxRate());
 		}
@@ -848,6 +848,10 @@ void ResidentManager::residentDeathAndMove()
 
 	for (int i = 0; i < resSize; i++)
 	{
+		if (residents[i].getIntention() == GHOST)
+		{
+			continue;
+		}
 		int age = residents[i].getAge();
 		if (age >= 65)
 		{
@@ -870,14 +874,14 @@ void ResidentManager::residentDeathAndMove()
 					this->world->getFactory(workplaceID)->removeWorker(i);
 					this->factoryCount--;
 				}
-
-				residents.erase(residents.begin() + i);
+				residents[i].setIntention(GHOST);
+				//residents.erase(residents.begin() + i);
 			}
 		}
 		else
 		{
 			int happiness = residents[i].getHappiness();
-			if (happiness < 20)
+			if (happiness < 45)
 			{
 				int h = residents[i].getHouse();
 				int w = residents[i].getWorkplace();
@@ -895,8 +899,8 @@ void ResidentManager::residentDeathAndMove()
 					this->world->getFactory(workplaceID)->removeWorker(i);
 					this->factoryCount--;
 				}
-
-				residents.erase(residents.begin() + i);
+				residents[i].setIntention(GHOST);
+				//residents.erase(residents.begin() + i);
 			}
 		}
 
