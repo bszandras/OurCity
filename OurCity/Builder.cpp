@@ -199,7 +199,7 @@ bool Builder::BuildSpecBuilding(Tile* tile, Building* building, int where, int t
 {
 	if (tile->building != nullptr)
 	{
-		std::cout << "there is a building already here" << std::endl;
+		//std::cout << "there is a building already here" << std::endl;
 		return false;
 	}
 	GameState* gameState = scene->getGameState();
@@ -323,14 +323,14 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 
 	if (base1->building != nullptr || base2->building != nullptr || base1->type != 0 || base2->type != 0)
 	{
-		std::cout << "there is a building already here - highschool" << std::endl;
+		//std::cout << "there is a building already here - highschool" << std::endl;
 		return false;
 	}
 	if (tex == UNIVERSITY || tex == STADIUM)
 	{
 		if (base3->building != nullptr || base4->building != nullptr || base3->type != 0 || base4->type != 0)
 		{
-			std::cout << "there is a building already here" << std::endl;
+			//std::cout << "there is a building already here" << std::endl;
 			return false;
 		}
 	}
@@ -343,13 +343,13 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 		{
 			if (!road->isAdjacent(base3) && !road->isAdjacent(base4))
 			{
-				std::cout << "big building not next to road" << std::endl;
+				//std::cout << "big building not next to road" << std::endl;
 				return false;
 			}
 		}
 		else
 		{
-			std::cout << "big building not next to road - highschool" << std::endl;
+			//std::cout << "big building not next to road - highschool" << std::endl;
 			return false;
 		}
 	}
@@ -499,7 +499,7 @@ bool Builder::DestroySpecBuilding(int where)
 	Tile* tile = wrapper->GetPointerToId(where);
 	if (tile->building == nullptr || tile->type != 0)	// ha nem 0 akkor ház ipar vagy service, azt sem szabad bontani
 	{
-		std::cout << "there is nothing here to destroy" << std::endl;
+		//std::cout << "there is nothing here to destroy" << std::endl;
 		return false;
 	}
 
@@ -507,7 +507,7 @@ bool Builder::DestroySpecBuilding(int where)
 	{
 		if (world->getRoadGraph()->hasBuildingNext(tile, world->getNeighboursWritablePointers(tile)))
 		{
-			std::cout << "ut mellett epulet" << std::endl;
+			//std::cout << "ut mellett epulet" << std::endl;
 			return false;
 		}
 		scene->getGameState()->income(tile->building->getBuildCost() / 2);
@@ -696,7 +696,7 @@ void Builder::SelectZone()
 	switch (secondaryState)
 	{
 	case NONE:
-		std::cout << "something went fucky wucky" << std::endl;
+		//std::cout << "something went fucky wucky" << std::endl;
 		return;
 		break;
 	case HOUSINGZONE:
@@ -757,7 +757,7 @@ void Builder::SelectZone()
 		break;
 	}
 	default:
-		std::cout << "something went fucky wucky" << std::endl;
+		//std::cout << "something went fucky wucky" << std::endl;
 		return;
 		break;
 	}
@@ -792,7 +792,7 @@ void Builder::RemoveTileFromZone(int where)
 			zones = world->getServiceZones();
 			break;
 		default:
-			std::cout << "valami óriási gebasz van a zóna törléssel" << std::endl;
+			//std::cout << "valami óriási gebasz van a zóna törléssel" << std::endl;
 			return;
 			break;
 		}
@@ -921,7 +921,7 @@ void Builder::HighlightBigBuilding(int base)
 	}
 		break;
 	default:
-		std::cout << "oriasi a gebasz ha idejutunk -> builder highlightbigbuilding" << std::endl;
+		//std::cout << "oriasi a gebasz ha idejutunk -> builder highlightbigbuilding" << std::endl;
 		return;
 		break;
 	}

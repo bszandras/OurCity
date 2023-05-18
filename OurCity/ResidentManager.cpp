@@ -11,7 +11,7 @@ ResidentManager::ResidentManager(World* world, Builder* builder, GameState* game
 	this->serviceCount = 0;
 	this->globalHappiness = 100;
 
-	std::cout << sizeof(Building) << std::endl;
+	//std::cout << sizeof(Building) << std::endl;
 }
 
 void ResidentManager::createResident()
@@ -58,8 +58,8 @@ void ResidentManager::calculateHousingTax()
 			if (tile->type == 1)
 			{
 				int houseID = (int)tile->building / 24;
-				std::cout << "houseID: " << houseID << std::endl;
-				std::cout << "housePointer: " << tile->building << std::endl;
+				//std::cout << "houseID: " << houseID << std::endl;
+				//std::cout << "housePointer: " << tile->building << std::endl;
 				House* h = &(world->getHouses()->at(houseID));
 				std::vector<int> residentIds = h->getResidents();
 
@@ -369,7 +369,7 @@ void ResidentManager::handleIntention()
 					houses->at(j).addResident(i);
 					//residents[i].setHouse(&houses->at(j));
 					residents[i].setHouse(j);
-					std::cout << "Moved in " << i << std::endl;
+					//std::cout << "Moved in " << i << std::endl;
 					if (this->factoryCount <= this->serviceCount) {
 						this->residents[i].setIntention(INDUSTRYWORK);
 						//std::cout << "Finding Ind Work " << i << std::endl;
@@ -404,7 +404,7 @@ void ResidentManager::handleIntention()
 					factoryB->at(j).addWorker(i);
 					//residents[i].setWorkplace(&factoryB->at(j));
 					residents[i].setWorkplace(1 * (j+1));
-					std::cout << "Found Work Ind" << i << std::endl;
+					//std::cout << "Found Work Ind" << i << std::endl;
 					this->factoryCount += 1;
 					this->residents[i].setIntention(NOINTENTION);
 					break;
@@ -432,7 +432,7 @@ void ResidentManager::handleIntention()
 						serviceB->at(j).addWorker(i);
 						//residents[i].setWorkplace(&serviceB->at(j));
 						residents[i].setWorkplace(-1 * (j+1));
-						std::cout << "Found Work Serv" << i << std::endl;
+						//std::cout << "Found Work Serv" << i << std::endl;
 						this->serviceCount += 1;
 						this->residents[i].setIntention(NOINTENTION);
 						break;
@@ -684,7 +684,7 @@ void ResidentManager::calculateHappiness(Resident *res)
 		}
 		else if (house->pollution > 50)
 		{
-			houseModifier -= 10;
+			houseModifier -= 30;
 		}
 
 		// Közbiztonság (+ 10%), (+ lakosszám / 100000), mivel minél többen vannak, annál
@@ -831,7 +831,7 @@ int ResidentManager::getMaxEducatedHi()
 
 int ResidentManager::getResSize()
 {
-	std::cout << this->residents.size() << std::endl;
+	//std::cout << this->residents.size() << std::endl;
 	return this->residents.size();
 }
 
@@ -848,7 +848,7 @@ void ResidentManager::residentDeathAndMove()
 
 	for (int i = 0; i < resSize; i++)
 	{
-		if (residents[i].getIntention() == GHOST)
+		if (residents[i].getIntention() == GHOST || residents[i].getHouse() == -1)
 		{
 			continue;
 		}

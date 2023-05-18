@@ -72,11 +72,14 @@ void GameTime::changeSpeed(int i)
 		case 3:
 			speed = 24 * 7;
 			break;
-
+		case 4:
+			speed = 24 * 30;
+			break;
 		default:
 			std::cerr << "Invalid speed" << std::endl;
 			break;
 	}
+	speedSetting = i;
 }
 
 std::string GameTime::getTimeString()
@@ -91,6 +94,11 @@ std::string GameTime::getTimeString()
 int GameTime::getMonth()
 {
 	return month;
+}
+
+int GameTime::getSpeedSetting()
+{
+	return speedSetting;
 }
 
 int GameTime::getHour()

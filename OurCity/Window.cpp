@@ -249,8 +249,12 @@ int Window::StartGameLoop()
 		// imgui így kezd frame-et (nem window frame, hanem frame mint fps)
 		ImGui_ImplSdlGL3_NewFrame(win);
 
-		app->Update();
-		app->Render();
+		
+		if (!app->getScene()->getGameOver())
+		{
+			app->Update();
+			app->Render();
+		}
 
 		// imgui beépített demo window
 		//ImGui::ShowTestWindow();
@@ -362,25 +366,6 @@ int Window::StartGameLoop()
 
 			ImGui::EndPopup();
 		}
-
-		/*
-		if (ImGui::Button("Happiness")) {
-			ImGui::OpenPopup("Happiness Statistics");
-		}
-
-		if (ImGui::BeginPopupModal("Happiness Statistics", NULL, wfStat))
-		{
-			if (ImGui::Button("Close"))
-			{
-				ImGui::CloseCurrentPopup();
-			}
-			//ImGui::Text("There will be statistics here!");
-			int globalHappiness = app->getScene()->getResidentManager()->getGlobalHappiness();
-			std::string text = "Global happiness: " + std::to_string(globalHappiness) + '%';
-			ImGui::Text(text.c_str());
-
-			ImGui::EndPopup();
-		}*/
 
 		if (ImGui::Button("Statistics")) {
 			ImGui::OpenPopup("Resident Statistics");
@@ -504,24 +489,7 @@ int Window::StartGameLoop()
 
 			ImGui::EndPopup();
 		}
-		/*
-		if (ImGui::Button("Zone Stat Test")) {
-			activeInfo = true;
-			ImGui::SetNextWindowPos(ImVec2(width/2 - 50,height/2 - 50));
-		}
-		if (activeInfo) {
-			ImGui::Begin("Zone Stat");
-			
-			if (ImGui::Button("Close")) {
-				activeInfo = false;
-			}
-
-			ImGui::End();
-
-		}
-		*/
 		
-
 		ImGui::PopStyleColor();
 
 		ImGui::End();
@@ -592,6 +560,9 @@ int Window::StartGameLoop()
 		ImGui::SameLine();
 		if (ImGui::Button(">>>")) {
 			app->ChangeSpeed(3);
+		}
+		if (ImGui::Button("SPEEEED")) {
+			app->ChangeSpeed(4);
 		}
 		ImGui::Text("Time: ");
 		ImGui::Text(app->getGameTime().c_str());

@@ -224,7 +224,7 @@ Tile** World::getWritableTilePointersInRadius(Tile* origin, int radius)
 
 		if(index >= tileCount)
 		{
-			std::cout << "tilecount problem, left col center" << std::endl;
+			//std::cout << "tilecount problem, left col center" << std::endl;
 			return returnable;
 		}
 
@@ -875,7 +875,7 @@ void World::AdvanceHelicopters(float deltaTime)
 					break;
 				}
 			}
-			std::cout << "put out fire" << std::endl;
+			//std::cout << "put out fire" << std::endl;
 			//put out
 			//check for nearby fires
 			h->ReturnHome();

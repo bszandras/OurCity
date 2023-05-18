@@ -227,6 +227,7 @@
     <ClCompile Include="Builder.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DayNight.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Fire.cpp" />
     <ClCompile Include="FireStation.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="BuildingsInclude.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="catch.hpp" />
+    <ClInclude Include="DayNight.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Fire.h" />
     <ClInclude Include="FireStation.h" />

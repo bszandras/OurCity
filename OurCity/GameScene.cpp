@@ -73,10 +73,12 @@ void GameScene::isGameOver()
 	if (residentManager->getGlobalHappiness() < 35) 
 	{
 		unhappyYears++;
+		std::cout << "unhappy year" << std::endl;
 	}
 	else
 	{
 		unhappyYears = 0;
+		std::cout << "happy year" << std::endl;
 	}
 	if (unhappyYears > 2)
 	{
@@ -95,10 +97,10 @@ void GameScene::update()
 		residentManager->calculateGlobalHappiness();
 		residentManager->updateGlobalHappiness();
 
-		std::cout << "Globalis boldogsag: " << residentManager->getGlobalHappiness() << std::endl;
+		//std::cout << "Globalis boldogsag: " << residentManager->getGlobalHappiness() << std::endl;
 
 		Statistics::getInstance();
-		std::cout << "Statisztikak frissultek, program nem crashelt :D" << std::endl;
+		//std::cout << "Statisztikak frissultek, program nem crashelt :D" << std::endl;
 
 		//boldogság alapján beköltözés
 		int calculateRes = floor(residentManager->getGlobalHappiness() / 10);

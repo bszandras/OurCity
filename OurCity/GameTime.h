@@ -12,6 +12,7 @@ private:
 	int hour;
 	int speed;
 	float seconds;
+	int speedSetting = 1;
 
 public:
 	GameTime();
@@ -24,6 +25,7 @@ public:
 	int getHour();
 	int getSpeed();
 	int getMonth();
+	int getSpeedSetting();
 };
 
 #endif
