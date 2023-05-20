@@ -22,7 +22,6 @@ public:
 	int getMoney();
 	void spendMoney(int amount);
 	void income(int amount);
-	bool hasEnough(int amount);
 	int getNegativeYears();
 	void addNegativeYear();
 	void resetNegativeYears();

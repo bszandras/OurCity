@@ -73,8 +73,34 @@ TEST_CASE("Removing road")
 	CHECK(roadGraph->removeRoad(t3) == true);
 
 	// Check delete (deny, building is next to road
-	
-
+	app->getScene()->getBuilder()->ChangeState(BUILDINGDESTROY, NONE);
 	delete app;
+}
+
+TEST_CASE("Income and Spending")
+{
+	GameState *state = new GameState();
+
+	int baseMoney = state->getMoney();
+
+	// Add some income
+	state->income(100);
+	CHECK(state->getMoney() == baseMoney + 100);
+
+	// Check if it works with negative numbers (végülis miért ne?)
+	state->income(-100);
+	CHECK(state->getMoney() == baseMoney);
+
+	// Spend some money
+	state->spendMoney(100);
+	CHECK(state->getMoney() == baseMoney - 100);
+
+	// Check if it works with negative numbers (végülis miért ne?)
+	state->spendMoney(-100);
+	CHECK(state->getMoney() == baseMoney);
+
+	// Check if the balance can go negative
+	state->spendMoney(1000000000);
+	CHECK(state->getMoney() == baseMoney - 1000000000);
 }
 #endif

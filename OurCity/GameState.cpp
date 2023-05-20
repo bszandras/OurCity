@@ -30,11 +30,6 @@ void GameState::income(int amount)
 	//std::cout << money << std::endl;
 }
 
-bool GameState::hasEnough(int amount)
-{
-	return (money - amount) > 0;
-}
-
 int GameState::getNegativeYears()
 {
 	return negativeYears;
