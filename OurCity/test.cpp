@@ -57,14 +57,15 @@ TEST_CASE("Removing road")
 	Tile* t1 = world->getTileOnCoords(15, 15);
 	Tile* t2 = world->getTileOnCoords(15, 16);
 	Tile* t3 = world->getTileOnCoords(15, 17);
+	Tile* t4 = world->getTileOnCoords(15, 18);
 
 	roadGraph->addRoad(t1, state);
 	roadGraph->addRoad(t2, state);
 	roadGraph->addRoad(t3, state);
+	//CHECK(roadGraph->addRoad(t4, state) == true);
 
 
-	// Valahogy megszerezni a t2 ID-ját
-	House* h = app->getScene()->getBuilder()->BuildHouse(t2);
+	House* h = app->getScene()->getBuilder()->BuildHouse(t3);
 
 	// Check delete (deny)
 	CHECK(roadGraph->removeRoad(t2) == false);
@@ -72,8 +73,12 @@ TEST_CASE("Removing road")
 	// Check delete (allow)
 	CHECK(roadGraph->removeRoad(t3) == true);
 
-	// Check delete (deny, building is next to road
-	app->getScene()->getBuilder()->ChangeState(BUILDINGDESTROY, NONE);
+	// Check the function which deceides, if a building is next to a road (yes)
+	CHECK(roadGraph->hasBuildingNext(t2, world->getNeighboursWritablePointers(t2)) == true);
+
+	// Check the function which deceides, if a building is next to a road (no)
+	CHECK(roadGraph->hasBuildingNext(t3, world->getNeighboursWritablePointers(t3)) == false);
+	
 	delete app;
 }
 
