@@ -12,7 +12,8 @@ enum ResidentIntetion {
 	INDUSTRYWORK,
 	BUILDINDUSTRY,
 	SERVICEWORK,
-	BUILDSERVICE
+	BUILDSERVICE,
+	GHOST
 };
 
 class Workplace;

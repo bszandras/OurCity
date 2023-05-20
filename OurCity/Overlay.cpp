@@ -52,7 +52,7 @@ void Overlay::MultiCursor(bool visible, Vector2Data positions[], int count)
 {
 	if (instance == nullptr)
 	{
-		std::cout << "Overlay instance null" << std::endl;
+		//std::cout << "Overlay instance null" << std::endl;
 		return;
 	}
 
@@ -77,7 +77,7 @@ Tile* Overlay::getCursor()
 {
 	if (instance == nullptr)
 	{
-		std::cout << "Overlay instance null" << std::endl;
+		//std::cout << "Overlay instance null" << std::endl;
 		return nullptr;
 	}
 	return instance->cursor;

@@ -435,11 +435,11 @@ void RoadGraph::printGraph()
 {
     for (size_t i = 0; i < adjList.size(); i++)
         {
-            std::cout << i << " (" << roads[i]->getTile()->rect.i <<", " << roads[i]->getTile()->rect.j << ") " << " -> ";
+            //std::cout << i << " (" << roads[i]->getTile()->rect.i <<", " << roads[i]->getTile()->rect.j << ") " << " -> ";
             for (size_t j = 0; j < adjList[i].size(); j++)
             {
-                std::cout << adjList[i][j]->getId() << " ";
+                //std::cout << adjList[i][j]->getId() << " ";
             }
-            std::cout << std::endl;
+            //std::cout << std::endl;
         }
 }

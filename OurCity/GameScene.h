@@ -32,6 +32,7 @@ private:
 
 	int dayCount = 0;
 	int monthCount = 0;
+	int unhappyYears = 0;
 
 public:
 	GameScene(MouseController* mouse);
