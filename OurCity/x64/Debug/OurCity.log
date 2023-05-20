@@ -1,17 +1,2 @@
-﻿  Window.cpp
-D:\Download_copy\szt\o\OurCity\Vector.h(132,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(191,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(191,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(206,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(206,45): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(350,28): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(352,6): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(389,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(389,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(538,58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(538,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(575,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(607,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(607,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Download_copy\szt\o\OurCity\Window.cpp(138): warning C4715: 'Window::SDLInit': not all control paths return a value
-  OurCity.vcxproj -> D:\Download_copy\szt\o\x64\Debug\OurCity.exe
+﻿  test.cpp
+  OurCity.vcxproj -> C:\Users\rolan\source\repos\ourcity\x64\Debug\OurCity.exe
