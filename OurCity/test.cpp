@@ -2,7 +2,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "MyApp.h"
-
+#include <algorithm>
 
 TEST_CASE("Testing tester functionality", "[tester]")
 {
@@ -107,5 +107,51 @@ TEST_CASE("Income and Spending")
 	// Check if the balance can go negative
 	state->spendMoney(1000000000);
 	CHECK(state->getMoney() == baseMoney - 1000000000);
+}
+
+TEST_CASE("Workplace tests")
+{
+	Tile* t1 = new Tile();
+
+	std::vector<Resident*> residents;
+	for (int i = 0; i < 10; i++)
+	{
+		Resident* r = new Resident();
+		residents.push_back(r);
+	}
+
+	Workplace* wp = new Workplace(t1);
+
+
+	// Kapacitás átállításának tesztelése
+	wp->setCapacity(2);
+	CHECK(wp->getCapacity() == 2);
+
+	// Munkások hozzáadása
+	CHECK(wp->canWorkHere() == true);
+	wp->addWorker(0);
+	CHECK(wp->getWorkers().size() == 1);
+
+	CHECK(wp->canWorkHere() == true);
+	wp->addWorker(1);
+	CHECK(wp->getWorkers().size() == 2);
+
+	// Megnézzük, hogy ha tele van a munkahely, akkor nem lehet több munkást hozzáadni
+	CHECK(wp->canWorkHere() == false);
+
+	// Munkások törlése
+	wp->removeWorker(0);
+	CHECK(wp->getWorkers().size() == 1);
+
+	wp->removeWorker(1);
+	CHECK(wp->getWorkers().size() == 0);
+
+
+	// Összes munkás törlésének tesztelése
+	wp->addWorker(0);
+	wp->addWorker(1);
+	wp->clearWorkers();
+	CHECK(wp->getWorkers().size() == 0);
+
 }
 #endif
