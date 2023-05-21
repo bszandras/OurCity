@@ -19,11 +19,11 @@ private:
 public:
 	GameState();
 	~GameState();
+
 	int getMoney();
-	void spendMoney(int amount);
-	void income(int amount);
-	bool hasEnough(int amount);
 	int getNegativeYears();
+	void income(int amount);
+	void spendMoney(int amount);
 	void addNegativeYear();
 	void resetNegativeYears();
 	void addToMaintenance(int maintenance);

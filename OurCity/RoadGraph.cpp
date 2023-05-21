@@ -61,12 +61,7 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
     if (roads.size() == 0)
     {
 		Road* road = new Road(tile);
-        if (!state->hasEnough(road->getBuildCost()))
-        {
-            //std::cout << "Not enough money for road" << std::endl;
-            delete road;
-            return false;
-        }
+
         state->spendMoney(road->getBuildCost());
         state->addTransaction("Road built: ", -road->getBuildCost());
         state->addToMaintenance(road->getMaintenanceCost());
@@ -87,14 +82,6 @@ bool RoadGraph::addRoad(Tile* tile, GameState* state)
     // Ha a gráfban már van út, és a lerakni kívánt út szomszédos legalább egy másik úttal,
     // akkor hozzáadjuk az új utat a gráfhoz.
     Road* road = new Road(tile);
-
-    // Ha a játékosnak nincs elég pénze új út építésére, akkor elutasítjuk
-    if (!state->hasEnough(road->getBuildCost()))
-    {
-        //std::cout << "Not enough money for road" << std::endl;
-        delete road;
-        return false;
-    }
 
     // Ellenkezõ esetben levonjuk a pénzt, és hozzáadjuk az új utat a gráfhoz
     state->spendMoney(road->getBuildCost());
