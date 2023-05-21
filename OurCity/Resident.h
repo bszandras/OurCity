@@ -16,6 +16,15 @@ enum ResidentIntetion {
 	GHOST
 };
 
+struct ResidentData
+{
+	int num;
+	int age;
+	bool pensioner;
+	int education;
+	int workplace;
+};
+
 class Workplace;
 class House;
 class Resident
@@ -38,8 +47,6 @@ private:
 	unsigned char education;
 	ResidentIntetion intention;
 	float deathChance;
-
-	// 62 bitet spórolunk lakosonként
 
 public:
 	Resident(void);

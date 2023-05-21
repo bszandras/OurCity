@@ -103,7 +103,11 @@ int ZoneTools::getAverageHappiness(ZoneStatData* selected, World* w, ResidentMan
 
 	for (int i = 0; i < residents.size(); i++)
 	{
-		returnable += resMan->getResident(residents[i])->getHappiness();
+		if (resMan->getResident(residents[i])->getIntention() != GHOST)
+		{
+			returnable += resMan->getResident(residents[i])->getHappiness();
+		}
+		
 	}
 
 	if (residents.size() == 0)
@@ -112,4 +116,69 @@ int ZoneTools::getAverageHappiness(ZoneStatData* selected, World* w, ResidentMan
 	}
 
 	return returnable / residents.size();
+}
+
+std::vector<ResidentData> ZoneTools::getResidentData(ZoneStatData* selected, World* w, ResidentManager* resMan)
+{
+	std::vector<ResidentData> data;
+
+	int returnable = 0;
+	std::vector<int> residents;
+	if (selected->z->getType() == 0)
+	{
+		for (int i = 0; i < selected->tileCount; i++)
+		{
+			Tile t = selected->tiles[i];
+			if (t.type == 0)
+			{
+				continue;
+			}
+			House h = w->getHouses()->at((int)t.building / 24);
+			residents = h.getResidents();
+		}
+	}
+	else if (selected->z->getType() == 1)
+	{
+		for (int i = 0; i < selected->tileCount; i++)
+		{
+			Tile t = selected->tiles[i];
+			if (t.type == 0)
+			{
+				continue;
+			}
+			Factory h = w->getFactories()->at((int)t.building / 24);
+			residents = h.getWorkers();
+		}
+	}
+	else if (selected->z->getType() == 2)
+	{
+		for (int i = 0; i < selected->tileCount; i++)
+		{
+			Tile t = selected->tiles[i];
+			if (t.type == 0)
+			{
+				continue;
+			}
+			ServiceBuilding h = w->getServBuildings()->at((int)t.building / 24);
+			residents = h.getWorkers();
+		}
+	}
+
+	for (int i = 0; i < residents.size(); i++)
+	{
+		Resident* res = resMan->getResident(residents[i]);
+		if (res->getIntention() != GHOST)
+		{
+			ResidentData d;
+			d.num = residents[i];
+			d.age = res->getAge();
+			d.education = res->getEducation();
+			d.pensioner = res->getAge() > 65;
+			d.workplace = res->getWorkplace() < 0;
+			data.push_back(d);
+		}
+
+	}
+
+	return data;
 }

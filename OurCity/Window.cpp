@@ -531,6 +531,18 @@ int Window::StartGameLoop()
 			//ImGui::Text("Residents: " + )
 			ImGui::Text("Tax:");
 			ImGui::SliderFloat("", z->getTaxRateHandle(), 0.5f, 1.5f, "%.1f");
+
+			if (ImGui::TreeNode("Residentlist"))
+			{
+				std::vector<ResidentData> data = ZoneTools::getResidentData(app->getSelectedZone(), app->getScene()->getWorld(), app->getScene()->getResidentManager());
+
+				for (int i = 0; i < data.size(); i++)
+				{
+
+				}
+
+				ImGui::TreePop();
+			}
 			/*
 			if (ImGui::Button("Close")) {
 				//activeInfo = false;
