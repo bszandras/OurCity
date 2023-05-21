@@ -73,12 +73,12 @@ void GameScene::isGameOver()
 	if (residentManager->getGlobalHappiness() < 35) 
 	{
 		unhappyYears++;
-		std::cout << "unhappy year" << std::endl;
+		//std::cout << "unhappy year" << std::endl;
 	}
 	else
 	{
 		unhappyYears = 0;
-		std::cout << "happy year" << std::endl;
+		//std::cout << "happy year" << std::endl;
 	}
 	if (unhappyYears > 2)
 	{

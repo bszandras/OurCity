@@ -77,9 +77,10 @@ bool CMyApp::Init()
 	scene = new GameScene(nullptr);
 	time = new Time(1000 / 1000.0f);
 #else
-	time = new Time(SDL_GetTicks() / 1000.0f);
+	//time = new Time(SDL_GetTicks() / 1000.0f);
 	scene = new GameScene(mouseController);
 	overlay = new Overlay();
+	daynight = new DayNight();
 #endif
 
 #ifndef TESTING
@@ -238,6 +239,10 @@ void CMyApp::Update()
 	time->UpdateTime(1000 / 1000.0f);
 	scene->update();
 #else
+	if (time == nullptr)
+	{
+		time = new Time(SDL_GetTicks());
+	}
 	time->UpdateTime(SDL_GetTicks() / 1000.0f);
 	scene->update();
 	//std::cout << time->getDelta() << std::endl;
@@ -424,6 +429,7 @@ void CMyApp::Render()
 
 
 	// day - night cycle
+	/*
 	float time = Time::instance->getFullTime();
 	time /= 6;
 
@@ -438,6 +444,36 @@ void CMyApp::Render()
 	{
 		time = 1;
 	}
+	*/
+	float delta = Time::instance->getDelta();
+	GameTime* gametime = scene->getGameTime();
+	if (scene->getGameTime()->getSpeed() != 2)
+	{
+		//std::cout << scene->getGameTime()->getSpeed() << std::endl;
+		//std::cout << "should desync" << std::endl;
+		// tell daynight to go towards 1
+		// daynight stops at 1
+		// desync
+		// if not in sync, daynight wont update time
+		daynight->StartDesync();
+	}
+	else
+	{
+		// check if time = 12, so daynight 1 is in sync
+		// if yes tell daynight it is synced
+		float time = daynight->getTime();
+		if (time == 1 && gametime->getHour() == 12)
+		{
+			//std::cout << "should sync" << std::endl;
+			// daynight sync
+			daynight->Syncronized();
+		}
+
+	}
+
+	
+	//std::cout << delta << std::endl;
+	float time = daynight->progressAndGetTime(delta);
 
 	// ha ez 1 akkor nappal van
 	// ha 0 akkor éjjel

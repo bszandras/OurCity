@@ -19,7 +19,7 @@
 #include "GameScene.h"
 #include "AppTime.h"
 #include "Builder.h"
-
+#include "DayNight.h"
 
 class CMyApp
 {
@@ -89,6 +89,7 @@ protected:
 	GameScene* scene;
 	Time* time;
 	//Builder* builder;
+	DayNight* daynight;
 
 
 	ZoneStatData selectedZone;

@@ -48,6 +48,10 @@ void Time::SetScale(float s)
 /// <returns></returns>
 float Time::getDelta()
 {
+	if (deltaTime < 0)
+	{
+		return 0.0;
+	}
 	return deltaTime;
 }
 /// <summary>
