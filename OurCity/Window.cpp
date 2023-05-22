@@ -536,9 +536,47 @@ int Window::StartGameLoop()
 			{
 				std::vector<ResidentData> data = ZoneTools::getResidentData(app->getSelectedZone(), app->getScene()->getWorld(), app->getScene()->getResidentManager());
 
+				ImGui::Text(std::to_string(data.size()).c_str());
 				for (int i = 0; i < data.size(); i++)
 				{
-
+					std::string txt = std::to_string(data[i].num) + ". resident";
+					ImGui::Text(txt.c_str());
+					txt = std::to_string(data[i].age) + " years old";
+					ImGui::Text(txt.c_str());
+					switch (data[i].education)
+					{
+					case 0:
+						txt = "Uneducated";
+						break;
+					case 1:
+						txt = "Highschool education";
+						break;
+					case 2:
+						txt = "University education";
+						break;
+					default:
+						txt = "idk what education";
+						break;
+					}
+					ImGui::Text(txt.c_str());
+					if (data[i].pensioner)
+					{
+						ImGui::Text("Pensioner");
+					}
+					if (data[i].workplace == 0)
+					{
+						txt = "Unemployed";
+					}
+					else if (data[i].workplace < 0)
+					{
+						txt = "Service worker";
+					}
+					else
+					{
+						txt = "Industry worker";
+					}
+					ImGui::Text(txt.c_str());
+					ImGui::Separator();
 				}
 
 				ImGui::TreePop();

@@ -71,7 +71,12 @@ int ZoneTools::getAverageHappiness(ZoneStatData* selected, World* w, ResidentMan
 				continue;
 			}
 			House h = w->getHouses()->at((int)t.building / 24);
-			residents = h.getResidents();
+			//residents = h.getResidents();
+			std::vector<int> ids = h.getResidents();
+			for (int j = 0; j < ids.size(); j++)
+			{
+				residents.push_back(ids[j]);
+			}
 		}
 	}
 	else if (selected->z->getType() == 1)
@@ -84,7 +89,12 @@ int ZoneTools::getAverageHappiness(ZoneStatData* selected, World* w, ResidentMan
 				continue;
 			}
 			Factory h = w->getFactories()->at((int)t.building / 24);
-			residents = h.getWorkers();
+			//residents = h.getWorkers();
+			std::vector<int> ids = h.getWorkers();
+			for (int j = 0; j < ids.size(); j++)
+			{
+				residents.push_back(ids[j]);
+			}
 		}
 	}
 	else if (selected->z->getType() == 2)
@@ -97,7 +107,12 @@ int ZoneTools::getAverageHappiness(ZoneStatData* selected, World* w, ResidentMan
 				continue;
 			}
 			ServiceBuilding h = w->getServBuildings()->at((int)t.building / 24);
-			residents = h.getWorkers();
+			//residents = h.getWorkers();
+			std::vector<int> ids = h.getWorkers();
+			for (int j = 0; j < ids.size(); j++)
+			{
+				residents.push_back(ids[j]);
+			}
 		}
 	}
 
@@ -134,7 +149,12 @@ std::vector<ResidentData> ZoneTools::getResidentData(ZoneStatData* selected, Wor
 				continue;
 			}
 			House h = w->getHouses()->at((int)t.building / 24);
-			residents = h.getResidents();
+			//residents = h.getResidents();
+			std::vector<int> ids = h.getResidents();
+			for (int j = 0; j < ids.size(); j++)
+			{
+				residents.push_back(ids[j]);
+			}
 		}
 	}
 	else if (selected->z->getType() == 1)
@@ -147,7 +167,12 @@ std::vector<ResidentData> ZoneTools::getResidentData(ZoneStatData* selected, Wor
 				continue;
 			}
 			Factory h = w->getFactories()->at((int)t.building / 24);
-			residents = h.getWorkers();
+			//residents = h.getWorkers();
+			std::vector<int> ids = h.getWorkers();
+			for (int j = 0; j < ids.size(); j++)
+			{
+				residents.push_back(ids[j]);
+			}
 		}
 	}
 	else if (selected->z->getType() == 2)
@@ -160,9 +185,16 @@ std::vector<ResidentData> ZoneTools::getResidentData(ZoneStatData* selected, Wor
 				continue;
 			}
 			ServiceBuilding h = w->getServBuildings()->at((int)t.building / 24);
-			residents = h.getWorkers();
+			//residents = h.getWorkers();
+			std::vector<int> ids = h.getWorkers();
+			for (int j = 0; j < ids.size(); j++)
+			{
+				residents.push_back(ids[j]);
+			}
 		}
 	}
+
+	//std::cout << residents.size() << std::endl;
 
 	for (int i = 0; i < residents.size(); i++)
 	{
@@ -174,7 +206,7 @@ std::vector<ResidentData> ZoneTools::getResidentData(ZoneStatData* selected, Wor
 			d.age = res->getAge();
 			d.education = res->getEducation();
 			d.pensioner = res->getAge() > 65;
-			d.workplace = res->getWorkplace() < 0;
+			d.workplace = res->getWorkplace();
 			data.push_back(d);
 		}
 
