@@ -369,10 +369,16 @@ bool Builder::BuildBigSpecBuilding(Tile* tile, Building* building, int where, in
 	base1->building = building;
 	base2->building = building;
 
+	base1->texId = tex;
+	base2->texId = tex;
+
 	if (secondaryState != HIGHSCHOOL)
 	{
 		base3->building = building;
 		base4->building = building;
+
+		base3->texId = tex;
+		base4->texId = tex;
 	}
 
 	// LEGACY

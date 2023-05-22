@@ -1,4 +1,9 @@
-﻿  Window.cpp
+﻿  Builder.cpp
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(245,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(268,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(487,62): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Builder.cpp(935,38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Window.cpp
 C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(191,70): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(191,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(206,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
@@ -12,29 +17,6 @@ C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity
 C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(593,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(628,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(628,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  ZoneTools.cpp
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(21,49): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(21,49): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(22,41): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(34,54): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(34,54): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(35,39): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(47,66): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(47,66): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(48,39): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(73,49): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(73,49): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(91,54): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(91,54): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(109,66): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(109,66): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(133,38): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(151,49): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(151,49): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(169,54): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(169,54): warning C4302: 'type cast': truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(187,66): warning C4311: 'type cast': pointer truncation from 'Building *' to 'int'
-C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\ZoneTools.cpp(187,66): warning C4302: 'type cast': truncation from 'Building *' to 'int'
   Generating Code...
 C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\OurCity\Window.cpp(138): warning C4715: 'Window::SDLInit': not all control paths return a value
   OurCity.vcxproj -> C:\Users\Pavilion G. 1307147\Desktop\egyetem\4.félév\szofttech\OurCity\ourcity\x64\Debug\OurCity.exe

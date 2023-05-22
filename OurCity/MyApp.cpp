@@ -427,30 +427,10 @@ void CMyApp::Render()
 	glUniform3f(camDataUniformLoc, cam.x, cam.y, cam.z);
 	glUniform2f(winDataUniformLoc, window.x, window.y);
 
-
-	// day - night cycle
-	/*
-	float time = Time::instance->getFullTime();
-	time /= 6;
-
-	time = sin(time * M_PI + M_PI);
-	time = time * 2 + 1;
-	time /= 2;
-	if (time < 0)
-	{
-		time = 0;
-	}
-	else if (time > 1)
-	{
-		time = 1;
-	}
-	*/
 	float delta = Time::instance->getDelta();
 	GameTime* gametime = scene->getGameTime();
 	if (scene->getGameTime()->getSpeed() != 2)
 	{
-		//std::cout << scene->getGameTime()->getSpeed() << std::endl;
-		//std::cout << "should desync" << std::endl;
 		// tell daynight to go towards 1
 		// daynight stops at 1
 		// desync
@@ -464,15 +444,12 @@ void CMyApp::Render()
 		float time = daynight->getTime();
 		if (time == 1 && gametime->getHour() == 12)
 		{
-			//std::cout << "should sync" << std::endl;
 			// daynight sync
 			daynight->Syncronized();
 		}
 
 	}
 
-	
-	//std::cout << delta << std::endl;
 	float time = daynight->progressAndGetTime(delta);
 
 	// ha ez 1 akkor nappal van

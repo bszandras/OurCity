@@ -154,4 +154,146 @@ TEST_CASE("Workplace tests")
 	CHECK(wp->getWorkers().size() == 0);
 
 }
+
+TEST_CASE("Building tests")
+{
+	// build spec buildings
+	// test if buildings are there
+
+	CMyApp* app = new CMyApp();
+	app->Init();
+	app->Update();
+
+	World* world = app->getScene()->getWorld();
+	RoadGraph* roadGraph = world->getRoadGraph();
+	GameState* state = app->getState();
+	Builder* builder = app->getScene()->getBuilder();
+
+	Tile* t1 = world->getTileOnCoords(15, 15);
+	int t1ID = 15 * world->getWidth() + 15;
+	builder->ChangeState(BUILDING, ROAD);
+	builder->Build(t1ID);
+	//roadGraph->addRoad(t1, state);
+
+	Tile* t2 = world->getTileOnCoords(15, 16);
+	int t2ID = 16 * world->getWidth() + 15;
+
+	// set building intention
+	builder->ChangeState(BUILDING, FIRESTATION);
+	builder->Build(t2ID);
+
+	// check if firestation has been built
+	Building* building = t2->building;
+	FireStation* firestation = (FireStation*)building;
+	CHECK(firestation != nullptr);
+	CHECK(world->getFireStations()->size() > 0);
+
+	// build stadium
+	Tile* t3 = world->getTileOnCoords(14, 16);
+	int t3ID = 16 * world->getWidth() + 14;
+	builder->ChangeState(BUILDING, STADIUM);
+	builder->Build(t3ID);
+
+	// check stadium
+	building = t3->building;
+	Stadium* stadium = (Stadium*)building;
+	CHECK(stadium != nullptr);
+
+	// build highschool
+	Tile* t4 = world->getTileOnCoords(15, 13);
+	int t4ID = 13 * world->getWidth() + 15;
+	builder->ChangeState(BUILDING, HIGHSCHOOL);
+	builder->Build(t4ID);
+
+	// check stadium
+	building = t4->building;
+	HighSchool* highschool = (HighSchool*)building;
+	CHECK(highschool != nullptr);
+	CHECK(world->getHighSchools()->size() == 1);
+
+
+	// CHECK TEXTURE UPDATES
+	CHECK(t1->texId == ROAD);
+	CHECK(t2->texId == FIRESTATION);
+	CHECK(t3->texId == STADIUM);
+	CHECK(t4->texId == HIGHSCHOOL);
+
+	// -----------
+	// DEMOLISH
+	// -----------
+
+	builder->ChangeState(BUILDINGDESTROY, NONE);
+	builder->Build(t2ID);
+	CHECK(t2->building == nullptr);
+
+	builder->Build(t3ID);
+	CHECK(t3->building == nullptr);
+
+	builder->Build(t4ID);
+	CHECK(t4->building == nullptr);
+
+	// CHECK TEXTURE UPDATES
+	CHECK(t2->texId == 2);
+	CHECK(t3->texId == 2);
+	CHECK(t4->texId == 2);
+
+	delete app;
+}
+TEST_CASE("Tax setting tests")
+{
+	// change tax settings
+	// check if tax settings changed
+
+	CMyApp* app = new CMyApp();
+	app->Init();
+	app->Update();
+
+	World* world = app->getScene()->getWorld();
+	RoadGraph* roadGraph = world->getRoadGraph();
+	GameState* state = app->getState();
+
+
+	// GLOBAL TAX SETTING
+	float oldTax = world->getGlobalTaxRate();
+	float* taxHandle = world->getGlobalTaxRateHandle();
+	*taxHandle = 1.1;
+	float newTax = world->getGlobalTaxRate();
+
+	CHECK(oldTax < newTax);
+	CHECK(newTax == 1.1f);
+
+	// HOUSING TAX SETTING
+	oldTax = world->getHousingTaxRate();
+	taxHandle = world->getHousingTaxRateHandle();
+	*taxHandle = 1.2;
+	newTax = world->getHousingTaxRate();
+
+	CHECK(oldTax < newTax);
+	CHECK(newTax == 1.2f);
+
+	// INDUSTRY TAX SETTING
+	oldTax = world->getIndustrialTaxRate();
+	taxHandle = world->getIndustrialTaxRateHandle();
+	*taxHandle = 1.3;
+	newTax = world->getIndustrialTaxRate();
+
+	CHECK(oldTax < newTax);
+	CHECK(newTax == 1.3f);
+
+	// SERVICE TAX SETTING
+	oldTax = world->getServiceTaxRate();
+	taxHandle = world->getServiceTaxRateHandle();
+	*taxHandle = 1.4;
+	newTax = world->getServiceTaxRate();
+
+	CHECK(oldTax < newTax);
+	CHECK(newTax == 1.4f);
+
+}
+TEST_CASE("Zone selection tests")
+{
+	// select a zone
+	// check if tiles have been assigned to zone
+	// remove some tiles
+}
 #endif

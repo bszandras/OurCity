@@ -536,7 +536,7 @@ int Window::StartGameLoop()
 			{
 				std::vector<ResidentData> data = ZoneTools::getResidentData(app->getSelectedZone(), app->getScene()->getWorld(), app->getScene()->getResidentManager());
 
-				ImGui::Text(std::to_string(data.size()).c_str());
+				//ImGui::Text(std::to_string(data.size()).c_str());
 				for (int i = 0; i < data.size(); i++)
 				{
 					std::string txt = std::to_string(data[i].num) + ". resident";
