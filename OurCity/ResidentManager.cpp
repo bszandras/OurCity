@@ -257,6 +257,7 @@ void ResidentManager::loseJobService(int jobID)
 	}
 }
 
+
 /// <summary>
 /// Lakosok adatainak évi frissítése, köztük a koruk és az oktatás.
 /// </summary>
@@ -338,8 +339,8 @@ void ResidentManager::updateResidentYearly()
 		}
 	}
 
-	residentDeathAndMove();
-	
+	residentDeath();
+	residentMove();
 }
 
 /// <summary>
@@ -836,9 +837,9 @@ int ResidentManager::getResSize()
 }
 
 /// <summary>
-/// Lakosok elhalálozását (nyugdíjasoknál) és elköltözését (nyugdíj előtt állóknál) kezelő függvény. 
+/// Lakosok elhalálozását (nyugdíjasoknál) kezelő függvény. 
 /// </summary>
-void ResidentManager::residentDeathAndMove()
+void ResidentManager::residentDeath()
 {
 	int resSize = residents.size();
 	std::random_device rd;
@@ -878,10 +879,28 @@ void ResidentManager::residentDeathAndMove()
 				//residents.erase(residents.begin() + i);
 			}
 		}
-		else
+
+	}
+}
+
+/// <summary>
+/// Lakosok elköltözése.
+/// </summary>
+void ResidentManager::residentMove()
+{
+	int resSize = residents.size();
+
+	for (int i = 0; i < resSize; i++)
+	{
+		if (residents[i].getIntention() == GHOST || residents[i].getHouse() == -1)
+		{
+			continue;
+		}
+		int age = residents[i].getAge();
+		if(age < 65)
 		{
 			int happiness = residents[i].getHappiness();
-			if (happiness < 45)
+			if (happiness < 35)
 			{
 				int h = residents[i].getHouse();
 				int w = residents[i].getWorkplace();
