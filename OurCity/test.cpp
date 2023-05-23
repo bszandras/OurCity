@@ -307,7 +307,7 @@ TEST_CASE("Creating residents int the manager test")
 	{
 		residentManager->createResident();
 	}
-
+	resSize = residentManager->getResSize();
 	CHECK(resSize == 8);
 
 	//They are all homeless
@@ -347,5 +347,29 @@ TEST_CASE("Maintenance cost")
 	CHECK(state->getSumMaintenance() == 100);
 
 }
+TEST_CASE("Game Over")
+{
+	CMyApp* app = new CMyApp();
+	app->Init();
+	app->Update();
+	ResidentManager* residentManager = app->getScene()->getResidentManager();
+	World* world = app->getScene()->getWorld();
+	GameState* state = app->getState();
+	GameScene* scene = app->getScene();
 
+	*world->getGlobalTaxRateHandle() = 1.5f;
+	*world->getHousingTaxRateHandle() = 1.5f;
+	*world->getIndustrialTaxRateHandle() = 1.5f;
+	*world->getServiceTaxRateHandle() = 1.5f;
+
+	residentManager->updateGlobalHappiness();
+	residentManager->calculateGlobalHappiness();
+	residentManager->updateResidentYearly();
+	scene->isGameOver();
+	residentManager->updateResidentYearly();
+	scene->isGameOver();
+	residentManager->updateResidentYearly();
+	scene->isGameOver();
+	CHECK(scene->getGameOver() == true);
+}
 #endif
