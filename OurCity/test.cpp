@@ -290,12 +290,6 @@ TEST_CASE("Tax setting tests")
 	CHECK(newTax == 1.4f);
 
 }
-TEST_CASE("Zone selection tests")
-{
-	// select a zone
-	// check if tiles have been assigned to zone
-	// remove some tiles
-}
 TEST_CASE("Creating residents int the manager test")
 {
 	CMyApp* app = new CMyApp();
@@ -327,7 +321,7 @@ TEST_CASE("Creating residents int the manager test")
 	CHECK(averageAge == 18);
 
 	//A year has passed
-	residentManger->updateResidentYearly();
+	residentManager->updateResidentYearly();
 
 	averageAge = residentManager->getAverageAge();
 
