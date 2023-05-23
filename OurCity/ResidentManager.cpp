@@ -200,7 +200,7 @@ void ResidentManager::loseHouse(int hosueID)
 
 
 		//residents[res[i]].setWorkplace(0);
-		// industry-ban dolgozik, elveszti a munkályát
+		// industry-ban dolgozik, elveszti a munkáját
 		// van egyáltalán munkahelye
 		if (residents[res[i]].getWorkplace() != 0)
 		{

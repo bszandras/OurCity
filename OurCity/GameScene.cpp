@@ -70,7 +70,7 @@ bool GameScene::getGameOver()
 void GameScene::isGameOver()
 {
 	int resSize = residentManager->getResSize();
-	if (residentManager->getGlobalHappiness() < 35) 
+	if (residentManager->getGlobalHappiness() < 45) 
 	{
 		unhappyYears++;
 		//std::cout << "unhappy year" << std::endl;

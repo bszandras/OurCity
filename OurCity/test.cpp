@@ -296,4 +296,62 @@ TEST_CASE("Zone selection tests")
 	// check if tiles have been assigned to zone
 	// remove some tiles
 }
+TEST_CASE("Creating residents int the manager test")
+{
+	CMyApp* app = new CMyApp();
+	app->Init();
+	app->Update();
+	ResidentManager* residentManager = app->getScene()->getResidentManager();
+
+	//There are 3 residents when the game starts
+	int resSize = residentManager->getResSize();
+
+	CHECK(resSize == 3);
+
+	//5 more residents -> 8 in total
+	for (int i = 0; i < 5; i++)
+	{
+		residentManager->createResident();
+	}
+
+	CHECK(resSize == 8);
+
+	//They are all homeless
+	int homeless = residentManager->getHomeless();
+
+	CHECK(homeless == 8);
+
+	float averageAge = residentManager->getAverageAge();
+
+	//All residents are 18
+	CHECK(averageAge == 18);
+
+	//A year has passed
+	residentManger->updateResidentYearly();
+
+	averageAge = residentManager->getAverageAge();
+
+	CHECK(averageAge == 19);
+
+}
+TEST_CASE("Maintenance cost")
+{
+	GameState* state = new GameState();
+
+	int sumMaintenance = state->getSumMaintenance();
+
+	CHECK(sumMaintenance == 0);
+
+	state->addToMaintenance(10);
+
+	CHECK(state->getSumMaintenance() == 10);
+
+	state->addToMaintenance(100);
+
+	state->subFromMaintenance(10);
+
+	CHECK(state->getSumMaintenance() == 100);
+
+}
+
 #endif
