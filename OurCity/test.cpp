@@ -289,6 +289,8 @@ TEST_CASE("Tax setting tests")
 	CHECK(oldTax < newTax);
 	CHECK(newTax == 1.4f);
 
+	delete app;
+
 }
 TEST_CASE("Creating residents int the manager test")
 {
@@ -326,6 +328,8 @@ TEST_CASE("Creating residents int the manager test")
 	averageAge = residentManager->getAverageAge();
 
 	CHECK(averageAge == 19);
+
+	delete app;
 
 }
 TEST_CASE("Maintenance cost")
@@ -371,5 +375,7 @@ TEST_CASE("Game Over")
 	residentManager->updateResidentYearly();
 	scene->isGameOver();
 	CHECK(scene->getGameOver() == true);
+
+	delete app;
 }
 #endif
